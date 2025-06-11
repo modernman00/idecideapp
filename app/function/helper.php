@@ -8,7 +8,7 @@ function view(string $viewFile, array $data = []){
         $viewsPath = realpath(__DIR__.'/../../resources/views');
 
         
-        $cachePath =realpath(__DIR__.'/../../bootstrap/cache/views'); // __DIR__.'/../../bootstrap/cache/views';
+        $cachePath =realpath(__DIR__.'/../../bootstrap/cache'); // __DIR__.'/../../bootstrap/cache/views';
   
         // 2. Initialize Blade
         static $blade = null;

@@ -181,8 +181,6 @@
         ];
 
 
-        // $form = new Src\BuildFormBStrap($formArray);
-
         $form = new Src\BuildFormBStrap($formArray);
 
         $form->genForm();

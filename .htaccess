@@ -1,0 +1,39 @@
+# Remove the question mark from the request but maintain the query string
+RewriteEngine On
+#   RewriteBase /
+
+#if requested file is not a real file
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#   RewriteCond %{REQUEST_FILENAME} !-d
+#   RewriteCond %{REQUEST_FILENAME} !-1
+
+#rewrite rule - redirect to index.php
+RewriteRule . index.php [L]
+
+# Deny access to everything except the public folder
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Restrict access to the app folder
+    RewriteRule ^app/ - [F,L]
+
+    # Restrict access to the bootstrap folder
+    RewriteRule ^bootstrap/ - [F,L]
+
+    # Restrict access to the node_modules folder
+    RewriteRule ^node_modules/ - [F,L]
+
+    # Restrict access to the resources folder
+    RewriteRule ^resources/ - [F,L]
+
+    # Restrict access to the vendor folder
+    RewriteRule ^vendor/ - [F,L]
+
+    # Restrict access to root-level files
+    <FilesMatch "(\.env|\.gitignore|\.htaccess|composer\.json|composer\.lock|mix-manifest\.json|package-lock\.json|package\.json|webpack\.mix\.js)">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+

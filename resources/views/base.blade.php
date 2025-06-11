@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="@yield('title', 'iDecide Decision Matrix')">
     <meta property="og:description" content="Make confident decisions with iDecide Decision Matrix. Explore our tool for personalized insights and real-time scoring.">
-    <meta property="og:image" content="<?php echo getenv('APP_URL') ?: ''; ?>/images/decision-matrix-preview.jpg">
+    <meta property="og:image" content="<?php echo getenv('APP_URL') ?: ''; ?>/public/images/logo/default.png">
     <meta property="og:url" content="<?php echo getenv('APP_URL') ?: ''; ?>">
     <meta property="og:site_name" content="iDecide Decision Matrix">
 
@@ -25,15 +25,18 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('title', 'iDecide Decision Matrix')">
     <meta name="twitter:description" content="Make confident decisions with iDecide Decision Matrix. Explore our tool for personalized insights and real-time scoring.">
-    <meta name="twitter:image" content="<?php echo getenv('APP_URL') ?: ''; ?>/images/decision-matrix-preview.jpg">
+    <meta name="twitter:image" content="<?php echo getenv('APP_URL') ?: ''; ?>/public/images/logo/default.png">
     <meta name="twitter:site" content="@iDecide">
 
     <!-- Favicon and Apple Touch Icon -->
-    <link rel="icon" type="image/x-icon" href="<?php echo getenv('APP_URL') ?: ''; ?>/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo getenv('APP_URL') ?: ''; ?>/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="<?php echo getenv('APP_URL') ?: ''; ?>/public/images/logo/default.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo getenv('APP_URL') ?: ''; ?>/public/images/logo/default.png">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="<?php echo getenv('APP_URL') ?: ''; ?>">
+
+    {{-- FAVICON  --}}
+    <link rel="icon" type="image/x-icon" href="<?php echo getenv('APP_URL') ?: ''; ?>/public/images/logo/default.png">
 
     <!-- Dynamic Metadata -->
     <title>@yield('title', 'Decision Matrix') - Decision Making Tool</title>

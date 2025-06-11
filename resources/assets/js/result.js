@@ -106,8 +106,8 @@ try {
 
   // Populate advice list
   const adviceList = id("advice-list");
-  if (scoreData.advice && Array.isArray(scoreData.advice)) {
-    scoreData.advice.forEach((tip) => {
+  if (savedScoreData.advice && Array.isArray(savedScoreData.advice)) {
+    savedScoreData.advice.forEach((tip) => {
       const li = document.createElement("li");
       li.textContent = tip;
       adviceList.appendChild(li);

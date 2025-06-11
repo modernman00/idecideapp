@@ -1,5 +1,11 @@
 import { id } from './global'
 
+/**
+ * 
+ * @param {string} inputId 
+ * @param {Array} arr 
+ */
+
 const autocomplete = (inputId, arr) => {
     const whatToBuyInput = id(inputId); // Get the text input
     if (whatToBuyInput) {

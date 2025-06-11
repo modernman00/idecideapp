@@ -2,14 +2,8 @@
 
 namespace App\controller;
 
-class Index 
+class IndexController 
 {
-
-    // public function homePage()
-    // {
-     
-    //     return view('main');
-    // }
 
     public function main()
     {

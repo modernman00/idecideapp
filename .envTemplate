@@ -1,0 +1,50 @@
+APP_NAME="iDecide"
+APP_ENV=development
+APP_DEBUG=true
+# APP_URL=http://localhost
+APP_URL=
+
+CHATGPT_API = ""
+
+DEEPSEEK_API_KEY = ""
+
+# Database Configuration
+DB_DRIVER = 'mysql'
+DB_HOST  = localhost
+DB_NAME = 
+DB_USERNAME = 
+DB_PASSWORD = 
+
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=
+# DB_USERNAME=
+# DB_PASSWORD=
+
+# Mail Configuration
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=null
+MAIL_FROM_NAME="${APP_NAME}"
+
+# Session and Cache
+SESSION_DRIVER=file
+CACHE_DRIVER=file
+
+# Security Settings
+APP_KEY=
+ENCRYPTION_KEY=
+
+# Other Setting
+LOG_CHANNEL=single
+QUEUE_CONNECTION=sync
+
+IMG_CONTRACT = 
+IMG_CONTRACT2 = 
+IMG_CELEBRATE =
+APP_LOGO = 

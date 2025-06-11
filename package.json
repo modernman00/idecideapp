@@ -1,7 +1,7 @@
 {
-  "name": "bcp",
+  "name": "idecide",
   "version": "1.0.0",
-  "description": "care recruitment agency",
+  "description": "iDecide - Decision Support Platform",
   "main": "index",
   "typings": "index",
   "scripts": {
@@ -28,7 +28,6 @@
     "laravel-mix": "^6.0.49",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10",
     "webpack": "^5.9.0"
   },
   "dependencies": {
