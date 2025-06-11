@@ -1,0 +1,43 @@
+{
+  "name": "bcp",
+  "version": "1.0.0",
+  "description": "care recruitment agency",
+  "main": "index",
+  "typings": "index",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modernman00/idecide.git"
+  },
+  "author": "wale olaogun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modernman00/idecide/issues"
+  },
+  "homepage": "https://github.com/modernman00/idecide#readme",
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "laravel-mix": "^6.0.49",
+    "resolve-url-loader": "^3.1.0",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^5.9.0"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "canvas-confetti": "^1.9.3",
+    "chart.js": "^4.4.9",
+    "jquery": "^3.6.0",
+    "npm": "^6.13.7",
+    "sass": "^1.23.1",
+    "svg-gauge": "^1.0.6"
+  }
+}
