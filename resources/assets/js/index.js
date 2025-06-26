@@ -1,7 +1,15 @@
-import { showError } from "./global";
+import { showError, id } from "./global";
 
 // do lazy loading of the app based on the current URL
      document.addEventListener("DOMContentLoaded", function () {
+
+        id('themeSwitch').addEventListener('change', function() {
+            document.body.dataset.theme = this.checked ? 'dark' : 'light';
+
+            // SET THE FONT TO WHITE IF THE THEME IS DARK
+            document.body.style.color = this.checked ? 'white' : 'black';
+
+        });
 
        if (window.location.pathname === "/") {
          import(

@@ -27,7 +27,7 @@
             <img src="public/images/about-image.jpg" alt="Smart Decision Tool" class="hero-image">
           </div>
 
-        <div class="description-text col">
+        <div class="description-text col" id="mainDescription">
 
           <h3 class="subtitle">Every purchase satisfies either a need or want and most times we are conflicted on whether to spend on something we desire or not</h3>
           <h3 class="subtitle">Especially in this modern world, where we are bombarded with advertisements on the latest items/products/services. With all, trying to convince us to spare our pennies, and the reality is that, it is difficult not be influenced by this desire to buy, sometimes, things we don't need, or even want. This creates a strong pull toward many ‘nice-to-have’ things.</h3>
@@ -88,7 +88,7 @@
                  'label' => [
                   'How long have you been thinking about it?', 
                   "Is this a Need - necessity or a Want - nice to have?",
-                  'Have you considered options or alternatives to this item?',
+                  'Have you explored other options or alternatives to this item?',
                  ],
                   'attribute' => ['notImpulsive', 'necessity', 'option'],
 
@@ -131,9 +131,9 @@
 
             'finance' => ['mixed', 
                  'label' => [
-                  "Where would you pay for the item?",
+                  "How would you pay for the item?",
                   'Can you afford it without stretching your finance?',
-                  'Do you have concerns about either your debt level/expenses/job?'
+                  'Are you concerned about your debt, expenses, or job?'
                  ],
                  'attribute' => ['paymentSource', 'affordability', 'concerns'],
                  'inputType' => ['cardSelect', 'cardSelect', 'cardSelect'],
@@ -175,7 +175,7 @@
 
             'checkbox' => 'I agree to the <a href="terms">terms and conditions</a>',
                  'x8'=> 'br',
-            'Submit to get a Decision' => 'button',
+            'Submit to get a decision' => 'button',
 
                  'x9'=> 'br',
         ];
@@ -197,6 +197,9 @@
 
 </form>
 
+<script>
+  document.getElementById('button').classList.add('btn-lg', 'btn-block');
+</script>
 
 
 @endsection

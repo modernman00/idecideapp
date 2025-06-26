@@ -12,17 +12,17 @@ autocomplete('whatToBuy_id', purchaseItems)
 // Define tooltips for each form question to explain their purpose
 // Keys match the 'name' attributes of form elements (e.g., select, input)
 const tooltips = {
-  whatToBuy: "This helps personalize your advice but doesn’t affect your score.",
-  cost: "Lower budget impact scores higher for affordability.",
-  buyingFeeling: "Positive emotions score higher but have moderate impact.",
-  notImpulsive: "Longer consideration periods score higher for thoughtful decisions.",
-  necessity: "Necessities score higher to prioritize essential purchases.",
-  option: "Researching alternatives scores higher for informed choices.",
-  paymentSource: "Using savings or gifts scores higher than borrowing.",
-  affordability: "Affordability without strain scores highest for financial health.",
-  concerns: "Fewer financial concerns score higher for a safer purchase.",
-  checkbox: "You must agree to proceed with your results.",
-  submitButton: "Submit to see if you should buy, reconsider, or avoid this purchase."
+  whatToBuy: "This question personalizes your advice by identifying the item you’re considering.",
+  cost: "This evaluates how the item’s cost aligns with your budget.",
+  buyingFeeling: "This explores your emotional response to making the purchase.",
+  notImpulsive: "This assesses how long you’ve been considering this purchase.",
+  necessity: "This determines whether the item is a need or a want.",
+  option: "This checks if you’ve explored other options or alternatives.",
+  paymentSource: "This identifies the funding source for your purchase.",
+  affordability: "This evaluates if the purchase fits comfortably within your financial situation.",
+  concerns: "This gauges any financial concerns, such as debt or job stability.",
+  checkbox: "This confirms your agreement to the terms to proceed.",
+  submitButton: "This submits your responses to generate a purchase decision."
 };
 
 Object.entries(tooltips).forEach(([key, value]) => {

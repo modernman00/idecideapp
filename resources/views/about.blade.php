@@ -8,8 +8,8 @@
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-            <h2>Welcome to modernman00 Decision Matrix</h2>
-            <p>modernman00 Decision Matrix is a powerful tool designed to simplify your decision-making process. Launched in 2025, our mission is to empower individuals and businesses with data-driven insights to make confident choices. Whether you're deciding on a purchase, a career move, or a personal goal, our platform provides a structured approach to evaluate options effectively.</p>
+            <h2>Welcome to iDecide</h2>
+            <p>iDecide is a powerful tool designed to simplify your decision-making process. Launched in 2025, our mission is to empower individuals and businesses with data-driven insights to make confident choices. Whether you're deciding on a purchase, a career move, or a personal goal, our platform provides a structured approach to evaluate options effectively.</p>
 
             <h2>Our Features</h2>
             <ul class="list-unstyled">
@@ -20,10 +20,10 @@
             </ul>
 
             <h2>Our Mission</h2>
-            <p>At modernman00, we are committed to enhancing decision-making through innovative technology. Founded with a vision to bridge the gap between complexity and clarity, we strive to deliver a user-friendly experience that supports informed decisions. Our team is dedicated to continuous improvement, ensuring the Decision Matrix evolves with your needs.</p>
+            <p>At iDecide, we are committed to enhancing decision-making through innovative technology. Founded with a vision to bridge the gap between complexity and clarity, we strive to deliver a user-friendly experience that supports informed decisions. Our team is dedicated to continuous improvement, ensuring the Decision Matrix evolves with your needs.</p>
 
             <h2>Contact Us</h2>
-            <p>Learn more or get involved by reaching out at <a href="mailto:support@modernman00.com" style="color: var(--primary-color);">support@modernman00.com</a> or visiting <a href="https://modernman00.com" style="color: var(--primary-color);">https://modernman00.com</a>.</p>
+            <p>Learn more or get involved by reaching out at <a href="mailto:{{ env('SUPPORT_EMAIL') }}" style="color: var(--primary-color);">{{ env('SUPPORT_EMAIL') }}</a> .</p>
         </div>
     </div>
 </div>

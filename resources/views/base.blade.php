@@ -353,11 +353,6 @@ h1 {
   <script src="public/js/manifest.js"></script>
   <script src="public/js/vendor.js"></script>
 
-    <script>
-        document.getElementById('themeSwitch').addEventListener('change', function() {
-            document.body.dataset.theme = this.checked ? 'dark' : 'light';
-        });
-    </script>
 </body>
 
 </html>

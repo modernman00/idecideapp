@@ -126,25 +126,34 @@ try {
     const pageUrl = encodeURIComponent(window.location.href);
     const shareText = `I got a ${score}% decision score using iDecide! ${pageUrl}`;
 
-    const copyLinkBtn = id("copyLink");
-    const twitterShare = id("twitterShare");
-    const whatsappShare = id("whatsappShare");
 
-    if (copyLinkBtn) {
-      copyLinkBtn.onclick = () => {
-        navigator.clipboard
-          .writeText(window.location.href)
-          .then(() => alert("Link copied!"))
-          .catch(() => showError("Failed to copy link"));
-      };
-    }
+    const twitterShare = id("twitterShare");
 
     if (twitterShare) {
       twitterShare.href = `https://twitter.com/intent/tweet?text=${shareText}`;
     }
-
+    const whatsappShare = id("whatsappShare");
     if (whatsappShare) {
       whatsappShare.href = `https://api.whatsapp.com/send?text=${shareText}`;
+    }
+    const facebookShare = id("facebookShare");
+    if (facebookShare) {
+      facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${shareText}`;
+    }
+
+    const truthSocialShare = id("truthSocialShare");
+    if (truthSocialShare) {
+      truthSocialShare.href = `https://truthsocial.com/share?text=${shareText}%20${pageUrl}`;
+    }
+
+    const linkedinShare = id("linkedinShare");
+    if (linkedinShare) {
+      linkedinShare.href = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}&title=${shareText}`;
+    }
+
+    const redditShare = id("redditShare");
+    if (redditShare) {
+      redditShare.href = `https://www.reddit.com/submit?url=${pageUrl}&title=${shareText}`;
     }
   } catch (shareError) {
     console.error("Share feature error:", shareError);
@@ -172,6 +181,13 @@ try {
   } catch (pdfInitError) {
     console.error("PDF button initialization error:", pdfInitError);
   }
+
+  // 11. make the submit button bigger by adding a class btn-lg and btn-block 
+  const submitBtn = id("button");
+  if (submitBtn) {
+    submitBtn.classList.add("btn-lg", "btn-block");
+  }
+
 } catch (mainError) {
   console.error("Main execution error:", mainError);
   showError("An error occurred while loading results");

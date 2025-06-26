@@ -179,7 +179,7 @@
     display: flex;
     justify-content: space-around;
     width: 200px;
-    margin: 1rem auto;
+    margin: 0.5rem auto;
   }
 
   .smiley {
@@ -236,20 +236,38 @@
     opacity: 0.3;
   }
   .share-buttons a {
-  margin: 0 12px;
-  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  color: white;
+  margin: 0 0.5rem;
   text-decoration: none;
-  transition: transform 0.2s ease-in-out;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.share-buttons a .fa-link {
-  color: #1c0e00ae; /* gray */
-}
+
 .share-buttons a .fa-twitter {
   color: #1da1f2; /* Twitter blue */
 }
 .share-buttons a .fa-whatsapp {
   color: #25d366; /* WhatsApp green */
+}
+
+.share-buttons a .fa-facebook-f {
+  color: #3b5998; /* Facebook blue */
+}
+.share-buttons a .fa-bullhorn {
+  color: #ff4500; /* Truth Social (using a reddish-orange as a placeholder) */
+}
+.share-buttons a .fa-linkedin-in {
+  color: #0077b5; /* LinkedIn blue */
+}
+.share-buttons a .fa-reddit-alien {
+  color: #ff4500; /* Reddit orange */
 }
 
 .share-buttons a:hover {
@@ -297,11 +315,14 @@
            
                 <div class="smiley red">😞</div>
                 <div class="smiley red">😞</div>
-              <div class="smiley yellow">😐</div>
+                <div class="smiley red">😞</div>
+                <div class="smiley red">😞</div>
+              
               <div class="smiley yellow">🙁</div>
-         
+              <div class="smiley yellow">😐</div>
+          <div class="smiley green">🙂</div>
                  <div class="smiley green">😄</div>
-              <div class="smiley green">🙂</div>
+             
             </div>
             <input type="range" id="scoreSlider" min="0" max="100" value="0" disabled>.
           </div>
@@ -338,9 +359,13 @@
         <div class="text-center mt-4">
           <p class="mb-2">Share your result:</p>
           <div class="share-buttons">
-            <a href="#" id="copyLink" title="Copy Link"><i class="fas fa-link"></i></a>
-            <a href="#" target="_blank" id="twitterShare" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" target="_blank" id="whatsappShare" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+         
+            <a href="#" target="_blank" id="twitterShare" title="Share on Twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank" id="whatsappShare" title="Share on WhatsApp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" target="_blank" id="facebookShare" title="Share on Facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank" id="truthSocialShare" title="Share on Truth Social" aria-label="Share on Truth Social"><i class="fab fa-bullhorn"></i></a>
+            <a href="#" target="_blank" id="linkedinShare" title="Share on LinkedIn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank" id="redditShare" title="Share on Reddit" aria-label="Share on Reddit"><i class="fab fa-reddit-alien"></i></a>
           </div>
 
         </div>
@@ -404,6 +429,7 @@
  
   </div>
 </div>
+
 
 
 
