@@ -109,6 +109,7 @@ try {
   if (savedScoreData.advice && Array.isArray(savedScoreData.advice)) {
     savedScoreData.advice.forEach((tip) => {
       const li = document.createElement("li");
+      li.classList.add('list-group-items');
       li.textContent = tip;
       adviceList.appendChild(li);
     });
@@ -193,13 +194,13 @@ try {
   showError("An error occurred while loading results");
 
   // Fallback UI state
-  const scoreEl = id("score");
+  // const scoreEl = id("score");
   if (scoreEl) scoreEl.textContent = "0%";
 
   const decisionEl = id("decision");
   if (decisionEl) decisionEl.textContent = "Error";
 
-  const adviceEl = id("personalisedAdvice");
+  // const adviceEl = id("personalisedAdvice");
   if (adviceEl)
     adviceEl.textContent = "Unable to provide advice due to an error.";
 

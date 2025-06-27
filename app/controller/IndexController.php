@@ -45,5 +45,13 @@ class IndexController
         return view('blogs');
     }
 
+    // email funtionality to send the result to the person
+    public function emailResult($email, $decision)
+    {
+        //1. Sanitise the email and $decision
+
+        //2. Use the email functionality to send  
+    }
+
 }
    

@@ -247,46 +247,46 @@
   margin: 0 0.5rem;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.3s;
-}
+  }
 
 
-.share-buttons a .fa-twitter {
-  color: #1da1f2; /* Twitter blue */
-}
-.share-buttons a .fa-whatsapp {
-  color: #25d366; /* WhatsApp green */
-}
+  .share-buttons a .fa-twitter {
+    color: #1da1f2; /* Twitter blue */
+  }
+  .share-buttons a .fa-whatsapp {
+    color: #25d366; /* WhatsApp green */
+  }
 
-.share-buttons a .fa-facebook-f {
-  color: #3b5998; /* Facebook blue */
-}
-.share-buttons a .fa-bullhorn {
-  color: #ff4500; /* Truth Social (using a reddish-orange as a placeholder) */
-}
-.share-buttons a .fa-linkedin-in {
-  color: #0077b5; /* LinkedIn blue */
-}
-.share-buttons a .fa-reddit-alien {
-  color: #ff4500; /* Reddit orange */
-}
+  .share-buttons a .fa-facebook-f {
+    color: #3b5998; /* Facebook blue */
+  }
+  .share-buttons a .fa-bullhorn {
+    color: #ff4500; /* Truth Social (using a reddish-orange as a placeholder) */
+  }
+  .share-buttons a .fa-linkedin-in {
+    color: #0077b5; /* LinkedIn blue */
+  }
+  .share-buttons a .fa-reddit-alien {
+    color: #ff4500; /* Reddit orange */
+  }
 
-.share-buttons a:hover {
-  transform: scale(1.2);
-}
+  .share-buttons a:hover {
+    transform: scale(1.2);
+  }
 
-.success-light { color: #28a745; }
-.badge-success-light { background-color: #d4edda; color: #155724; }
+  .success-light { color: #28a745; }
+  .badge-success-light { background-color: #d4edda; color: #155724; }
 
-.advice-list {
-  list-style-type: disc;
-  padding-left: 20px;
-  margin-top: 1rem;
-}
-.advice-list li {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  color: #212529;
-}
+  .advice-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 1rem;
+  }
+  .advice-list li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #212529;
+  }
 
 </style>
 
@@ -294,12 +294,6 @@
 <div class="bg-light d-flex align-items-center justify-content-center min-vh-100">
 
   <div class="container">
-
-    <div class="theme-toggle">
-      <input type="checkbox" id="themeSwitch" />
-      <label for="themeSwitch">🌙</label>
-    </div>
-
 
     <h1 class="text-center mb-4">Decision Matrix Result</h1>
     <div class="card shadow">
@@ -341,19 +335,42 @@
         </div>
 
         <ul class="list-group list-group-flush mt-4">
-          <li class="list-group-item"><strong>Decision:</strong> <span id="decision" class="highlight"></span></li>
-          <li class="list-group-item"><strong>Score:</strong> <span id="score"></span></li>
-          <li class="list-group-item"><strong>Comments:</strong> <span id="comments"></span></li>
-          <li class="list-group-item"><strong>Personalised Advice </strong> <span id="personalisedAdvice"> loading...</span></li>
+
+          <li class="list-group-item">
+            <strong>Score:</strong> 
+            <span id="score"></span>
+          </li>
+
+          <li class="list-group-item">
+            <strong>Decision:</strong> 
+            <span id="decision" class="highlight"></span>
+          </li>
+
+        
+
+          <li class="list-group-item">
+            <strong>Comments:</strong> 
+            <span id="comments"></span>
+          </li>
+
+          <li class="list-group-item">
+            <strong>Personalised Advice </strong> 
+            <span id="personalisedAdvice"> loading...</span>
+          </li>
+
           <ul id="advice-list" class="advice-list"></ul>
+
         </ul>
 
 
         <div class="text-center mt-4">
           <span id="badge" class="badge-custom"></span>
         </div>
+
         <div class="text-center mt-4">
-          <a href="/#questions" class="btn btn-primary">Take Quiz Again</a>
+          <a href="/#questions" class="btn btn-primary">
+          Take Quiz Again
+          </a>
         </div>
 
         <div class="text-center mt-4">
@@ -422,7 +439,7 @@
       </div>
       <div class="modal-footer">
 
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" id="submitResult">Submit</button>
       </div>
       
     </div>

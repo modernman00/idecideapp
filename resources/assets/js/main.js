@@ -7,8 +7,6 @@ import autocomplete from "./autocomplete";
 
 autocomplete('whatToBuy_id', purchaseItems)
 
-
-
 // Define tooltips for each form question to explain their purpose
 // Keys match the 'name' attributes of form elements (e.g., select, input)
 const tooltips = {
@@ -43,6 +41,10 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 });
+
+    // Sanitize whatToBuy input to prevent XSS
+    const sanitize = (str) => str.replace(/[<>]/g, "");
+    const whatToBuy = id("whatToBuy_id") ? sanitize(id("whatToBuy_id").value) : "item";
 
 // Define advice for high and low scores per question
 const adviceConfig = {
@@ -191,8 +193,8 @@ if (!initBtn) {
     const decisions = [
       {
         minScore: 85, // 85% (~37.4 points)
-        decision: "STRONG BUY ✅",
-        comment: "This purchase aligns perfectly with your financial goals and needs.",
+        decision: "GREEN LIGHT ON! 🚦 - STRONG BUY ✅",
+        comment: `The ${whatToBuy} fits great with your budget and what you need!`,
         color: "success", // Green styling
         badgeText: "💰 Conscious Spender",
         badgeClass: "badge-success", // Badge styling
@@ -202,8 +204,8 @@ if (!initBtn) {
       },
       {
         minScore: 70, // 70% (~30.8 points)
-        decision: "LIKELY BUY 👍",
-        comment: "This purchase seems reasonable, but double-check your budget and priorities.",
+        decision: "WORTH CONSIDERING! 🛠️ THEN CHECK, THEN BUY! 💭",
+        comment: `The ${whatToBuy} seems like a great fit—just double-check that it is affordable!`,
         color: "success-light", // Lighter green for caution
         badgeText: "🧠 Savvy Planner",
         badgeClass: "badge-success-light",
@@ -212,8 +214,8 @@ if (!initBtn) {
       },
       {
         minScore: 50, // 50% (~22 points)
-        decision: "RECONSIDER ⚖️",
-        comment: "Weigh needs versus wants carefully; consider alternatives or saving more.",
+        decision: "RECONSIDER ⚖️ OR MAYBE LATER! ⏳",
+        comment: `Pause on the ${whatToBuy}. Make sure it’s a need, not just a want, and check for better deals or save more!`,
         color: "warning", // Yellow for caution
         badgeText: "🧠 Budget Boss",
         badgeClass: "badge-warning",
@@ -222,8 +224,8 @@ if (!initBtn) {
       },
       {
         minScore: 0, // <50%
-        decision: "DON’T BUY ❌",
-        comment: "Hold off to avoid financial strain or reassess your priorities.",
+        decision: "HOLD OFF! 🛑 AND DON’T BUY ❌",
+        comment: "Skip the ${whatToBuy} to avoid financial stress and focus on what matters most!",
         color: "danger", // Red for warning
         badgeText: "🚫 Frugal Friend",
         badgeClass: "badge-danger",
@@ -241,9 +243,7 @@ if (!initBtn) {
     if (action) action();
 
 
-    // Sanitize whatToBuy input to prevent XSS
-    const sanitize = (str) => str.replace(/[<>]/g, "");
-    const whatToBuy = id("whatToBuy_id") ? sanitize(id("whatToBuy_id").value) : "item";
+
 
     // Generate advice
     const advice = generateAdvice(adjustedScores, whatToBuy);
