@@ -18,6 +18,9 @@ $router->map('GET', '/about', 'App\controller\IndexController@about', 'about');
 
 $router->map('GET', '/blogs', 'App\controller\IndexController@blogs', 'blogs');
 
+// email result
+$router->map('POST', '/emailResult', 'App\controller\EmailResultController@emailResult', 'email_result');
+
 
 
 

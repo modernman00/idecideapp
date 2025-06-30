@@ -1,4 +1,4 @@
-@extends('base')
+@extends('email')
 @section('title', 'Decision Matrix')
 @section('content')
 
@@ -311,10 +311,11 @@
                 <div class="smiley red">😞</div>
                 <div class="smiley red">😞</div>
                 <div class="smiley red">😞</div>
-                <div class="smiley yellow">🙁</div>
-                <div class="smiley yellow">😐</div>
-                <div class="smiley green">🙂</div>
-                <div class="smiley green">😄</div>
+              
+              <div class="smiley yellow">🙁</div>
+              <div class="smiley yellow">😐</div>
+          <div class="smiley green">🙂</div>
+                 <div class="smiley green">😄</div>
              
             </div>
             <input type="range" id="scoreSlider" min="0" max="100" value="0" disabled>.
@@ -385,30 +386,10 @@
           </div>
 
         </div>
-    
-        <div class="text-center mt-4">
-
-          <button id="emailModalBtn" data-bs-toggle="modal" data-bs-target="#emailModal" class="btn btn-secondary">Email Result</button>
   
-          <button id="referFriend" class="btn btn-success">Invite a Friend</button>
-        </div>
 
         <br><br>
 
-        {{-- CHOOSE YOUR LANGUAGE --}}
-
-        <div class="row mt-4">
-          <div class="col">
-            <label for="languageSelect" class="form-label">Choose Language:</label>
-            <select id="languageSelect" class="form-select w-auto d-inline-block">
-              <option value="en" selected>English</option>
-              <option value="es">Spanish</option>
-              <option value="fr">French</option>
-              <!-- Add more languages as needed -->
-            </select>
-          </div>
-        </div>
-
 
         </div>
   
@@ -417,34 +398,6 @@
   </div>
 </div>
 
-{{-- MODAL --}}
-
-<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-  
-    <div class="modal-content">
-       
-      <div class="modal-header">
-        <h5 class="modal-title">Please, enter the email</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-         <form action="" method="post" id="emailModal">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter the email">
-        </div>
-         </form>
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-primary" id="submitResult">Submit</button>
-      </div>
-      
-    </div>
- 
-  </div>
-</div>
 
 
 

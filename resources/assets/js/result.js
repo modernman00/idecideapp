@@ -189,6 +189,40 @@ try {
     submitBtn.classList.add("btn-lg", "btn-block");
   }
 
+  //12. email result to the user 
+  const emailBtn = id("submitResult");
+  if (emailBtn) {
+    emailBtn.addEventListener("click", async () => {
+      const email = id("email").value;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!email || !emailRegex.test(email)) {
+  showError("Please enter a valid email address");
+  return;
+}
+
+      const resultData = {email,
+          score,
+          decision,
+          comment,
+          itemToBuy,
+      };
+
+      try {
+        const response = await axios.post("/emailResult", resultData);
+        if (response.data && response.data.success) {
+         alert("Result emailed successfully!");
+        const modal = bootstrap.Modal.getInstance(emailForm);
+        if (modal) modal.hide();
+      } else {
+        showError(response.data.error || "Failed to send email. Please try again later.");
+      }
+      } catch (emailError) {
+        console.error("Email sending error:", emailError);
+        showError("An error occurred while sending the email");
+      }
+    });
+  }
+
 } catch (mainError) {
   console.error("Main execution error:", mainError);
   showError("An error occurred while loading results");

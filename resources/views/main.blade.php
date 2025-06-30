@@ -147,10 +147,10 @@
                     
                       [
                   5=>'Gift or prize money',
-                  4=>'From Salary or savings',
+                  4=>'Salary, savings, bonus or commission',
                   3=>'Credit card',
                   2=>'Borrowing from family or friends',
-                  1=>'Borrowing from a bank or loan shark',
+                  1=>'Bank loan, or other loan',
                   0=>'I don\'t know yet',
 
                  ],
