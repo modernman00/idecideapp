@@ -398,6 +398,8 @@
   </div>
 </div>
 
+<script src="/public/js/result.js"></script>
+
 
 
 

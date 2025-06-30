@@ -16,7 +16,7 @@ try {
   const comment = savedScoreData.comment || "No comments provided";
   const badgeText = savedScoreData.badgeText || "";
   const badgeClass = savedScoreData.badgeClass || "";
-  const itemToBuy = savedScoreData.itemToBuy
+  const itemToBuy = savedScoreData.itemToBuy || "item";
 
   // 3. Advice options object
   const adviceOptions = {
@@ -194,31 +194,32 @@ try {
   if (emailBtn) {
     emailBtn.addEventListener("click", async () => {
       const email = id("email").value;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-if (!email || !emailRegex.test(email)) {
-  showError("Please enter a valid email address");
-  return;
-}
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        showError("Please enter a valid email address");
+        return;
+      }
 
-      const resultData = {email,
-          score,
-          decision,
-          comment,
-          itemToBuy,
+
+      const resultData = {
+        email,
+        score,
+        decision,
+        comment,
+        itemToBuy,
       };
 
       try {
         const response = await axios.post("/emailResult", resultData);
         if (response.data && response.data.success) {
-         alert("Result emailed successfully!");
-        const modal = bootstrap.Modal.getInstance(emailForm);
-        if (modal) modal.hide();
-      } else {
-        showError(response.data.error || "Failed to send email. Please try again later.");
-      }
+          alert("Result emailed successfully!");
+          const modal = bootstrap.Modal.getInstance(emailForm);
+          if (modal) modal.hide();
+        } else {
+          showError(response.data.error || "Failed to send email. Please try again later.");
+        }
       } catch (emailError) {
         console.error("Email sending error:", emailError);
-        showError("An error occurred while sending the email");
       }
     });
   }

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Src\ToSendEmail;
+use Src\{ToSendEmail, Utility, Exceptions\NotFoundException};
 
 
 class EmailResultController
@@ -11,29 +11,31 @@ class EmailResultController
 
   public function emailResult()
   {
-    // Validate input
-    $input = json_decode(file_get_contents('php://input'), true);
-    if (!$input || !isset($input['email'], $input['score'], $input['decision'], $input['comment'], $input['itemToBuy'])) {
-      echo json_encode(['success' => false, 'error' => 'Invalid input data']);
-      exit;
+    try {
+
+      // Validate input
+      $input = json_decode(file_get_contents('php://input'), true);
+
+      if (!$input) {
+        throw new NotFoundException('Input data not found');
+
+        exit;
+      }
+
+      Utility::printArr($input);
+
+
+
+      $emailWrapper = ToSendEmail::genEmailArray(
+        'emailResult',
+        $input,
+        'Your Decision Matrix Result'
+      );
+
+      ToSendEmail::sendEmailGeneral($emailWrapper, 'member');
+    } catch (\Exception $e) {
+      // Handle any exceptions that may occur
+      Utility::showError($e);
     }
-
-    printArr($input);
-
-
-
-    $emailWrapper = ToSendEmail::genEmailArray(
-      'emailResult',
-      [
-        'email' => $input['email'] ?? '',
-        'decision' => $input['decision'] ?? '',
-        'score' => $input['score'] ?? '',
-        'comment' => $input['comment'] ?? '',
-        'itemToBuy' => $input['itemToBuy'] ?? '',
-      ],
-      'Your Decision Result'
-    );
-
-    ToSendEmail::sendEmailGeneral($emailWrapper, 'member');
   }
 }
