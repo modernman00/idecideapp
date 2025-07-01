@@ -223,6 +223,8 @@ try {
 
       try {
         const response = await axios.post("/emailResult", resultData);
+
+        console.log(response.data);
     
         if (response.data && response.data.status === "success") {
           // Show success message

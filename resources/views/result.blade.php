@@ -307,14 +307,14 @@
             {{-- <canvas id="scoreChart" width="200" height="200"></canvas> --}}
             <div class="smiley-container">
            
+                <div class="smiley red">😡</div>
+                <div class="smiley red">😬</div>
                 <div class="smiley red">😞</div>
                 <div class="smiley red">😞</div>
-                <div class="smiley red">😞</div>
-                <div class="smiley red">😞</div>
-                <div class="smiley yellow">🙁</div>
+                <div class="smiley yellow">🙃</div>
                 <div class="smiley yellow">😐</div>
-                <div class="smiley green">🙂</div>
-                <div class="smiley green">😄</div>
+                <div class="smiley green">😀</div>
+                <div class="smiley green">👍</div>
              
             </div>
             <input type="range" id="scoreSlider" min="0" max="100" value="0" disabled>.

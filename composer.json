@@ -28,7 +28,7 @@
     "altorouter/altorouter": "^1.2",
     "vlucas/phpdotenv": "^5.5",
     "eftec/bladeone": "^4.18",
-    "waleolaogun/shared-lib": "^1.5.3"
+    "waleolaogun/shared-lib": "^1.5.8"
   },
   "config": {
     "optimize-autoloader": true,
