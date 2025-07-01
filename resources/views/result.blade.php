@@ -434,6 +434,7 @@
           <label for="email" class="form-label">Email address</label>
           <input type="email" class="form-control" id="email" placeholder="Enter the email">
         </div>
+        <p class="small" id="emailHelp"></p>
          </form>
       </div>
       <div class="modal-footer">

@@ -22,17 +22,18 @@ class EmailResultController
         exit;
       }
 
-      Utility::printArr($input);
-
-
 
       $emailWrapper = ToSendEmail::genEmailArray(
-        'emailResult',
+        'msg/sendResult',
         $input,
         'Your Decision Matrix Result'
       );
 
-      ToSendEmail::sendEmailGeneral($emailWrapper, 'member');
+
+     ToSendEmail::sendEmailGeneral($emailWrapper, 'USERS');
+
+     Utility::msgSuccess(200, 'Email sent successfully');
+
     } catch (\Exception $e) {
       // Handle any exceptions that may occur
       Utility::showError($e);

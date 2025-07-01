@@ -17,6 +17,8 @@ try {
   const badgeText = savedScoreData.badgeText || "";
   const badgeClass = savedScoreData.badgeClass || "";
   const itemToBuy = savedScoreData.itemToBuy || "item";
+  const personalisedAdvice = savedScoreData.advice || "No personalized advice available";
+  const itemImage = savedScoreData.resultImage || "default-image.png";
 
   // 3. Advice options object
   const adviceOptions = {
@@ -193,8 +195,13 @@ try {
   const emailBtn = id("submitResult");
   if (emailBtn) {
     emailBtn.addEventListener("click", async () => {
+
       const email = id("email").value;
+
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      const emailModal = id("emailModal");
+
       if (!email || !emailRegex.test(email)) {
         showError("Please enter a valid email address");
         return;
@@ -207,16 +214,31 @@ try {
         decision,
         comment,
         itemToBuy,
+        advice,
+        personalisedAdvice,
+        itemImage
+       
+       
       };
 
       try {
         const response = await axios.post("/emailResult", resultData);
-        if (response.data && response.data.success) {
-          alert("Result emailed successfully!");
-          const modal = bootstrap.Modal.getInstance(emailForm);
-          if (modal) modal.hide();
+    
+        if (response.data && response.data.status === "success") {
+          // Show success message
+          const emailHelp = id("emailHelp");
+          if (emailHelp) {
+            emailHelp.textContent = response.data.message || "Email sent successfully!";
+            emailHelp.classList.add("text-success");
+          }
+
+          // set timer for 3 seconds to hide the modal
+          setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(emailModal);
+            if (modal) modal.hide();
+          }, 3000);
         } else {
-          showError(response.data.error || "Failed to send email. Please try again later.");
+          throw new Error(response.data.error || "Failed to send email. Please try again later.");
         }
       } catch (emailError) {
         console.error("Email sending error:", emailError);
