@@ -376,12 +376,11 @@
           <p class="mb-2">Share your result:</p>
           <div class="share-buttons">
          
-            <a href="#" target="_blank" id="twitterShare" title="Share on Twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" target="_blank" id="whatsappShare" title="Share on WhatsApp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" target="_blank" id="facebookShare" title="Share on Facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" target="_blank" id="truthSocialShare" title="Share on Truth Social" aria-label="Share on Truth Social"><i class="fab fa-bullhorn"></i></a>
-            <a href="#" target="_blank" id="linkedinShare" title="Share on LinkedIn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" target="_blank" id="redditShare" title="Share on Reddit" aria-label="Share on Reddit"><i class="fab fa-reddit-alien"></i></a>
+            <a href="https://twitter.com/intent/tweet?text=Check out my decision matrix result!&url={{ $_ENV['APP_URL']}}" target="_blank" id="twitterShare" title="Share on Twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/?text=Check out my decision matrix result!&url={{ $_ENV['APP_URL']}}" target="_blank" id="whatsappShare" title="Share on WhatsApp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $_ENV['APP_URL']}}" target="_blank" id="facebookShare" title="Share on Facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ $_ENV['APP_URL']}}" target="_blank" id="linkedinShare" title="Share on LinkedIn" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.reddit.com/submit?url={{ $_ENV['APP_URL']}}" target="_blank" id="redditShare" title="Share on Reddit" aria-label="Share on Reddit"><i class="fab fa-reddit-alien"></i></a>
           </div>
 
         </div>

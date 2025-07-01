@@ -121,7 +121,6 @@ if (!initBtn) {
   initBtn.addEventListener("click", function () {
     // Initialize variables for scoring
     let totalScore = 0; // Sum of scores from all questions
-    let noQuestions = 9; // Number of scored questions
     let maxScore = 44; // Max possible score (4 for feelings, 5 for each of 8 others)
 
     // Get all <select> elements (dropdowns)
@@ -204,17 +203,17 @@ if (!initBtn) {
       },
       {
         minScore: 70, // 70% (~30.8 points)
-        decision: "WORTH CONSIDERING! 🛠️ THEN CHECK, THEN BUY! 💭",
+        decision: "WORTH CONSIDERING BUT GIVE IT ANOTHER CHECK BEFORE BUYING!",
         comment: `The ${whatToBuy} seems like a great fit—just double-check that it is affordable!`,
         color: "success-light", // Lighter green for caution
         badgeText: "🧠 Savvy Planner",
         badgeClass: "badge-success-light",
-        resultImage: "public/images/standing_scales.jpg",
+        resultImage: "public/images/smiley_approval.png",
         resultImageAlt: "Balanced Decision"
       },
       {
         minScore: 50, // 50% (~22 points)
-        decision: "RECONSIDER ⚖️ OR MAYBE LATER! ⏳",
+        decision: "RECONSIDER OR MAYBE LATER!",
         comment: `Pause on the ${whatToBuy}. Make sure it’s a need, not just a want, and check for better deals or save more!`,
         color: "warning", // Yellow for caution
         badgeText: "🧠 Budget Boss",
