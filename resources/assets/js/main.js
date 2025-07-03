@@ -7,73 +7,83 @@ import { intersection } from "./include/main/intersection";
 import axios from "axios";
 
 
-autocomplete('whatToBuy_id', purchaseItems)
-// Define tooltips for each form question to explain their purpose
+// 🔹 UI Enhancements
+autocomplete("whatToBuy_id", purchaseItems);
 tooltips();
+intersection(".card.hidden");
 
-
-// Set up an IntersectionObserver to animate cards when they enter the viewport
-intersection(".card.hidden")
-
-
-// Get the submit button
+// 🔹 Validate button presence
 const initBtn = id("button");
-
-// Add event listener to the button to process the form
 if (!initBtn) {
-  console.error("Button with ID 'button' not found."); // Log error if button is missing
-} else {
-  initBtn.addEventListener("click", async () => {
-    // Collect form data
-    const whatToBuy = id("whatToBuy_id").value;
-    const selects = qSelAll("select");
-    let incomplete = false;
-    const scores = {};
-
-    selects.forEach((select) => {
-      const attribute = select.getAttribute("name"); // Get the question's attribute (e.g., 'cost')
-      const selected = select.options[select.selectedIndex]; // Get the selected option
-      const score = parseInt(selected.getAttribute("value")) || 0; // Get the score (default to 0)
-
-      // Check if the user skipped a question (selected the default option)
-
-      if (select.selectedIndex === 0) {
-        incomplete = true;
-      }
-      scores[attribute] = score;
-    });
-
-    if (incomplete) {
-      alert("Please answer all dropdown questions.");
-      return;
-    }
-
-    // Prepare data to send to backend
-    const formData = {
-      whatToBuy,
-      scores
-    };
-
-    try {
-      if (navigator.onLine) {
-        const response = await axios.post('/calculateResult', formData);
-
-        const scoreData = response.data.message;
-
-
-        // Save results to sessionStorage
-        sessionStorage.setItem("scoreData", JSON.stringify(scoreData));
-
-        // Redirect to result page
-        window.location.href = "result";
-      }
-      else {
-        await queuePostRequest('/calculateResult', formData);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("An error occurred while processing your request. Please try again.");
-    }
-  });
+  console.error("Button with ID 'button' not found.");
+  throw new Error("Button not found");
 }
+
+// 🔹 Form handler
+initBtn.addEventListener("click", async () => {
+  const whatToBuyInput = id("whatToBuy_id");
+  const selects = qSelAll("select");
+
+  const whatToBuy = whatToBuyInput?.value.trim();
+  const scores = {};
+  let incomplete = false;
+
+  // 🔹 Validate purchase input
+  if (!whatToBuy) {
+    alert("Please enter what you want to buy.");
+    return;
+  }
+
+  // 🔹 Collect dropdown values
+  selects.forEach((select) => {
+    const attribute = select.getAttribute("name");
+    const selected = select.options[select.selectedIndex];
+
+    if (select.selectedIndex === 0) {
+      incomplete = true;
+    }
+
+    const score = parseInt(selected?.getAttribute("value"));
+    scores[attribute] = Number.isNaN(score) ? null : score;
+  });
+
+  if (incomplete) {
+    alert("Please answer all dropdown questions.");
+    return;
+  }
+
+  const formData = { whatToBuy, scores };
+ 
+
+  try {
+    if (navigator.onLine) {
+      const response = await axios.post("/calculateResult", formData);
+      const scoreData = response?.data?.message;
+
+      if (!scoreData) {
+        throw new Error("No result returned.");
+      }
+
+      sessionStorage.setItem("scoreData", JSON.stringify(scoreData));
+
+      // Optional redirect (uncomment when ready)
+      window.location.href = "result";
+    } else {
+      const syncBadge = id("syncStatus");
+      alert("You're offline. Your decision has been saved and will be sent when you're back online.");
+      await queuePostRequest('/calculateResult', formData);
+      // Show badge
+      syncBadge.classList.remove("hidden");
+
+      // Hide after 4 seconds (optional)
+      setTimeout(() => {
+        syncBadge.classList.add("hidden");
+      }, 4000);
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("An error occurred while processing your request. Please try again.");
+  }
+});
+
 

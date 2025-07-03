@@ -4,6 +4,7 @@ namespace App\controller;
 
 use Src\Utility;
 use Src\Exceptions\ValidationException;
+
 /**
  * Class CalculateResultController
  * Handles the calculation of purchase decision scores based on user input.
@@ -23,6 +24,7 @@ class CalculateResultController
             $whatToBuy = htmlspecialchars($input['whatToBuy'], ENT_QUOTES, 'UTF-8');
             $scores = $input['scores'];
 
+
             // Validate scores
             $requiredKeys = ['cost', 'buyingFeeling', 'notImpulsive', 'necessity', 'option', 'paymentSource', 'affordability', 'concerns'];
             foreach ($requiredKeys as $key) {
@@ -31,40 +33,99 @@ class CalculateResultController
                 }
             }
 
+
+
+
             // Scoring logic
             $noQuestions = 9;
-            $maxScore = 44; // 4 for feelings, 5 for each of 8 others
+            $maxScoreQ = 5;
+            $maxScore = $noQuestions * $maxScoreQ;
             $adjustedScores = $scores;
 
             if ($scores['paymentSource'] <= 2) {
                 $adjustedScores['affordability'] = min($scores['affordability'], 2);
             }
             if ($scores['cost'] <= 2) {
-                $adjustedScores['affordability'] = min($scores['affordability'], 3);
+                $adjustedScores['affordability'] = min($scores['affordability'], 2);
             }
-            if ($scores['concerns'] <= 1) {
+            if ($scores['concerns'] <= 2) {
                 $adjustedScores['paymentSource'] = min($scores['paymentSource'], 3);
             }
-            if ($scores['notImpulsive'] === 0) {
-                $adjustedScores['necessity'] = max($scores['necessity'] - 1, 1);
+            if ($scores['concerns'] <= 2 && $scores['necessity'] <= 2) {
+                $adjustedScores['buyingFeeling'] = min($scores['buyingFeeling'], 2);
+            }
+            if ($scores['notImpulsive'] <= 2) {
+                $adjustedScores['necessity'] = max($scores['necessity'] - 1, 2);
+            }
+            //🔹 If the user has many alternatives, the item may be less essential.
+            if ($scores['option'] >= 4) {
+                $adjustedScores['necessity'] = max($adjustedScores['necessity'] - 1, 1);
+            }
+            //Flag High Impulse + Low Concerns as Risky
+            if ($scores['cost'] >= 4 && $scores['necessity'] <= 2) {
+                $adjustedScores['buyingFeeling'] = min($adjustedScores['buyingFeeling'], 3);
+            }
+            //Cap Affordability When Payment Source is Non-Sustainable (e.g., Borrowing)
+            if ($scores['paymentSource'] <= 2) {
+                $adjustedScores['affordability'] = min($adjustedScores['affordability'], 2);
             }
 
-            $totalScore = array_sum(array_map('intval', $adjustedScores));
-            $score = ($totalScore / $maxScore) * 100;
+            $weights = [
+                'cost' => 1.4,
+                'necessity' => 1.5,
+                'affordability' => 1.3,
+                'notImpulsive' => 1.2,
+                'option' => 1.1,
+                'concerns' => 1.1,
+                'buyingFeeling' => 1.0,
+                'paymentSource' => 1.2
+            ];
+
+
+            $weightedTotal = 0;
+            $maxWeightedScore = 0;
+
+            foreach ($adjustedScores as $key => $value) {
+                $weight = $weights[$key] ?? 1;
+                $weightedTotal += intval($value) * $weight; // total weighted score
+                $maxWeightedScore += $maxScoreQ * $weight; // total max weighted score
+            }
+
+            $finalScore = ($weightedTotal / $maxWeightedScore) * 100;
+            $finalScore = round($finalScore, 1);
+
+
+            //summary of what influenced their result most.
+            $influences = [];
+            foreach ($adjustedScores as $key => $value) {
+                $weight = $weights[$key] ?? 1;
+                $impact = round(($value / $maxScoreQ) * $weight * 100); // normalized
+                $influences[] = [
+                    'label' => ucfirst($key),
+                    'impact' => $impact,
+                    'score' => $value,
+                    'weight' => $weight
+                ];
+            }
+
+            // Sort by impact descending
+            usort($influences, fn($a, $b) => $b['impact'] <=> $a['impact']);
+
+
 
             // Advice configuration
             $adviceConfig = [
                 'cost' => [
-                    'high' => fn($item) => "Great job ensuring the $item fits comfortably within your budget! Keep prioritizing affordable purchases.",
+                    'high' => fn($item) => "Great job ensuring the $item fits comfortably within your budget! Keep prioritising affordable purchases.",
                     'low' => fn($item) => "The $item may strain your budget. Consider cheaper alternatives or saving up to reduce financial pressure."
                 ],
                 'buyingFeeling' => [
-                    'high' => fn($item) => "Your enthusiasm for the $item is a good sign! Ensure it aligns with your financial goals.",
+                    'high' => fn($item) => "This $item could bring you joy, and that’s wonderful! Just make sure it fits comfortably with your financial plans—so you can enjoy it without any worries. You’ve got this!",
                     'low' => fn($item) => "If the $item doesn’t excite you, reflect on whether it’s worth the cost or if another option might be more fulfilling."
                 ],
                 'notImpulsive' => [
                     'high' => fn($item) => "You’ve thought about the $item for a while, which shows great decision-making. Keep planning carefully.",
-                    'low' => fn($item) => "Buying the $item impulsively could be risky. Take time to evaluate if it’s truly necessary."
+                    'low' => fn($item) => "Ooooh, the $item caught your eye just now? That’s exciting! 🎉 Since it’s a new idea, why not sleep on it? If you still love it tomorrow, it’ll feel even better to buy it knowing it’s the right choice. Either way, you win!"
                 ],
                 'necessity' => [
                     'high' => fn($item) => "The $item seems essential, which supports your decision. Ensure it’s the best option available.",
@@ -88,25 +149,29 @@ class CalculateResultController
                 ]
             ];
 
+
             // Generate advice
-            $advice = [];
+            $advices = [];
             foreach ($scores as $attr => $score) {
                 if ($score <= 2 && isset($adviceConfig[$attr]['low'])) {
-                    $advice[] = $adviceConfig[$attr]['low']($whatToBuy);
+                    $advices[] = $adviceConfig[$attr]['low']($whatToBuy);
+                }
+                if ($score >= 4 && isset($adviceConfig[$attr]['high'])) {
+                    $advices[] = $adviceConfig[$attr]['high']($whatToBuy);
                 }
             }
-            if (count($advice) < 3) {
-                foreach ($scores as $attr => $score) {
-                    if ($score >= 4 && isset($adviceConfig[$attr]['high'])) {
-                        $advice[] = $adviceConfig[$attr]['high']($whatToBuy);
-                        break;
-                    }
-                }
-            }
-            if (empty($advice)) {
+            // // if (count($advice) < 3) {
+            // foreach ($scores as $attr => $score) {
+            //     if ($score >= 4 && isset($adviceConfig[$attr]['high'])) {
+            //         $advice[] = $adviceConfig[$attr]['high']($whatToBuy);
+            //         break;
+            //     }
+            // }
+            // // }
+            if (empty($advices)) {
                 $advice[] = "Reflect on whether the $whatToBuy aligns with your financial priorities and long-term goals.";
             }
-            $advice = array_slice($advice, 0, 3);
+            $advices = array_slice($advices, 0, 3);
 
             // Decision tiers
             $decisions = [
@@ -122,12 +187,12 @@ class CalculateResultController
                 ],
                 [
                     'minScore' => 70,
-                    'decision' => "WORTH CONSIDERING! 🛠️ THEN CHECK, THEN BUY! 💭",
-                    'comment' => "The $whatToBuy seems like a great fit—just double-check that it is affordable!",
+                    'decision' => "WORTH CONSIDERING! 🛠️ THEN CHECK, AND BUY! 💭",
+                    'comment' => "The $whatToBuy seems like a great fit—just double-check that it is affordable, and try to get the best deal!",
                     'color' => "success-light",
                     'badgeText' => "🧠 Savvy Planner",
                     'badgeClass' => "badge-success-light",
-                    'resultImage' => "public/images/standing_scales.jpg",
+                    'resultImage' => "public/images/BUY_DECISION.jpg",
                     'resultImageAlt' => "Balanced Decision"
                 ],
                 [
@@ -141,7 +206,7 @@ class CalculateResultController
                     'resultImageAlt' => "Neutral Balance"
                 ],
                 [
-                    'minScore' => 0,
+                    'minScore' => 1,
                     'decision' => "HOLD OFF! 🛑 AND DON’T BUY ❌",
                     'comment' => "Skip the $whatToBuy to avoid financial stress and focus on what matters most!",
                     'color' => "danger",
@@ -152,11 +217,13 @@ class CalculateResultController
                 ]
             ];
 
-            $decisionData = end(array_filter($decisions, fn($d) => $score >= $d['minScore'])) ?: end($decisions);
+            // Filter and get the FIRST tier where score >= minScore (sorted high-to-low)
+            $filtered = array_filter($decisions, fn($d) => $finalScore >= $d['minScore']);
+            $decisionData   = reset($filtered); // Gets the FIRST matching tier 
 
             $scoreData = [
                 'decision' => $decisionData['decision'],
-                'score' => round($score, 2),
+                'score' => $finalScore,
                 'color' => $decisionData['color'],
                 'comment' => $decisionData['comment'],
                 'badgeText' => $decisionData['badgeText'],
@@ -164,7 +231,8 @@ class CalculateResultController
                 'resultImage' => $decisionData['resultImage'],
                 'resultImageAlt' => $decisionData['resultImageAlt'],
                 'itemToBuy' => $whatToBuy,
-                'advice' => $advice
+                'advice' => $advices,
+                'influences' => $influences,
             ];
 
             // create a session to that will initiate result page
@@ -173,7 +241,7 @@ class CalculateResultController
 
             Utility::msgSuccess(200, $scoreData);
         } catch (\Throwable $e) {
-           Utility::showError($e);
+            Utility::showError($e);
         }
     }
 }

@@ -22,9 +22,8 @@
               $iconUrl = match (true) {
               $score >= 0 && $score < 50 => 'https://i.postimg.cc/yNt4MfzM/disapproval.jpg',
               $score >= 50 && $score < 70 => 'https://i.postimg.cc/C5DFP3Br/OPTIONS.jpg',
-              $score >= 70 && $score < 85 => 'https://i.postimg.cc/sfYTpn1T/smiley-approval.png',
-              $score >= 85 && $score < 100 => 'https://i.postimg.cc/J03fBMB8/bearded-man-showing-thumbs-up-gesture-green-shirt-illustration-vector-design-cheerful-wearing-both-h.webp',
-              default => 'https://i.postimg.cc/htc8Kgrn/default.png',
+              $score >= 70 && $score < 85 => 'https://i.postimg.cc/Z5hRWkX4/BUY-DECISION.jpg',
+              $score >= 85 && $score < 100 => 'https://i.postimg.cc/J03fBMB8/showing-thumbs-up.webp',
               };
      
               $scoreColor = match (true) {

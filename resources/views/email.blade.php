@@ -72,13 +72,13 @@
     <tr>
       <td align="center" style="padding: 20px;">
         <!-- Header -->
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        {{-- <table border="0" cellpadding="0" cellspacing="0" width="100%">
           <tr>
             <td style="padding: 20px 0;">
               <h1>Decision Matrix Result</h1>
             </td>
           </tr>
-        </table>
+        </table> --}}
 
         <!-- Content -->
         @yield('content')

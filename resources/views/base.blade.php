@@ -194,6 +194,22 @@ h1 {
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
+.badge {
+  background-color: #cce5ff;
+  color: #003366;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  animation: fadeSlide 0.4s ease;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 .visible {
   opacity: 1;
   transform: translateY(0);

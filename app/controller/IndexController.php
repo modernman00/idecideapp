@@ -2,23 +2,24 @@
 
 namespace App\controller;
 
+
 class IndexController 
 {
 
     public function main()
     {
-    
         return view('main');
     }
 
     public function result()
     {
         // only show result if the session is set
-        if (!isset($_SESSION['QUESTION_PROCESS']) || !$_SESSION['QUESTION_PROCESS']) {
+        if (($_SESSION['QUESTION_PROCESS'])==false) {
             // redirect to main page if session is not set
             header('Location: /');
             exit;
         }
+
         return view('result');
     }
 

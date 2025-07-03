@@ -1,14 +1,16 @@
 import axios from "axios";
 import { id, log, showError } from "./global.js";
 import { queuePostRequest } from "./background-sync.js";
-import {triggerConfetti} from "./include/result/confetti.js"
+import { triggerConfetti } from "./include/result/confetti.js"
+import { renderInfluences } from "./include/result/influences.js";
 
 try {
+  log("Session storage data:", sessionStorage.getItem("scoreData"));
   // 1. Safely retrieve and parse sessionStorage data
   const savedScoreData = JSON.parse(sessionStorage.getItem("scoreData")) || {};
 
   log("Saved score data:", savedScoreData);
-  log("Session storage data:", sessionStorage.getItem("scoreData"));
+
 
 
   if (!savedScoreData || Object.keys(savedScoreData).length === 0) {
@@ -23,16 +25,16 @@ try {
   const badgeText = savedScoreData.badgeText || "";
   const badgeClass = savedScoreData.badgeClass || "";
   const itemToBuy = savedScoreData.itemToBuy || "item";
-  const personalisedAdvice = savedScoreData.advice || "No personalized advice available";
+  const personalisedAdvice = savedScoreData.advices || "No personalized advice available";
   const itemImage = savedScoreData.resultImage || "default-image.png";
 
-          // Define the decision triggers for confetti
-        const confettiTriggers = ["WORTH CONSIDERING!", "STRONG BUY"];
+  // Define the decision triggers for confetti
+  const confettiTriggers = ["WORTH CONSIDERING!", "STRONG BUY"];
 
-        // Trigger confetti if decision includes any trigger
-        if (confettiTriggers.some(trigger => decision.includes(trigger))) {
-          triggerConfetti();
-        }
+  // Trigger confetti if decision includes any trigger
+  if (confettiTriggers.some(trigger => decision.includes(trigger))) {
+    triggerConfetti();
+  }
 
 
   // 3. Advice options object
@@ -70,6 +72,7 @@ try {
   const sliderEl = id("scoreSlider");
   const imgEl = id("image");
   const adviceEl = id("personalisedAdvice");
+  const influencesEl = id("influenceBreakdown");
 
   if (
     !scoreEl ||
@@ -206,13 +209,40 @@ try {
     submitBtn.classList.add("btn-lg", "btn-block");
   }
 
-  //12. email result to the user 
+  // 12. Render influences using the imported function
+
+  if (influencesEl && savedScoreData.influences && Array.isArray(savedScoreData.influences)) {
+    document.getElementById('toggleInfluences')?.addEventListener('click', function () {
+      const breakdown = document.getElementById('influenceBreakdown');
+      const isVisible = breakdown.style.display === 'block';
+
+      breakdown.style.display = isVisible ? 'none' : 'block';
+      this.textContent = isVisible ? 'Show Influencing Factors' : 'Hide Influencing Factors';
+
+      if (!isVisible) {
+        setTimeout(() => {
+          breakdown.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+
+
+      if (!isVisible && savedScoreData?.influences) {
+        renderInfluences(savedScoreData.influences); // only render once visible
+      }
+    });
+
+
+  }
+
+  //13. email result to the user 
   const emailBtn = id("submitResult");
+
+
 
   if (emailBtn) {
     emailBtn.addEventListener("click", async (e) => {
 
-        e.preventDefault();
+      e.preventDefault();
 
       const email = id("email").value;
 
@@ -234,39 +264,40 @@ try {
         itemToBuy,
         advice,
         personalisedAdvice,
-        itemImage
-       
-       
+        itemImage,
+        influencesEl
+
+
       };
 
       try {
 
-      if (navigator.onLine) {
-        const response = await axios.post("/emailResult", resultData);
-    
-        if (response.data && response.data.status === "success") {
-          // Show success message
-          const emailHelp = id("emailHelp");
-          if (emailHelp) {
-            emailHelp.textContent = response.data.message || "Email sent successfully!";
-            emailHelp.classList.add("text-success");
-          }
+        if (navigator.onLine) {
+          const response = await axios.post("/emailResult", resultData);
 
-          // set timer for 3 seconds to hide the modal
-          setTimeout(() => {
-            const modal = bootstrap.Modal.getInstance(emailModal);
-            if (modal) modal.hide();
-          }, 3000);
+          if (response.data && response.data.status === "success") {
+            // Show success message
+            const emailHelp = id("emailHelp");
+            if (emailHelp) {
+              emailHelp.textContent = response.data.message || "Email sent successfully!";
+              emailHelp.classList.add("text-success");
+            }
+
+            // set timer for 3 seconds to hide the modal
+            setTimeout(() => {
+              const modal = bootstrap.Modal.getInstance(emailModal);
+              if (modal) modal.hide();
+            }, 3000);
+          } else {
+            throw new Error(response.data.error || "Failed to send email. Please try again later.");
+          }
         } else {
-          throw new Error(response.data.error || "Failed to send email. Please try again later.");
+          await queuePostRequest("/emailResult", resultData);
         }
-      } else {
-        await queuePostRequest("/emailResult", resultData);
-      }
       } catch (emailError) {
         console.error("Email sending error:", emailError);
       }
-       
+
     });
   }
 
