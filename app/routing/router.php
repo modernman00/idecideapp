@@ -21,6 +21,11 @@ $router->map('GET', '/blogs', 'App\controller\IndexController@blogs', 'blogs');
 // email result
 $router->map('POST', '/emailResult', 'App\controller\EmailResultController@emailResult', 'email_result');
 
+// CALCULATE RESULT 
+
+$router->map('POST', '/calculateResult', 'App\controller\CalculateResultController@process', 'calculateResult');
+
+
 
 
 

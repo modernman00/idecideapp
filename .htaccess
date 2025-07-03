@@ -2,12 +2,17 @@
 RewriteEngine On
 #   RewriteBase /
 
-#if requested file is not a real file
-RewriteCond %{REQUEST_FILENAME} !-f
+# ✅ Allow direct access to service-worker.js from /public
+RewriteCond %{REQUEST_URI} ^/service-worker\.js$
+RewriteRule ^ public/service-worker.js [L]
+
+
 
 #   RewriteCond %{REQUEST_FILENAME} !-d
 #   RewriteCond %{REQUEST_FILENAME} !-1
 
+#if requested file is not a real file
+RewriteCond %{REQUEST_FILENAME} !-f
 #rewrite rule - redirect to index.php
 RewriteRule . index.php [L]
 

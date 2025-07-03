@@ -1,9 +1,15 @@
 import axios from "axios";
-import { id, showError, log } from "./global.js";
+import { id, log, showError } from "./global.js";
+import { queuePostRequest } from "./background-sync.js";
+import {triggerConfetti} from "./include/result/confetti.js"
 
 try {
   // 1. Safely retrieve and parse sessionStorage data
   const savedScoreData = JSON.parse(sessionStorage.getItem("scoreData")) || {};
+
+  log("Saved score data:", savedScoreData);
+  log("Session storage data:", sessionStorage.getItem("scoreData"));
+
 
   if (!savedScoreData || Object.keys(savedScoreData).length === 0) {
     throw new Error("No score data found in session storage");
@@ -19,6 +25,15 @@ try {
   const itemToBuy = savedScoreData.itemToBuy || "item";
   const personalisedAdvice = savedScoreData.advice || "No personalized advice available";
   const itemImage = savedScoreData.resultImage || "default-image.png";
+
+          // Define the decision triggers for confetti
+        const confettiTriggers = ["WORTH CONSIDERING!", "STRONG BUY"];
+
+        // Trigger confetti if decision includes any trigger
+        if (confettiTriggers.some(trigger => decision.includes(trigger))) {
+          triggerConfetti();
+        }
+
 
   // 3. Advice options object
   const adviceOptions = {
@@ -193,8 +208,11 @@ try {
 
   //12. email result to the user 
   const emailBtn = id("submitResult");
+
   if (emailBtn) {
-    emailBtn.addEventListener("click", async () => {
+    emailBtn.addEventListener("click", async (e) => {
+
+        e.preventDefault();
 
       const email = id("email").value;
 
@@ -222,9 +240,9 @@ try {
       };
 
       try {
-        const response = await axios.post("/emailResult", resultData);
 
-        console.log(response.data);
+      if (navigator.onLine) {
+        const response = await axios.post("/emailResult", resultData);
     
         if (response.data && response.data.status === "success") {
           // Show success message
@@ -242,15 +260,19 @@ try {
         } else {
           throw new Error(response.data.error || "Failed to send email. Please try again later.");
         }
+      } else {
+        await queuePostRequest("/emailResult", resultData);
+      }
       } catch (emailError) {
         console.error("Email sending error:", emailError);
       }
+       
     });
   }
 
 } catch (mainError) {
   console.error("Main execution error:", mainError);
-  showError("An error occurred while loading results");
+  showError(mainError);
 
   // Fallback UI state
   // const scoreEl = id("score");

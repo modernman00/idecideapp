@@ -1,0 +1,96 @@
+{
+  "name": "iDecide",
+  "short_name": "iDecide",
+  "version": "1.0.1",
+  "lang": "en",
+  "dir": "ltr",
+  "description": "A decision matrix tool to help you make informed purchase decisions.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "browser"
+  ],
+  "background_color": "#f8f9fa",
+  "theme_color": "#0d6efd",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/pwa/ios/192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any",
+      "description": "iDecide app icon 192x192"
+    },
+    {
+      "src": "images/pwa/android/192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable",
+      "description": "iDecide app icon 192x192"
+    },
+    {
+      "src": "images/pwa/android/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable",
+      "description": "iDecide app icon 512x512"
+    },
+    {
+      "src": "images/pwa/ios/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any",
+      "description": "iDecide app icon 512x512"
+    }
+  ],
+
+    "screenshots": [
+    {
+      "src": "images/logo/cover.png",
+      "sizes": "720x1280",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo/cover.png",
+      "sizes": "720x1280",
+      "type": "image/jpeg"
+    }
+    ],
+      "shortcuts": [
+    {
+      "name": "Make a new decision",
+      "url": "/",
+      "icons": [{ "src": "images/money.jpg", "sizes": "192x192" }]
+    },
+    {
+      "name": "View results",
+      "url": "/result",
+      "icons": [{ "src": "images/BUY_DECISION.jpg", "sizes": "192x192" }]
+    }
+  ],
+
+  "author": "Modernman00",
+  "license": "MIT",
+  "keywords": [
+    "decision matrix",
+    "purchase decisions",
+    "product comparison"
+  ],
+  "categories": [
+    "productivity",
+    "tools",
+    "shopping"
+  ],
+  "homepage": "https://yourwebsite.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernman00/idecide.git"
+  },
+  "serviceworker": {
+    "src": "service-worker.js",
+    "scope": "/",
+    "type": "classic"
+  }
+}

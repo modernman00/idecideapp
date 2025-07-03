@@ -10,7 +10,7 @@
     <meta name="keywords" content="decision matrix, decision making, iDecide, tool, evaluation, advice">
     <meta name="author" content="iDecide">
     <meta name="generator" content="BladeOne">
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: <?php echo getenv('APP_URL') ?: ''; ?>; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' <?php echo getenv('APP_URL') ?: ''; ?>;">
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: <?php echo getenv('APP_URL') ?: ''; ?>; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' <?php echo getenv('APP_URL') ?: ''; ?>;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Open Graph / Facebook -->
@@ -50,8 +50,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    {{-- PWA MANIFEST --}}
 
-  <link rel="stylesheet" type="text/css" href="public/css/index.css">
+    <link rel="manifest" href="public/manifest.json" />
+<meta name="theme-color" content={{$_ENV['BRAND_COLOR']}}>
+
+{{-- If you want it installable on iOS too, toss in these: --}}
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="public/images/logo/ios/192.png">
+
+{{-- @include('ios-splash') --}}
+
+
+  <link rel="stylesheet" type="text/css" href="public/css/main.css">
 
 <style>
   /* make the hero image responsive */
@@ -352,6 +364,18 @@ h1 {
   <script src="public/js/index.js"></script>
   <script src="public/js/manifest.js"></script>
   <script src="public/js/vendor.js"></script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+        .then(reg => console.log('Service Worker registered ✅', reg))
+        .catch(err => console.warn('Service Worker error ❌', err));
+    });
+  }
+  
+</script>
+
 
 </body>
 
