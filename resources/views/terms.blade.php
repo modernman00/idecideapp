@@ -1,40 +1,225 @@
 @extends('base')
 
-@section('title', 'Terms and Conditions')
+@section('title', 'Decision Matrix')
 
 @section('content')
-<div class="container my-5">
-    <h1 class="text-center mb-4" style="color: var(--primary-color);">Terms and Conditions</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10">
-            <h2>Acceptance of Terms</h2>
-            <p>By accessing or using the Decision Matrix service provided by modernman00 ("Service"), you agree to be bound by these Terms and Conditions. If you do not agree, please refrain from using the Service.</p>
+    <style>
+        .accordion-button {
+            font-size: 1rem;
+            padding: 1rem;
+        }
 
-            <h2>Description of Service</h2>
-            <p>The Service is a decision-making tool designed to assist users in evaluating choices based on provided criteria. modernman00 reserves the right to modify or discontinue the Service at any time without prior notice.</p>
+        .accordion-body {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
 
-            <h2>User Responsibilities</h2>
-            <p>Users must provide accurate information when using the Service. You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account.</p>
+    @php
+        $email = $_ENV['SUPPORT_EMAIL'];
+        $url = $_ENV['APP_URL'];
 
-            <h2>Intellectual Property</h2>
-            <p>All content, trademarks, and data within the Service are owned by modernman00 or its licensors. Users are granted a limited, non-exclusive license to use the Service for personal purposes, subject to these Terms.</p>
+        $data = [
+            [
+                'title' => '1. 🔓 Acceptance of Terms',
+                'body' =>
+                    "By accessing or using the Decision Matrix service provided by We (\"Service\"), you agree to be bound by these Terms. If you do not agree, please refrain from using the Service.",
+            ],
+            [
+                'title' => '2. 🧠 Description of Service',
+                'body' =>
+                    'The Service is a personal decision-making tool designed to help users reflect on financial, emotional, and practical choices...',
+            ],
+            [
+                'title' => '3. 🙋‍♂️ User Responsibilities',
+                'body' =>
+                    '<ul><li>Provide accurate inputs</li><li>Use the Service lawfully</li><li>Maintain confidentiality</li></ul>',
+            ],
+            [
+                'title' => '4. 📘 Intellectual Property',
+                'body' => 'All content is owned by We or its licensors. You may not reuse it commercially.',
+            ],
+            [
+                'title' => '5. 🔐 Privacy and Data Use',
+                'body' => "See our <a href=\"/privacy\">Privacy Policy</a>. Contact <strong>$email</strong> for data rights.",
+            ],
+            [
+                'title' => '6. 🍪 Cookie Usage',
+                'body' => 'We use cookies for site functionality. Manage them via your browser.',
+            ],
+            [
+                'title' => '7. ⚠️ Limitations of Liability',
+                'body' => "The Service is provided \"as is.\" We are not liable for indirect or consequential damages.",
+            ],
+            [
+                'title' => '8. 🚫 Termination',
+                'body' => 'We may suspend access anytime due to misuse or breach.',
+            ],
+            [
+                'title' => '9. ⚖️ Governing Law',
+                'body' => 'These Terms follow the laws of England and Wales.',
+            ],
+            [
+                'title' => '10. 🔁 Updates to Terms',
+                'body' => 'Terms may change. Continued use implies acceptance.',
+            ],
+            [
+                'title' => '11. 📬 Contact Information',
+                'body' => "Email <strong>$email</strong> or visit <a href=\"$url/privacy\" target=\"_blank\">$url/privacy</a>.",
+            ],
+        ];
+    @endphp
+    <div class="container py-5">
+       <h1 class="mb-4 text-center">Terms Of Use</h1>
+        <div class="accordion" id="termsAccordion">
 
-            <h2>Limitations of Liability</h2>
-            <p>modernman00 is not liable for any indirect, incidental, or consequential damages arising from the use or inability to use the Service. The Service is provided "as is" without warranties of any kind.</p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading0">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse0" aria-expanded="false" aria-controls="collapse0">
+                        {{ $data[0]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse0" class="accordion-collapse collapse" aria-labelledby="heading0"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[0]['body'] !!}</div>
+                </div>
+            </div>
 
-            <h2>Termination</h2>
-            <p>modernman00 may terminate or suspend your access to the Service at its discretion, with or without cause, and with or without notice.</p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                        {{ $data[1]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[1]['body'] !!}</div>
+                </div>
+            </div>
 
-            <h2>Governing Law</h2>
-            <p>These Terms are governed by the laws of the jurisdiction where modernman00 is registered. Any disputes will be resolved in the appropriate courts of that jurisdiction.</p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        {{ $data[2]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[2]['body'] !!}</div>
+                </div>
+            </div>
 
-            <h2>Changes to Terms</h2>
-            <p>modernman00 may update these Terms at any time. Continued use of the Service after changes constitutes acceptance of the new Terms.</p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        {{ $data[3]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[3]['body'] !!}</div>
+                </div>
+            </div>
 
-            <h2>Contact Information</h2>
-            <p>For questions about these Terms, contact modernman00 at <a href="mailto:support@modernman00.com" style="color: var(--primary-color);">support@modernman00.com</a>.</p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        {{ $data[4]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[4]['body'] !!}</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        {{ $data[5]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[5]['body'] !!}</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                        {{ $data[6]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[6]['body'] !!}</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading7">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                        {{ $data[7]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[7]['body'] !!}</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading8">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                        {{ $data[8]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[8]['body'] !!}</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading9">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                        {{ $data[9]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[9]['body'] !!}</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading10">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                        {{ $data[10]['title'] }}
+                    </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10"
+                    data-bs-parent="#termsAccordion">
+                    <div class="accordion-body">{!! $data[10]['body'] !!}</div>
+                </div>
+            </div>
+
         </div>
+           @include('include.returnToMain')
     </div>
-</div>
+
+
 @endsection

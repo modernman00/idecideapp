@@ -28,6 +28,16 @@ import { showError, id } from "./global";
          )
            .then((module) => module.default)
            .catch((err) => showError(err));
+
+       }else if (window.location.pathname === "/createBlog") {
+  
+         import(
+           /* webpackChunkName: 'blog' */
+           /* webpackPrefetch: true */
+           "./blog"
+         )
+           .then((module) => module.default)
+           .catch((err) => showError(err));
        }
      });
 

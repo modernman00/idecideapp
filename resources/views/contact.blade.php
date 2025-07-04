@@ -31,5 +31,7 @@
 
         </div>
     </div>
+    
+    @include('include.returnToMain')
 </div>
 @endsection

@@ -46,7 +46,7 @@ class ErrorHandler
 			// send_email_self($subject, $message);
 			// log the error
 			$error = ['error' => $message];
-			view('error/genError', compact('error'));
+			view('error', compact('error'));
 		}
 	}
 
@@ -70,8 +70,8 @@ class ErrorHandler
         $whoops->register();
     } else {
         try {
-            echo view('error.genError', ['error' => $ex->getMessage()]);
-        } catch (Exception $e) {
+            echo view('error', ['error' => $ex->getMessage()]);
+        } catch (\Exception $e) {
             // Ultimate fallback
             echo "<h1>Error</h1><p>{$ex->getMessage()}</p>";
         }

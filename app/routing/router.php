@@ -16,6 +16,8 @@ $router->map('GET', '/contact', 'App\controller\IndexController@contact', 'conta
 
 $router->map('GET', '/about', 'App\controller\IndexController@about', 'about');
 
+$router->map('GET', '/blogs[a:id]', 'App\controller\IndexController@blogs', 'blogsid');
+
 $router->map('GET', '/blogs', 'App\controller\IndexController@blogs', 'blogs');
 
 // email result
@@ -25,7 +27,20 @@ $router->map('POST', '/emailResult', 'App\controller\EmailResultController@email
 
 $router->map('POST', '/calculateResult', 'App\controller\CalculateResultController@process', 'calculateResult');
 
+// Show form to create a new blog post
+$router->map('GET', '/createBlog', 'App\controller\BlogController@show');
 
+// Create a new blog post
+$router->map('POST', '/createBlog', 'App\controller\BlogController@post');
+
+// Show form to edit an existing blog post
+$router->map('GET', '/showEditBlog/{id}', 'App\controller\BlogController@showEditForm');
+
+// Update an existing blog post
+$router->map('POST', '/showEditBlog/{id}', 'App\controller\BlogController@edit');
+
+// Delete a blog post
+$router->map('POST', 'deleteBlog/{id}', 'App\controller\BlogController@delete');
 
 
 

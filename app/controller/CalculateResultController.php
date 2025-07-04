@@ -99,7 +99,9 @@ class CalculateResultController
             $influences = [];
             foreach ($adjustedScores as $key => $value) {
                 $weight = $weights[$key] ?? 1;
-                $impact = round(($value / $maxScoreQ) * $weight * 100); // normalized
+                $scoreFraction = $value * $weight;
+                $weightFraction = $maxScoreQ * $weight;
+                $impact = round($scoreFraction / $weightFraction * 100); // normalized
                 $influences[] = [
                     'label' => ucfirst($key),
                     'impact' => $impact,

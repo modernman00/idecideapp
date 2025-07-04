@@ -19,6 +19,28 @@ if (!initBtn) {
   throw new Error("Button not found");
 }
 
+// prompt PWA features for users to install the app from browser
+// PWA install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const installButton = id('installButton');
+  if (installButton) {
+    installButton.style.display = 'block';
+    installButton.addEventListener('click', () => {
+      installButton.style.display = 'none';
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User installed the PWA');
+        }
+        deferredPrompt = null;
+      });
+    });
+  }
+});
+
 // 🔹 Form handler
 initBtn.addEventListener("click", async () => {
   const whatToBuyInput = id("whatToBuy_id");

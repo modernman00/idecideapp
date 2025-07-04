@@ -173,9 +173,10 @@
              'x7'=> 'br',
            
 
-            'checkbox' => 'I agree to the <a href="terms">terms and conditions</a>',
+            'checkbox' => 'By continuing you agree to the <a href="terms">Terms of use policy</a>',
                  'x8'=> 'br',
             'Submit to get a decision' => 'button',
+            'token' => 'token',
 
                  'x9'=> 'br',
         ];

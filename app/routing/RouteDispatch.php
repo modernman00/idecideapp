@@ -31,7 +31,7 @@ class RouteDispatch
             }
         } else {
             
-            return view('error/genError');
+            return view('error');
         }
     }
 }

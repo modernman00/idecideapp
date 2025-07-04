@@ -2,8 +2,11 @@
 
 namespace App\controller;
 
+use App\classes\CheckToken;
+use Src\Select;
 
-class IndexController 
+
+class IndexController
 {
 
     public function main()
@@ -14,7 +17,7 @@ class IndexController
     public function result()
     {
         // only show result if the session is set
-        if (($_SESSION['QUESTION_PROCESS'])==false) {
+        if (($_SESSION['QUESTION_PROCESS']) == false) {
             // redirect to main page if session is not set
             header('Location: /');
             exit;
@@ -25,7 +28,7 @@ class IndexController
 
     // terms
 
-    public function terms ()
+    public function terms()
     {
         return view('terms');
     }
@@ -41,19 +44,21 @@ class IndexController
         return view('contact');
     }
 
-     // about
+    // about
     public function about()
     {
         return view('about');
     }
 
-     // blog
+    // blog
     public function blogs()
     {
-        return view('blogs');
+
+        $query = Select::formAndMatchQuery(selection: 'SELECT_ALL', table: 'blogs');
+        $blogs = Select::selectFn2(query: $query);
+ 
+        // get all the blogs from database
+
+        return view('blogs', compact('blogs'));
     }
-
-  
-
 }
-   

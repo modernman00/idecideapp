@@ -8,7 +8,7 @@ export const renderInfluences =(data)=> {
     if (item.impact >= 70) {
       emoji = '🔥';       // High impact
       levelClass = 'influence-high';
-    } else if (item.impact >= 40) {
+    } else if (item.impact >= 50) {
       emoji = '🌤️';       // Medium impact
       levelClass = 'influence-medium';
     } else {

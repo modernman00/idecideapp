@@ -13,7 +13,8 @@
     },
     "files": [
       "app/function/helper.php",
-      "app/function/laravelHelper.php"
+      "app/function/laravelHelper.php",
+      "app/function/date.php"
     ]
   },
   "repositories": [
@@ -28,7 +29,13 @@
     "altorouter/altorouter": "^1.2",
     "vlucas/phpdotenv": "^5.5",
     "eftec/bladeone": "^4.18",
-    "waleolaogun/shared-lib": "^1.5.8"
+    "waleolaogun/shared-lib": "^1.5.8",
+    "filp/whoops": "^2.18",
+     "cloudmersive/cloudmersive_virusscan_api_client": "^3.1",
+    "spatie/image-optimizer": "^1.6",
+    "intervention/image": "^3.11",
+    "maestroerror/php-heic-to-jpg": "^1.0",
+    "phpmailer/phpmailer": "^6.5"
   },
   "config": {
     "optimize-autoloader": true,
