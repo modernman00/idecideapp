@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\classes\{
-    Select,
     Update,
     Delete
 };
@@ -102,7 +101,7 @@ class BlogController extends Select
                 throw new NotFoundException('No files uploaded', 500);
             }
 
-            // CheckToken::tokenCheck();
+            CheckToken::tokenCheck();
 
             $getProcessedFileName = FileUploader::fileUploadSingle('public/images/blog/', 'blogImg', $_ENV['FILE_UPLOAD_CLOUDMERSIVE']);
 

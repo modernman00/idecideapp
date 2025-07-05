@@ -12,12 +12,10 @@ include __DIR__ . "/app/config/init.php";
 
 require __DIR__ . "/app/routing/router.php";
 
+$appUrl = $_ENV['APP_URL'];
+
 
 $getDispatcher = new dispatcher;
 $getDispatcher->dispatch($router);
 
 // Add this temporarily to your index.php
-
-
-
-?>

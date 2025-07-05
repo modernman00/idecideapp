@@ -2,7 +2,9 @@
 @section('title', 'Decision Matrix')
 @section('content')
 
-    <style>
+@push('styles_result')
+
+   <style>
         :root {
             --primary-color: #0d6efd;
             --secondary-color: #6c757d;
@@ -420,6 +422,12 @@
             transition: width 0.6s ease;
         }
     </style>
+
+
+
+@endpush
+
+ 
 
 
     <div class="bg-light d-flex align-items-center justify-content-center min-vh-100">

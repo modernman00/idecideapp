@@ -1,56 +1,50 @@
 const mix = require("laravel-mix");
 
+// Custom devtool based on environment
+const devtool = mix.inProduction() 
+  ? 'source-map'         // Production (full source maps)
+  : 'cheap-module-source-map'; // Development (CSP-friendly)
+
 mix
-  .setPublicPath("public") // Directory where compiled assets are stored
+  .setPublicPath("public")
   .webpackConfig({
-    output: {
-      publicPath: "/public/", // Explicitly include 'public' in the URL
-    },
-   
+    output: { publicPath: "/public/" },
+    devtool, // <-- Add this line to configure sourcemap type
+    optimization: {
+      splitChunks: {
+        chunks: "async",
+        minSize: 20000,
+        minChunks: 1,
+        maxAsyncRequests: 30,
+        maxInitialRequests: 30,
+        enforceSizeThreshold: 50000,
+        cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+        },
+      },
+    }
   })
   .js("resources/assets/js/index.js", "js")
   .sass("resources/assets/sass/main.scss", "css")
   .extract()
-  .sourceMaps() // Keep source maps but let devtool define the type
-  .options({
-    legacyNodePolyfills: true,
-  });
+  .options({ legacyNodePolyfills: true });
 
-// If you want to enable versioning (for cache busting)
-// uncomment the line below
-mix.version();
-
-// You can copy files or directories
-// mix.copy('resources/img', 'public/img');
-
-// For production environments
+// Enable versioning in production
 if (mix.inProduction()) {
   mix.version();
 }
 
-mix.webpackConfig({
-  optimization: {
-    splitChunks: {
-      chunks: "async",
-      minSize: 20000,
-      minChunks: 1,
-      maxAsyncRequests: 30,
-      maxInitialRequests: 30,
-      enforceSizeThreshold: 50000,
-      cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
-    },
-  },
-});
+if (process.env.MIX_SOURCEMAPS !== 'false') {
+  mix.webpackConfig({ devtool });
+}
 
 mix.babelConfig({
   plugins: ["@babel/plugin-syntax-dynamic-import"],

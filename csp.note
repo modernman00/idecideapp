@@ -1,0 +1,75 @@
+Based on your CSP violation reports, your current policy is blocking several legitimate resources. Here's how to fix it:
+
+### 🔧 Required CSP Directive Updates
+```php
+$directives = [
+    "default-src 'self'",
+    // Scripts
+    "script-src 'self' 'nonce-$nonce' 'strict-dynamic' https:",
+    "script-src-elem 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://platform.sharethis.com https://buttons-config.sharethis.com",
+    
+    // Styles
+    "style-src 'self' 'nonce-$nonce' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com",
+    "style-src-elem 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com",
+    
+    // Fonts
+    "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com",
+    
+    // Images
+    "img-src 'self' data: https://*.sharethis.com https://www.google-analytics.com",
+    
+    // Connections
+    "connect-src 'self' https://data.stbuttons.click https://l.sharethis.com https://www.google-analytics.com",
+    
+    // Frames
+    "frame-src 'self' https://platform.sharethis.com",
+    
+    // Reporting
+    "report-uri " . ($cspOptions['report_uri'] ?? '/csp-report-log'),
+    "report-to csp-endpoint"
+];
+```
+
+### 🚨 Critical Fixes for Your Violations:
+1. **Font Awesome Issues**:
+   ```php
+   "font-src 'self' https://cdnjs.cloudflare.com"
+   ```
+
+2. **Bootstrap/CDN Issues**:
+   ```php
+   "style-src-elem 'self' https://cdn.jsdelivr.net",
+   "script-src-elem 'self' https://cdn.jsdelivr.net"
+   ```
+
+3. **Inline Style Issues**:
+   ```php
+   "style-src 'self' 'unsafe-inline'" // Temporary - try to remove later
+   ```
+
+4. **eval() Violations**:
+   - Either add `'unsafe-eval'` (not recommended) or refactor your `index.js` to avoid `eval()`
+
+### 🛠 Implementation Notes:
+1. **For production**, set up the `report-to` endpoint:
+   ```php
+   header('Report-To: {"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"https://yourdomain.com/csp-reports"}],"include_subdomains":true}');
+   ```
+
+2. **For development**, keep using `report-uri` as you have it.
+
+3. **Nonce usage** remains critical for your inline scripts/styles.
+
+### 🔍 Why This Works:
+- Explicitly allows all CDN domains you're using (jsDelivr, cdnjs, ShareThis)
+- Handles both `src-elem` and default directives
+- Maintains security while unblocking required resources
+
+### ⚠️ Next Steps:
+1. Test thoroughly in Report-Only mode
+2. Gradually tighten rules by:
+   - Removing `unsafe-inline` once you've nonced all inline scripts
+   - Removing `unsafe-eval` by refactoring code
+3. Monitor your reporting endpoint
+
+Would you like me to provide specific fixes for your `index.js` eval violations? I can help refactor those if you share the relevant code sections.

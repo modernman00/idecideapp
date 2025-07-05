@@ -42,8 +42,10 @@ $router->map('POST', '/showEditBlog/{id}', 'App\controller\BlogController@edit')
 // Delete a blog post
 $router->map('POST', 'deleteBlog/{id}', 'App\controller\BlogController@delete');
 
+// Content Security Policy Report
+$router->map('POST', '/csp-report-log', 'App\controller\ProcessCSReportController@handle', 'csp-report-log');
 
-
+$router->map('GET', '/csp', 'App\controller\ProcessCSReportController@show', 'csp');
 
 
 
