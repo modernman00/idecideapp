@@ -14,7 +14,7 @@
         }
     </style>
     <div class="container py-5">
-        <h1 class="mb-4 text-center">Privacy Policy</h1>
+        <h1 class="mb-4 text-center" style="color: var(--primary-color);">Privacy Policy</h1>
 
         <div class="accordion" id="policyAccordion">
 

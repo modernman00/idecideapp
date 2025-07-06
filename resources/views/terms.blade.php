@@ -71,7 +71,7 @@
         ];
     @endphp
     <div class="container py-5">
-       <h1 class="mb-4 text-center">Terms Of Use</h1>
+       <h1 class="mb-4 text-center" style="color: var(--primary-color);">Terms Of Use</h1>
         <div class="accordion" id="termsAccordion">
 
             <div class="accordion-item">

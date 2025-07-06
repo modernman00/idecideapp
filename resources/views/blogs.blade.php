@@ -43,7 +43,7 @@
     </style>
 
     <div class="container my-5">
-        <h1 class="text-center mb-4">iDecide Blog</h1>
+        <h1 class="text-center mb-4" style="color: var(--primary-color);">iDecide Blog</h1>
 
         <!-- Image Upload Form -->
         <div class="row">

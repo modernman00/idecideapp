@@ -434,7 +434,7 @@
 
         <div class="container">
 
-            <h1 class="text-center mb-4">Decision Matrix Result</h1>
+            <h1 class="text-center mb-4" style="color: var(--primary-color);">Decision Matrix Result</h1>
             <div class="card shadow">
                 <div class="card-body">
                     <h5 class="card-title">Your Decision Matrix Result</h5>
