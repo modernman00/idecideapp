@@ -48,28 +48,48 @@
 
     "screenshots": [
     {
-      "src": "images/logo/cover.png",
-      "sizes": "720x1280",
-      "type": "image/png"
+      "src": "images/pwa/screenshots/result.png",
+    "type": "image/png",
+    "sizes": "1280x800",
+    "form_factor": "wide",
+    "label": "Result Page Overview"
     },
     {
-      "src": "images/logo/cover.png",
-      "sizes": "720x1280",
-      "type": "image/jpeg"
+      "src": "images/pwa/screenshots/home.png",
+         "sizes": "1280x800",
+      "type": "image/png" , 
+       "form_factor": "wide",
+    "label": "Home Page Overview"
+    },
+
+
+    {
+      "src": "images/pwa/screenshots/result_mobile.png",
+    "type": "image/png",
+    "sizes": "414x896",
+    "form_factor": "narrow",
+    "label": "Result Page Overview"
+    },
+    {
+      "src": "images/pwa/screenshots/home_mobile.png",
+         "sizes": "414x896",
+      "type": "image/png" , 
+       "form_factor": "narrow",
+    "label": "Home Page Overview"
     }
     ],
       "shortcuts": [
     {
       "name": "Make a new decision",
       "url": "/",
-      "icons": [{ "src": "images/money.jpg", "sizes": "192x192" }]
+      "icons": [{ "src": "images/pwa/make_decision/ios/192.png", "sizes": "192x192" }]
     },
     {
       "name": "View results",
       "url": "/result",
-      "icons": [{ "src": "images/BUY_DECISION.jpg", "sizes": "192x192" }]
+      "icons": [{ "src": "images/pwa/result/ios/192.png", "sizes": "192x192" }]
     }
-  ],
+  ],  
 
   "author": "Modernman00",
   "license": "MIT",
