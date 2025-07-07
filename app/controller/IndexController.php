@@ -2,16 +2,15 @@
 
 namespace App\controller;
 
-use App\classes\CheckToken;
 use Src\Select;
 
 
-class IndexController
+class IndexController extends BaseController
 {
 
     public function main()
     {
-        return view('main');
+        BaseController::viewWithCsp('main');
     }
 
     public function result()
@@ -23,31 +22,31 @@ class IndexController
             exit;
         }
 
-        return view('result');
+        BaseController::viewWithCsp('result');
     }
 
     // terms
 
     public function terms()
     {
-        return view('terms');
+        BaseController::viewWithCsp('terms');
     }
 
     public function privacy()
     {
-        return view('privacy');
+        BaseController::viewWithCsp('privacy');
     }
 
     // contact 
     public function contact()
     {
-        return view('contact');
+        BaseController::viewWithCsp('contact');
     }
 
     // about
     public function about()
     {
-        return view('about');
+        BaseController::viewWithCsp('about');
     }
 
     // blog
@@ -56,9 +55,9 @@ class IndexController
 
         $query = Select::formAndMatchQuery(selection: 'SELECT_ALL', table: 'blogs');
         $blogs = Select::selectFn2(query: $query);
- 
+
         // get all the blogs from database
 
-        return view('blogs', compact('blogs'));
+        BaseController::viewWithCsp('blogs', compact('blogs'));
     }
 }

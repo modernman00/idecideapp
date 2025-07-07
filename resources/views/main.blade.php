@@ -203,7 +203,7 @@
 
 </form>
 
-<script>
+<script nonce="{{ $nonce }}">
   document.getElementById('button').classList.add('btn-lg', 'btn-block');
 </script>
 

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <style>
+    <style nonce="{{ $nonce }}">
         .accordion-button {
             font-size: 1rem;
             padding: 1rem;
@@ -13,6 +13,9 @@
         .accordion-body {
             font-size: 0.95rem;
             line-height: 1.6;
+        }
+        .terms-title{
+            color: var(--primary-color);
         }
     </style>
 
@@ -71,7 +74,7 @@
         ];
     @endphp
     <div class="container py-5">
-       <h1 class="mb-4 text-center" style="color: var(--primary-color);">Terms Of Use</h1>
+       <h1 class="mb-4 text-center terms-title" nonce="{{ $nonce }}">Terms Of Use</h1>
         <div class="accordion" id="termsAccordion">
 
             <div class="accordion-item">

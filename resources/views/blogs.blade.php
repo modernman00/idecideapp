@@ -5,7 +5,7 @@
 @section('content')
 
 
-    <style>
+    <style nonce="{{ $nonce }}">
         .custom-card {
             position: relative;
             overflow: hidden;
@@ -40,10 +40,13 @@
             transition: all 0.2s ease-in-out;
             font-weight: 600;
         }
+             .title{
+            color: var(--primary-color);
+        }
     </style>
 
     <div class="container my-5">
-        <h1 class="text-center mb-4" style="color: var(--primary-color);">iDecide Blog</h1>
+        <h1 class="text-center mb-4 title">iDecide Blog</h1>
 
         <!-- Image Upload Form -->
         <div class="row">
@@ -95,11 +98,11 @@
     </div>
 
     @push('scripts_sharethis')
-        <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6869340ddc404f0019fb1253&product=sop' async='async'></script>
+        <script nonce="{{ $nonce }}" type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6869340ddc404f0019fb1253&product=sop' async='async'></script>
     @endpush
 
 
-    <script>
+    <script nonce="{{ $nonce }}">
         document.querySelectorAll('.copy-link').forEach(button => {
             button.addEventListener('click', function() {
                 const url = this.getAttribute('data-url');

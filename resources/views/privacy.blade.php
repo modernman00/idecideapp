@@ -2,7 +2,7 @@
 @section('title', 'Terms & Privacy')
 
 @section('content')
-    <style>
+    <style nonce="{{ $nonce }}">
         .accordion-button {
             font-size: 1rem;
             padding: 1rem;
@@ -12,9 +12,12 @@
             font-size: 0.95rem;
             line-height: 1.6;
         }
+             .title{
+            color: var(--primary-color);
+        }
     </style>
     <div class="container py-5">
-        <h1 class="mb-4 text-center" style="color: var(--primary-color);">Privacy Policy</h1>
+        <h1 class="mb-4 text-center title">Privacy Policy</h1>
 
         <div class="accordion" id="policyAccordion">
 

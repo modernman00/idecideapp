@@ -17,6 +17,8 @@ use Src\CheckToken;
 use Src\FileUploader;
 use Src\Select;
 
+use App\controller\BaseController;
+
 
 
 class BlogController extends Select
@@ -31,7 +33,7 @@ class BlogController extends Select
     {
         try {
 
-            view('create_blog');
+            BaseController::viewWithCsp('create_blog');
         } catch (\Throwable $e) {
             showError($e);
         }
@@ -50,7 +52,7 @@ class BlogController extends Select
         $blog = self::selectFn2($query, [$id])[0] ?? null;
 
           
-        return view('blog-show', compact('blog'));
+        BaseController::viewWithCsp('blog-show', compact('blog'));
     }
 
     /**
@@ -147,7 +149,7 @@ class BlogController extends Select
 
             $formAction = "/blog/edit/{$id}";
             $data = $blogData[0];
-            return view(self::VIEW_PATH . '.edit', compact('formAction', 'data'));
+            BaseController::viewWithCsp(self::VIEW_PATH . '.edit', compact('formAction', 'data'));
         } catch (\Throwable $e) {
             showError($e);
         }

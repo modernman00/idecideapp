@@ -3,7 +3,7 @@
 @section('title', 'Decision Matrix')
 
 @section('content')
-    <style>
+    <style nonce="{{ $nonce }}">
         .container { max-width: 800px; margin: 2rem auto; }
         .error { color: red; display: none; margin-top: 0.5rem; font-size: 0.875rem; }
     </style>

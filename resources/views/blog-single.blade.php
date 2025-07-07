@@ -26,7 +26,7 @@
 </div>
 
 @push('scripts_sharethis')
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6869340ddc404f0019fb1253&product=sop' async='async'></script>
+<script nonce="{{ $nonce }}" type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6869340ddc404f0019fb1253&product=sop' async='async'></script>
 @endpush
 
 @endsection

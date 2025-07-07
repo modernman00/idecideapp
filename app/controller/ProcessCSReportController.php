@@ -3,10 +3,9 @@
 namespace App\controller;
 
 use App\Classes\ProcessCSReport;
-use Illuminate\Support\Collection;
 
 
-class ProcessCSReportController
+class ProcessCSReportController extends BaseController
 {
   public function handle()
   {
@@ -25,6 +24,6 @@ class ProcessCSReportController
       exit;
     }
     $logs = file_get_contents($logFile);
-    return view('csp-report', ['logs' =>  $logs]);
+    BaseController::viewWithCsp('csp-report', ['logs' =>  $logs]);
   }
 }

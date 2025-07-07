@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Error Occurred</title>
-    <style>
+    <style nonce="{{ $nonce }}">
         .error-container {
             max-width: 800px;
             margin: 2rem auto;

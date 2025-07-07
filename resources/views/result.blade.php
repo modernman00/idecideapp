@@ -4,7 +4,7 @@
 
 @push('styles_result')
 
-   <style>
+   <style nonce="{{ $nonce }}">
         :root {
             --primary-color: #0d6efd;
             --secondary-color: #6c757d;
@@ -421,6 +421,9 @@
         .influence-fill {
             transition: width 0.6s ease;
         }
+           .title{
+            color: var(--primary-color);
+        }
     </style>
 
 
@@ -434,7 +437,7 @@
 
         <div class="container">
 
-            <h1 class="text-center mb-4" style="color: var(--primary-color);">Decision Matrix Result</h1>
+            <h1 class="text-center mb-4 title">Decision Matrix Result</h1>
             <div class="card shadow">
                 <div class="card-body">
                     <h5 class="card-title">Your Decision Matrix Result</h5>

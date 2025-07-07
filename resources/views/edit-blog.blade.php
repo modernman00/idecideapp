@@ -28,8 +28,8 @@
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
+    <script nonce="{{ $nonce }}" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script nonce="{{ $nonce }}">
         document.getElementById('editPostForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;

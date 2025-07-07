@@ -54,9 +54,10 @@ function view(string $viewFile, array $data = [], array $cspOptions = [])
             // Build dynamic CSP header
             $directives = [
                 "default-src 'self'",
-                // Scripts
+                // Scripts: Allow scripts with nonce and HTTPS sources, strict-dynamic allows dynamic loading
                 "script-src 'self' 'nonce-$nonce' 'strict-dynamic' https:",
-                "script-src-elem 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://platform.sharethis.com https://buttons-config.sharethis.com",
+
+                "script-src-elem 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://platform.sharethis.com https://buttons-config.sharethis.com https://count-server.sharethis.com ",
 
                 // Styles
                 "style-src 'self' 'nonce-$nonce' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com",
@@ -101,7 +102,6 @@ function view(string $viewFile, array $data = [], array $cspOptions = [])
         // 3. Normalize and verify view path
         $viewFile = str_replace(['.', '/'], DIRECTORY_SEPARATOR, $viewFile);
         $data['nonce'] = $nonce;
-
         // 4. Render with debug
         echo $blade->run($viewFile, $data);
     } catch (Exception $e) {

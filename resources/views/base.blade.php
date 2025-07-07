@@ -55,7 +55,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script nonce="{{ $nonce }}" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     {{-- PWA MANIFEST --}}
 
@@ -74,7 +74,7 @@
 
     @stack('styles_result')
 
-    <style>
+    <style nonce="{{ $nonce }}">
         /* make the hero image responsive */
         body {
             background-color: var(--background-light);
@@ -378,8 +378,6 @@
         </div>
     </header> --}}
 
-
-
     @yield('content')
 
 
@@ -406,14 +404,14 @@
     {{-- Scripts pushed from pages --}}
     @stack('scripts_sharethis')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    <script nonce="{{ $nonce }}" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
     </script>
-    <script src="public/js/index.js"></script>
-    <script src="public/js/manifest.js"></script>
-    <script src="public/js/vendor.js"></script>
+    <script nonce="{{ $nonce }}" src="public/js/index.js"></script>
+    <script nonce="{{ $nonce }}" src="public/js/manifest.js"></script>
+    <script nonce="{{ $nonce }}" src="public/js/vendor.js"></script>
 
-    <script>
+    <script nonce="{{ $nonce }}">
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js', {
