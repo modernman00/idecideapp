@@ -5,13 +5,9 @@ import { triggerConfetti } from "./include/result/confetti.js"
 import { renderInfluences } from "./include/result/influences.js";
 
 try {
-  log("Session storage data:", sessionStorage.getItem("scoreData"));
+ 
   // 1. Safely retrieve and parse sessionStorage data
   const savedScoreData = JSON.parse(sessionStorage.getItem("scoreData")) || {};
-
-  log("Saved score data:", savedScoreData);
-
-
 
   if (!savedScoreData || Object.keys(savedScoreData).length === 0) {
     throw new Error("No score data found in session storage");

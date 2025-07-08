@@ -238,10 +238,11 @@ class CalculateResultController
             ];
 
             // create a session to that will initiate result page
-            $_SESSION['QUESTION_PROCESS'] = true;
+            $_SESSION['QUESTION_PROCESS'] = "ENABLED";
 
 
             Utility::msgSuccess(200, $scoreData);
+
         } catch (\Throwable $e) {
             Utility::showError($e);
         }

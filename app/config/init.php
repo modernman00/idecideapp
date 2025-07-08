@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
+
 namespace App\config;
 
 // Session handling with improved conditions
-if (session_status() === PHP_SESSION_NONE) {
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start([
-        'cookie_httponly' => true,
-        'cookie_secure' => true,
-        'use_strict_mode' => true
+    'cookie_httponly' => true,  // Blocks JavaScript access
+        'cookie_secure' => true,  // Only enable if using HTTPS!
+        // 'use_strict_mode' => true  // Prevents session fixation attacks
     ]);
 }
 

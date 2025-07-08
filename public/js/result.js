@@ -333,10 +333,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 try {
-  (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.log)("Session storage data:", sessionStorage.getItem("scoreData"));
   // 1. Safely retrieve and parse sessionStorage data
   var savedScoreData = JSON.parse(sessionStorage.getItem("scoreData")) || {};
-  (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.log)("Saved score data:", savedScoreData);
   if (!savedScoreData || Object.keys(savedScoreData).length === 0) {
     throw new Error("No score data found in session storage");
   }

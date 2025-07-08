@@ -88,8 +88,10 @@ initBtn.addEventListener("click", async () => {
 
       sessionStorage.setItem("scoreData", JSON.stringify(scoreData));
 
-      // Optional redirect (uncomment when ready)
-      window.location.href = "result";
+      // Wait briefly to ensure PHP processes the session
+      setTimeout(() => {
+        window.location.href = "result";
+      }, 100); // Small delay to allow session to be set
     } else {
       const syncBadge = id("syncStatus");
       alert("You're offline. Your decision has been saved and will be sent when you're back online.");

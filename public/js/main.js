@@ -548,8 +548,10 @@ initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
       case 5:
         sessionStorage.setItem("scoreData", JSON.stringify(scoreData));
 
-        // Optional redirect (uncomment when ready)
-        window.location.href = "result";
+        // Wait briefly to ensure PHP processes the session
+        setTimeout(function () {
+          window.location.href = "result";
+        }, 100); // Small delay to allow session to be set
         _context.n = 8;
         break;
       case 6:

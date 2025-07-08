@@ -2,7 +2,8 @@
 
 namespace App\controller;
 
-use Src\Select;
+use Illuminate\Container\Util;
+use Src\{Utility, Select};
 
 
 class IndexController extends BaseController
@@ -10,17 +11,23 @@ class IndexController extends BaseController
 
     public function main()
     {
-        BaseController::viewWithCsp('main');
+        try {
+            
+            BaseController::viewWithCsp('main');
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+      
     }
 
     public function result()
     {
-        // only show result if the session is set
-        if (($_SESSION['QUESTION_PROCESS']) == false) {
-            // redirect to main page if session is not set
-            header('Location: /');
-            exit;
-        }
+  
+
+    if ($_SESSION['QUESTION_PROCESS'] !== "ENABLED") {
+        header('Location: /');
+        exit;
+    }
 
         BaseController::viewWithCsp('result');
     }
