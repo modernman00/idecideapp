@@ -331,6 +331,125 @@
                 margin: 0.25rem 0;
             }
         }
+
+
+    .form__login__logo {
+      height: 4.5em;
+      /* 1em = 16px, 4.5em = 72px */
+      width: 4.5em;
+      /* 1em = 16px, 4.5em = 72px */
+      margin-bottom: 5rem;
+      margin-left: 43%
+    }
+
+      @media screen and (min-width: 576px)and (max-width: 767px) {
+      .styleform_form {
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+
+      .form__login__logo {
+        height: 3.5em;
+        /* 1em = 16px, 4.5em = 72px */
+        width: 3.5em;
+        /* 1em = 16px, 4.5em = 72px */
+      }
+    }
+
+     /* // Medium devices (tablets, 768px and up) */
+    @media screen and (min-width: 768px) {
+      .form__login__logo {
+        height: 4.5em;
+        /* 1em = 16px, 3em = 48px */
+        width: 4.5em;
+        /* 1em = 16px, 3em = 48px */
+      }
+
+      .styleform_form {
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+    }
+
+      /* Large devices (desktops, 992px and up) */
+
+    @media screen and (min-width: 992px) {
+
+      .styleform_form {
+        margin-left: 15%;
+        margin-right: 15%;
+      }
+    }
+    /* X-Large devices (large desktops, 1200px and up) */
+    @media screen and (min-width: 1200px) {
+      .styleform_form {
+        margin-left: 30%;
+        margin-right: 30%;
+      }
+
+    }
+
+    /* XX-Large devices (larger desktops, 1400px and up) */
+    @media screen and (min-width: 1400px) {
+      .styleform_form {
+        margin-left: 30%;
+        margin-right: 30%;
+      }
+
+    }
+
+       .styleform_header {
+      text-align: center;
+    }
+
+      .loader {
+
+      border: 16px solid #11e11b79;
+      border-radius: 50%;
+      border-top: 16px solid #2092ddf3;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite;
+      /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }   
+
+    .notification {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .notification.success {
+      background-color: #28a745;
+    }
+
+    .notification.error {
+      background-color: #dc3545;
+    }
+
+       .styleform_header {
+      text-align: center;
+    }
+    .noDisplay {
+      display: none;
+    }
+
+
     </style>
 </head>
 

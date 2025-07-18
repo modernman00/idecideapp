@@ -347,7 +347,7 @@ try {
   var badgeText = savedScoreData.badgeText || "";
   var badgeClass = savedScoreData.badgeClass || "";
   var itemToBuy = savedScoreData.itemToBuy || "item";
-  var personalisedAdvice = savedScoreData.advices || "No personalized advice available";
+  var personalisedAdvice = savedScoreData.advice || "No personalized advice available";
   var itemImage = savedScoreData.resultImage || "default-image.png";
 
   // Define the decision triggers for confetti

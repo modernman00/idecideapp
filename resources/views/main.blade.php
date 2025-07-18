@@ -67,17 +67,17 @@
                      '',
                     [
                       5 => 'Less than 5% of my budget',
-                      3 => '5–10% of my budget',
-                      2 => '10 - 20% of my budget',
+                      4 => '5–10% of my budget',
+                      3 => '10–15% of my budget',
+                      2 => '15–20% of my budget',
                       1 => 'Over 20% of my budget'
                     ],
                     [
-                        5 => 'I will be over the moon',
-                        5 => 'I will be happy and satisfied',
+                        5 => 'Happy and satisfied',
+                        4 => 'Over the moon',
                         3 => 'Satisfied but not thrilled',
                         2 => 'Mixed feelings',
-                        1 => 'Not sure till I get it',
-                        1 => 'No difference to how I feel',
+                        1 => 'No difference or Not sure',
                     ],
                  ]
                  
@@ -102,7 +102,7 @@
                   ],
              'options' => [
                  [
-                  2=>'Just now', 
+                  1=>'Just now', 
                   2=>'One month', 
                   3=>'Two Months', 
                   4=>'Over Three Months ', 
@@ -111,16 +111,16 @@
                
                  [
                   5=>'Yes - Necessity. I really need it', 
-                  4=>'I love and want it', 
-                  3=>'It is just something nice to have', 
+                  3=>'I love and want it', 
+                  2=>'It is just something nice to have', 
                   1=>'I just feel like spending to spoil myself'
 
                  ],
                   [
-                      5=>'Yes, but this seems as the best options', 
+                      5=>'Yes, this is the best option after review', 
                       3=>'No, perhaps I should', 
-                      2=>'No, I don\'t need to look at other options.',
-                      1=> 'No'
+                      2=>'No, I don\'t need to.',
+                      1=> 'No and I don\'t care'
                      ]
                 
 
@@ -146,26 +146,26 @@
                  'options' => [
                     
                       [
-                  5=>'Gift or prize money',
-                  5=>'Salary, savings, bonus or commission',
+         
+                  5=>'Salary, Savings, Bonus, Gift',
                   2=>'Credit card',
-                  2=>'Borrowing from family or friends',
-                  3=>'Bank loan, or other loan',
-                  1=>'I don\'t know yet',
+                  3=>'Borrowing from family or friends',
+                  4=>'Bank loan, or other loan',
+                  1=>'Unknown',
 
                  ],
                      [
                       5=>'Yes!', 
-                      3=>'Yes, but I may need to cut my expenses', 
-                      2=>'I can afford it, but it will stretch my finances',
-                      1=>'No, I can\'t afford it, but I will buy it anyway',
-                      1=>'No'
+                      4=>'Yes, but may cut expenses', 
+                      3=>'Yes but stretching',
+                      2=>'No',
+                      1=>'No but I\'ll buy it anyway'
                      ],
                      [
-                      5=>'No, I have no concerns', 
-                      3=>'Yes, I have some concerns but I can manage', 
-                      1=> 'Yes, I have significant concerns',
-                      1=>'I have serious concerns about my debt level and expenses'
+                      5=>'No concerns', 
+                      3=>'Some concerns but I can manage', 
+                      2=> 'Significant concerns',
+                      1=>'Serious/crippling concerns'
 
                      ]
                  ]

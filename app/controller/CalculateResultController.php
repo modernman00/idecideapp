@@ -118,12 +118,12 @@ class CalculateResultController
             // Advice configuration
             $adviceConfig = [
                 'cost' => [
-                    'high' => fn($item) => "Great job ensuring the $item fits comfortably within your budget! Keep prioritising affordable purchases.",
+                    'high' => fn($item) => "Great, the $item seems manageable within your budget.",
                     'low' => fn($item) => "The $item may strain your budget. Consider cheaper alternatives or saving up to reduce financial pressure."
                 ],
                 'buyingFeeling' => [
-                    'high' => fn($item) => "This $item could bring you joy, and that’s wonderful! Just make sure it fits comfortably with your financial plans—so you can enjoy it without any worries. You’ve got this!",
-                    'low' => fn($item) => "If the $item doesn’t excite you, reflect on whether it’s worth the cost or if another option might be more fulfilling."
+                    'high' => fn($item) => "This $item could bring you joy, and that’s wonderful! Just make sure it fits comfortably with your financial plans—so you can enjoy it without any worries.",
+                    'low' => fn($item) => "If the $item doesn’t seem exciting, reflect on whether it’s worth the cost or if another option might be more fulfilling."
                 ],
                 'notImpulsive' => [
                     'high' => fn($item) => "You’ve thought about the $item for a while, which shows great decision-making. Keep planning carefully.",
@@ -147,7 +147,7 @@ class CalculateResultController
                 ],
                 'concerns' => [
                     'high' => fn($item) => "With no financial concerns, you’re in a strong position to buy the $item. Stay mindful of future expenses.",
-                    'low' => fn($item) => "Your financial concerns suggest caution with the $item. Address debt or job stability before buying."
+                    'low' => fn($item) => "Your financial concerns suggest caution with the $item. Don’t dismiss these. They matter. Address debt or job stability before buying."
                 ]
             ];
 

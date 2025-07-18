@@ -10,7 +10,7 @@ namespace App\config;
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start([
     'cookie_httponly' => true,  // Blocks JavaScript access
-        'cookie_secure' => true,  // Only enable if using HTTPS!
+        'cookie_secure' => false,  // Only enable if using HTTPS!
         // 'use_strict_mode' => true  // Prevents session fixation attacks
     ]);
 }

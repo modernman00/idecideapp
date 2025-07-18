@@ -47,5 +47,44 @@ $router->map('POST', '/csp-report-log', 'App\controller\ProcessCSReportControlle
 
 $router->map('GET', '/csp', 'App\controller\ProcessCSReportController@show', 'csp');
 
+// managed page / login page 
+
+$router->map('GET', '/managed', 'App\controller\LoginController@show', 'managed');
+
+$router->map('POST', '/managed', 'App\controller\LoginController@login', 'managed_post');
+
+$router->map('GET', '/logout', 'App\controller\LoginController@logout', 'logout');
+
+$router->map('GET', '/forgot', 'App\controller\ForgotController@show', 'forgot');
+
+$router->map('POST', '/forgot', 'App\controller\ForgotController@post', 'forgot_post');
+
+// password change 
+$router->map('GET', '/passwordChange', 'App\controller\PasswordChangeController@show', 'passwordChange');
+
+$router->map('POST', '/passwordChange', 'App\controller\PasswordChangeController@post', 'passwordChange_post');
+
+
+// GET ALLL BLOG IN A BLOG TABLE 
+
+$router->map(
+  'GET', 
+  '/blogMgt', 
+  'App\controller\BlogController@blogMgt', 
+  'blogMgt'
+);
+
+// edit blog post
+$router->map('GET', '/editBlog/[i:id]', 'App\controller\BlogController@showEditForm', 'editBlog');
+
+// update blog post
+$router->map('POST', '/editBlog/[i:id]', 'App\controller\BlogController@edit', 'editBlog_post');
+
+// delete blog post
+$router->map('GET', '/deleteBlog/[i:id]', 'App\controller\BlogController@delete', 'deleteBlog');
+
+
+
+
 
 

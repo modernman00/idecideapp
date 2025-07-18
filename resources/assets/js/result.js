@@ -21,7 +21,7 @@ try {
   const badgeText = savedScoreData.badgeText || "";
   const badgeClass = savedScoreData.badgeClass || "";
   const itemToBuy = savedScoreData.itemToBuy || "item";
-  const personalisedAdvice = savedScoreData.advices || "No personalized advice available";
+  const personalisedAdvice = savedScoreData.advice || "No personalized advice available";
   const itemImage = savedScoreData.resultImage || "default-image.png";
 
   // Define the decision triggers for confetti

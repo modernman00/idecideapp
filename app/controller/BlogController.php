@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\classes\{
-    Update,
-    Delete
-};
 use Src\SubmitForm;
 use Src\Exceptions\NotFoundException;
 use Src\Exceptions\UnauthorisedException;
@@ -16,6 +12,8 @@ use Src\Sanitise\CheckSanitise;
 use Src\CheckToken;
 use Src\FileUploader;
 use Src\Select;
+use Src\Update;
+use Src\Delete;
 
 use App\controller\BaseController;
 
@@ -126,9 +124,11 @@ class BlogController extends Select
      * @param int $id Blog post ID
 
      */
-    public function showEditForm(int $id)
+    public function showEditForm($id)
     {
         try {
+
+            $id = $id['id'];
             // Fetch blog post data
             $query = $this->formAndMatchQuery(
                 selection: 'SELECT_ONE',
@@ -141,15 +141,15 @@ class BlogController extends Select
                 msgException(404, "Blog post not found");
             }
 
-            // Ensure the user is authorized to edit
-            $authorId = $_SESSION['ID'] ?? null;
-            if ($blogData[0]['author_id'] !== $authorId) {
-                msgException(403, "You are not authorized to edit this blog post");
-            }
+            // // Ensure the user is authorized to edit
+            // $authorId = $_SESSION['ID'] ?? null;
+            // if ($blogData[0]['author_id'] !== $authorId) {
+            //     msgException(403, "You are not authorized to edit this blog post");
+            // }
 
             $formAction = "/blog/edit/{$id}";
             $data = $blogData[0];
-            BaseController::viewWithCsp(self::VIEW_PATH . '.edit', compact('formAction', 'data'));
+            BaseController::viewWithCsp('blogEdit', compact('formAction', 'data'));
         } catch (\Throwable $e) {
             showError($e);
         }
@@ -160,7 +160,7 @@ class BlogController extends Select
      * @param int $id Blog post ID
      * @return void
      */
-    public function edit(int $id): void
+    public function edit($id): void
     {
         header("Access-Control-Allow-Origin: " . getenv("APP_URL"));
         header("Content-Type: application/json; charset=UTF-8");
@@ -170,6 +170,7 @@ class BlogController extends Select
 
         try {
             // Define min and max limits for input data
+            $id = $id['id'];
             $minMaxData = [
                 'data' => ['title', 'content'],
                 'min' => [5, 10],
@@ -177,12 +178,12 @@ class BlogController extends Select
             ];
 
             // Sanitize input data
-            $sanitisedData = getSanitisedInputData($_POST, $minMaxData);
+            $sanitisedData = CheckSanitise::getSanitisedInputData($_POST, $minMaxData);
 
             // Ensure user is logged in
             $authorId = $_SESSION['ID'] ?? null;
             if (!$authorId) {
-                msgException(401, "You must be logged in to edit a blog post");
+                Utility::msgException(401, "You must be logged in to edit a blog post");
             }
 
             // Verify the blog post exists and belongs to the user
@@ -194,12 +195,12 @@ class BlogController extends Select
             $blogData = $this->selectFn2($query, [$id]);
 
             if (empty($blogData)) {
-                msgException(404, "Blog post not found");
+                throw new NotFoundException('Blog post not found');
             }
 
-            if ($blogData[0]['author_id'] !== $authorId) {
-                msgException(403, "You are not authorized to edit this blog post");
-            }
+            // if ($blogData[0]['author_id'] !== $authorId) {
+            //     msgException(403, "You are not authorized to edit this blog post");
+            // }
 
             // Prepare data for update
             $data = [
@@ -211,18 +212,17 @@ class BlogController extends Select
 
             // Update the blog next
             $update = new Update(self::BLOG_TABLE);
-            $result = $update->updateMultiplePOST($data, self::BLOG_TABLE, 'id');
+            $result = $update->updateMultiplePOST($data, 'id');
 
             if ($result) {
-                msgSuccess(200, [
-                    'outcome' => "Blog post updated successfully",
-                    'blog_id' => $id
-                ]);
+                Utility::msgSuccess(200, "Blog post updated successfully");
             } else {
-                msgException(500, "Failed to update blog post");
+                Utility::msgException(500, "Failed to update blog post");
             }
+            header("Location: /blogMgt");
+            exit;
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -231,7 +231,7 @@ class BlogController extends Select
      * @param int $id Blog post ID
      * @return void
      */
-    public function delete(int $id): void
+    public function delete( $id): void
     {
         header("Access-Control-Allow-Origin: " . getenv("APP_URL"));
         header("Content-Type: application/json; charset=UTF-8");
@@ -241,9 +241,10 @@ class BlogController extends Select
 
         try {
             // Ensure user is logged in
+              $id = $id['id'];
             $authorId = $_SESSION['ID'] ?? null;
             if (!$authorId) {
-                msgException(401, "You must be logged in to delete a blog post");
+                throw new UnauthorisedException("You must be logged in to delete a blog post");
             }
 
             // Verify the blog post exists and belongs to the user
@@ -255,27 +256,47 @@ class BlogController extends Select
             $blogData = $this->selectFn2($query, [$id]);
 
             if (empty($blogData)) {
-                msgException(404, "Blog post not found");
-            }
-
-            if ($blogData[0][' Gedicht author_id'] !== $authorId) {
-                msgException(403, "You are not authorized to delete this blog post");
+                throw new NotFoundException('Blog post not found');
             }
 
             // Delete the blog post
             $delete = new Delete(self::BLOG_TABLE);
-            $result = $delete->deleteSingle('id', $id);
+            $query = $delete::formAndMatchQuery(
+                selection: 'DELETE_ONE',
+                table: self::BLOG_TABLE,
+                identifier1: 'id'
+            );
+            $result = $delete::deleteFn($query, [$id]);
 
             if ($result) {
-                msgSuccess(200, [
-                    'outcome' => "Blog post deleted successfully",
-                    'blog_id' => $id
-                ]);
+                Utility::msgSuccess(200, "Blog post deleted successfully");
             } else {
-                msgException(500, "Failed to delete blog post");
+                Utility::msgException(500, "Failed to delete blog post");
             }
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
+        }
+    }
+
+    public function blogMgt (): void
+    {
+        try {
+
+            // Ensure user is logged in
+            $authorId = $_SESSION['ID'] ?? null;
+            if (!$authorId) {
+               throw new UnauthorisedException("You must be logged in to view blog management");
+            }
+
+            // select all blogs from database
+            $query = $this->formAndMatchQuery(  
+                selection: 'SELECT_ALL',
+                table: self::BLOG_TABLE
+            );
+            $blogs = $this->selectFn2($query);
+            BaseController::viewWithCsp('blogMgt', compact('blogs'));
+        } catch (\Throwable $th) {
+            Utility::showError($th);
         }
     }
 }

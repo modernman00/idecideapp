@@ -35,6 +35,7 @@
               };
 
               $shareUrl = urlencode($_ENV['APP_URL']);
+              $decision = $data['decision'];
 
               $scoreText = "I scored {$score}% on the iDecide matrix!";
               $decisionText = "Recommendation: {$decision}.";
@@ -77,26 +78,25 @@
             <tr>
               <td>
                 <strong class="highlight">Decision:</strong> 
-                <span class="decision-highlight" style="color: {{ $data['color'] == 'success' ? '#198754' : ($data['color'] == 'success-light' ? '#28a745' : ($data['color'] == 'warning' ? '#ffc107' : '#dc3545')) }};">{{ $data['decision'] }}</span>
+                <h2 class="decision-highlight" style="color: {{ $scoreColor }};">{{ $decision }}</h2>
               </td>
             </tr>
             <tr>
               <td>
                 <strong class="highlight">Comments:</strong> 
-                <span>{{ $data['comment'] }}</span>
+                <li>{{ $data['comment'] }}</li>
               </td>
             </tr>
-            <tr>
-              <td>
-                <strong class="highlight">Personalised Advice:</strong> 
-                <span>{{ $data['advice'] }}</span>
-              </td>
-            </tr>
+          
             <tr><td>
+              <strong class="highlight">Personalised Advice:</strong> 
               <ul>
-                @foreach ($data['personalisedAdvice'] as $advice)
-                  <li>{{ $advice }}</li>
-                @endforeach
+                <li>{{ $data['advice'] }}</li>
+                @if(is_array($data['personalisedAdvice']))
+                  @foreach ($data['personalisedAdvice'] as $advice)
+                    <li>{{ $advice }}</li>
+                  @endforeach
+                @endif
               </ul>
             </td></tr>
           </table>

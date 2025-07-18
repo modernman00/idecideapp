@@ -29,7 +29,6 @@ class EmailResultController
         'Your Decision Matrix Result'
       );
 
-
      ToSendEmail::sendEmailGeneral($emailWrapper, 'USERS');
 
      Utility::msgSuccess(200, 'Email sent successfully');

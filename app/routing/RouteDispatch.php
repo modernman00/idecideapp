@@ -16,6 +16,8 @@ class RouteDispatch
     {
         $this->match = $router->match();
 
+
+
         if ($this->match) {
 
             $controllerAndFunction = explode('@', $this->match['target']);
