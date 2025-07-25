@@ -120,7 +120,7 @@ function _sendQueuedRequests() {
       _t,
       _t2;
     return _regenerator().w(function (_context2) {
-      while (1) switch (_context2.n) {
+      while (1) switch (_context2.p = _context2.n) {
         case 0:
           showToast = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : true;
           _context2.n = 1;
@@ -495,7 +495,7 @@ window.addEventListener('beforeinstallprompt', function (e) {
 initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
   var whatToBuyInput, selects, whatToBuy, scores, incomplete, formData, _response$data, response, scoreData, syncBadge, _t;
   return _regenerator().w(function (_context) {
-    while (1) switch (_context.n) {
+    while (1) switch (_context.p = _context.n) {
       case 0:
         whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)("whatToBuy_id");
         selects = (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)("select");

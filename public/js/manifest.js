@@ -104,7 +104,7 @@
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === "/js/vendor") return "" + chunkId + ".js";
 /******/ 			if (chunkId === "main") return "js/main.js";
-/******/ 			if (chunkId === "result") return "js/" + chunkId + ".js";
+/******/ 			if ({"result":1,"managed":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			if (chunkId === "blog") return "js/blog.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;

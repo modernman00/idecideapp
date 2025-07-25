@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use Src\Utility;
-use Src\CheckToken;
-use Src\SubmitForm;
-use Src\Exceptions\NotFoundException;
-use Src\Exceptions\UnauthorisedException;
-use Src\Sanitise\CheckSanitise;
-use Src\LoginUtility;
-use Src\Select;
-use Src\Update;
-use Src\Delete;
+
+use Src\{
+    Recaptcha,
+    Exceptions\NotFoundException,
+    Limiter,
+    CorsHandler,
+    LoginUtility,
+    Utility,
+    CheckToken,
+    Sanitise\CheckSanitise as CleanUp
+};
 
 use App\controller\BaseController;
 
@@ -24,22 +25,24 @@ class LoginController extends BaseController
         try {
             BaseController::viewWithCsp('login');
         } catch (\Throwable $e) {
-            showError($e);
+            Utility::showError($e);
         }
     }
 
     public function login()
     {
         try {
-               header("Access-Control-Allow-Origin: " . getenv("APP_URL"));
-        header("Content-Type: application/json; charset=UTF-8");
-        header("Access-Control-Allow-Methods: POST");
-        header("Access-Control-Max-Age: 3600");
-        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        CorsHandler::setHeaders(); // Call the static method to set headers
+        Recaptcha::verifyCaptcha('login');
+
+          $email = Utility::cleanSession($_POST['email']) ?? '';
+
+            // Check rate limit
+            Limiter::limit($email);
 
 
             if (!$_POST) {
-                throw new NotFoundException("There was no post data", 1);
+                throw new NotFoundException("There was no post data");
             }
 
                  // Define min and max limits for input data
@@ -50,12 +53,12 @@ class LoginController extends BaseController
             ];
 
              // Sanitize input data
-            $sanitisedData = CheckSanitise::getSanitisedInputData($_POST, $minMaxData);
+            $sanitisedData = CleanUp::getSanitisedInputData($_POST, $minMaxData);
 
             $data = LoginUtility::useEmailToFindData($sanitisedData);
 
             if (empty($data)) {
-                throw new NotFoundException("User not found", 404);
+                throw new NotFoundException("User not found");
             } 
 
             $validatePsw = LoginUtility::checkPassword($sanitisedData, $data);
@@ -63,8 +66,12 @@ class LoginController extends BaseController
 
 
             if (!$validatePsw) {
-                throw new NotFoundException("Invalid password", 404);
+                throw new NotFoundException("Invalid password");
             }
+
+              // Clear attempts on successful login
+                Limiter::$argLimiter->reset();
+                Limiter::$ipLimiter->reset();
 
             $_SESSION['ID'] = $data['id'];
 
@@ -77,8 +84,8 @@ class LoginController extends BaseController
 
             session_regenerate_id(true);
 
-            header("Location: /blogMgt");
-            exit;
+            \msgSuccess(200, 'Login Successful');
+       
 
         } catch (\Throwable $e) {
             showError($e);

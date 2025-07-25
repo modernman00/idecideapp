@@ -75,6 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
     })["catch"](function (err) {
       return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
     });
+  } else if (window.location.pathname === "/managed") {
+    Promise.all(/*! import() | managed */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("managed")]).then(__webpack_require__.bind(__webpack_require__, /*! ./blog/login */ "./resources/assets/js/blog/login.js")).then(function (module) {
+      return module["default"];
+    })["catch"](function (err) {
+      return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
+    });
   }
 });
 
@@ -97,7 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ /* webpack/runtime/startup prefetch */
 /******/ (() => {
 /******/ 	__webpack_require__.O(0, ["/js/index"], () => {
-/******/ 		["/js/vendor","main","result","blog"].map(__webpack_require__.E);
+/******/ 		["/js/vendor","main","result","blog","managed"].map(__webpack_require__.E);
 /******/ 	}, 5);
 /******/ })();
 /******/ 

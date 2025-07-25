@@ -1,0 +1,119 @@
+name: iDecide CI/CD Pipeline
+
+# When this pipeline runs
+on:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main ]
+
+# Jobs that run
+jobs:
+  # Build and Test Job
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Get your code
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Setup Node.js for your Laravel Mix
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    # Setup PHP for your backend
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+        coverage: xdebug
+    
+    # Install your JavaScript dependencies
+    - name: Install npm dependencies
+      run: npm ci
+    
+    # Install PHP dependencies (if you have composer.json)
+    - name: Install Composer dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+      if: hashFiles('**/composer.json') != ''
+    
+    # Build your assets
+    - name: Build assets
+      run: npm run production
+    
+    # Run PHP tests (if you have them)
+    - name: Run PHP tests
+      run: php vendor/bin/phpunit
+      if: hashFiles('**/phpunit.xml') != ''
+    
+    # Upload build artifacts
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: built-assets
+        path: |
+          public/css/
+          public/js/
+          public/mix-manifest.json
+
+  # Deploy Job (only runs on tag pushes like v1.5.8.67)
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: built-assets
+        path: public/
+    
+    # Add your deployment steps here
+    # Example for FTP deployment:
+    # - name: Deploy to server
+    #   uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+    #   with:
+    #     server: your-server.com
+    #     username: ${{ secrets.FTP_USERNAME }}
+    #     password: ${{ secrets.FTP_PASSWORD }}
+    #     local-dir: ./
+    
+    # Example for SSH deployment:
+    # - name: Deploy via SSH
+    #   uses: appleboy/ssh-action@v1.0.0
+    #   with:
+    #     host: ${{ secrets.HOST }}
+    #     username: ${{ secrets.USERNAME }}
+    #     key: ${{ secrets.KEY }}
+    #     script: |
+    #       cd /path/to/your/app
+    #       git pull origin master
+    #       composer install --no-dev --optimize-autoloader
+    #       npm ci --production
+    #       npm run production
+    
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Automated release for ${{ github.ref }}
+          
+          Changes in this release:
+          - Built and tested automatically
+          - Assets compiled with Laravel Mix
+        draft: false
+        prerelease: false

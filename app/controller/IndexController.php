@@ -2,7 +2,6 @@
 
 namespace App\controller;
 
-use Illuminate\Container\Util;
 use Src\{Utility, Select};
 
 
@@ -12,7 +11,7 @@ class IndexController extends BaseController
     public function main()
     {
         try {
-            
+
             BaseController::viewWithCsp('main');
         } catch (\Throwable $th) {
             Utility::showError($th);

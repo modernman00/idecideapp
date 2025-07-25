@@ -19,6 +19,8 @@ use App\controller\BaseController;
 
 
 
+
+
 class BlogController extends Select
 {
     private const BLOG_TABLE = "blogs";
@@ -30,6 +32,7 @@ class BlogController extends Select
     public function show(): void
     {
         try {
+
 
             BaseController::viewWithCsp('create_blog');
         } catch (\Throwable $e) {
@@ -77,6 +80,8 @@ class BlogController extends Select
                 'min' => [5, 10],
                 'max' => [100, 5000]
             ];
+
+   
 
 
 

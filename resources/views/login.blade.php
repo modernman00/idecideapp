@@ -4,13 +4,16 @@
 
 @section('content')
 
+
+
+
 <div class="styleForm" style="margin-top: 2rem;">
 
   <img src={{ $_ENV['LOGO_DEFAULT'] }} alt="logo" class="mb-4 form__login__logo">
-  <form action="/managed" method="POST" class="loginNow styleform_form" id="loginNow">
+  <form action="/managed" method="POST" class="styleform_form managed" id="managed">
     <div id="setLoader" class="loader" style="display: none;">
     </div>
-    <div class="notification" id="loginNow_notification" style="display: none;">
+    <div class="notification" id="managed_notification" style="display: none;">
 
       <p id="error"></p>
     </div>
@@ -23,8 +26,10 @@ $formArray = [
           'attribute' => ['email', 'password' ], 
           'inputType' => ['email', 'password'], 
           'placeholder' => ['Enter your email', 'Enter your password']],
-          'submit' => 'submit',
-          'token' => 'token',
+          'button'=> 'button',
+          'showPassword' => 'showPassword',
+
+                  'token' => 'token',
 
         ];
 
@@ -36,6 +41,7 @@ $form->genForm();
 
 @endphp
 
+<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
 
 
  <a href="/forgot?verify=1"> Forgot password? Please click this link</a>
@@ -48,5 +54,8 @@ $form->genForm();
   </form>
 
 </div>
+
+
+
 
 @endsection

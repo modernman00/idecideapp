@@ -38,6 +38,16 @@ import { showError, id } from "./global";
          )
            .then((module) => module.default)
            .catch((err) => showError(err));
+
+       } else if (window.location.pathname === "/managed") {
+         
+         import(
+           /* webpackChunkName: 'managed' */
+           /* webpackPrefetch: true */
+           "./blog/login"
+         )
+           .then((module) => module.default)
+           .catch((err) => showError(err));
        }
      });
 

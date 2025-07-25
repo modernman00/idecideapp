@@ -72,6 +72,9 @@
 
     <link rel="stylesheet" type="text/css" href="public/css/main.css">
 
+{{-- The api.js?render=YOUR_SITE_KEY loads the reCAPTCHA library and initializes it with your site key. --}}
+    <script nonce="{{ $nonce }}" src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCHA_KEY'] }}" async defer></script>
+
     @stack('styles_result')
 
     <style nonce="{{ $nonce }}">
@@ -526,9 +529,23 @@
     <script nonce="{{ $nonce }}" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
     </script>
-    <script nonce="{{ $nonce }}" src="public/js/index.js"></script>
-    <script nonce="{{ $nonce }}" src="public/js/manifest.js"></script>
-    <script nonce="{{ $nonce }}" src="public/js/vendor.js"></script>
+
+    <script>
+  function onClick(e) {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6LdJW4wrAAAAAIF0ahxV2GPWxS8i7xdp5s81WQjK', {action: 'LOGIN'});
+    });
+  }
+</script>
+
+
+
+
+
+    <script nonce="{{ $nonce }}" src="public/js/index.js" defer ></script>
+    <script nonce="{{ $nonce }}" src="public/js/manifest.js" defer></script>
+    <script nonce="{{ $nonce }}" src="public/js/vendor.js" defer></script>
 
     <script nonce="{{ $nonce }}">
         if ('serviceWorker' in navigator) {
@@ -540,7 +557,10 @@
                     .catch(err => console.warn('Service Worker error ❌', err));
             });
         }
+
     </script>
+
+
 
 
 

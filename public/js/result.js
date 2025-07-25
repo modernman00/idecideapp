@@ -120,7 +120,7 @@ function _sendQueuedRequests() {
       _t,
       _t2;
     return _regenerator().w(function (_context2) {
-      while (1) switch (_context2.n) {
+      while (1) switch (_context2.p = _context2.n) {
         case 0:
           showToast = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : true;
           _context2.n = 1;
@@ -318,11 +318,11 @@ var renderInfluences = function renderInfluences(data) {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var _global_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global.js */ "./resources/assets/js/global.js");
-/* harmony import */ var _background_sync_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background-sync.js */ "./resources/assets/js/background-sync.js");
-/* harmony import */ var _include_result_confetti_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./include/result/confetti.js */ "./resources/assets/js/include/result/confetti.js");
-/* harmony import */ var _include_result_influences_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./include/result/influences.js */ "./resources/assets/js/include/result/influences.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _global_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./global.js */ "./resources/assets/js/global.js");
+/* harmony import */ var _background_sync_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./background-sync.js */ "./resources/assets/js/background-sync.js");
+/* harmony import */ var _include_result_confetti_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./include/result/confetti.js */ "./resources/assets/js/include/result/confetti.js");
+/* harmony import */ var _include_result_influences_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./include/result/influences.js */ "./resources/assets/js/include/result/influences.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -357,7 +357,7 @@ try {
   if (confettiTriggers.some(function (trigger) {
     return decision.includes(trigger);
   })) {
-    (0,_include_result_confetti_js__WEBPACK_IMPORTED_MODULE_2__.triggerConfetti)();
+    (0,_include_result_confetti_js__WEBPACK_IMPORTED_MODULE_3__.triggerConfetti)();
   }
 
   // 3. Advice options object
@@ -385,14 +385,14 @@ try {
   };
 
   // 4. DOM Element Safety Checks
-  var _scoreEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("score");
-  var decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("decision");
-  var commentsEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("comments");
-  var badgeEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("badge");
-  var sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("scoreSlider");
-  var imgEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("image");
-  var _adviceEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("personalisedAdvice");
-  var influencesEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("influenceBreakdown");
+  var _scoreEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("score");
+  var decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("decision");
+  var commentsEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("comments");
+  var badgeEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("badge");
+  var sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("scoreSlider");
+  var imgEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("image");
+  var _adviceEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("personalisedAdvice");
+  var influencesEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("influenceBreakdown");
   if (!_scoreEl || !decisionEl || !commentsEl || !badgeEl || !sliderEl || !imgEl || !_adviceEl) {
     throw new Error("Required DOM elements not found");
   }
@@ -435,7 +435,7 @@ try {
   _adviceEl.textContent = advice;
 
   // Populate advice list
-  var adviceList = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("advice-list");
+  var adviceList = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("advice-list");
   if (savedScoreData.advice && Array.isArray(savedScoreData.advice)) {
     savedScoreData.advice.forEach(function (tip) {
       var li = document.createElement("li");
@@ -456,27 +456,27 @@ try {
   try {
     var pageUrl = encodeURIComponent(window.location.href);
     var shareText = "I got a ".concat(score, "% decision score using iDecide! ").concat(pageUrl);
-    var twitterShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("twitterShare");
+    var twitterShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("twitterShare");
     if (twitterShare) {
       twitterShare.href = "https://twitter.com/intent/tweet?text=".concat(shareText);
     }
-    var whatsappShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("whatsappShare");
+    var whatsappShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("whatsappShare");
     if (whatsappShare) {
       whatsappShare.href = "https://api.whatsapp.com/send?text=".concat(shareText);
     }
-    var facebookShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("facebookShare");
+    var facebookShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("facebookShare");
     if (facebookShare) {
       facebookShare.href = "https://www.facebook.com/sharer/sharer.php?u=".concat(pageUrl, "&quote=").concat(shareText);
     }
-    var truthSocialShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("truthSocialShare");
+    var truthSocialShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("truthSocialShare");
     if (truthSocialShare) {
       truthSocialShare.href = "https://truthsocial.com/share?text=".concat(shareText, "%20").concat(pageUrl);
     }
-    var linkedinShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("linkedinShare");
+    var linkedinShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("linkedinShare");
     if (linkedinShare) {
       linkedinShare.href = "https://www.linkedin.com/sharing/share-offsite/?url=".concat(pageUrl, "&title=").concat(shareText);
     }
-    var redditShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("redditShare");
+    var redditShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("redditShare");
     if (redditShare) {
       redditShare.href = "https://www.reddit.com/submit?url=".concat(pageUrl, "&title=").concat(shareText);
     }
@@ -486,7 +486,7 @@ try {
 
   // 10. PDF download feature
   try {
-    var downloadBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("downloadPDF");
+    var downloadBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("downloadPDF");
     if (downloadBtn && window.jspdf) {
       downloadBtn.addEventListener("click", function () {
         try {
@@ -498,7 +498,7 @@ try {
           doc.text("Comments: ".concat(comment), 10, 40);
           doc.save("decision_matrix_result.pdf");
         } catch (pdfError) {
-          (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.showError)("Failed to generate PDF");
+          (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)("Failed to generate PDF");
           console.error("PDF generation error:", pdfError);
         }
       });
@@ -508,7 +508,7 @@ try {
   }
 
   // 11. make the submit button bigger by adding a class btn-lg and btn-block 
-  var submitBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("button");
+  var submitBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("button");
   if (submitBtn) {
     submitBtn.classList.add("btn-lg", "btn-block");
   }
@@ -531,29 +531,29 @@ try {
         }, 300);
       }
       if (!isVisible && savedScoreData !== null && savedScoreData !== void 0 && savedScoreData.influences) {
-        (0,_include_result_influences_js__WEBPACK_IMPORTED_MODULE_3__.renderInfluences)(savedScoreData.influences); // only render once visible
+        (0,_include_result_influences_js__WEBPACK_IMPORTED_MODULE_4__.renderInfluences)(savedScoreData.influences); // only render once visible
       }
     });
   }
 
   //13. email result to the user 
-  var emailBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("submitResult");
+  var emailBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("submitResult");
   if (emailBtn) {
     emailBtn.addEventListener("click", /*#__PURE__*/function () {
       var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
         var email, emailRegex, emailModal, resultData, response, emailHelp, _t;
         return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
               e.preventDefault();
-              email = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("email").value;
+              email = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("email").value;
               emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              emailModal = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("emailModal");
+              emailModal = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("emailModal");
               if (!(!email || !emailRegex.test(email))) {
                 _context.n = 1;
                 break;
               }
-              (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.showError)("Please enter a valid email address");
+              (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)("Please enter a valid email address");
               return _context.a(2);
             case 1:
               resultData = {
@@ -573,7 +573,7 @@ try {
                 break;
               }
               _context.n = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("/emailResult", resultData);
+              return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post("/emailResult", resultData);
             case 3:
               response = _context.v;
               if (!(response.data && response.data.status === "success")) {
@@ -581,7 +581,7 @@ try {
                 break;
               }
               // Show success message
-              emailHelp = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("emailHelp");
+              emailHelp = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("emailHelp");
               if (emailHelp) {
                 emailHelp.textContent = response.data.message || "Email sent successfully!";
                 emailHelp.classList.add("text-success");
@@ -601,7 +601,7 @@ try {
               break;
             case 6:
               _context.n = 7;
-              return (0,_background_sync_js__WEBPACK_IMPORTED_MODULE_1__.queuePostRequest)("/emailResult", resultData);
+              return (0,_background_sync_js__WEBPACK_IMPORTED_MODULE_2__.queuePostRequest)("/emailResult", resultData);
             case 7:
               _context.n = 9;
               break;
@@ -621,19 +621,19 @@ try {
   }
 } catch (mainError) {
   console.error("Main execution error:", mainError);
-  (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.showError)(mainError);
+  (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)(mainError);
 
   // Fallback UI state
   // const scoreEl = id("score");
   if (scoreEl) scoreEl.textContent = "0%";
-  var _decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("decision");
+  var _decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("decision");
   if (_decisionEl) _decisionEl.textContent = "Error";
 
   // const adviceEl = id("personalisedAdvice");
   if (adviceEl) adviceEl.textContent = "Unable to provide advice due to an error.";
 
   // Hide optional elements
-  var _sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__.id)("scoreSlider");
+  var _sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("scoreSlider");
   if (_sliderEl) _sliderEl.style.display = "none";
 }
 

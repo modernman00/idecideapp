@@ -8,7 +8,10 @@ class BaseController
   public static function viewWithCsp($view, $data = [])
   {
   
-     view($view, $data, ['enable' => true]);
+  
+     view2($view, $data, ['enable' => true]);
+
+
    
   }
 }
