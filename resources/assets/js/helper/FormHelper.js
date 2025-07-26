@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 export default class FormHelper {
     constructor(data) {
         if (!Array.isArray(data)) throwError('data must be an array of form elements');
@@ -8,7 +8,7 @@ export default class FormHelper {
     }
 
     id(x) {
-        return document.getElementById(x)
+        return document.getElementById(x);
     }
 
     /**
@@ -35,7 +35,7 @@ export default class FormHelper {
         if (type === 'email') {
             const emailRegex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/;
             if (!emailRegex.test(value)) {
-                msg = `<li>Please enter a valid email</li>`;
+                msg = '<li>Please enter a valid email</li>';
                 isValid = false;
             }
         }
@@ -43,7 +43,7 @@ export default class FormHelper {
         else if (type === 'password') {
             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
             if (!passwordRegex.test(value)) {
-                msg = `<li>Please enter a valid password (min 8 chars, upper & lowercase, number, special char)</li>`;
+                msg = '<li>Please enter a valid password (min 8 chars, upper & lowercase, number, special char)</li>';
                 isValid = false;
             }
         }
@@ -51,7 +51,7 @@ export default class FormHelper {
         else if (type === 'general') {
             const generalRegex = /[\w\d\s.,'"!?@#&()\-]/;
             if (!generalRegex.test(value)) {
-                msg = `<li>Invalid entry — special characters may not be allowed</li>`;
+                msg = '<li>Invalid entry — special characters may not be allowed</li>';
                 isValid = false;
             }
         }
@@ -118,13 +118,13 @@ export default class FormHelper {
             let val = value.trim();
 
             // Handle optional fields
-            if (optionalFields.includes(name) && val === "") {
-                input.value = "Not Provided";
+            if (optionalFields.includes(name) && val === '') {
+                input.value = 'Not Provided';
                 continue;
             }
 
             // Required field check
-            if (val === "" || val === "select") {
+            if (val === '' || val === 'select') {
                 if (errorEl) errorEl.innerHTML = `<li style="color:red;">${label} cannot be left empty.</li>`;
                 this.error.push(`${label.toUpperCase()} cannot be left empty.`);
                 continue;
@@ -132,8 +132,8 @@ export default class FormHelper {
 
             // Determine field type for regex
             let validateType = typeMap[name] || (
-                name.toLowerCase().includes("email") ? "email" :
-                    name.toLowerCase().includes("password") ? "password" : "general"
+                name.toLowerCase().includes('email') ? 'email' :
+                    name.toLowerCase().includes('password') ? 'password' : 'general'
             );
 
             if (!this.matchRegex(val, validateType)) {
@@ -143,7 +143,7 @@ export default class FormHelper {
                 continue;
             }
 
-            if (errorEl) errorEl.innerHTML = ""; // Clear if all good
+            if (errorEl) errorEl.innerHTML = ''; // Clear if all good
         }
 
         this.result = this.error.length === 0 ? 1 : 0;
@@ -153,12 +153,12 @@ export default class FormHelper {
 
     emailVal() {
         const emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-        let msg = `<li style=color:'red';> Please enter a valid email</li>`
-        const email = this.id('email_id').value
+        let msg = '<li style=color:\'red\';> Please enter a valid email</li>';
+        const email = this.id('email_id').value;
         if (email.match(emailExp) === null) {
-            this.id('email_error').innerHTML = msg
-            this.id('email_error').style.color = "red"
-            this.error.push(msg)
+            this.id('email_error').innerHTML = msg;
+            this.id('email_error').style.color = 'red';
+            this.error.push(msg);
         }
     }
 
@@ -200,7 +200,7 @@ export default class FormHelper {
     clearHtml() {
         this.data.flat().forEach(post => {
             if (!['submit', 'checkbox'].includes(post.name) && post.type !== 'submit') {
-                post.value = "";
+                post.value = '';
             }
         });
     }
@@ -222,7 +222,7 @@ export default class FormHelper {
             theData.maxLength = parseInt(max) + 1;
             theData.addEventListener('input', () => {
                 const error = this.id(`${id}_error`);
-                error.innerHTML = (theData.value.length > max) ? `You have reached the maximum limit` : "";
+                error.innerHTML = (theData.value.length > max) ? 'You have reached the maximum limit' : '';
                 this.id(`${id}_help`).style.display = theData.value.length > max ? '' : 'none';
             });
         });
@@ -240,7 +240,7 @@ export default class FormHelper {
         const secondInput = this.id(second + '_id');
         const error = this.id(`${second}_error`);
 
-        const checkMatch = () => error.innerHTML = (firstInput.value !== secondInput.value) ? 'Your passwords do not match' : "";
+        const checkMatch = () => error.innerHTML = (firstInput.value !== secondInput.value) ? 'Your passwords do not match' : '';
 
         firstInput.addEventListener('input', checkMatch);
         secondInput.addEventListener('input', checkMatch);
@@ -263,11 +263,11 @@ export default class FormHelper {
      */
     duplicate(giveInput, takeInput) {
         let giver, taker;
-        giver = this.id(giveInput)
-        taker = this.id(takeInput)
+        giver = this.id(giveInput);
+        taker = this.id(takeInput);
         giver.addEventListener('keyup', () => {
             taker.value = giver.value;
-        })
+        });
     }
 
 
@@ -281,23 +281,23 @@ export default class FormHelper {
      * @param {string} outputId - the id of the element to update with the response from the server
      */
     realTimeServer(input, url, outputId) {
-        const theInput = this.id(input)
-        const output = this.id(outputId)
+        const theInput = this.id(input);
+        const output = this.id(outputId);
         theInput.addEventListener('keyup', async () => {
-            const inputVal = theInput.value
+            const inputVal = theInput.value;
 
-            if (inputVal === "") {
-                output.innerHTML = "";
+            if (inputVal === '') {
+                output.innerHTML = '';
                 return;
             }
 
             try {
-                const response = await axios.get(`${url}=${inputVal}`)
-                output.innerHTML = response.data
+                const response = await axios.get(`${url}=${inputVal}`);
+                output.innerHTML = response.data;
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
-        })
+        });
     }
 
     /**
@@ -309,15 +309,15 @@ export default class FormHelper {
     isChecked(yesId, noId, hiddenInput) {
         const checked = () => {
             if (this.id(yesId).checked) {
-                alert('check')
+                alert('check');
                 this.id(hiddenInput).innerHTML = 'checked';
             } else if (this.id(noId).checked) {
                 this.id(hiddenInput).innerHTML = 'checked';
             }
-        }
+        };
 
-        this.id(yesId).addEventListener('click', checked)
-        this.id(noId).addEventListener('click', checked)
+        this.id(yesId).addEventListener('click', checked);
+        this.id(noId).addEventListener('click', checked);
 
     }
 

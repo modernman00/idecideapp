@@ -10,10 +10,11 @@ class ProcessCSReportControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Mock global functions if they don't exist
         if (!function_exists('view')) {
-            function view($view, $data = [], $options = []) {
+            function view($view, $data = [], $options = [])
+            {
                 return "Rendered view: $view";
             }
         }
@@ -34,7 +35,7 @@ class ProcessCSReportControllerTest extends TestCase
     public function testHandleMethodExists()
     {
         $this->assertTrue(method_exists(ProcessCSReportController::class, 'handle'));
-        
+
         $reflection = new \ReflectionMethod(ProcessCSReportController::class, 'handle');
         $this->assertTrue($reflection->isPublic());
     }
@@ -45,11 +46,11 @@ class ProcessCSReportControllerTest extends TestCase
     public function testHandleMethodCanBeCalled()
     {
         $controller = new ProcessCSReportController();
-        
+
         ob_start();
         $controller->handle();
         $output = ob_get_clean();
-        
+
         // Method should complete (may fail due to missing ProcessCSReport class)
         $this->assertTrue(true);
     }
@@ -60,7 +61,7 @@ class ProcessCSReportControllerTest extends TestCase
     public function testShowMethodExists()
     {
         $this->assertTrue(method_exists(ProcessCSReportController::class, 'show'));
-        
+
         $reflection = new \ReflectionMethod(ProcessCSReportController::class, 'show');
         $this->assertTrue($reflection->isPublic());
     }
@@ -71,11 +72,11 @@ class ProcessCSReportControllerTest extends TestCase
     public function testShowMethodCanBeCalled()
     {
         $controller = new ProcessCSReportController();
-        
+
         ob_start();
         $controller->show();
         $output = ob_get_clean();
-        
+
         // Method should complete
         $this->assertTrue(true);
     }
@@ -86,10 +87,10 @@ class ProcessCSReportControllerTest extends TestCase
     public function testShowMethodHandlesMissingLogFile()
     {
         $controller = new ProcessCSReportController();
-        
+
         // The method checks for log file existence
         $logFile = __DIR__ . '/../../bootstrap/csp/csp-reports.log';
-        
+
         // Test the file path construction
         $this->assertIsString($logFile);
         $this->assertStringContainsString('csp-reports.log', $logFile);
@@ -102,7 +103,7 @@ class ProcessCSReportControllerTest extends TestCase
     {
         // Test the log file path used in the show method
         $expectedPath = __DIR__ . '/../../bootstrap/csp/csp-reports.log';
-        
+
         // Should be a valid path string
         $this->assertIsString($expectedPath);
         $this->assertStringEndsWith('csp-reports.log', $expectedPath);
@@ -116,7 +117,7 @@ class ProcessCSReportControllerTest extends TestCase
     {
         // The show method uses 'csp-report' as view template
         $expectedTemplate = 'csp-report';
-        
+
         $this->assertEquals('csp-report', $expectedTemplate);
     }
 
@@ -128,7 +129,7 @@ class ProcessCSReportControllerTest extends TestCase
         // Test that logs data structure is correct
         $mockLogs = "Mock CSP report logs content";
         $expectedData = ['logs' => $mockLogs];
-        
+
         $this->assertIsArray($expectedData);
         $this->assertArrayHasKey('logs', $expectedData);
         $this->assertEquals($mockLogs, $expectedData['logs']);
@@ -140,10 +141,10 @@ class ProcessCSReportControllerTest extends TestCase
     public function testMethodSignatures()
     {
         $methods = ['handle', 'show'];
-        
+
         foreach ($methods as $method) {
             $reflection = new \ReflectionMethod(ProcessCSReportController::class, $method);
-            
+
             // Both methods should be public and take no parameters
             $this->assertTrue($reflection->isPublic());
             $this->assertEquals(0, $reflection->getNumberOfParameters());
@@ -156,10 +157,10 @@ class ProcessCSReportControllerTest extends TestCase
     public function testControllerInheritanceChain()
     {
         $reflection = new \ReflectionClass(ProcessCSReportController::class);
-        
+
         // Should extend BaseController
         $this->assertEquals('App\controller\BaseController', $reflection->getParentClass()->getName());
-        
+
         // Should have access to parent methods
         $this->assertTrue(method_exists(ProcessCSReportController::class, 'viewWithCsp'));
     }
@@ -171,10 +172,10 @@ class ProcessCSReportControllerTest extends TestCase
     {
         // The handle method calls ProcessCSReport::handle()
         // We can test that the method exists and is callable
-        
+
         $controller = new ProcessCSReportController();
         $this->assertTrue(method_exists($controller, 'handle'));
-        
+
         // Test that the method can be called without parameters
         $reflection = new \ReflectionMethod(ProcessCSReportController::class, 'handle');
         $this->assertEquals(0, $reflection->getNumberOfParameters());
@@ -186,11 +187,11 @@ class ProcessCSReportControllerTest extends TestCase
     public function testCSPReportFileOperations()
     {
         // Test file operations that would be used in the show method
-        
+
         // Test file_exists logic
         $nonExistentFile = '/path/that/does/not/exist.log';
         $this->assertFalse(file_exists($nonExistentFile));
-        
+
         // Test file_get_contents with mock data
         $mockContent = "CSP Report Log Content\nLine 2\nLine 3";
         $this->assertIsString($mockContent);
@@ -204,7 +205,7 @@ class ProcessCSReportControllerTest extends TestCase
     {
         // Test the "No reports logged yet." message logic
         $expectedMessage = "No reports logged yet.";
-        
+
         $this->assertEquals("No reports logged yet.", $expectedMessage);
         $this->assertIsString($expectedMessage);
         $this->assertNotEmpty($expectedMessage);
@@ -231,7 +232,7 @@ class ProcessCSReportControllerTest extends TestCase
                 'script-sample' => ''
             ]
         ];
-        
+
         $this->assertIsArray($mockCSPReport);
         $this->assertArrayHasKey('csp-report', $mockCSPReport);
         $this->assertIsArray($mockCSPReport['csp-report']);
@@ -243,7 +244,7 @@ class ProcessCSReportControllerTest extends TestCase
     public function testControllerNamespaceAndClassName()
     {
         $reflection = new \ReflectionClass(ProcessCSReportController::class);
-        
+
         $this->assertEquals('App\controller', $reflection->getNamespaceName());
         $this->assertEquals('ProcessCSReportController', $reflection->getShortName());
         $this->assertEquals('App\controller\ProcessCSReportController', $reflection->getName());
@@ -255,15 +256,15 @@ class ProcessCSReportControllerTest extends TestCase
     public function testBothMethodsExistAndAreAccessible()
     {
         $controller = new ProcessCSReportController();
-        
+
         // Test that both methods exist
         $this->assertTrue(method_exists($controller, 'handle'));
         $this->assertTrue(method_exists($controller, 'show'));
-        
+
         // Test that both methods are public
         $handleReflection = new \ReflectionMethod($controller, 'handle');
         $showReflection = new \ReflectionMethod($controller, 'show');
-        
+
         $this->assertTrue($handleReflection->isPublic());
         $this->assertTrue($showReflection->isPublic());
     }
@@ -276,7 +277,7 @@ class ProcessCSReportControllerTest extends TestCase
         // Test the expected directory structure for CSP reports
         $logFile = __DIR__ . '/../../bootstrap/csp/csp-reports.log';
         $logDir = dirname($logFile);
-        
+
         $this->assertStringEndsWith('bootstrap/csp', $logDir);
         $this->assertStringContainsString('bootstrap', $logDir);
         $this->assertStringContainsString('csp', $logDir);

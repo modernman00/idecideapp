@@ -8,7 +8,6 @@ use PDO;
 
 class AllFunctionalities extends Db
 {
-
     /**
      * @psalm-param 'email'|'id' $identifier
      */
@@ -85,13 +84,13 @@ class AllFunctionalities extends Db
     ";
         $stmt = parent::connect2()->prepare($query);
 
-        if(!$stmt){
+        if (!$stmt) {
             msgException(502, "Could not connect");
         }
 
         $stmt->bindParam(':likesValue', $likesValue, PDO::PARAM_INT);
         $stmt->bindParam(':whereValue', $whereValue, PDO::PARAM_INT);
-        if(!$stmt->execute()){
+        if (!$stmt->execute()) {
             msgException(503, "Could not execute query");
         };
     }

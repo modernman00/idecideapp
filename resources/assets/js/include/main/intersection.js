@@ -1,4 +1,4 @@
-import { qSelAll } from "../../global"
+import { qSelAll } from '../../global';
 
 export const intersection = (cardHidden) => {
 
@@ -6,7 +6,7 @@ export const intersection = (cardHidden) => {
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) { // When the card is visible
-      entry.target.classList.add("visible"); // Add 'visible' class for animation
+      entry.target.classList.add('visible'); // Add 'visible' class for animation
       observer.unobserve(entry.target); // Stop observing once animated
     }
   });
@@ -18,4 +18,4 @@ qSelAll(cardHidden).forEach((card) => {
 });
 
 
-}
+};

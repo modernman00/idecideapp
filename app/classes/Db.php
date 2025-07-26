@@ -2,8 +2,8 @@
 
 namespace App\classes;
 
-use \PDO;
-use \PDOException;
+use PDO;
+use PDOException;
 use App\classes\CheckToken;
 
 class Db extends CheckToken
@@ -27,7 +27,7 @@ class Db extends CheckToken
         try {
             if (!isset($conn)) {
                 $dbVar = self::dbVariables();
-                $conn = new PDO("mysql:host={$dbVar['host']}; dbname={$dbVar['name']}; charset={$dbVar['charset']}", username: $dbVar['username'],  password: $dbVar['password'], options: array(
+                $conn = new PDO("mysql:host={$dbVar['host']}; dbname={$dbVar['name']}; charset={$dbVar['charset']}", username: $dbVar['username'], password: $dbVar['password'], options: array(
                     PDO::ATTR_PERSISTENT => true
                 ));
 

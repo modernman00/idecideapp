@@ -264,14 +264,14 @@ var autocomplete = function autocomplete(inputId, arr) {
   var whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)(inputId); // Get the text input
   if (whatToBuyInput) {
     // Create a <ul> for autocomplete suggestions
-    var suggestionList = document.createElement("ul");
-    suggestionList.classList.add("autocomplete-suggestions");
-    suggestionList.id = "suggestions"; // For accessibility
+    var suggestionList = document.createElement('ul');
+    suggestionList.classList.add('autocomplete-suggestions');
+    suggestionList.id = 'suggestions'; // For accessibility
     whatToBuyInput.parentElement.appendChild(suggestionList); // Append to input's parent
 
     // Function to show matching suggestions based on user input
     var showSuggestions = function showSuggestions(inputValue) {
-      suggestionList.innerHTML = ""; // Clear previous suggestions
+      suggestionList.innerHTML = ''; // Clear previous suggestions
       if (!inputValue) return; // Exit if input is empty
 
       // Filter items that match the input (case-insensitive), limit to 8
@@ -281,18 +281,18 @@ var autocomplete = function autocomplete(inputId, arr) {
 
       // Create <li> for each match
       matches.forEach(function (item, index) {
-        var li = document.createElement("li");
+        var li = document.createElement('li');
         li.textContent = item;
-        li.setAttribute("tabindex", "0"); // Make focusable for keyboard
-        li.setAttribute("data-index", index); // Store index for navigation
-        li.addEventListener("click", function () {
+        li.setAttribute('tabindex', '0'); // Make focusable for keyboard
+        li.setAttribute('data-index', index); // Store index for navigation
+        li.addEventListener('click', function () {
           whatToBuyInput.value = item; // Set input value on click
-          suggestionList.innerHTML = ""; // Clear suggestions
+          suggestionList.innerHTML = ''; // Clear suggestions
         });
-        li.addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
+        li.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
             whatToBuyInput.value = item; // Set input value on Enter
-            suggestionList.innerHTML = ""; // Clear suggestions
+            suggestionList.innerHTML = ''; // Clear suggestions
           }
         });
         suggestionList.appendChild(li);
@@ -300,39 +300,39 @@ var autocomplete = function autocomplete(inputId, arr) {
     };
 
     // Show suggestions as user types
-    whatToBuyInput.addEventListener("input", function (e) {
+    whatToBuyInput.addEventListener('input', function (e) {
       showSuggestions(e.target.value);
     });
 
     // Clear suggestions on blur (with delay for click to register)
-    whatToBuyInput.addEventListener("blur", function () {
+    whatToBuyInput.addEventListener('blur', function () {
       setTimeout(function () {
-        return suggestionList.innerHTML = "";
+        return suggestionList.innerHTML = '';
       }, 200);
     });
 
     // Handle keyboard navigation for suggestions
-    whatToBuyInput.addEventListener("keydown", function (e) {
-      var suggestions = suggestionList.querySelectorAll("li");
+    whatToBuyInput.addEventListener('keydown', function (e) {
+      var suggestions = suggestionList.querySelectorAll('li');
       if (!suggestions.length) return; // Exit if no suggestions
 
       var focusedIndex = Array.from(suggestions).findIndex(function (li) {
         return li === document.activeElement;
       });
-      if (e.key === "ArrowDown") {
+      if (e.key === 'ArrowDown') {
         e.preventDefault(); // Prevent cursor movement
         focusedIndex = (focusedIndex + 1) % suggestions.length; // Loop to start
         suggestions[focusedIndex].focus();
-      } else if (e.key === "ArrowUp") {
+      } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         focusedIndex = (focusedIndex - 1 + suggestions.length) % suggestions.length; // Loop to end
         suggestions[focusedIndex].focus();
-      } else if (e.key === "Enter" && focusedIndex >= 0) {
+      } else if (e.key === 'Enter' && focusedIndex >= 0) {
         e.preventDefault();
         whatToBuyInput.value = suggestions[focusedIndex].textContent; // Select item
-        suggestionList.innerHTML = ""; // Clear suggestions
-      } else if (e.key === "Escape") {
-        suggestionList.innerHTML = ""; // Clear suggestions
+        suggestionList.innerHTML = ''; // Clear suggestions
+      } else if (e.key === 'Escape') {
+        suggestionList.innerHTML = ''; // Clear suggestions
       }
     });
   }
@@ -351,7 +351,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var purchaseItems = ["Acoustic guitar", "Air conditioner", "AirPods", "Apple Watch", "Bicycle", "Blender (high-end)", "Camera (DSLR/mirrorless)", "Camping gear", "Car (new or used)", "Car seat (premium)", "Coffee maker (espresso)", "Cooling mattress", "Designer handbag", "Desktop computer", "Dishwasher", "Drone", "Holiday", "Electric guitar", "Electric scooter", "Electric toothbrush", "Espresso machine", "Exercise bike", "Eyeglasses (designer)", "Fitness tracker", "Gaming console", "Gaming chair", "Gold jewelry", "Golf clubs", "Grill (outdoor)", "Headphones (noise-canceling)", "Home gym equipment", "Home security system", "Hot tub", "iPad", "Jeans (premium)", "Kayak", "Kitchen mixer (stand)", "Laptop", "Leather jacket", "Luggage set", "Luxury watch (Rolex, Casio)", "Massage chair", "Mattress", "Microwave (smart)", "Motorcycle", "Mountain bike", "Music production software", "Noise-canceling earbuds", "Oven (convection)", "Patio furniture", "Pet insurance", "Photography lighting kit", "Piano (digital)", "Power tools (drill set)", "Printer (3D)", "Projector", "Ray-Ban sunglasses", "Refrigerator", "Robot vacuum", "Running shoes (premium)", "Ski equipment", "Smart doorbell", "Smart garage door opener", "Smart speaker", "Smartphone", "Smartwatch", "Sneakers (designer)", "Snowboard", "Sofa", "Soundbar", "Streaming subscription (Netflix, Disney+)", "Surfboard", "Tablet", "Television (4K)", "Tent (backpacking)", "Treadmill", "Vacuum cleaner (cordless)", "Vacation package", "Video camera", "Video game (AAA title)", "Vinyl record player", "VR headset", "Washing machine", "Wedding ring", "Weighted blanket", "Wireless charger", "Yoga retreat", "Home theater system", "Diving gear", "Electric car charger", "Telescope", "Designer suit", "Art print (original)", "Collectible figurine", "Gym membership", "Smart thermostat", "E-reader (Kindle)", "Portable generator", "Skateboard (electric)", "Leather boots", "Craft supplies (sewing machine)"];
+var purchaseItems = ['Acoustic guitar', 'Air conditioner', 'AirPods', 'Apple Watch', 'Bicycle', 'Blender (high-end)', 'Camera (DSLR/mirrorless)', 'Camping gear', 'Car (new or used)', 'Car seat (premium)', 'Coffee maker (espresso)', 'Cooling mattress', 'Designer handbag', 'Desktop computer', 'Dishwasher', 'Drone', 'Holiday', 'Electric guitar', 'Electric scooter', 'Electric toothbrush', 'Espresso machine', 'Exercise bike', 'Eyeglasses (designer)', 'Fitness tracker', 'Gaming console', 'Gaming chair', 'Gold jewelry', 'Golf clubs', 'Grill (outdoor)', 'Headphones (noise-canceling)', 'Home gym equipment', 'Home security system', 'Hot tub', 'iPad', 'Jeans (premium)', 'Kayak', 'Kitchen mixer (stand)', 'Laptop', 'Leather jacket', 'Luggage set', 'Luxury watch (Rolex, Casio)', 'Massage chair', 'Mattress', 'Microwave (smart)', 'Motorcycle', 'Mountain bike', 'Music production software', 'Noise-canceling earbuds', 'Oven (convection)', 'Patio furniture', 'Pet insurance', 'Photography lighting kit', 'Piano (digital)', 'Power tools (drill set)', 'Printer (3D)', 'Projector', 'Ray-Ban sunglasses', 'Refrigerator', 'Robot vacuum', 'Running shoes (premium)', 'Ski equipment', 'Smart doorbell', 'Smart garage door opener', 'Smart speaker', 'Smartphone', 'Smartwatch', 'Sneakers (designer)', 'Snowboard', 'Sofa', 'Soundbar', 'Streaming subscription (Netflix, Disney+)', 'Surfboard', 'Tablet', 'Television (4K)', 'Tent (backpacking)', 'Treadmill', 'Vacuum cleaner (cordless)', 'Vacation package', 'Video camera', 'Video game (AAA title)', 'Vinyl record player', 'VR headset', 'Washing machine', 'Wedding ring', 'Weighted blanket', 'Wireless charger', 'Yoga retreat', 'Home theater system', 'Diving gear', 'Electric car charger', 'Telescope', 'Designer suit', 'Art print (original)', 'Collectible figurine', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)', 'Portable generator', 'Skateboard (electric)', 'Leather boots', 'Craft supplies (sewing machine)'];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (purchaseItems);
 
 /***/ }),
@@ -374,7 +374,7 @@ var intersection = function intersection(cardHidden) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         // When the card is visible
-        entry.target.classList.add("visible"); // Add 'visible' class for animation
+        entry.target.classList.add('visible'); // Add 'visible' class for animation
         observer.unobserve(entry.target); // Stop observing once animated
       }
     });
@@ -406,17 +406,17 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var tooltips = function tooltips() {
   var tips = {
-    whatToBuy: "This question personalizes your advice by identifying the item you’re considering.",
-    cost: "This evaluates how the item’s cost aligns with your budget.",
-    buyingFeeling: "This explores your emotional response to making the purchase.",
-    notImpulsive: "This assesses how long you’ve been considering this purchase.",
-    necessity: "This determines whether the item is a need or a want.",
-    option: "This checks if you’ve explored other options or alternatives.",
-    paymentSource: "This identifies the funding source for your purchase.",
-    affordability: "This evaluates if the purchase fits comfortably within your financial situation.",
-    concerns: "This gauges any financial concerns, such as debt or job stability.",
-    checkbox: "This confirms your agreement to the terms to proceed.",
-    submitButton: "Please submit your responses to generate a purchase decision."
+    whatToBuy: 'This question personalizes your advice by identifying the item you’re considering.',
+    cost: 'This evaluates how the item’s cost aligns with your budget.',
+    buyingFeeling: 'This explores your emotional response to making the purchase.',
+    notImpulsive: 'This assesses how long you’ve been considering this purchase.',
+    necessity: 'This determines whether the item is a need or a want.',
+    option: 'This checks if you’ve explored other options or alternatives.',
+    paymentSource: 'This identifies the funding source for your purchase.',
+    affordability: 'This evaluates if the purchase fits comfortably within your financial situation.',
+    concerns: 'This gauges any financial concerns, such as debt or job stability.',
+    checkbox: 'This confirms your agreement to the terms to proceed.',
+    submitButton: 'Please submit your responses to generate a purchase decision.'
   };
   Object.entries(tips).forEach(function (_ref) {
     var _ref2 = _slicedToArray(_ref, 2),
@@ -458,15 +458,15 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 // 🔹 UI Enhancements
-(0,_include_main_autocomplete__WEBPACK_IMPORTED_MODULE_2__["default"])("whatToBuy_id", _include_main_dataToAutoComplete__WEBPACK_IMPORTED_MODULE_1__["default"]);
+(0,_include_main_autocomplete__WEBPACK_IMPORTED_MODULE_2__["default"])('whatToBuy_id', _include_main_dataToAutoComplete__WEBPACK_IMPORTED_MODULE_1__["default"]);
 (0,_include_main_toolTips__WEBPACK_IMPORTED_MODULE_4__.tooltips)();
-(0,_include_main_intersection__WEBPACK_IMPORTED_MODULE_5__.intersection)(".card.hidden");
+(0,_include_main_intersection__WEBPACK_IMPORTED_MODULE_5__.intersection)('.card.hidden');
 
 // 🔹 Validate button presence
-var initBtn = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)("button");
+var initBtn = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('button');
 if (!initBtn) {
-  console.error("Button with ID 'button' not found.");
-  throw new Error("Button not found");
+  console.error('Button with ID \'button\' not found.');
+  throw new Error('Button not found');
 }
 
 // prompt PWA features for users to install the app from browser
@@ -492,13 +492,13 @@ window.addEventListener('beforeinstallprompt', function (e) {
 });
 
 // 🔹 Form handler
-initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
   var whatToBuyInput, selects, whatToBuy, scores, incomplete, formData, _response$data, response, scoreData, syncBadge, _t;
   return _regenerator().w(function (_context) {
     while (1) switch (_context.p = _context.n) {
       case 0:
-        whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)("whatToBuy_id");
-        selects = (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)("select");
+        whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('whatToBuy_id');
+        selects = (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)('select');
         whatToBuy = whatToBuyInput === null || whatToBuyInput === void 0 ? void 0 : whatToBuyInput.value.trim();
         scores = {};
         incomplete = false; // 🔹 Validate purchase input
@@ -506,24 +506,24 @@ initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
           _context.n = 1;
           break;
         }
-        alert("Please enter what you want to buy.");
+        alert('Please enter what you want to buy.');
         return _context.a(2);
       case 1:
         // 🔹 Collect dropdown values
         selects.forEach(function (select) {
-          var attribute = select.getAttribute("name");
+          var attribute = select.getAttribute('name');
           var selected = select.options[select.selectedIndex];
           if (select.selectedIndex === 0) {
             incomplete = true;
           }
-          var score = parseInt(selected === null || selected === void 0 ? void 0 : selected.getAttribute("value"));
+          var score = parseInt(selected === null || selected === void 0 ? void 0 : selected.getAttribute('value'));
           scores[attribute] = Number.isNaN(score) ? null : score;
         });
         if (!incomplete) {
           _context.n = 2;
           break;
         }
-        alert("Please answer all dropdown questions.");
+        alert('Please answer all dropdown questions.');
         return _context.a(2);
       case 2:
         formData = {
@@ -536,7 +536,7 @@ initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
           break;
         }
         _context.n = 4;
-        return axios__WEBPACK_IMPORTED_MODULE_6__["default"].post("/calculateResult", formData);
+        return axios__WEBPACK_IMPORTED_MODULE_6__["default"].post('/calculateResult', formData);
       case 4:
         response = _context.v;
         scoreData = response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.message;
@@ -544,28 +544,28 @@ initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
           _context.n = 5;
           break;
         }
-        throw new Error("No result returned.");
+        throw new Error('No result returned.');
       case 5:
-        sessionStorage.setItem("scoreData", JSON.stringify(scoreData));
+        sessionStorage.setItem('scoreData', JSON.stringify(scoreData));
 
         // Wait briefly to ensure PHP processes the session
         setTimeout(function () {
-          window.location.href = "result";
+          window.location.href = 'result';
         }, 100); // Small delay to allow session to be set
         _context.n = 8;
         break;
       case 6:
-        syncBadge = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)("syncStatus");
-        alert("You're offline. Your decision has been saved and will be sent when you're back online.");
+        syncBadge = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('syncStatus');
+        alert('You\'re offline. Your decision has been saved and will be sent when you\'re back online.');
         _context.n = 7;
         return (0,_background_sync__WEBPACK_IMPORTED_MODULE_3__.queuePostRequest)('/calculateResult', formData);
       case 7:
         // Show badge
-        syncBadge.classList.remove("hidden");
+        syncBadge.classList.remove('hidden');
 
         // Hide after 4 seconds (optional)
         setTimeout(function () {
-          syncBadge.classList.add("hidden");
+          syncBadge.classList.add('hidden');
         }, 4000);
       case 8:
         _context.n = 10;
@@ -573,8 +573,8 @@ initBtn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
       case 9:
         _context.p = 9;
         _t = _context.v;
-        console.error("Error submitting form:", _t);
-        alert("An error occurred while processing your request. Please try again.");
+        console.error('Error submitting form:', _t);
+        alert('An error occurred while processing your request. Please try again.');
       case 10:
         return _context.a(2);
     }

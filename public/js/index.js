@@ -25,10 +25,10 @@ var qSel = function qSel(x) {
   return document.querySelector(x);
 };
 var showError = function showError(e) {
-  log(e.message, " ERROR MESSAGE"); // "null has no properties"
-  log(e.name, " ERROR NAME"); // "TypeError"
-  log(e.fileName, " ERROR FILENAME"); // "Scratchpad/1"
-  log(e.lineNumber, " ERROR LINENUMBER"); // 2
+  log(e.message, ' ERROR MESSAGE'); // "null has no properties"
+  log(e.name, ' ERROR NAME'); // "TypeError"
+  log(e.fileName, ' ERROR FILENAME'); // "Scratchpad/1"
+  log(e.lineNumber, ' ERROR LINENUMBER'); // 2
 
   log(e.stack);
 };
@@ -50,33 +50,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // do lazy loading of the app based on the current URL
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('themeSwitch').addEventListener('change', function () {
     document.body.dataset.theme = this.checked ? 'dark' : 'light';
 
     // SET THE FONT TO WHITE IF THE THEME IS DARK
     document.body.style.color = this.checked ? 'white' : 'black';
   });
-  if (window.location.pathname === "/") {
+  if (window.location.pathname === '/') {
     Promise.all(/*! import() | main */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("main")]).then(__webpack_require__.bind(__webpack_require__, /*! ./main */ "./resources/assets/js/main.js")).then(function (module) {
       return module["default"];
     })["catch"](function (err) {
       return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
     });
-  } else if (window.location.pathname === "/result") {
+  } else if (window.location.pathname === '/result') {
     Promise.all(/*! import() | result */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("result")]).then(__webpack_require__.bind(__webpack_require__, /*! ./result */ "./resources/assets/js/result.js")).then(function (module) {
       return module["default"];
     })["catch"](function (err) {
       return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
     });
-  } else if (window.location.pathname === "/createBlog") {
+  } else if (window.location.pathname === '/createBlog') {
     Promise.all(/*! import() | blog */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("blog")]).then(__webpack_require__.bind(__webpack_require__, /*! ./blog */ "./resources/assets/js/blog.js")).then(function (module) {
       return module["default"];
     })["catch"](function (err) {
       return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
     });
-  } else if (window.location.pathname === "/managed") {
+  } else if (window.location.pathname === '/managed') {
     Promise.all(/*! import() | managed */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("managed")]).then(__webpack_require__.bind(__webpack_require__, /*! ./blog/login */ "./resources/assets/js/blog/login.js")).then(function (module) {
+      return module["default"];
+    })["catch"](function (err) {
+      return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
+    });
+  } else if (window.location.pathname === '/blogMgt') {
+    (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('signout').style.display = 'block';
+    __webpack_require__.e(/*! import() | blogMgt */ "blogMgt").then(__webpack_require__.t.bind(__webpack_require__, /*! ./blog/show */ "./resources/assets/js/blog/show.js", 23)).then(function (module) {
       return module["default"];
     })["catch"](function (err) {
       return (0,_global__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
@@ -103,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ /* webpack/runtime/startup prefetch */
 /******/ (() => {
 /******/ 	__webpack_require__.O(0, ["/js/index"], () => {
-/******/ 		["/js/vendor","main","result","blog","managed"].map(__webpack_require__.E);
+/******/ 		["/js/vendor","main","result","blog","managed","blogMgt"].map(__webpack_require__.E);
 /******/ 	}, 5);
 /******/ })();
 /******/ 

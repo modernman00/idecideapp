@@ -10,10 +10,11 @@ class BaseControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Mock the global view function if it doesn't exist
         if (!function_exists('view')) {
-            function view($view, $data = [], $options = []) {
+            function view($view, $data = [], $options = [])
+            {
                 return "Rendered view: $view with data: " . json_encode($data) . " and options: " . json_encode($options);
             }
         }
@@ -26,13 +27,13 @@ class BaseControllerTest extends TestCase
     {
         // Test that the method exists and can be called
         $this->assertTrue(method_exists(BaseController::class, 'viewWithCsp'));
-        
+
         // Since the method calls the global view() function which we can't easily mock,
         // we'll test that it can be called without errors
         ob_start();
         BaseController::viewWithCsp('test_view');
         $output = ob_get_clean();
-        
+
         // The method should complete without throwing an exception
         $this->assertTrue(true);
     }
@@ -43,11 +44,11 @@ class BaseControllerTest extends TestCase
     public function testViewWithCspWithData()
     {
         $testData = ['key' => 'value', 'number' => 123];
-        
+
         ob_start();
         BaseController::viewWithCsp('test_view', $testData);
         $output = ob_get_clean();
-        
+
         // The method should complete without throwing an exception
         $this->assertTrue(true);
     }
@@ -60,7 +61,7 @@ class BaseControllerTest extends TestCase
         ob_start();
         BaseController::viewWithCsp('test_view', []);
         $output = ob_get_clean();
-        
+
         // The method should complete without throwing an exception
         $this->assertTrue(true);
     }
@@ -88,13 +89,13 @@ class BaseControllerTest extends TestCase
      */
     public function testViewWithCspWithDifferentViewNames()
     {
-        $viewNames = ['main', 'contact', 'about', 'blog.show', 'user/profile'];
-        
+        $viewNames = ['main', 'contact', 'about', 'blogsTest', 'terms', 'privacy', 'result'];
+
         foreach ($viewNames as $viewName) {
             ob_start();
             BaseController::viewWithCsp($viewName);
             $output = ob_get_clean();
-            
+
             // Each call should complete successfully
             $this->assertTrue(true);
         }
@@ -124,11 +125,11 @@ class BaseControllerTest extends TestCase
                 'page' => 1
             ]
         ];
-        
+
         ob_start();
         BaseController::viewWithCsp('complex_view', $complexData);
         $output = ob_get_clean();
-        
+
         // The method should handle complex data without issues
         $this->assertTrue(true);
     }

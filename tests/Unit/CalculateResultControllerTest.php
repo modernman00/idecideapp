@@ -54,7 +54,7 @@ class CalculateResultControllerTest extends TestCase
 
         // Mock the input stream
         $this->expectOutputString(''); // Suppress any output
-        
+
         // We need to mock the file_get_contents('php://input') call
         // For now, we'll test the logic by creating a modified version
         $this->assertTrue(true); // Placeholder - will need to refactor controller for proper testing
@@ -318,11 +318,11 @@ class CalculateResultControllerTest extends TestCase
 
     /**
      * Test input validation - missing whatToBuy
-     */         
+     */
     public function testMissingWhatToBuy()
     {
         $this->expectException(\Exception::class);
-        
+
         $input = [
             'scores' => [
                 'cost' => 4,
@@ -348,7 +348,7 @@ class CalculateResultControllerTest extends TestCase
     public function testMissingScores()
     {
         $this->expectException(\Exception::class);
-        
+
         $input = [
             'whatToBuy' => 'Laptop'
         ];
@@ -365,7 +365,7 @@ class CalculateResultControllerTest extends TestCase
     public function testMissingRequiredScoreKeys()
     {
         $this->expectException(\Exception::class);
-        
+
         $scores = [
             'cost' => 4,
             'buyingFeeling' => 4,
@@ -373,7 +373,7 @@ class CalculateResultControllerTest extends TestCase
         ];
 
         $requiredKeys = ['cost', 'buyingFeeling', 'notImpulsive', 'necessity', 'option', 'paymentSource', 'affordability', 'concerns'];
-        
+
         foreach ($requiredKeys as $key) {
             if (!isset($scores[$key])) {
                 throw new \Exception("Missing score for $key");
@@ -387,7 +387,7 @@ class CalculateResultControllerTest extends TestCase
     public function testInvalidScoreValues()
     {
         $this->expectException(\Exception::class);
-        
+
         $scores = [
             'cost' => 'invalid',
             'buyingFeeling' => 4,
@@ -400,7 +400,7 @@ class CalculateResultControllerTest extends TestCase
         ];
 
         $requiredKeys = ['cost', 'buyingFeeling', 'notImpulsive', 'necessity', 'option', 'paymentSource', 'affordability', 'concerns'];
-        
+
         foreach ($requiredKeys as $key) {
             if (!isset($scores[$key]) || !is_numeric($scores[$key])) {
                 throw new \Exception("Invalid score for $key");

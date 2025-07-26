@@ -24,7 +24,7 @@ class SessionTest extends TestCase
     public function testAddSessionWithValidData()
     {
         $result = Session::add('test_key', 'test_value');
-        
+
         $this->assertEquals('test_value', $result);
         $this->assertEquals('test_value', $_SESSION['test_key']);
     }
@@ -33,7 +33,7 @@ class SessionTest extends TestCase
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Name and value required');
-        
+
         Session::add('', 'test_value');
     }
 
@@ -41,32 +41,32 @@ class SessionTest extends TestCase
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Name and value required');
-        
+
         Session::add('test_key', '');
     }
 
     public function testGetSessionReturnsValue()
     {
         $_SESSION['test_key'] = 'test_value';
-        
+
         $result = Session::get('test_key');
-        
+
         $this->assertEquals('test_value', $result);
     }
 
     public function testHasSessionReturnsTrueWhenExists()
     {
         $_SESSION['test_key'] = 'test_value';
-        
+
         $result = Session::has('test_key');
-        
+
         $this->assertTrue($result);
     }
 
     public function testHasSessionReturnsFalseWhenNotExists()
     {
         $result = Session::has('non_existent_key');
-        
+
         $this->assertFalse($result);
     }
 
@@ -74,16 +74,16 @@ class SessionTest extends TestCase
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('session name is required');
-        
+
         Session::has('');
     }
 
     public function testRemoveSessionRemovesExistingSession()
     {
         $_SESSION['test_key'] = 'test_value';
-        
+
         Session::remove('test_key');
-        
+
         $this->assertArrayNotHasKey('test_key', $_SESSION);
     }
 
@@ -91,7 +91,7 @@ class SessionTest extends TestCase
     {
         // Should not throw an exception
         Session::remove('non_existent_key');
-        
+
         $this->assertArrayNotHasKey('non_existent_key', $_SESSION);
     }
 }

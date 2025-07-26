@@ -1,6 +1,6 @@
 //import axios 
-import axios from "axios";
-import { id, log, showError } from "./global.js";
+import axios from 'axios';
+import { id, log, showError } from './global.js';
 
 
 
@@ -53,7 +53,7 @@ id('button').addEventListener('click', async (e) => {
   }
 });
 
-const textarea = id('content_id')
+const textarea = id('content_id');
 textarea.rows = 10;
 textarea.style.resize = 'vertical';
 textarea.style.width = '100%';

@@ -6,5 +6,6 @@
     "/js/blog.js": "/js/blog.js",
     "/js/managed.js": "/js/managed.js",
     "/css/main.css": "/css/main.css",
-    "/js/vendor.js": "/js/vendor.js"
+    "/js/vendor.js": "/js/vendor.js",
+    "/js/blogMgt.js": "/js/blogMgt.js"
 }

@@ -1,5 +1,5 @@
-import { id, log } from '../global'
-import axios from 'axios'
+import { id, log } from '../global';
+import axios from 'axios';
 import axiosRetry from 'axios-retry';
 // import Cookies from 'js-cookie'
 
@@ -16,8 +16,8 @@ axiosRetry(axios, { retries: 3 });
  */
 export const postFormData = async (url, formId, redirect = null, css = null) => {
 
-    let notificationForm = `${formId}_notification`
-    const notificationId = id(notificationForm)
+    let notificationForm = `${formId}_notification`;
+    const notificationId = id(notificationForm);
 
 
     if (!notificationId) {
@@ -31,16 +31,16 @@ export const postFormData = async (url, formId, redirect = null, css = null) => 
 
 
     // extract the form entriesËËË
-    const form = id(formId)
+    const form = id(formId);
 
     if (!form) {
         throw new Error('Form element not found');
     }
 
-    let formEntries = new FormData(form)
+    let formEntries = new FormData(form);
 
-    formEntries.delete('submit')
-    formEntries.delete('checkbox_id')
+    formEntries.delete('submit');
+    formEntries.delete('checkbox_id');
 
 
     const options = {
@@ -48,7 +48,7 @@ export const postFormData = async (url, formId, redirect = null, css = null) => 
         xsrfCookieName: 'XSRF-TOKEN',
         xsrfHeaderName: 'X-XSRF-TOKEN',
         withCredentials: true, // Ensure cookies (e.g., XSRF token) are sent
-    }
+    };
 
     // AXIOS POST FUNCTIONALITY
     try {
@@ -167,10 +167,10 @@ export const getApiData = async (URL, token = null) => {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
-        }
+        };
 
-        const fetch = await axios.get(URL, config)
-        return fetch.data
+        const fetch = await axios.get(URL, config);
+        return fetch.data;
 
 
     } catch (error) {
@@ -180,7 +180,7 @@ export const getApiData = async (URL, token = null) => {
     }
 
 
-}
+};
 
 export const getMultipleApiData = async (url1, url2, token = null) => {
     try {
@@ -192,13 +192,13 @@ export const getMultipleApiData = async (url1, url2, token = null) => {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
-        }
+        };
 
         const fetch = await axios.all([
             axios.get(url1, config),
             axios.get(url2, config)
-        ])
-        return fetch
+        ]);
+        return fetch;
 
     } catch (error) {
 
@@ -207,7 +207,7 @@ export const getMultipleApiData = async (url1, url2, token = null) => {
     }
 
 
-}
+};
 
 
 // build a function to post multiple api form data
@@ -222,18 +222,18 @@ export const postMultipleApiData = async (url1, url2, formData, token = null) =>
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
-        }
+        };
         const fetch = await axios.all([
             axios.post(url1, formData, config),
             axios.post(url2, formData, config)
-        ])
+        ]);
 
-        return fetch
+        return fetch;
 
     } catch (error) {
         return error;
     }
-}
+};
 /**
  * 
  * @param { name} cname 
@@ -243,12 +243,12 @@ export const postMultipleApiData = async (url1, url2, formData, token = null) =>
 export const setCookie = (cname, cvalue, exdays) => {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
+    var expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+};
 
 export const getCookie = (cname) => {
-    var name = cname + "=";
+    var name = cname + '=';
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
@@ -259,17 +259,17 @@ export const getCookie = (cname) => {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
-}
+    return '';
+};
 
 export const checkCookie = () => {
-    var user = getCookie("username");
-    if (user != "") {
-        alert("Welcome again " + user);
+    var user = getCookie('username');
+    if (user != '') {
+        alert('Welcome again ' + user);
     } else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-            setCookie("username", user, 365);
+        user = prompt('Please enter your name:', '');
+        if (user != '' && user != null) {
+            setCookie('username', user, 365);
         }
     }
-}
+};

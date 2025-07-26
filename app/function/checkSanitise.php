@@ -8,12 +8,12 @@ use App\classes\{
 };
 
 /**
- * @param mixed $inputData  this is the form data 
+ * @param mixed $inputData  this is the form data
  * @param mixed $databaseData this must be database data that already has the database password
  *
  * @return true
  *
- * @throws \Exception 
+ * @throws \Exception
  */
 function checkPassword(#[SensitiveParameter] array $inputData, #[SensitiveParameter] array $databaseData): bool
 {
@@ -26,8 +26,8 @@ function checkPassword(#[SensitiveParameter] array $inputData, #[SensitiveParame
 
     if (password_verify($textPassword, $dbPassword) === false) {
         msgException(401, 'There is a problem with your login credential! - Password');
-        }
-    
+    }
+
     if (password_needs_rehash($dbPassword, PASSWORD_DEFAULT, $options)) {
         // If so, create a new hash, and replace the old one
         $newHash = password_hash($textPassword, PASSWORD_DEFAULT, $options);
@@ -40,18 +40,16 @@ function checkPassword(#[SensitiveParameter] array $inputData, #[SensitiveParame
             msgException(422, 'Password could not be updated');
             return false;
         }
-
-       
     }
      return true;
 }
 
 
 /**
- * 
+ *
  * @param mixed $inputData form data as a array $inputData['email']
  * @return array
- * @throws \Exception 
+ * @throws \Exception
  */
 function useEmailToFindData($inputData)
 {
@@ -68,10 +66,10 @@ function useEmailToFindData($inputData)
 }
 
 /**
- * 
+ *
  * @param mixed $inputData form data as a $email
- * @return mixed 
- * @throws \Exception 
+ * @return mixed
+ * @throws \Exception
  */
 function checkIfEmailExist(string $email): mixed
 {
@@ -80,20 +78,20 @@ function checkIfEmailExist(string $email): mixed
     $data = Select::selectCountFn2(query: $query, bind: [$email]);
 
     if (!$data) {
-
         msgException(404, "We cannot find your email");
     }
-    foreach ($data as $data);
+    foreach ($data as $data) {
+    }
     return $data;
 }
 
 /**
- * 
+ *
  * @param string $col  the first column could be "id"
  * @param string $col2 the second column, could be "status'
  * @param array $data , could be the postdata but must have a email
- * @return mixed 
- * @throws \Exception 
+ * @return mixed
+ * @throws \Exception
  */
 function findTwoColUsingEmail(string $col, string $col2, array $data): mixed
 {
@@ -106,19 +104,19 @@ function findTwoColUsingEmail(string $col, string $col2, array $data): mixed
     $result = Select::selectFn2(query: $query, bind: [$colOne, $colTwo]);
 
     if (!$result) {
-
         msgException(404, "We cannot locate the information");
     }
-    foreach ($result as $data);
+    foreach ($result as $data) {
+    }
     return $data;
 }
 
 /**
- * 
+ *
  * @param string $col  the first column could be "id"
  * @param array $data , could be the postdata but must have a email
- * @return mixed 
- * @throws \Exception 
+ * @return mixed
+ * @throws \Exception
  */
 function findOneColUsingEmail(string $col, array $data): mixed
 {
@@ -129,10 +127,10 @@ function findOneColUsingEmail(string $col, array $data): mixed
     $data = Select::selectFn2(query: $query, bind: [$email]);
 
     if (!$data) {
-
         msgException(404, "We cannot locate the information");
     }
-    foreach ($data as $data);
+    foreach ($data as $data) {
+    }
     return $data;
 }
 
@@ -140,16 +138,15 @@ function findOneColUsingEmail(string $col, array $data): mixed
  * sanitise and get the clean data
  * @param mixed $inputData  - $_post or form input
  * @param mixed $minMaxData  - set metric for min and max and the input name(data) you want to check
- * @return mixed 
- * @throws \Exception 
+ * @return mixed
+ * @throws \Exception
  */
-function getSanitisedInputData(array $inputData, $minMaxData = NULL)
+function getSanitisedInputData(array $inputData, $minMaxData = null)
 {
     $sanitise = new Sanitise($inputData, $minMaxData);
     $sanitisedData = $sanitise->getCleanData();
     $error = $sanitise->error;
     if ($error) {
-
         $theError = "There is a problem with your input<br>" . implode('; <br>', $error);
         msgException(400, $theError);
     }
@@ -159,7 +156,7 @@ function getSanitisedInputData(array $inputData, $minMaxData = NULL)
 /**
  * to generate random byte - token
  *
- * @throws \Exception 
+ * @throws \Exception
  */
 function generateAuthToken(): string
 {
@@ -167,9 +164,9 @@ function generateAuthToken(): string
 }
 /**
  * Helps to generate token, and it updates the login table as well
- * @param mixed $customerId 
- * @return string|array|null|false 
- * @throws \Exception 
+ * @param mixed $customerId
+ * @return string|array|null|false
+ * @throws \Exception
  */
 function generateUpdateTableWithToken($customerId)
 {
@@ -180,7 +177,6 @@ function generateUpdateTableWithToken($customerId)
     $updateCodeToCustomer = new Update('account');
     $updateCodeToCustomer->updateTable('token', $token, 'id', $customerId);
     if (!$updateCodeToCustomer) {
-
         msgException(406, "Error : Could not update token");
     }
     $_SESSION['2FA_token_ts'] = time();

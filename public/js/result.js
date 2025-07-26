@@ -268,10 +268,10 @@ var triggerConfetti = function triggerConfetti() {
         ticks: 300 // Longer duration
       });
     })["catch"](function (error) {
-      console.error("Failed to load canvas-confetti:", error);
+      console.error('Failed to load canvas-confetti:', error);
     });
   } catch (error) {
-    console.error("Error triggering confetti:", error);
+    console.error('Error triggering confetti:', error);
   }
 };
 
@@ -334,24 +334,24 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 try {
   // 1. Safely retrieve and parse sessionStorage data
-  var savedScoreData = JSON.parse(sessionStorage.getItem("scoreData")) || {};
+  var savedScoreData = JSON.parse(sessionStorage.getItem('scoreData')) || {};
   if (!savedScoreData || Object.keys(savedScoreData).length === 0) {
-    throw new Error("No score data found in session storage");
+    throw new Error('No score data found in session storage');
   }
 
   // 2. Set defaults for missing data
   var score = parseInt(savedScoreData.score, 10);
-  var decision = savedScoreData.decision || "Unknown";
-  var color = savedScoreData.color || "text-primary";
-  var comment = savedScoreData.comment || "No comments provided";
-  var badgeText = savedScoreData.badgeText || "";
-  var badgeClass = savedScoreData.badgeClass || "";
-  var itemToBuy = savedScoreData.itemToBuy || "item";
-  var personalisedAdvice = savedScoreData.advice || "No personalized advice available";
-  var itemImage = savedScoreData.resultImage || "default-image.png";
+  var decision = savedScoreData.decision || 'Unknown';
+  var color = savedScoreData.color || 'text-primary';
+  var comment = savedScoreData.comment || 'No comments provided';
+  var badgeText = savedScoreData.badgeText || '';
+  var badgeClass = savedScoreData.badgeClass || '';
+  var itemToBuy = savedScoreData.itemToBuy || 'item';
+  var personalisedAdvice = savedScoreData.advice || 'No personalized advice available';
+  var itemImage = savedScoreData.resultImage || 'default-image.png';
 
   // Define the decision triggers for confetti
-  var confettiTriggers = ["WORTH CONSIDERING!", "STRONG BUY"];
+  var confettiTriggers = ['WORTH CONSIDERING!', 'STRONG BUY'];
 
   // Trigger confetti if decision includes any trigger
   if (confettiTriggers.some(function (trigger) {
@@ -375,26 +375,26 @@ try {
     option3: {
       high: "Buying the ".concat(itemToBuy, " looks solid! Double-check your budget to ensure it fits comfortably, and enjoy the benefits it brings."),
       medium: "You\u2019re on the fence. Try researching cheaper alternatives or waiting for a sale to make buying the ".concat(itemToBuy, " more affordable."),
-      low: "Great choice to hold off. Reassess your needs in a month or explore free alternatives to meet your goals without spending."
+      low: 'Great choice to hold off. Reassess your needs in a month or explore free alternatives to meet your goals without spending.'
     },
     option4: {
       high: "Awesome choice! buying the ".concat(itemToBuy, " is well thought out. Keep up your smart financial habits to stay on track."),
-      medium: "Take a step back. Could you save up for this or find a similar item at a lower cost? Your wallet will thank you!",
-      low: "You\u2019re making a savvy decision by passing on this. Focus on your financial priorities, like saving for a bigger goal."
+      medium: 'Take a step back. Could you save up for this or find a similar item at a lower cost? Your wallet will thank you!',
+      low: 'You’re making a savvy decision by passing on this. Focus on your financial priorities, like saving for a bigger goal.'
     }
   };
 
   // 4. DOM Element Safety Checks
-  var _scoreEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("score");
-  var decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("decision");
-  var commentsEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("comments");
-  var badgeEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("badge");
-  var sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("scoreSlider");
-  var imgEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("image");
-  var _adviceEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("personalisedAdvice");
-  var influencesEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("influenceBreakdown");
+  var _scoreEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('score');
+  var decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('decision');
+  var commentsEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('comments');
+  var badgeEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('badge');
+  var sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('scoreSlider');
+  var imgEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('image');
+  var _adviceEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('personalisedAdvice');
+  var influencesEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('influenceBreakdown');
   if (!_scoreEl || !decisionEl || !commentsEl || !badgeEl || !sliderEl || !imgEl || !_adviceEl) {
-    throw new Error("Required DOM elements not found");
+    throw new Error('Required DOM elements not found');
   }
 
   // 5. Animated score counter with safety
@@ -402,7 +402,7 @@ try {
   var interval = setInterval(function () {
     try {
       if (i <= score) {
-        _scoreEl.textContent = i + "%";
+        _scoreEl.textContent = i + '%';
         sliderEl.value = i; // Update slider value during animation
         i++;
       } else {
@@ -410,7 +410,7 @@ try {
       }
     } catch (e) {
       clearInterval(interval);
-      console.error("Score animation error:", e);
+      console.error('Score animation error:', e);
     }
   }, 20);
 
@@ -424,7 +424,7 @@ try {
   if (badgeClass) badgeEl.classList.add(badgeClass);
 
   // 7. Personalized advice using option1
-  var advice = "";
+  var advice = '';
   if (score >= 75) {
     advice = adviceOptions.option1.high;
   } else if (score >= 50) {
@@ -435,17 +435,17 @@ try {
   _adviceEl.textContent = advice;
 
   // Populate advice list
-  var adviceList = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("advice-list");
+  var adviceList = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('advice-list');
   if (savedScoreData.advice && Array.isArray(savedScoreData.advice)) {
     savedScoreData.advice.forEach(function (tip) {
-      var li = document.createElement("li");
+      var li = document.createElement('li');
       li.classList.add('list-group-items');
       li.textContent = tip;
       adviceList.appendChild(li);
     });
   } else {
-    var li = document.createElement("li");
-    li.textContent = "No specific advice available. Review your answers for better insights.";
+    var li = document.createElement('li');
+    li.textContent = 'No specific advice available. Review your answers for better insights.';
     adviceList.appendChild(li);
   }
 
@@ -456,61 +456,61 @@ try {
   try {
     var pageUrl = encodeURIComponent(window.location.href);
     var shareText = "I got a ".concat(score, "% decision score using iDecide! ").concat(pageUrl);
-    var twitterShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("twitterShare");
+    var twitterShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('twitterShare');
     if (twitterShare) {
       twitterShare.href = "https://twitter.com/intent/tweet?text=".concat(shareText);
     }
-    var whatsappShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("whatsappShare");
+    var whatsappShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('whatsappShare');
     if (whatsappShare) {
       whatsappShare.href = "https://api.whatsapp.com/send?text=".concat(shareText);
     }
-    var facebookShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("facebookShare");
+    var facebookShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('facebookShare');
     if (facebookShare) {
       facebookShare.href = "https://www.facebook.com/sharer/sharer.php?u=".concat(pageUrl, "&quote=").concat(shareText);
     }
-    var truthSocialShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("truthSocialShare");
+    var truthSocialShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('truthSocialShare');
     if (truthSocialShare) {
       truthSocialShare.href = "https://truthsocial.com/share?text=".concat(shareText, "%20").concat(pageUrl);
     }
-    var linkedinShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("linkedinShare");
+    var linkedinShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('linkedinShare');
     if (linkedinShare) {
       linkedinShare.href = "https://www.linkedin.com/sharing/share-offsite/?url=".concat(pageUrl, "&title=").concat(shareText);
     }
-    var redditShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("redditShare");
+    var redditShare = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('redditShare');
     if (redditShare) {
       redditShare.href = "https://www.reddit.com/submit?url=".concat(pageUrl, "&title=").concat(shareText);
     }
   } catch (shareError) {
-    console.error("Share feature error:", shareError);
+    console.error('Share feature error:', shareError);
   }
 
   // 10. PDF download feature
   try {
-    var downloadBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("downloadPDF");
+    var downloadBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('downloadPDF');
     if (downloadBtn && window.jspdf) {
-      downloadBtn.addEventListener("click", function () {
+      downloadBtn.addEventListener('click', function () {
         try {
           var jsPDF = window.jspdf.jsPDF;
           var doc = new jsPDF();
-          doc.text("Decision Matrix Result", 10, 10);
+          doc.text('Decision Matrix Result', 10, 10);
           doc.text("Decision: ".concat(decision), 10, 20);
           doc.text("Score: ".concat(score, "%"), 10, 30);
           doc.text("Comments: ".concat(comment), 10, 40);
-          doc.save("decision_matrix_result.pdf");
+          doc.save('decision_matrix_result.pdf');
         } catch (pdfError) {
-          (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)("Failed to generate PDF");
-          console.error("PDF generation error:", pdfError);
+          (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)('Failed to generate PDF');
+          console.error('PDF generation error:', pdfError);
         }
       });
     }
   } catch (pdfInitError) {
-    console.error("PDF button initialization error:", pdfInitError);
+    console.error('PDF button initialization error:', pdfInitError);
   }
 
   // 11. make the submit button bigger by adding a class btn-lg and btn-block 
-  var submitBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("button");
+  var submitBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('button');
   if (submitBtn) {
-    submitBtn.classList.add("btn-lg", "btn-block");
+    submitBtn.classList.add('btn-lg', 'btn-block');
   }
 
   // 12. Render influences using the imported function
@@ -537,23 +537,23 @@ try {
   }
 
   //13. email result to the user 
-  var emailBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("submitResult");
+  var emailBtn = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('submitResult');
   if (emailBtn) {
-    emailBtn.addEventListener("click", /*#__PURE__*/function () {
+    emailBtn.addEventListener('click', /*#__PURE__*/function () {
       var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
         var email, emailRegex, emailModal, resultData, response, emailHelp, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
               e.preventDefault();
-              email = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("email").value;
+              email = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('email').value;
               emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              emailModal = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("emailModal");
+              emailModal = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('emailModal');
               if (!(!email || !emailRegex.test(email))) {
                 _context.n = 1;
                 break;
               }
-              (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)("Please enter a valid email address");
+              (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)('Please enter a valid email address');
               return _context.a(2);
             case 1:
               resultData = {
@@ -573,18 +573,18 @@ try {
                 break;
               }
               _context.n = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post("/emailResult", resultData);
+              return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/emailResult', resultData);
             case 3:
               response = _context.v;
-              if (!(response.data && response.data.status === "success")) {
+              if (!(response.data && response.data.status === 'success')) {
                 _context.n = 4;
                 break;
               }
               // Show success message
-              emailHelp = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("emailHelp");
+              emailHelp = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('emailHelp');
               if (emailHelp) {
-                emailHelp.textContent = response.data.message || "Email sent successfully!";
-                emailHelp.classList.add("text-success");
+                emailHelp.textContent = response.data.message || 'Email sent successfully!';
+                emailHelp.classList.add('text-success');
               }
 
               // set timer for 3 seconds to hide the modal
@@ -595,20 +595,20 @@ try {
               _context.n = 5;
               break;
             case 4:
-              throw new Error(response.data.error || "Failed to send email. Please try again later.");
+              throw new Error(response.data.error || 'Failed to send email. Please try again later.');
             case 5:
               _context.n = 7;
               break;
             case 6:
               _context.n = 7;
-              return (0,_background_sync_js__WEBPACK_IMPORTED_MODULE_2__.queuePostRequest)("/emailResult", resultData);
+              return (0,_background_sync_js__WEBPACK_IMPORTED_MODULE_2__.queuePostRequest)('/emailResult', resultData);
             case 7:
               _context.n = 9;
               break;
             case 8:
               _context.p = 8;
               _t = _context.v;
-              console.error("Email sending error:", _t);
+              console.error('Email sending error:', _t);
             case 9:
               return _context.a(2);
           }
@@ -620,21 +620,21 @@ try {
     }());
   }
 } catch (mainError) {
-  console.error("Main execution error:", mainError);
+  console.error('Main execution error:', mainError);
   (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.showError)(mainError);
 
   // Fallback UI state
   // const scoreEl = id("score");
-  if (scoreEl) scoreEl.textContent = "0%";
-  var _decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("decision");
-  if (_decisionEl) _decisionEl.textContent = "Error";
+  if (scoreEl) scoreEl.textContent = '0%';
+  var _decisionEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('decision');
+  if (_decisionEl) _decisionEl.textContent = 'Error';
 
   // const adviceEl = id("personalisedAdvice");
-  if (adviceEl) adviceEl.textContent = "Unable to provide advice due to an error.";
+  if (adviceEl) adviceEl.textContent = 'Unable to provide advice due to an error.';
 
   // Hide optional elements
-  var _sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)("scoreSlider");
-  if (_sliderEl) _sliderEl.style.display = "none";
+  var _sliderEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('scoreSlider');
+  if (_sliderEl) _sliderEl.style.display = 'none';
 }
 
 /***/ })

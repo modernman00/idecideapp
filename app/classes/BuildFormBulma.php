@@ -4,7 +4,6 @@ namespace App\classes;
 
 use App\classes\AlterTable;
 
-
 class BuildFormBulma extends AlterTable
 {
     /**
@@ -68,18 +67,18 @@ class BuildFormBulma extends AlterTable
 
     /**
      * important ones are mixed, select-many, setError
-     * 
+     *
      * example - mixed 'spouse' => ['mixed','label' => ["Spouse's name", "Spouse's mobile", "Spouse's Email"],'attribute' => ['spouseName', 'spouseMobile', 'spouseEmail'],'placeholder' => ['Toyin', '23480364168089', "toyin@gmail.com"], 'inputType' => ['text', 'text', 'email'],'icon' => ['<i class="fas fa-user"></i>','<i class="fas fa-user"></i>','<i class="fas fa-envelope-square"></i>']],
-     * 
-     * 
+     *
+     *
      * example select-many  'married_gender' => ['select-many','label' => ['Marital status', 'gender']'attribute' => ['maritalStatus', 'gender'],'options' => [['select', 'Yes', 'No'],['select', 'Male', 'Female']],'icon' => ['<i class="far fa-kiss-wink-heart"></i>','<i class="fas fa-user-friends"></i>',]],
-     * 
-     * 
+     *
+     *
      * example showError  nameKey => showError - the namekey should be the id of the div or form that will release the error. See Login or Register.js for a clear example
-     * 
+     *
      * example button_captcha  'submit'=> ['button_captcha', 'js'=> 'loginSubmission', 'key'=>getenv('RECAPTCHA_KEY')],
-     * 
-     * @return void 
+     *
+     * @return void
      */
     public function genForm(): void
     {
@@ -94,7 +93,8 @@ class BuildFormBulma extends AlterTable
             $nameKey = $this->entKey[$i];
             $value = $value ?? "";
 
-            if ($this->entValue[$i][0] === 'button_captcha'){ $js = $this->entValue[$i]['js'];
+            if ($this->entValue[$i][0] === 'button_captcha') {
+                $js = $this->entValue[$i]['js'];
                 $siteKey = $this->entValue[$i]['key'];
                 $action = $this->entValue[$i]['action'];
                 echo <<<HTML
@@ -107,8 +107,6 @@ class BuildFormBulma extends AlterTable
                 </div>
                 HTML;
             } elseif ($this->entValue[$i][0] === 'mixed') {
-            
-
                 for ($y = 0; $y < count($this->entValue[$i]['label']); $y++) {
                     $label = empty($this->entValue[$i]['label'][$y]) ? '' : $this->entValue[$i]['label'][$y];
                     $name = empty($this->entValue[$i]['attribute'][$y]) ? '' : $this->entValue[$i]['attribute'][$y];
@@ -122,9 +120,8 @@ class BuildFormBulma extends AlterTable
                     $cardImg = $this->entValue[$i]['cardImg'][$y] ?? "";
 
 
-                if($labelType === 'cardSelect'){
-
-                    echo <<<HTML
+                    if ($labelType === 'cardSelect') {
+                        echo <<<HTML
                         <div class="column">
                         <div class="card $name" id="{$name}_div" onclick="selectCard(this)">
 
@@ -145,14 +142,13 @@ class BuildFormBulma extends AlterTable
                                                 <select name={$name} id={$name}_id>
                                                     <option value="0">Select Option</option>
                         HTML;
-                                                    if ($this->entValue[$i]['options'][$y]) {
-                                                        $decide = $this->entValue[$i]['options'][$y];
+                        if ($this->entValue[$i]['options'][$y]) {
+                            $decide = $this->entValue[$i]['options'][$y];
 
-                                                        foreach ($decide as $selectOption) {
-
-                                                            echo "<option value=\"{$value}\"> $selectOption </option>";
-                                                        }
-                                                    }
+                            foreach ($decide as $selectOption) {
+                                echo "<option value=\"{$value}\"> $selectOption </option>";
+                            }
+                        }
                         echo <<<HTML
                                                 </select>
                                             
@@ -169,10 +165,7 @@ class BuildFormBulma extends AlterTable
                         
                           
                         HTML;
-
-
                     } elseif ($labelType === 'cardInput') {
-
                         echo <<<HTML
                         <div class="column">
                         <div class="card $name" id="{$name}_div" onclick="selectCard(this)">
@@ -202,9 +195,7 @@ class BuildFormBulma extends AlterTable
                             
                           
                         HTML;
-
-
-                    }  else {
+                    } else {
                         echo <<<HTML
                         <div class="field $name" id="{$name}_div">
                             <label class="label is-medium" id="$name"><b>$cleanLabel</b></label>
@@ -218,7 +209,6 @@ class BuildFormBulma extends AlterTable
                         HTML;
                     }
                 }
-          
             } elseif ($this->entValue[$i] === 'captcha') {
                  echo sprintf('<div class="g-recaptcha" data-sitekey="%s"></div>', getenv('RECAPTCHA_KEY'));
             } else {

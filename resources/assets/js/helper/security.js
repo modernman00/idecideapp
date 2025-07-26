@@ -1,14 +1,14 @@
-import { id } from '../global'
+import { id } from '../global';
 
 export const showPassword = (inputId) => {
     const y = id(inputId);
-    if (y.type === "password") {
+    if (y.type === 'password') {
 
-        y.type = "text";
+        y.type = 'text';
     } else {
-        y.type = "password";
+        y.type = 'password';
     }
-}
+};
 
 /**
  * 
@@ -18,11 +18,11 @@ export const showPassword = (inputId) => {
 export const emailVal = (email) => {
     const emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
     let error;
-    let msg = `<li style=color:'red';> Please enter a valid email</li>`
+    let msg = '<li style=color:\'red\';> Please enter a valid email</li>';
     if (email.match(emailExp) === null) {
-        id('email_error').innerHTML = msg
-        id('email_error').style.color = "red"
+        id('email_error').innerHTML = msg;
+        id('email_error').style.color = 'red';
         error = 1;
-        return error
+        return error;
     }
-}
+};

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\config;
 
 // Session handling with improved conditions
@@ -39,4 +38,3 @@ date_default_timezone_set('Europe/London');
 // Initialize ErrorHandler with the new implementation
 // $errorHandler = new ErrorHandler();
 // $errorHandler->outputError(__DIR__ . '/../../bootstrap/log');
-

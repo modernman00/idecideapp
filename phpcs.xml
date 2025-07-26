@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="iDecide PHP Coding Standards">
+    <description>PHP coding standards for iDecide project</description>
+    
+    <!-- Use PSR-12 standard -->
+    <rule ref="PSR12"/>
+    
+    <!-- Scan all PHP files -->
+    <file>.</file>
+    
+    <!-- Exclude patterns -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>public/js/*</exclude-pattern>
+    <exclude-pattern>resources/assets/js/*</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>*.scss</exclude-pattern>
+    <exclude-pattern>*.json</exclude-pattern>
+    <exclude-pattern>*.xml</exclude-pattern>
+    <exclude-pattern>*.yml</exclude-pattern>
+    <exclude-pattern>*.yaml</exclude-pattern>
+    <exclude-pattern>*.md</exclude-pattern>
+    <exclude-pattern>*.txt</exclude-pattern>
+    <exclude-pattern>*.log</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
+    <exclude-pattern>storage/*</exclude-pattern>
+    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
+    
+    <!-- Show progress -->
+    <arg name="report" value="full"/>
+    <arg name="colors"/>
+    <arg value="p"/>
+    
+    <!-- Extensions to check -->
+    <arg name="extensions" value="php"/>
+</ruleset>

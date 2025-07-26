@@ -11,8 +11,6 @@ use Src\Exceptions\ValidationException;
  */
 class CalculateResultController
 {
-
-
     public static function process()
     {
         try {
@@ -221,7 +219,7 @@ class CalculateResultController
 
             // Filter and get the FIRST tier where score >= minScore (sorted high-to-low)
             $filtered = array_filter($decisions, fn($d) => $finalScore >= $d['minScore']);
-            $decisionData   = reset($filtered); // Gets the FIRST matching tier 
+            $decisionData   = reset($filtered); // Gets the FIRST matching tier
 
             $scoreData = [
                 'decision' => $decisionData['decision'],
@@ -242,7 +240,6 @@ class CalculateResultController
 
 
             Utility::msgSuccess(200, $scoreData);
-
         } catch (\Throwable $e) {
             Utility::showError($e);
         }

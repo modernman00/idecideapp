@@ -4,29 +4,25 @@ namespace App\controller;
 
 use Src\{Utility, Select};
 
-
 class IndexController extends BaseController
 {
-
     public function main()
     {
         try {
-
             BaseController::viewWithCsp('main');
         } catch (\Throwable $th) {
             Utility::showError($th);
         }
-      
     }
 
     public function result()
     {
-  
 
-    if ($_SESSION['QUESTION_PROCESS'] !== "ENABLED") {
-        header('Location: /');
-        exit;
-    }
+
+        if ($_SESSION['QUESTION_PROCESS'] !== "ENABLED") {
+            header('Location: /');
+            exit;
+        }
 
         BaseController::viewWithCsp('result');
     }
@@ -43,7 +39,7 @@ class IndexController extends BaseController
         BaseController::viewWithCsp('privacy');
     }
 
-    // contact 
+    // contact
     public function contact()
     {
         BaseController::viewWithCsp('contact');

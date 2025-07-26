@@ -21,40 +21,31 @@ export const loginSubmission = async (formId, loginURL, redirect, css = null, le
 
   try {
 
-    const formInput = qSel(`#${formId}`)
+    const formInput = qSel(`#${formId}`);
 
     if (!formInput) {
       console.error(`Form ${formId} not found`);
       return;
     }
 
-    const recaptchaSiteKey = process.env.MIX_RECAPTCHA_KEY
+    const recaptchaSiteKey = process.env.MIX_RECAPTCHA_KEY;
 
   
 
-    const formInputArr = Array.from(formInput.elements)
+    const formInputArr = Array.from(formInput.elements);
 
-    const formData = new FormHelper(formInputArr)
+    const formData = new FormHelper(formInputArr);
 
     formData.clearError();
 
     if (lengthLimit) {
       formData.realTimeCheckLen(lengthLimit.maxLength.id, lengthLimit.maxLength.max);
     }
-    // formData.validateLoginField('password_id', 'password');
-    // formData.validateLoginField('email_id', 'email');
 
-    formData.massValidate([], { email: 'email', password: 'password' })
+    formData.massValidate([], { email: 'email', password: 'password' });
 
     if (formData.result === 1) {
-        // for recaptcha - create a hidden element to store the token
-   try {
-            await handleRecaptcha(formId, process.env.MIX_RECAPTCHA_KEY, 'login');
-        } catch (err) {
-         
-            console.error('reCAPTCHA error:', err);
-            return;
-        }
+ 
 
       showLoader();
       localStorage.setItem('redirect', redirect);

@@ -10,10 +10,11 @@ class EmailResultControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Mock global functions if they don't exist
         if (!function_exists('showError')) {
-            function showError($e) {
+            function showError($e)
+            {
                 echo "Error: " . $e->getMessage();
             }
         }
@@ -33,7 +34,7 @@ class EmailResultControllerTest extends TestCase
     public function testEmailResultMethodExists()
     {
         $this->assertTrue(method_exists(EmailResultController::class, 'emailResult'));
-        
+
         $reflection = new \ReflectionMethod(EmailResultController::class, 'emailResult');
         $this->assertTrue($reflection->isPublic());
     }
@@ -44,14 +45,14 @@ class EmailResultControllerTest extends TestCase
     public function testEmailResultWithNoInputData()
     {
         $controller = new EmailResultController();
-        
+
         // Mock empty php://input
         $this->mockPhpInput('');
-        
+
         ob_start();
         $controller->emailResult();
         $output = ob_get_clean();
-        
+
         // Should handle missing input gracefully
         $this->assertTrue(true);
     }
@@ -62,14 +63,14 @@ class EmailResultControllerTest extends TestCase
     public function testEmailResultWithInvalidJson()
     {
         $controller = new EmailResultController();
-        
+
         // Mock invalid JSON
         $this->mockPhpInput('invalid json data');
-        
+
         ob_start();
         $controller->emailResult();
         $output = ob_get_clean();
-        
+
         // Should handle invalid JSON gracefully
         $this->assertTrue(true);
     }
@@ -80,7 +81,7 @@ class EmailResultControllerTest extends TestCase
     public function testEmailResultWithValidInput()
     {
         $controller = new EmailResultController();
-        
+
         $validInput = [
             'email' => 'test@example.com',
             'decision' => 'GREEN LIGHT ON! - STRONG BUY',
@@ -105,14 +106,14 @@ class EmailResultControllerTest extends TestCase
                 ]
             ]
         ];
-        
+
         // Mock valid JSON input
         $this->mockPhpInput(json_encode($validInput));
-        
+
         ob_start();
         $controller->emailResult();
         $output = ob_get_clean();
-        
+
         // Should process valid input without errors
         $this->assertTrue(true);
     }
@@ -123,14 +124,14 @@ class EmailResultControllerTest extends TestCase
     public function testEmailResultWithEmptyInputObject()
     {
         $controller = new EmailResultController();
-        
+
         // Mock empty object
         $this->mockPhpInput('{}');
-        
+
         ob_start();
         $controller->emailResult();
         $output = ob_get_clean();
-        
+
         // Should handle empty object gracefully
         $this->assertTrue(true);
     }
@@ -142,7 +143,7 @@ class EmailResultControllerTest extends TestCase
     {
         // The controller uses 'msg/sendResult' as template path
         $expectedTemplate = 'msg/sendResult';
-        
+
         // This tests the expected template path used in the controller
         $this->assertEquals('msg/sendResult', $expectedTemplate);
     }
@@ -154,7 +155,7 @@ class EmailResultControllerTest extends TestCase
     {
         // The controller uses 'Your Decision Matrix Result' as subject
         $expectedSubject = 'Your Decision Matrix Result';
-        
+
         // This tests the expected subject used in the controller
         $this->assertEquals('Your Decision Matrix Result', $expectedSubject);
     }
@@ -185,7 +186,7 @@ class EmailResultControllerTest extends TestCase
                 'badgeText' => 'Conscious Spender'
             ]
         ];
-        
+
         foreach ($validStructures as $structure) {
             $this->assertIsArray($structure);
             $this->assertArrayHasKey('email', $structure);
@@ -203,18 +204,18 @@ class EmailResultControllerTest extends TestCase
             'user.name@domain.co.uk',
             'firstname+lastname@example.org'
         ];
-        
+
         $invalidEmails = [
             'invalid-email',
             '@example.com',
             'test@',
             ''
         ];
-        
+
         foreach ($validEmails as $email) {
             $this->assertMatchesRegularExpression('/^[^\s@]+@[^\s@]+\.[^\s@]+$/', $email);
         }
-        
+
         foreach ($invalidEmails as $email) {
             $this->assertDoesNotMatchRegularExpression('/^[^\s@]+@[^\s@]+\.[^\s@]+$/', $email);
         }
@@ -231,7 +232,7 @@ class EmailResultControllerTest extends TestCase
             'RECONSIDER ⚖️ OR MAYBE LATER! ⏳',
             'HOLD OFF! 🛑 AND DON\'T BUY ❌'
         ];
-        
+
         foreach ($expectedDecisions as $decision) {
             $this->assertIsString($decision);
             $this->assertNotEmpty($decision);
@@ -245,12 +246,12 @@ class EmailResultControllerTest extends TestCase
     {
         $validScores = [0, 25.5, 50, 75.8, 100];
         $invalidScores = [-1, -10, 101, 150];
-        
+
         foreach ($validScores as $score) {
             $this->assertGreaterThanOrEqual(0, $score);
             $this->assertLessThanOrEqual(100, $score);
         }
-        
+
         foreach ($invalidScores as $score) {
             $this->assertTrue($score < 0 || $score > 100);
         }
@@ -273,10 +274,10 @@ class EmailResultControllerTest extends TestCase
     public function testExceptionHandling()
     {
         $controller = new EmailResultController();
-        
+
         // The controller should catch exceptions and call showError
         // We can test that the method completes without throwing unhandled exceptions
-        
+
         ob_start();
         try {
             $controller->emailResult();
@@ -285,7 +286,7 @@ class EmailResultControllerTest extends TestCase
             $completed = false;
         }
         ob_get_clean();
-        
+
         // Method should complete (either successfully or with handled exception)
         $this->assertTrue($completed);
     }
@@ -296,7 +297,7 @@ class EmailResultControllerTest extends TestCase
     public function testMethodSignature()
     {
         $reflection = new \ReflectionMethod(EmailResultController::class, 'emailResult');
-        
+
         $this->assertTrue($reflection->isPublic());
         $this->assertEquals(0, $reflection->getNumberOfParameters());
         $this->assertEquals('emailResult', $reflection->getName());

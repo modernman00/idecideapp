@@ -95,7 +95,8 @@ class LoginController extends BaseController
     public function logout()
     {
         try {
-            BaseController::viewWithCsp('login');
+            // create a log out code 
+          
         } catch (\Throwable $e) {
             showError($e);
         }

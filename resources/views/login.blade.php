@@ -1,11 +1,6 @@
 @extends('base')
-
 @section('title', 'iDecide Decision Matrix - Login')
-
 @section('content')
-
-
-
 
 <div class="styleForm" style="margin-top: 2rem;">
 
@@ -26,22 +21,21 @@ $formArray = [
           'attribute' => ['email', 'password' ], 
           'inputType' => ['email', 'password'], 
           'placeholder' => ['Enter your email', 'Enter your password']],
-          'button'=> 'button',
+          'submit'=> 'button',
           'showPassword' => 'showPassword',
-
-                  'token' => 'token',
-
+          'token' => 'token'
         ];
 
-
-
 $form = new Src\BuildFormBStrap($formArray);
-
 $form->genForm();
-
 @endphp
+<br>
 
-<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+<div class="g-recaptcha" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
+<br>
+
+
+{{-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response"> --}}
 
 
  <a href="/forgot?verify=1"> Forgot password? Please click this link</a>

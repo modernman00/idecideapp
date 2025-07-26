@@ -1,7 +1,7 @@
-import { showError, id } from "./global";
+import { showError, id } from './global';
 
 // do lazy loading of the app based on the current URL
-     document.addEventListener("DOMContentLoaded", function () {
+     document.addEventListener('DOMContentLoaded', function () {
 
         id('themeSwitch').addEventListener('change', function() {
             document.body.dataset.theme = this.checked ? 'dark' : 'light';
@@ -11,40 +11,51 @@ import { showError, id } from "./global";
 
         });
 
-       if (window.location.pathname === "/") {
+       if (window.location.pathname === '/') {
          import(
            /* webpackChunkName: 'main' */
            /* webpackPrefetch: true */
-           "./main"
+           './main'
          )
            .then((module) => module.default)
            .catch((err) => showError(err));
            
-       } else if (window.location.pathname === "/result") {
+       } else if (window.location.pathname === '/result') {
          import(
            /* webpackChunkName: 'result' */
            /* webpackPrefetch: true */
-           "./result"
+           './result'
          )
            .then((module) => module.default)
            .catch((err) => showError(err));
 
-       }else if (window.location.pathname === "/createBlog") {
+       }else if (window.location.pathname === '/createBlog') {
   
          import(
            /* webpackChunkName: 'blog' */
            /* webpackPrefetch: true */
-           "./blog"
+           './blog'
          )
            .then((module) => module.default)
            .catch((err) => showError(err));
 
-       } else if (window.location.pathname === "/managed") {
+       } else if (window.location.pathname === '/managed') {
          
          import(
            /* webpackChunkName: 'managed' */
            /* webpackPrefetch: true */
-           "./blog/login"
+           './blog/login'
+         )
+           .then((module) => module.default)
+           .catch((err) => showError(err));
+       } else if (window.location.pathname === '/blogMgt') {
+
+      id('signout').style.display = 'block'
+         
+         import(
+           /* webpackChunkName: 'blogMgt' */
+           /* webpackPrefetch: true */
+           './blog/show'
          )
            .then((module) => module.default)
            .catch((err) => showError(err));

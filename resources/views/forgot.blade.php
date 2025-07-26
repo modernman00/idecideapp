@@ -20,7 +20,7 @@
                 <?php
 
                     $formArray = [
-                        'forgotPassword_notification'=>'showError',
+                        'forgotPassword_notification' => 'showError',
                         'email' => 'email',
                         'token' => 'token',
                         'button' => 'submit'
@@ -29,7 +29,7 @@
                     $form = new Src\BuildFormBStrap($formArray);
                     $form->genForm();
 
-                ?>
+                    ?>
                 <br>
 
             </div>

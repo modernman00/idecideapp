@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\controller;
 
@@ -15,23 +15,20 @@ use Src\Delete;
 use Src\Token;
 use Src\LoginUtility;
 
-
 class PasswordChangeController extends BaseController
 {
-     public function show(): void
+    public function show(): void
     {
 
-      try {
-
-       if(isset($_SESSION['FORGOT']))  {
-
-        BaseController::viewWithCsp('passwordChange');
-       } else {
-        throw new UnauthorisedException("NOT SURE WE KNOW YOU", 1);
-       }
-      } catch (\Throwable $th) {
-        Utility::showError($th);
-      }
+        try {
+            if (isset($_SESSION['FORGOT'])) {
+                BaseController::viewWithCsp('passwordChange');
+            } else {
+                throw new UnauthorisedException("NOT SURE WE KNOW YOU", 1);
+            }
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
     }
 
     public function post(): void
@@ -42,27 +39,25 @@ class PasswordChangeController extends BaseController
 
             CheckToken::tokenCheck('token');
 
-            $update = New Update('account');
-         
+            $update = new Update('account');
 
-         if(isset($_SESSION['FORGOT'])) {
 
-            $result = $update->updateTable('password', $cleanData['password'], 'email', $email);
-            if (!$result) {
+            if (isset($_SESSION['FORGOT'])) {
+                $result = $update->updateTable('password', $cleanData['password'], 'email', $email);
+                if (!$result) {
+                    throw new NotFoundException("Password cannot be updated");
+                }
 
-                throw new NotFoundException("Password cannot be updated");
+
+                session_regenerate_id();
+                unset($_SESSION);
+
+                Header("Location: /managed");
+                exit;
+
+               // msgSuccess(200, "Password was successfully changed");
             }
-
-
-            session_regenerate_id();
-            unset($_SESSION);
-
-            Header("Location: /managed");
-            exit;
-     
-            // msgSuccess(200, "Password was successfully changed");
-         }
-                } catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             Utility::showError($e);
         }
     }

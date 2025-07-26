@@ -1,7 +1,7 @@
 import { loginSubmission} from '../Login.js';
 import { id } from '../global.js';
 import { blogRoutes } from '../routes';
-import { showPassword } from '../helper/security'
+import { showPassword } from '../helper/security';
 
 
 const LoginToAdmin = (e) => {
@@ -18,14 +18,14 @@ const LoginToAdmin = (e) => {
 
   loginSubmission('managed', '/managed', blogRoutes.blogMgt, 'bootstrap', lengthLimit);
 
-}
+};
 
-id("button").addEventListener('click', LoginToAdmin)
+id('button').addEventListener('click', LoginToAdmin);
 
-id("showPassword_id").addEventListener('click', () => showPassword('password_id'))
+id('showPassword_id').addEventListener('click', () => showPassword('password_id'));
 
-const currentPs = id("password_id")
-const passwordLabel = id("showPassword_id")
-currentPs.setAttribute('autocomplete', 'current-password')
-passwordLabel.setAttribute('aria-label', 'Warning: this will display your password on the screen.')
+const currentPs = id('password_id');
+const passwordLabel = id('showPassword_id');
+currentPs.setAttribute('autocomplete', 'current-password');
+passwordLabel.setAttribute('aria-label', 'Warning: this will display your password on the screen.');
 

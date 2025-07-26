@@ -29,4 +29,4 @@ export const renderInfluences =(data)=> {
     `;
     container.appendChild(bar);
   });
-}
+};

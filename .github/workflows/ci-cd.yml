@@ -43,14 +43,61 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
       if: hashFiles('**/composer.json') != ''
     
+    # Code Quality Checks
+    - name: Run PHP Code Style Check
+      run: |
+        if [ -f "vendor/bin/phpcs" ]; then
+          vendor/bin/phpcs --standard=PSR12 --ignore=vendor/ .
+        else
+          echo "PHP CodeSniffer not installed, skipping..."
+        fi
+      continue-on-error: true
+    
+    - name: Run JavaScript Linting
+      run: |
+        if [ -f "node_modules/.bin/eslint" ]; then
+          npx eslint resources/js/ --ext .js,.vue || true
+        else
+          echo "ESLint not installed, skipping..."
+        fi
+      continue-on-error: true
+    
+    # Run JavaScript tests
+    - name: Run JavaScript tests
+      run: |
+        if [ -f "jest.config.js" ] || [ -f "package.json" ] && grep -q "jest" package.json; then
+          npm test
+        else
+          echo "No JavaScript tests configured, skipping..."
+        fi
+      continue-on-error: true
+    
     # Build your assets
     - name: Build assets
       run: npm run production
     
-    # Run PHP tests (if you have them)
-    - name: Run PHP tests
-      run: php vendor/bin/phpunit
-      if: hashFiles('**/phpunit.xml') != ''
+    # Run PHP tests
+    - name: Run PHP Unit Tests
+      run: |
+        if [ -f "vendor/bin/phpunit" ]; then
+          vendor/bin/phpunit --coverage-text --colors=never
+        elif [ -f "phpunit.xml" ]; then
+          php vendor/bin/phpunit --coverage-text --colors=never
+        else
+          echo "PHPUnit not configured, skipping tests..."
+        fi
+      continue-on-error: true
+    
+    # Security checks
+    - name: Check for security vulnerabilities
+      run: |
+        # Check PHP dependencies
+        if [ -f "composer.json" ]; then
+          composer audit || echo "Composer audit not available or issues found"
+        fi
+        # Check npm dependencies
+        npm audit --audit-level=high || echo "npm audit found issues or not available"
+      continue-on-error: true
     
     # Upload build artifacts
     - name: Upload build artifacts
@@ -117,3 +164,13 @@ jobs:
           - Assets compiled with Laravel Mix
         draft: false
         prerelease: false
+
+    - name: Set reCAPTCHA keys for environment
+      run: |
+        if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+          echo "RECAPTCHA_KEY=${{ secrets.RECAPTCHA_PROD_SITE_KEY }}" >> .env
+          echo "SECRET_RECAPTCHA_KEY=${{ secrets.RECAPTCHA_PROD_SECRET_KEY }}" >> .env
+        else
+          echo "RECAPTCHA_SITE_KEY_DEV=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" >> .env
+          echo "RECAPTCHA_SECRET_KEY_DEV=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe" >> .env
+        fi

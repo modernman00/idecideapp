@@ -9,10 +9,10 @@ export const triggerConfetti = () => {
         ticks: 300 // Longer duration
       });
     }).catch((error) => {
-      console.error("Failed to load canvas-confetti:", error);
+      console.error('Failed to load canvas-confetti:', error);
     });
   } catch (error) {
-    console.error("Error triggering confetti:", error);
+    console.error('Error triggering confetti:', error);
   }
 };
   

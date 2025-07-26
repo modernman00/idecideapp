@@ -4,12 +4,10 @@ namespace App\classes;
 
 use PDOException;
 use App\classes\Db;
-USE PDO;
+use PDO;
 
 class Select extends Db
 {
-
-    
     /**
      * Undocumented function
      *
@@ -25,13 +23,13 @@ class Select extends Db
      */
     public static function formAndMatchQuery(string $selection, string $table, string|null $identifier1 = null, string|null $identifier2 = null, $identifier3 = null, string|null $column = null, $column2 = null, $orderBy = null, $limit = null, array $colArray = null): string|null
     {
-        // for col dynamically - 
-        if($colArray) {
+        // for col dynamically -
+        if ($colArray) {
             $implodeColArray = implode(separator: ', ', array: $colArray);
         }
 
         // validate or escape $table and $column
-    
+
 
         $table = isset($table) ? checkInput(data: $table) : null;
         $column = isset($column) ? checkInput(data: $column) : null;
@@ -40,7 +38,7 @@ class Select extends Db
         // $identifier2 = isset($identifier2) ? checkInput(data: $identifier2) : null;
         // $orderBy = isset($orderBy) ? checkInput(data: $orderBy) : null;
         // $limit = isset($limit) ? checkInput(data: $limit) : null;
-        
+
 
         return match ($selection) {
             'SELECT_OR' => "SELECT * FROM $table WHERE $identifier1 =? OR $identifier2 = ? $orderBy $limit",
@@ -73,9 +71,9 @@ class Select extends Db
     }
 
     /**
-     * @param string $table 
+     * @param string $table
      * @param string $query SELECT * FROM account WHERE id = ? || SELECT * FROM $table WHERE $dev = ? AND $dev2 = ?
-     * @param array|null $bind = ['woguns@ymail.com', "wale@loaneasyfinance.com"]; 
+     * @param array|null $bind = ['woguns@ymail.com', "wale@loaneasyfinance.com"];
      */
     public function selectFn(string $query, array $bind = null): array|int|string
     {
@@ -104,13 +102,13 @@ class Select extends Db
     }
 
     /**
-     * 
-     * @param string $query 
-     * @param array|null $bind 
-     * @return string|array|int 
+     *
+     * @param string $query
+     * @param array|null $bind
+     * @return string|array|int
      */
 
-     public static function selectFn2(string $query, array $bind = null): string|array|int
+    public static function selectFn2(string $query, array $bind = null): string|array|int
     {
         try {
             $sql = $query;
@@ -145,13 +143,13 @@ class Select extends Db
     }
 
     /**
-     * 
-     * @param string $query 
-     * @param array|null $bind 
-     * @return string|array|int 
+     *
+     * @param string $query
+     * @param array|null $bind
+     * @return string|array|int
      */
 
-      public static function selectCountFn2(string $query, array $bind = null): string|array|int
+    public static function selectCountFn2(string $query, array $bind = null): string|array|int
     {
         try {
             $sql = $query;
@@ -165,9 +163,9 @@ class Select extends Db
     }
 
     /**
-     * 
-     * @param mixed $table 
-     * @return mixed 
+     *
+     * @param mixed $table
+     * @return mixed
      */
 
     public function selectCountAll($table): mixed
@@ -182,22 +180,21 @@ class Select extends Db
     }
 
     /**
-     * 
+     *
      * @param array $array [selection => SELECT_ALL, table =>account, identifier1 =>id, identifier2(null), bind=>[$id]]
      * @param mixed $callback the Select function albeit in string example - selectCountFn, selectFn
      * @param string $switch to switch between ONE_IDENTIFIER or TWO_IDENTIFIERS
-     * @return mixed 
+     * @return mixed
      */
 
     public static function combineSelect(array $array, $callback, string $switch)
     {
         try {
-
-            $query = match($switch) {
+            $query = match ($switch) {
                 "ONE_IDENTIFIER_COLUMN" => self::formAndMatchQuery(selection: $array['selection'], table: $array['table'], column:$array['column'], identifier1: $array['identifier1']),
 
                 "ONE_IDENTIFIER" => self::formAndMatchQuery(selection: $array['selection'], table: $array['table'], identifier1: $array['identifier1']),
-                
+
                 "TWO_IDENTIFIERS" => self::formAndMatchQuery(selection: $array['selection'], table: $array['table'], identifier1: $array['identifier1'], identifier2: $array['identifier2']),
             };
 

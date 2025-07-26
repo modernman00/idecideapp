@@ -1,4 +1,4 @@
-import { id } from "../global"
+import { id } from '../global';
 
 // use this in conjunction with the file 
 export const showImageFileUploadFn = (uploadBtn, inputId, fileName ) => {
@@ -11,4 +11,4 @@ id(inputId).addEventListener('change', function() {
   id(fileName).innerText = fileNames.join(', ');
 });
 
-}
+};

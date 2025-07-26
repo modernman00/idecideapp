@@ -3,12 +3,12 @@ export const qSelAll = (x) => document.querySelectorAll(x);
 export const qSel = (x) => document.querySelector(x);
 export const showError = (e) => {
   
-    log(e.message, " ERROR MESSAGE") // "null has no properties"
-    log(e.name, " ERROR NAME") // "TypeError"
-    log(e.fileName,  " ERROR FILENAME") // "Scratchpad/1"
-    log(e.lineNumber, " ERROR LINENUMBER") // 2
+    log(e.message, ' ERROR MESSAGE'); // "null has no properties"
+    log(e.name, ' ERROR NAME'); // "TypeError"
+    log(e.fileName,  ' ERROR FILENAME'); // "Scratchpad/1"
+    log(e.lineNumber, ' ERROR LINENUMBER'); // 2
 
-    log(e.stack)
-}
+    log(e.stack);
+};
 
-export const log = (x, describe = null) => console.log(x, describe)
+export const log = (x, describe = null) => console.log(x, describe);

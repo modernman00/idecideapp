@@ -5,33 +5,33 @@ export const calTiming = (date) => {
     let interval = seconds / 31536000;
 
     if (interval > 1) {
-        return Math.floor(interval) + " years";
+        return Math.floor(interval) + ' years';
     }
     interval = seconds / 2592000;
     if (interval > 1) {
-        return Math.floor(interval) + " months";
+        return Math.floor(interval) + ' months';
     }
     interval = seconds / 86400;
     if (interval > 1) {
-        return Math.floor(interval) + " days";
+        return Math.floor(interval) + ' days';
     }
     interval = seconds / 3600;
     if (interval > 1) {
-        return Math.floor(interval) + " hours";
+        return Math.floor(interval) + ' hours';
     }
     interval = seconds / 60;
     if (interval > 1) {
-        return Math.floor(interval) + " minutes";
+        return Math.floor(interval) + ' minutes';
     }
-    return Math.floor(seconds) + " seconds";
-}
+    return Math.floor(seconds) + ' seconds';
+};
 const aDay = 24 * 60 * 60 * 1000;
 // console.log(calTiming(new Date(Date.now() - aDay)));
 // console.log(calTiming(new Date(Date.now() - aDay * 2)));
 
 
 
-let element = document.querySelectorAll('time[data-time]')
+let element = document.querySelectorAll('time[data-time]');
 
 export const updateTimeRealTime = () => {
     Array.prototype.forEach.call(element, function(entry) {

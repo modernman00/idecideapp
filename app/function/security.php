@@ -1,8 +1,8 @@
 <?php
 
-use \Rollbar\Rollbar;
+use Rollbar\Rollbar;
 use App\model\EmailData;
-use \Rollbar\Payload\Level;
+use Rollbar\Payload\Level;
 
 // Rollbar::init(array(
 //     'access_token' => 'aabae2591eac40e3b26cfeb2da28a5fc',
@@ -32,23 +32,23 @@ function notifyCustOfLogIn($data)
 }
 
 /**
- * It will generate the token, update the login table using the customer No from the $data and send token to customer 
+ * It will generate the token, update the login table using the customer No from the $data and send token to customer
  * @param mixed $data -  must contain customerNo and email
  * @return mixed
- * @throws \Exception 
- * @throws \PDOException 
+ * @throws \Exception
+ * @throws \PDOException
  */
 function generateSendTokenEmail($data)
 {
     $id = $data['id'];
-    // 1. check if email exists 
+    // 1. check if email exists
     $email = checkInputEmail($data['email']);
 
     //2. generate token and update table
     $deriveToken = generateUpdateTableWithToken($id);
     //TODO send text to the user with the code
 
-    //3. ACCOMPANY EMAIL CONTENT             
+    //3. ACCOMPANY EMAIL CONTENT
     $emailData = ['token' => $deriveToken, 'email' => $email];
     $generateEmailArray = genEmailArray(viewPath: "msg/customer/token", data: $emailData, subject: "TOKEN");
 
@@ -80,7 +80,7 @@ function checkInputImage($data): string|null
         $data = preg_replace('/[^a-zA-Z0-9\-\_\.\s]/', '', $data);
         return $data;
     } else {
-       msgException(406, 'image name not well formed');
+        msgException(406, 'image name not well formed');
     }
 }
 
@@ -109,14 +109,14 @@ function returnSuccessCode($msg): void
 }
 
 /**
- * 
- * @param mixed $errCode 401, 404 
+ *
+ * @param mixed $errCode 401, 404
  * @param mixed $msg message that goes in side the throw exception
- * @return never 
- * @throws \Exception 
+ * @return never
+ * @throws \Exception
  */
 // 8/9/22- i commented out the json code because I want to throw the exception and catch it before using the json
-function msgException(int $errCode, string | int  $msg): never
+function msgException(int $errCode, string | int $msg): never
 {
     // http_response_code($errCode); // sets the response to 406
 
@@ -129,7 +129,7 @@ function msgException(int $errCode, string | int  $msg): never
 
 function msgSuccess(int $code, mixed $msg, mixed $token = null): void
 {
-    http_response_code($code); 
+    http_response_code($code);
     echo json_encode([
         'message' => $msg,
         'token' => $token
@@ -154,7 +154,6 @@ function msgServerSent(string|array|int $data, string | int $id, string $event):
     echo "data: {$get}\n\n";
     ob_flush();
     flush();
-    
 }
 
-// BREAK A LOOP IF THE CLIENT ABORTED THE CONNECTION 
+// BREAK A LOOP IF THE CLIENT ABORTED THE CONNECTION

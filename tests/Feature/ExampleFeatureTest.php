@@ -18,7 +18,7 @@ class ExampleFeatureTest extends TestCase
         // - HTTP requests and responses
         // - Database interactions
         // - Integration between multiple components
-        
+
         $this->assertTrue(true);
     }
 
@@ -31,9 +31,9 @@ class ExampleFeatureTest extends TestCase
     {
         // Since you have helper functions, we can test if they exist
         // This assumes your helper functions are loaded via composer autoload
-        
+
         $this->assertTrue(function_exists('array_key_exists'));
-        
+
         // Add tests for your custom helper functions here
         // For example, if you have a custom helper function:
         // $this->assertTrue(function_exists('your_custom_helper_function'));

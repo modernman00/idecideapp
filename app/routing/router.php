@@ -1,6 +1,6 @@
 <?php
 
-$router = new AltoRouter;
+$router = new AltoRouter();
 
 $router->map('GET', '/', 'App\controller\IndexController@main', 'home');
 
@@ -23,7 +23,7 @@ $router->map('GET', '/blogs', 'App\controller\IndexController@blogs', 'blogs');
 // email result
 $router->map('POST', '/emailResult', 'App\controller\EmailResultController@emailResult', 'email_result');
 
-// CALCULATE RESULT 
+// CALCULATE RESULT
 
 $router->map('POST', '/calculateResult', 'App\controller\CalculateResultController@process', 'calculateResult');
 
@@ -47,31 +47,33 @@ $router->map('POST', '/csp-report-log', 'App\controller\ProcessCSReportControlle
 
 $router->map('GET', '/csp', 'App\controller\ProcessCSReportController@show', 'csp');
 
-// managed page / login page 
+// managed page / login page
 
 $router->map('GET', '/managed', 'App\controller\LoginController@show', 'managed');
 
 $router->map('POST', '/managed', 'App\controller\LoginController@login', 'managed_post');
 
-$router->map('GET', '/logout', 'App\controller\LoginController@logout', 'logout');
 
 $router->map('GET', '/forgot', 'App\controller\ForgotController@show', 'forgot');
 
 $router->map('POST', '/forgot', 'App\controller\ForgotController@post', 'forgot_post');
 
-// password change 
+// LOG OUT PAGE
+$router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@signout', 'signout');
+
+// password change
 $router->map('GET', '/passwordChange', 'App\controller\PasswordChangeController@show', 'passwordChange');
 
 $router->map('POST', '/passwordChange', 'App\controller\PasswordChangeController@post', 'passwordChange_post');
 
 
-// GET ALLL BLOG IN A BLOG TABLE 
+// GET ALLL BLOG IN A BLOG TABLE
 
 $router->map(
-  'GET', 
-  '/blogMgt', 
-  'App\controller\BlogController@blogMgt', 
-  'blogMgt'
+    'GET',
+    '/blogMgt',
+    'App\controller\BlogController@blogMgt',
+    'blogMgt'
 );
 
 // edit blog post
@@ -83,8 +85,9 @@ $router->map('POST', '/editBlog/[i:id]', 'App\controller\BlogController@edit', '
 // delete blog post
 $router->map('GET', '/deleteBlog/[i:id]', 'App\controller\BlogController@delete', 'deleteBlog');
 
+// Handle 404 Not Found
+$router->map('GET', '/404', 'App\controller\ErrorController@notFound', 'not_found');
 
-
-
-
+// Handle 500 Not Found
+$router->map('GET', '/500', 'App\controller\ErrorController@internalServerError', 'server_error');
 

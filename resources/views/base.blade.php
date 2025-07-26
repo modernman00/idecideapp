@@ -73,7 +73,10 @@
     <link rel="stylesheet" type="text/css" href="public/css/main.css">
 
 {{-- The api.js?render=YOUR_SITE_KEY loads the reCAPTCHA library and initializes it with your site key. --}}
-    <script nonce="{{ $nonce }}" src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCHA_KEY'] }}" async defer></script>
+    {{-- <script nonce="{{ $nonce }}" src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCH_KEY_V3'] }}"></script> --}}
+
+    <script nonce="{{ $nonce }}"  src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
     @stack('styles_result')
 
@@ -482,6 +485,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="blogs">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link noDisplay" id="signout" href="signout/managed">Sign out</a>
                     </li>
                 </ul>
                 <div class="theme-toggle ms-3">
