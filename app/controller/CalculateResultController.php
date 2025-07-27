@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\controller;
 
-use Src\Utility;
 use Src\Exceptions\ValidationException;
+use Src\Utility;
 
 /**
  * Class CalculateResultController
@@ -22,7 +24,6 @@ class CalculateResultController
             $whatToBuy = htmlspecialchars($input['whatToBuy'], ENT_QUOTES, 'UTF-8');
             $scores = $input['scores'];
 
-
             // Validate scores
             $requiredKeys = ['cost', 'buyingFeeling', 'notImpulsive', 'necessity', 'option', 'paymentSource', 'affordability', 'concerns'];
             foreach ($requiredKeys as $key) {
@@ -30,9 +31,6 @@ class CalculateResultController
                     throw new ValidationException("Missing or Invalid score for $key");
                 }
             }
-
-
-
 
             // Scoring logic
             $noQuestions = 9;
@@ -76,9 +74,8 @@ class CalculateResultController
                 'option' => 1.1,
                 'concerns' => 1.1,
                 'buyingFeeling' => 1.0,
-                'paymentSource' => 1.2
+                'paymentSource' => 1.2,
             ];
-
 
             $weightedTotal = 0;
             $maxWeightedScore = 0;
@@ -92,7 +89,6 @@ class CalculateResultController
             $finalScore = ($weightedTotal / $maxWeightedScore) * 100;
             $finalScore = round($finalScore, 1);
 
-
             //summary of what influenced their result most.
             $influences = [];
             foreach ($adjustedScores as $key => $value) {
@@ -104,51 +100,48 @@ class CalculateResultController
                     'label' => ucfirst($key),
                     'impact' => $impact,
                     'score' => $value,
-                    'weight' => $weight
+                    'weight' => $weight,
                 ];
             }
 
             // Sort by impact descending
-            usort($influences, fn($a, $b) => $b['impact'] <=> $a['impact']);
-
-
+            usort($influences, fn ($a, $b) => $b['impact'] <=> $a['impact']);
 
             // Advice configuration
             $adviceConfig = [
                 'cost' => [
-                    'high' => fn($item) => "Great, the $item seems manageable within your budget.",
-                    'low' => fn($item) => "The $item may strain your budget. Consider cheaper alternatives or saving up to reduce financial pressure."
+                    'high' => fn ($item) => "Great, the $item seems manageable within your budget.",
+                    'low' => fn ($item) => "The $item may strain your budget. Consider cheaper alternatives or saving up to reduce financial pressure.",
                 ],
                 'buyingFeeling' => [
-                    'high' => fn($item) => "This $item could bring you joy, and that’s wonderful! Just make sure it fits comfortably with your financial plans—so you can enjoy it without any worries.",
-                    'low' => fn($item) => "If the $item doesn’t seem exciting, reflect on whether it’s worth the cost or if another option might be more fulfilling."
+                    'high' => fn ($item) => "This $item could bring you joy, and that’s wonderful! Just make sure it fits comfortably with your financial plans—so you can enjoy it without any worries.",
+                    'low' => fn ($item) => "If the $item doesn’t seem exciting, reflect on whether it’s worth the cost or if another option might be more fulfilling.",
                 ],
                 'notImpulsive' => [
-                    'high' => fn($item) => "You’ve thought about the $item for a while, which shows great decision-making. Keep planning carefully.",
-                    'low' => fn($item) => "Ooooh, the $item caught your eye just now? That’s exciting! 🎉 Since it’s a new idea, why not sleep on it? If you still love it tomorrow, it’ll feel even better to buy it knowing it’s the right choice. Either way, you win!"
+                    'high' => fn ($item) => "You’ve thought about the $item for a while, which shows great decision-making. Keep planning carefully.",
+                    'low' => fn ($item) => "Ooooh, the $item caught your eye just now? That’s exciting! 🎉 Since it’s a new idea, why not sleep on it? If you still love it tomorrow, it’ll feel even better to buy it knowing it’s the right choice. Either way, you win!",
                 ],
                 'necessity' => [
-                    'high' => fn($item) => "The $item seems essential, which supports your decision. Ensure it’s the best option available.",
-                    'low' => fn($item) => "Since the $item is more of a want, explore if you can delay the purchase or find a more budget-friendly option."
+                    'high' => fn ($item) => "The $item seems essential, which supports your decision. Ensure it’s the best option available.",
+                    'low' => fn ($item) => "Since the $item is more of a want, explore if you can delay the purchase or find a more budget-friendly option.",
                 ],
                 'option' => [
-                    'high' => fn($item) => "You’ve researched alternatives for the $item, which is smart! Double-check for any last-minute deals.",
-                    'low' => fn($item) => "Not exploring other options for the $item could cost you. Shop around to find the best value."
+                    'high' => fn ($item) => "You’ve researched alternatives for the $item, which is smart! Double-check for any last-minute deals.",
+                    'low' => fn ($item) => "Not exploring other options for the $item could cost you. Shop around to find the best value.",
                 ],
                 'paymentSource' => [
-                    'high' => fn($item) => "Using savings or a gift for the $item is a solid choice! This keeps your finances stable.",
-                    'low' => fn($item) => "Borrowing or unclear funding for the $item is risky. Try saving up or using existing funds instead."
+                    'high' => fn ($item) => "Using savings or a gift for the $item is a solid choice! This keeps your finances stable.",
+                    'low' => fn ($item) => "Borrowing or unclear funding for the $item is risky. Try saving up or using existing funds instead.",
                 ],
                 'affordability' => [
-                    'high' => fn($item) => "You can afford the $item without strain—well done! Confirm it fits your long-term budget.",
-                    'low' => fn($item) => "The $item may stretch your finances. Build a savings plan or consider a less expensive alternative."
+                    'high' => fn ($item) => "You can afford the $item without strain—well done! Confirm it fits your long-term budget.",
+                    'low' => fn ($item) => "The $item may stretch your finances. Build a savings plan or consider a less expensive alternative.",
                 ],
                 'concerns' => [
-                    'high' => fn($item) => "With no financial concerns, you’re in a strong position to buy the $item. Stay mindful of future expenses.",
-                    'low' => fn($item) => "Your financial concerns suggest caution with the $item. Don’t dismiss these. They matter. Address debt or job stability before buying."
-                ]
+                    'high' => fn ($item) => "With no financial concerns, you’re in a strong position to buy the $item. Stay mindful of future expenses.",
+                    'low' => fn ($item) => "Your financial concerns suggest caution with the $item. Don’t dismiss these. They matter. Address debt or job stability before buying.",
+                ],
             ];
-
 
             // Generate advice
             $advices = [];
@@ -177,49 +170,49 @@ class CalculateResultController
             $decisions = [
                 [
                     'minScore' => 85,
-                    'decision' => "GREEN LIGHT ON! 🚦 - STRONG BUY ✅",
+                    'decision' => 'GREEN LIGHT ON! 🚦 - STRONG BUY ✅',
                     'comment' => "The $whatToBuy fits great with your budget and what you need!",
-                    'color' => "success",
-                    'badgeText' => "💰 Conscious Spender",
-                    'badgeClass' => "badge-success",
-                    'resultImage' => "public/images/THUMBS_UP.jpg",
-                    'resultImageAlt' => "Happy Thumbs Up"
+                    'color' => 'success',
+                    'badgeText' => '💰 Conscious Spender',
+                    'badgeClass' => 'badge-success',
+                    'resultImage' => 'public/images/THUMBS_UP.jpg',
+                    'resultImageAlt' => 'Happy Thumbs Up',
                 ],
                 [
                     'minScore' => 70,
-                    'decision' => "WORTH CONSIDERING! 🛠️ THEN CHECK, AND BUY! 💭",
+                    'decision' => 'WORTH CONSIDERING! 🛠️ THEN CHECK, AND BUY! 💭',
                     'comment' => "The $whatToBuy seems like a great fit—just double-check that it is affordable, and try to get the best deal!",
-                    'color' => "success-light",
-                    'badgeText' => "🧠 Savvy Planner",
-                    'badgeClass' => "badge-success-light",
-                    'resultImage' => "public/images/BUY_DECISION.jpg",
-                    'resultImageAlt' => "Balanced Decision"
+                    'color' => 'success-light',
+                    'badgeText' => '🧠 Savvy Planner',
+                    'badgeClass' => 'badge-success-light',
+                    'resultImage' => 'public/images/BUY_DECISION.jpg',
+                    'resultImageAlt' => 'Balanced Decision',
                 ],
                 [
                     'minScore' => 50,
-                    'decision' => "RECONSIDER ⚖️ OR MAYBE LATER! ⏳",
+                    'decision' => 'RECONSIDER ⚖️ OR MAYBE LATER! ⏳',
                     'comment' => "Pause on the $whatToBuy. Make sure it’s a need, not just a want, and check for better deals or save more!",
-                    'color' => "warning",
-                    'badgeText' => "🧠 Budget Boss",
-                    'badgeClass' => "badge-warning",
-                    'resultImage' => "public/images/standing_scales.jpg",
-                    'resultImageAlt' => "Neutral Balance"
+                    'color' => 'warning',
+                    'badgeText' => '🧠 Budget Boss',
+                    'badgeClass' => 'badge-warning',
+                    'resultImage' => 'public/images/standing_scales.jpg',
+                    'resultImageAlt' => 'Neutral Balance',
                 ],
                 [
                     'minScore' => 1,
-                    'decision' => "HOLD OFF! 🛑 AND DON’T BUY ❌",
+                    'decision' => 'HOLD OFF! 🛑 AND DON’T BUY ❌',
                     'comment' => "Skip the $whatToBuy to avoid financial stress and focus on what matters most!",
-                    'color' => "danger",
-                    'badgeText' => "🚫 Frugal Friend",
-                    'badgeClass' => "badge-danger",
-                    'resultImage' => "public/images/disapproval.jpg",
-                    'resultImageAlt' => "Disapproval"
-                ]
+                    'color' => 'danger',
+                    'badgeText' => '🚫 Frugal Friend',
+                    'badgeClass' => 'badge-danger',
+                    'resultImage' => 'public/images/disapproval.jpg',
+                    'resultImageAlt' => 'Disapproval',
+                ],
             ];
 
             // Filter and get the FIRST tier where score >= minScore (sorted high-to-low)
-            $filtered = array_filter($decisions, fn($d) => $finalScore >= $d['minScore']);
-            $decisionData   = reset($filtered); // Gets the FIRST matching tier
+            $filtered = array_filter($decisions, fn ($d) => $finalScore >= $d['minScore']);
+            $decisionData = reset($filtered); // Gets the FIRST matching tier
 
             $scoreData = [
                 'decision' => $decisionData['decision'],
@@ -236,8 +229,7 @@ class CalculateResultController
             ];
 
             // create a session to that will initiate result page
-            $_SESSION['QUESTION_PROCESS'] = "ENABLED";
-
+            $_SESSION['QUESTION_PROCESS'] = 'ENABLED';
 
             Utility::msgSuccess(200, $scoreData);
         } catch (\Throwable $e) {

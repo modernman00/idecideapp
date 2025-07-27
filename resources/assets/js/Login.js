@@ -1,9 +1,9 @@
 'use strict';
 import { postFormData } from './helper/http.js';
 import { showLoader, clearLoader } from './helper/Loader.js';
-import { showError, qSelAll, qSel, id } from './global.js';
+import { showError, qSel} from './global.js';
 import FormHelper from './helper/FormHelper.js';
-import { handleRecaptcha } from './helper/recaptcha.js';
+
 
 // block the setLoader div
 
@@ -24,13 +24,10 @@ export const loginSubmission = async (formId, loginURL, redirect, css = null, le
     const formInput = qSel(`#${formId}`);
 
     if (!formInput) {
-      console.error(`Form ${formId} not found`);
+      throw new Error(`Form ${formId} not found`);
       return;
     }
 
-    const recaptchaSiteKey = process.env.MIX_RECAPTCHA_KEY;
-
-  
 
     const formInputArr = Array.from(formInput.elements);
 

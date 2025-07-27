@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\classes;
 
 class Session
 {
     /**
-     * create a session
+     * create a session.
      *
      * @param $name
      * @param $value
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public static function add($name, $value)
@@ -22,22 +26,24 @@ class Session
     }
 
     /**
-     * get value from session
+     * get value from session.
      *
      * @param $name
+     *
      * @return mixed
      */
-
     public static function get($name)
     {
         return $_SESSION[$name];
     }
 
     /**
-     * check is session exists
+     * check is session exists.
      *
      * @param $name
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public static function has($name)
@@ -50,7 +56,7 @@ class Session
     }
 
     /**
-     * remove session
+     * remove session.
      *
      * @param $name
      */

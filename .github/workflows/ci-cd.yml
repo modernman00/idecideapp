@@ -1,176 +1,80 @@
-name: iDecide CI/CD Pipeline
+name: CI/CD Pipeline
 
-# When this pipeline runs
 on:
   push:
-    branches: [ master, main ]
-    tags: [ 'v*' ]
+    branches: [main, develop]
   pull_request:
-    branches: [ master, main ]
+    branches: [main, develop]
+  release:
+    types: [published]
 
-# Jobs that run
 jobs:
-  # Build and Test Job
-  build-and-test:
+  setup:
     runs-on: ubuntu-latest
-    
     steps:
-    # Get your code
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    # Setup Node.js for your Laravel Mix
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    # Setup PHP for your backend
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
-        coverage: xdebug
-    
-    # Install your JavaScript dependencies
-    - name: Install npm dependencies
-      run: npm ci
-    
-    # Install PHP dependencies (if you have composer.json)
-    - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
-      if: hashFiles('**/composer.json') != ''
-    
-    # Code Quality Checks
-    - name: Run PHP Code Style Check
-      run: |
-        if [ -f "vendor/bin/phpcs" ]; then
-          vendor/bin/phpcs --standard=PSR12 --ignore=vendor/ .
-        else
-          echo "PHP CodeSniffer not installed, skipping..."
-        fi
-      continue-on-error: true
-    
-    - name: Run JavaScript Linting
-      run: |
-        if [ -f "node_modules/.bin/eslint" ]; then
-          npx eslint resources/js/ --ext .js,.vue || true
-        else
-          echo "ESLint not installed, skipping..."
-        fi
-      continue-on-error: true
-    
-    # Run JavaScript tests
-    - name: Run JavaScript tests
-      run: |
-        if [ -f "jest.config.js" ] || [ -f "package.json" ] && grep -q "jest" package.json; then
-          npm test
-        else
-          echo "No JavaScript tests configured, skipping..."
-        fi
-      continue-on-error: true
-    
-    # Build your assets
-    - name: Build assets
-      run: npm run production
-    
-    # Run PHP tests
-    - name: Run PHP Unit Tests
-      run: |
-        if [ -f "vendor/bin/phpunit" ]; then
-          vendor/bin/phpunit --coverage-text --colors=never
-        elif [ -f "phpunit.xml" ]; then
-          php vendor/bin/phpunit --coverage-text --colors=never
-        else
-          echo "PHPUnit not configured, skipping tests..."
-        fi
-      continue-on-error: true
-    
-    # Security checks
-    - name: Check for security vulnerabilities
-      run: |
-        # Check PHP dependencies
-        if [ -f "composer.json" ]; then
-          composer audit || echo "Composer audit not available or issues found"
-        fi
-        # Check npm dependencies
-        npm audit --audit-level=high || echo "npm audit found issues or not available"
-      continue-on-error: true
-    
-    # Upload build artifacts
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: built-assets
-        path: |
-          public/css/
-          public/js/
-          public/mix-manifest.json
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: xdebug
+          extensions: mbstring, pdo_sqlite, bcmath, curl
 
-  # Deploy Job (only runs on tag pushes like v1.5.8.67)
-  deploy:
-    needs: build-and-test
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist
+
+  test:
+    needs: setup
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: built-assets
-        path: public/
-    
-    # Add your deployment steps here
-    # Example for FTP deployment:
-    # - name: Deploy to server
-    #   uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-    #   with:
-    #     server: your-server.com
-    #     username: ${{ secrets.FTP_USERNAME }}
-    #     password: ${{ secrets.FTP_PASSWORD }}
-    #     local-dir: ./
-    
-    # Example for SSH deployment:
-    # - name: Deploy via SSH
-    #   uses: appleboy/ssh-action@v1.0.0
-    #   with:
-    #     host: ${{ secrets.HOST }}
-    #     username: ${{ secrets.USERNAME }}
-    #     key: ${{ secrets.KEY }}
-    #     script: |
-    #       cd /path/to/your/app
-    #       git pull origin master
-    #       composer install --no-dev --optimize-autoloader
-    #       npm ci --production
-    #       npm run production
-    
-    - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Automated release for ${{ github.ref }}
-          
-          Changes in this release:
-          - Built and tested automatically
-          - Assets compiled with Laravel Mix
-        draft: false
-        prerelease: false
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: xdebug
+      - run: composer install --no-progress --prefer-dist
+      - run: vendor/bin/phpunit --coverage-clover=coverage.xml || vendor/bin/pest --coverage --coverage-clover=coverage.xml
+      - uses: codecov/codecov-action@v4
+        if: matrix.php-version == '8.2'
+        with:
+          file: coverage.xml
+          fail_ci_if_error: false
 
-    - name: Set reCAPTCHA keys for environment
-      run: |
-        if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
-          echo "RECAPTCHA_KEY=${{ secrets.RECAPTCHA_PROD_SITE_KEY }}" >> .env
-          echo "SECRET_RECAPTCHA_KEY=${{ secrets.RECAPTCHA_PROD_SECRET_KEY }}" >> .env
-        else
-          echo "RECAPTCHA_SITE_KEY_DEV=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" >> .env
-          echo "RECAPTCHA_SECRET_KEY_DEV=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe" >> .env
-        fi
+  quality:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - run: vendor/bin/php-cs-fixer fix --dry-run --diff || echo "No CS Fixer found"
+      - run: vendor/bin/phpstan analyse || echo "PHPStan issues detected"
+      - run: vendor/bin/psalm || echo "Psalm not configured"
+
+  security:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - run: composer audit
+      - run: composer require --dev roave/security-advisories --dry-run
+
+  release:
+    if: github.event_name == 'release'
+    needs: [test, quality, security]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: composer install --no-dev --optimize-autoloader
+      - run: tar -czf release.tar.gz . --exclude=.git*
+      - run: sha256sum release.tar.gz > checksums.txt
+      - uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: release.tar.gz
+          asset_name: release.tar.gz
+          asset_content_type: application/gzip
+      - uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: checksums.txt
+          asset_name: checksums.txt
+          asset_content_type: text/plain

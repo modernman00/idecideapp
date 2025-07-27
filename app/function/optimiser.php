@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function printMemory()
 {
     /** Currently used memory */
@@ -7,6 +9,6 @@ function printMemory()
     /** Peak memory usage */
     $mem_peak = memory_get_peak_usage(true);
 
-    echo "MEM_USAGE : This script is using : <strong>" . round($mem_usage / 1024) . " kb </strong> of memory" . BR;
-    echo "PEAK_USAGE : This script is using : <strong>" . round($mem_peak / 1024) . "kb </strong> of memory" . BR;
+    echo 'MEM_USAGE : This script is using : <strong>' . round($mem_usage / 1024) . ' kb </strong> of memory' . BR;
+    echo 'PEAK_USAGE : This script is using : <strong>' . round($mem_peak / 1024) . 'kb </strong> of memory' . BR;
 }

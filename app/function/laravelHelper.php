@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 // Get base URL
 function base_url()
 {
     $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+
     return $scheme . '://' . $_SERVER['HTTP_HOST'];
 }
 
@@ -34,6 +37,7 @@ function route($name, $params = [])
     foreach ($params as $key => $val) {
         $uri = str_replace("{{$key}}", urlencode($val), $uri);
     }
+
     return url($uri);
 }
 
@@ -52,6 +56,7 @@ function csrf_token()
     if (!isset($_SESSION['_csrf_token'])) {
         $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
     }
+
     return $_SESSION['_csrf_token'];
 }
 
@@ -67,6 +72,7 @@ function session_get($key, $default = null)
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
+
     return $_SESSION[$key] ?? $default;
 }
 
@@ -85,6 +91,7 @@ function session_has($key)
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
+
     return isset($_SESSION[$key]);
 }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $router = new AltoRouter();
 
 $router->map('GET', '/', 'App\controller\IndexController@main', 'home');
@@ -53,7 +55,6 @@ $router->map('GET', '/managed', 'App\controller\LoginController@show', 'managed'
 
 $router->map('POST', '/managed', 'App\controller\LoginController@login', 'managed_post');
 
-
 $router->map('GET', '/forgot', 'App\controller\ForgotController@show', 'forgot');
 
 $router->map('POST', '/forgot', 'App\controller\ForgotController@post', 'forgot_post');
@@ -65,7 +66,6 @@ $router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@si
 $router->map('GET', '/passwordChange', 'App\controller\PasswordChangeController@show', 'passwordChange');
 
 $router->map('POST', '/passwordChange', 'App\controller\PasswordChangeController@post', 'passwordChange_post');
-
 
 // GET ALLL BLOG IN A BLOG TABLE
 
@@ -90,4 +90,3 @@ $router->map('GET', '/404', 'App\controller\ErrorController@notFound', 'not_foun
 
 // Handle 500 Not Found
 $router->map('GET', '/500', 'App\controller\ErrorController@internalServerError', 'server_error');
-

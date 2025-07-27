@@ -1,8 +1,10 @@
 <?php
 
-use Rollbar\Rollbar;
+declare(strict_types=1);
+
 use App\model\EmailData;
 use Rollbar\Payload\Level;
+use Rollbar\Rollbar;
 
 // Rollbar::init(array(
 //     'access_token' => 'aabae2591eac40e3b26cfeb2da28a5fc',
@@ -19,22 +21,27 @@ function loggedDetection(string $filename, string $receivingEmail): bool
     //TODO send text to the user with the code
     $emailSender = new EmailData('admin');
     $emailSender->getEmailData();
-    $msg = "Hello, <br><br> This is a notification that a <strong>logged -in</strong> has been detected from this file : $filename at this time: " .  date("h:i:sa") . "  and with this IP address: " . getUserIpAddr() . " <br><br>  IT Security Team";
+    $msg = "Hello, <br><br> This is a notification that a <strong>logged -in</strong> has been detected from this file : $filename at this time: " . date('h:i:sa') . '  and with this IP address: ' . getUserIpAddr() . ' <br><br>  IT Security Team';
 
     sendEmail($receivingEmail, 'logged-in', 'LOGGED-IN DETECTION', $msg);
+
     return true;
 }
 
 function notifyCustOfLogIn($data)
 {
-    $generateEmailArray = genEmailArray("customer/msg/loginDetection", $data, "LOGGED-IN DETECTION", null, null);
+    $generateEmailArray = genEmailArray('customer/msg/loginDetection', $data, 'LOGGED-IN DETECTION', null, null);
+
     return sendEmailWrapper($generateEmailArray, 'customer');
 }
 
 /**
- * It will generate the token, update the login table using the customer No from the $data and send token to customer
+ * It will generate the token, update the login table using the customer No from the $data and send token to customer.
+ *
  * @param mixed $data -  must contain customerNo and email
+ *
  * @return mixed
+ *
  * @throws \Exception
  * @throws \PDOException
  */
@@ -50,11 +57,10 @@ function generateSendTokenEmail($data)
 
     //3. ACCOMPANY EMAIL CONTENT
     $emailData = ['token' => $deriveToken, 'email' => $email];
-    $generateEmailArray = genEmailArray(viewPath: "msg/customer/token", data: $emailData, subject: "TOKEN");
+    $generateEmailArray = genEmailArray(viewPath: 'msg/customer/token', data: $emailData, subject: 'TOKEN');
 
     sendEmailWrapper(var: $generateEmailArray, recipientType: 'member');
 }
-
 
 function checkInput($data): mixed
 {
@@ -64,6 +70,7 @@ function checkInput($data): mixed
         $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
         $data = strip_tags($data);
         $data = preg_replace('/[^0-9A-Za-z.@\s-]/', '', $data);
+
         return $data;
     } else {
         msgException(406, 'problem with your entry');
@@ -78,6 +85,7 @@ function checkInputImage($data): string|null
         $data = htmlspecialchars($data);
         $data = strip_tags($data);
         $data = preg_replace('/[^a-zA-Z0-9\-\_\.\s]/', '', $data);
+
         return $data;
     } else {
         msgException(406, 'image name not well formed');
@@ -91,6 +99,7 @@ function checkInputEmail($data): string
     $data = htmlspecialchars($data);
     $data = strip_tags($data);
     $data = filter_var($data, FILTER_SANITIZE_EMAIL);
+
     return $data;
 }
 
@@ -98,6 +107,7 @@ function returnErrorCode(int $errCode, $errObj)
 {
     http_response_code($errCode);
     echo http_response_code();
+
     return showError($errObj);
 }
 
@@ -109,10 +119,11 @@ function returnSuccessCode($msg): void
 }
 
 /**
- *
  * @param mixed $errCode 401, 404
  * @param mixed $msg message that goes in side the throw exception
+ *
  * @return never
+ *
  * @throws \Exception
  */
 // 8/9/22- i commented out the json code because I want to throw the exception and catch it before using the json
@@ -132,20 +143,19 @@ function msgSuccess(int $code, mixed $msg, mixed $token = null): void
     http_response_code($code);
     echo json_encode([
         'message' => $msg,
-        'token' => $token
+        'token' => $token,
     ]);
 }
 
 /**
  * This function sends a server-sent event to the client.
- * @param string|array $data This is the data to be sent.
- * @param string|int $id This is the id of the event.
- * @param string $event This is the event name.
- * @return void
+ *
+ * @param string|array $data this is the data to be sent
+ * @param string|int $id this is the id of the event
+ * @param string $event this is the event name
  */
 function msgServerSent(string|array|int $data, string | int $id, string $event): void
 {
-
     $get = json_encode($data);
     error_log("Sending message: retry: 2000, id: $id, event: $event, data: $get");
     echo "retry: 2000\n";   // one seconds

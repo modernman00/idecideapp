@@ -1,22 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\classes;
 
 use PDO;
 use PDOException;
-use App\classes\CheckToken;
 
 class Db extends CheckToken
 {
-    public const BR = "<br>"; // can't be changed
+    public const BR = '<br>'; // can't be changed
+
     private static function dbVariables(): array
     {
         return [
             'host' => getenv(name: 'DB_HOST'),
             'name' => getenv(name: 'DB_NAME'),
             'username' => getenv(name: 'DB_USERNAME'),
-            'password' => getenv(name: "DB_PASSWORD"),
-            'charset' => 'utf8mb4'
+            'password' => getenv(name: 'DB_PASSWORD'),
+            'charset' => 'utf8mb4',
         ];
     }
 
@@ -27,9 +29,9 @@ class Db extends CheckToken
         try {
             if (!isset($conn)) {
                 $dbVar = self::dbVariables();
-                $conn = new PDO("mysql:host={$dbVar['host']}; dbname={$dbVar['name']}; charset={$dbVar['charset']}", username: $dbVar['username'], password: $dbVar['password'], options: array(
-                    PDO::ATTR_PERSISTENT => true
-                ));
+                $conn = new PDO("mysql:host={$dbVar['host']}; dbname={$dbVar['name']}; charset={$dbVar['charset']}", username: $dbVar['username'], password: $dbVar['password'], options: [
+                    PDO::ATTR_PERSISTENT => true,
+                ]);
 
                 $conn->setAttribute(attribute: PDO::ATTR_DEFAULT_FETCH_MODE, value: PDO::FETCH_ASSOC);
                 $conn->setAttribute(attribute: PDO::ATTR_ERRMODE, value: PDO::ERRMODE_EXCEPTION);
@@ -49,13 +51,14 @@ class Db extends CheckToken
         try {
             if (!isset($conn)) {
                 $dbVar = self::dbVariables();
-                $conn = new PDO("mysql:host={$dbVar['host']}; dbname={$dbVar['name']}; charset={$dbVar['charset']}", $dbVar['username'], $dbVar['password'], array(
-                    PDO::ATTR_PERSISTENT => true
-                ));
+                $conn = new PDO("mysql:host={$dbVar['host']}; dbname={$dbVar['name']}; charset={$dbVar['charset']}", $dbVar['username'], $dbVar['password'], [
+                    PDO::ATTR_PERSISTENT => true,
+                ]);
 
                 $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
                 return $conn;
             } else {
                 return $conn;
@@ -64,8 +67,6 @@ class Db extends CheckToken
             showError($e);
         }
     }
-
-
 
     public function connectSql()
     {

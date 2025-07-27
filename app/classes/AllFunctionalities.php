@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\classes;
 
-use PDOException;
-use App\classes\Db;
 use PDO;
+use PDOException;
 
 class AllFunctionalities extends Db
 {
@@ -16,12 +17,12 @@ class AllFunctionalities extends Db
         try {
             $query = "UPDATE $table SET $column =? WHERE $identifier = ?";
             $result = $this->connect()->prepare($query);
+
             return $result->execute([$column_ans, $identifier_ans]);
         } catch (PDOException $e) {
             showError($e);
         }
     }
-
 
     /**
      * @psalm-param 'events'|'post' $table
@@ -33,18 +34,17 @@ class AllFunctionalities extends Db
         try {
             $query = "UPDATE $table SET $column =? WHERE $identifier = ?";
             $result = parent::connect2()->prepare($query);
+
             return $result->execute([$column_ans, $identifier_ans]);
         } catch (PDOException $e) {
             showError($e);
         }
     }
 
-
-
     // UPDATE MULTIPLE PARAMETER DYNAMICALLY
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param array $data - the array from the $_POST
      * @param string $table
@@ -65,13 +65,14 @@ class AllFunctionalities extends Db
 
             $data[$identifier] = $id;
 
-
             $sql = "UPDATE $table SET $implodeKey=? WHERE $identifier =?";
             // example - 'UPDATE register SET title=?, first_name=?, second_name=? WHERE id =?'
             $stmt = $this->connect()->prepare($sql);
+
             return $stmt->execute($implodeValue);
         } catch (PDOException $e) {
             showError($e);
+
             return false;
         }
     }
@@ -85,13 +86,13 @@ class AllFunctionalities extends Db
         $stmt = parent::connect2()->prepare($query);
 
         if (!$stmt) {
-            msgException(502, "Could not connect");
+            msgException(502, 'Could not connect');
         }
 
         $stmt->bindParam(':likesValue', $likesValue, PDO::PARAM_INT);
         $stmt->bindParam(':whereValue', $whereValue, PDO::PARAM_INT);
         if (!$stmt->execute()) {
-            msgException(503, "Could not execute query");
-        };
+            msgException(503, 'Could not execute query');
+        }
     }
 }

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\classes;
 
 class CheckToken
 {
     public $tokenCheck;
+
     public $postToken;
 
-
-    function tokenCheck($token, $redirect)
+    public function tokenCheck($token, $redirect)
     {
         $this->tokenCheck = $_SESSION[$token] ?? 1;
         $this->postToken = $_POST[$token] ?? 2;
@@ -19,10 +21,10 @@ class CheckToken
         }
     }
 
-    function setTokenSession($tokenSession)
+    public function setTokenSession($tokenSession)
     {
-
         $_SESSION[$tokenSession] = $this->tokenCheck;
+
         return $_SESSION[$tokenSession];
     }
 }

@@ -1,22 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\controller;
 
-
 use Src\{
-    Recaptcha,
+    CheckToken,
+    CorsHandler,
     Exceptions\NotFoundException,
     Limiter,
-    CorsHandler,
     LoginUtility,
-    Utility,
-    CheckToken,
-    Sanitise\CheckSanitise as CleanUp
+    Recaptcha,
+    Sanitise\CheckSanitise as CleanUp,
+    Utility
 };
-
-use App\controller\BaseController;
-
 
 class LoginController extends BaseController
 {
@@ -32,61 +29,56 @@ class LoginController extends BaseController
     public function login()
     {
         try {
-        CorsHandler::setHeaders(); // Call the static method to set headers
-        Recaptcha::verifyCaptcha('login');
+            CorsHandler::setHeaders(); // Call the static method to set headers
+            Recaptcha::verifyCaptcha('login');
 
-          $email = Utility::cleanSession($_POST['email']) ?? '';
+            $email = Utility::cleanSession($_POST['email']) ?? '';
 
             // Check rate limit
             Limiter::limit($email);
 
-
             if (!$_POST) {
-                throw new NotFoundException("There was no post data");
+                throw new NotFoundException('There was no post data');
             }
 
-                 // Define min and max limits for input data
+            // Define min and max limits for input data
             $minMaxData = [
                 'data' => ['email', 'password'],
                 'min' => [5, 5],
-                'max' => [30, 100]
+                'max' => [30, 100],
             ];
 
-             // Sanitize input data
+            // Sanitize input data
             $sanitisedData = CleanUp::getSanitisedInputData($_POST, $minMaxData);
 
             $data = LoginUtility::useEmailToFindData($sanitisedData);
 
             if (empty($data)) {
-                throw new NotFoundException("User not found");
-            } 
+                throw new NotFoundException('User not found');
+            }
 
             $validatePsw = LoginUtility::checkPassword($sanitisedData, $data);
 
-
-
             if (!$validatePsw) {
-                throw new NotFoundException("Invalid password");
+                throw new NotFoundException('Invalid password');
             }
 
-              // Clear attempts on successful login
-                Limiter::$argLimiter->reset();
-                Limiter::$ipLimiter->reset();
+            // Clear attempts on successful login
+            Limiter::$argLimiter->reset();
+            Limiter::$ipLimiter->reset();
 
             $_SESSION['ID'] = $data['id'];
 
             CheckToken::tokenCheck();
 
-            // check if checkbox is ticked 
+            // check if checkbox is ticked
             if (!isset($_POST['rememberMe'])) {
-                $_SESSION['REMEMBER_ME'] = "true";
+                $_SESSION['REMEMBER_ME'] = 'true';
             }
 
             session_regenerate_id(true);
 
             \msgSuccess(200, 'Login Successful');
-       
-
         } catch (\Throwable $e) {
             showError($e);
         }
@@ -95,8 +87,7 @@ class LoginController extends BaseController
     public function logout()
     {
         try {
-            // create a log out code 
-          
+            // create a log out code
         } catch (\Throwable $e) {
             showError($e);
         }

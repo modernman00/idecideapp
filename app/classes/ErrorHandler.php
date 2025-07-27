@@ -11,8 +11,8 @@ class ErrorHandler
     public function outputError(mixed $logFileDir = null, mixed $logFile = null)
     {
         try {
-            $logFile    = $logFile    ?? date('Ymd') . '.log';
-            $logFileDir = $logFileDir ?? __DIR__;
+            $logFile ??= date('Ymd') . '.log';
+            $logFileDir ??= __DIR__;
             $this->logFile = $logFileDir . '/' . $logFile;
             $this->logFile = str_replace('//', '/', $this->logFile);
             set_exception_handler([$this, 'exceptionHandler']);
@@ -50,10 +50,9 @@ class ErrorHandler
         }
     }
 
-
     public function exceptionHandler($ex)
     {
-    // Log the error (your existing code)
+        // Log the error (your existing code)
         $message = sprintf(
             'EXCEPTION: %19s : %20s : %s' . PHP_EOL,
             date('Y-m-d H:i:s'),
@@ -62,7 +61,7 @@ class ErrorHandler
         );
         file_put_contents($this->logFile, $message, FILE_APPEND);
 
-    // Handle display
+        // Handle display
         $environment = getenv('APP_ENV');
 
         if ($environment === 'local') {

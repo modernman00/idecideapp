@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\controller;
 
-use Src\{Utility, Select};
+use Src\{Select, Utility};
 
 class IndexController extends BaseController
 {
@@ -17,9 +19,7 @@ class IndexController extends BaseController
 
     public function result()
     {
-
-
-        if ($_SESSION['QUESTION_PROCESS'] !== "ENABLED") {
+        if ($_SESSION['QUESTION_PROCESS'] !== 'ENABLED') {
             header('Location: /');
             exit;
         }
@@ -54,7 +54,6 @@ class IndexController extends BaseController
     // blog
     public function blogs()
     {
-
         $query = Select::formAndMatchQuery(selection: 'SELECT_ALL', table: 'blogs');
         $blogs = Select::selectFn2(query: $query);
 

@@ -1,23 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\controller;
 
-use Src\{ToSendEmail, Utility, Exceptions\NotFoundException};
+use Src\{Exceptions\NotFoundException, ToSendEmail, Utility};
 
 class EmailResultController
 {
     public function emailResult()
     {
         try {
-          // Validate input
+            // Validate input
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (!$input) {
                 throw new NotFoundException('Input data not found');
-
                 exit;
             }
-
 
             $emailWrapper = ToSendEmail::genEmailArray(
                 'msg/sendResult',
@@ -29,7 +29,7 @@ class EmailResultController
 
             Utility::msgSuccess(200, 'Email sent successfully');
         } catch (\Exception $e) {
-          // Handle any exceptions that may occur
+            // Handle any exceptions that may occur
             Utility::showError($e);
         }
     }
