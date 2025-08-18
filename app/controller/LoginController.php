@@ -30,7 +30,7 @@ class LoginController extends BaseController
     {
         try {
             CorsHandler::setHeaders(); // Call the static method to set headers
-            Recaptcha::verifyCaptcha('login');
+            Recaptcha::verifyCaptcha();
 
             $email = Utility::cleanSession($_POST['email']) ?? '';
 

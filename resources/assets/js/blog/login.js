@@ -16,16 +16,25 @@ const LoginToAdmin = (e) => {
     }
   };
 
-  loginSubmission('managed', '/managed', blogRoutes.blogMgt, 'bootstrap', lengthLimit);
+  loginSubmission(
+    'managed', 
+    blogRoutes.url, 
+    blogRoutes.blogMgt, 
+    'bootstrap', 
+    lengthLimit
+  );
 
 };
 
 id('button').addEventListener('click', LoginToAdmin);
-
 id('showPassword_id').addEventListener('click', () => showPassword('password_id'));
 
 const currentPs = id('password_id');
 const passwordLabel = id('showPassword_id');
 currentPs.setAttribute('autocomplete', 'current-password');
 passwordLabel.setAttribute('aria-label', 'Warning: this will display your password on the screen.');
+const passwordHelper = id('password_help');
+passwordHelper.setAttribute('aria-live', 'polite');
+passwordHelper.textContent = 'password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+
 

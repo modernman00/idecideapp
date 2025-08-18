@@ -29,7 +29,6 @@
     "altorouter/altorouter": "^2.0",
     "vlucas/phpdotenv": "^5.5",
     "eftec/bladeone": "^4.18",
-    "waleolaogun/shared-lib": "^1.5.8",
     "filp/whoops": "^2.18",
      "cloudmersive/cloudmersive_virusscan_api_client": "^3.1",
     "spatie/image-optimizer": "^1.6",
@@ -38,7 +37,8 @@
     "phpmailer/phpmailer": "^6.5",
     "monolog/monolog": "^3.9",
     "guzzlehttp/guzzle": "^7.9",
-    "symfony/mailer": "^7.3"
+    "symfony/mailer": "^7.3",
+    "modernman00/shared-lib": "^1.5"
   },
   "config": {
     "optimize-autoloader": true,

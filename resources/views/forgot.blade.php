@@ -1,10 +1,7 @@
-@extends ('base')
+@extends('baseBulmaForm')
 @section('title', 'forgot_password')
 @section('content')
 
-<div class="styleForm">
-
-  <img src={{ $_ENV['LOGO_DEFAULT'] }} alt="logo" class="mb-4 form__login__logo">
 
     <div class="styleform_header">
     <h3>Please, enter the email to verify your identity</h3>
@@ -17,25 +14,26 @@
             <br>
             <div class='row'>
 
-                <?php
+                   @php
 
                     $formArray = [
-                        'forgotPassword_notification' => 'showError',
+                        'forgotPassword_notification'=>'showError',
                         'email' => 'email',
                         'token' => 'token',
-                        'button' => 'submit'
+                          'submit' => 'submit'
                     ];
 
-                    $form = new Src\BuildFormBStrap($formArray);
-                    $form->genForm();
+                        $form = new Src\BuildFormBulma($formArray);
+        $form->genForm();
+  @endphp
 
-                    ?>
-                <br>
+        <br>
 
-            </div>
+        <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
+<br>
 
     </form>
-</div>
+
 
 
 

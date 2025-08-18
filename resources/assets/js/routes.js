@@ -2,7 +2,8 @@ const blogRoutes = {
   showEdit: id => `/showEditBlog/${id}`,
   create: () => '/createBlog',
   delete: id => `/deleteBlog/${id}`,
-  blogMgt: '/blogMgt'
+  blogMgt: '/blogMgt',
+  url: '/managed'
 };
 
 const userRoutes = {

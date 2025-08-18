@@ -16,11 +16,12 @@ class PasswordChangeController extends BaseController
     public function show(): void
     {
         try {
-            if (isset($_SESSION['FORGOT'])) {
-                BaseController::viewWithCsp('passwordChange');
-            } else {
-                throw new UnauthorisedException('NOT SURE WE KNOW YOU', 1);
-            }
+            // if (isset($_SESSION['FORGOT'])) {
+            //     BaseController::viewWithCsp('passwordChange');
+            // } else {
+            //     throw new UnauthorisedException('NOT SURE WE KNOW YOU', 1);
+            // }
+              BaseController::viewWithCsp('passwordChange');
         } catch (\Throwable $th) {
             Utility::showError($th);
         }

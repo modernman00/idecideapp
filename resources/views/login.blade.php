@@ -1,53 +1,51 @@
-@extends('base')
+@extends('baseBulmaForm')
 @section('title', 'iDecide Decision Matrix - Login')
 @section('content')
 
-<div class="styleForm" style="margin-top: 2rem;">
+    {{-- <div class="styleForm" style="margin-top: 2rem;"> --}}
 
-  <img src={{ $_ENV['LOGO_DEFAULT'] }} alt="logo" class="mb-4 form__login__logo">
-  <form action="/managed" method="POST" class="styleform_form managed" id="managed">
-    <div id="setLoader" class="loader" style="display: none;">
-    </div>
-    <div class="notification" id="managed_notification" style="display: none;">
+        <form action="" method="" id="managed" class="managed styleForm" enctype="multipart/form-data">
 
-      <p id="error"></p>
-    </div>
-    <div class="form-group">
-@php
+            <div class='form-group'>
+                <br>
+                <div class='row'>
 
-$formArray = [
-          'SIGN' => ['mixed', 
-          'label' => ['Email', 'Password'], 
-          'attribute' => ['email', 'password' ], 
-          'inputType' => ['email', 'password'], 
-          'placeholder' => ['Enter your email', 'Enter your password']],
-          'submit'=> 'button',
-          'showPassword' => 'showPassword',
-          'token' => 'token'
-        ];
+                    @php
 
-$form = new Src\BuildFormBStrap($formArray);
-$form->genForm();
-@endphp
-<br>
+                        $formArray = [
+                            'apptest_notification' => 'showError',
+                            'email' => 'email',
+                            'password' => 'password',
+                            'checkbox' => 'Remember me',
+                            'token' => 'token',
+                            'submit' => 'button',
+                            'showPassword' => 'showPassword',
+                        ];
 
-<div class="g-recaptcha" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
-<br>
+                        $form = new Src\BuildFormBulma($formArray);
+                        $form->genForm();
+
+                    @endphp
+
+                    <br>
+
+                    <div class="g-recaptcha" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
+                    <br>
 
 
-{{-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response"> --}}
+                    {{-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response"> --}}
 
 
- <a href="/forgot?verify=1"> Forgot password? Please click this link</a>
+                    <a href="/forgot?verify=1"> Forgot password? Please click this link</a>
 
-     <br><br>
+                    <br><br>
 
-    </div>
+                </div>
+            </div>
 
+        </form>
 
-  </form>
-
-</div>
+    {{-- </div> --}}
 
 
 
