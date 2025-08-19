@@ -1,66 +1,37 @@
-import { showError, id } from './global';
+// import { showError, id } from './global';
+import { log, showError } from '@modernman00/shared-js-lib';
 
-// do lazy loading of the app based on the current URL
-     document.addEventListener('DOMContentLoaded', function () {
+log('index.js');
 
-        id('themeSwitch').addEventListener('change', function() {
-            document.body.dataset.theme = this.checked ? 'dark' : 'light';
+document.addEventListener('DOMContentLoaded', () => {
+  const routeMap = {
+    '/': () => import(/* webpackChunkName: 'main' */ './main'),
+    '/result': () => import(/* webpackChunkName: 'result' */ './result'),
+    '/createBlog': () => import(/* webpackChunkName: 'blog' */ './blog'),
+    '/adminlogin': () => import(/* webpackChunkName: 'adminlogin' */ './AcctMgt/login'),
+    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './AcctMgt/forgot'),
+    '/code': () => import(/* webpackChunkName: 'code' */ './AcctMgt/code'),
+    '/changePassword': () => import(/* webpackChunkName: 'change' */ './AcctMgt/changePassword')
+    
+  };
 
-            // SET THE FONT TO WHITE IF THE THEME IS DARK
-            document.body.style.color = this.checked ? 'white' : 'black';
+  try {
+    const loadModule = routeMap[window.location.pathname];
 
-        });
+    if (!loadModule) {
+      throw new Error(`Unhandled route: ${window.location.pathname}`);
+    }
 
-       if (window.location.pathname === '/') {
-         import(
-           /* webpackChunkName: 'main' */
-           /* webpackPrefetch: true */
-           './main'
-         )
-           .then((module) => module.default)
-           .catch((err) => showError(err));
-           
-       } else if (window.location.pathname === '/result') {
-         import(
-           /* webpackChunkName: 'result' */
-           /* webpackPrefetch: true */
-           './result'
-         )
-           .then((module) => module.default)
-           .catch((err) => showError(err));
-
-       }else if (window.location.pathname === '/createBlog') {
-  
-         import(
-           /* webpackChunkName: 'blog' */
-           /* webpackPrefetch: true */
-           './blog'
-         )
-           .then((module) => module.default)
-           .catch((err) => showError(err));
-
-       } else if (window.location.pathname === '/managed') {
-         
-         import(
-           /* webpackChunkName: 'managed' */
-           /* webpackPrefetch: true */
-           './blog/login'
-         )
-           .then((module) => module.default)
-           .catch((err) => showError(err));
-       } else if (window.location.pathname === '/blogMgt') {
-
-      id('signout').style.display = 'block'
-         
-         import(
-           /* webpackChunkName: 'blogMgt' */
-           /* webpackPrefetch: true */
-           './blog/show'
-         )
-           .then((module) => module.default)
-           .catch((err) => showError(err));
-       }
-     });
-
+    loadModule()
+      .then((module) => module.default)
+      .catch((err) => {
+        showError(err);
+        throw new Error(`Failed to load module for ${window.location.pathname}: ${err.message}`);
+      });
+  } catch (error) {
+    showError(error);
+    throw error;
+  }
+});
 
 

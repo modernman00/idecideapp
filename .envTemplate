@@ -1,50 +1,101 @@
 APP_NAME="iDecide"
-APP_ENV=development
+APP_ENV=local
 APP_DEBUG=true
 # APP_URL=http://localhost
-APP_URL=
+APP_URL=http://idecide.test
+VITE_APP_URL=http://idecide.test
+DOMAIN_NAME=idecide.test
+MIX_ROUTE_PICS=https://idecide.test/public/img/profile/
 
-CHATGPT_API = ""
+# API KEY
 
-DEEPSEEK_API_KEY = ""
+CHATGPT_API = 
+BRAND_COLOR = 'blue'
+MIX_GOOGLE_CAPTCHA_KEY=
+RECAPTCHA_KEY = 
+SECRET_RECAPTCHA_KEY = 
+SECRET_RECAPTCHA_KEY_TWO_START_LETTER = "6L"
+
+# Add to your .env file RIGHT NOW:
+RECAPTCH_KEY_V3=
+SECRET_RECAPTCHA_KEY_V3=
 
 # Database Configuration
 DB_DRIVER = 'mysql'
 DB_HOST  = localhost
-DB_NAME = 
-DB_USERNAME = 
+DB_NAME = idecide
+DB_USERNAME = root
 DB_PASSWORD = 
 
-# DB_CONNECTION=mysql
-# DB_HOST=127.0.0.1
-# DB_PORT=3306
-# DB_DATABASE=
-# DB_USERNAME=
-# DB_PASSWORD=
+COOKIE_EXPIRE=3600
+SESSION_EXPIRE=3600
 
-# Mail Configuration
-MAIL_DRIVER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=null
-MAIL_FROM_NAME="${APP_NAME}"
+JWT_KEY=
 
-# Session and Cache
-SESSION_DRIVER=file
-CACHE_DRIVER=file
+
+
+LOGGER_PATH = 
+LOGGER_NAME = 
+USER_EMAIL = 
+
+# PATH TO EMAIL FORMAT
+
+SUSPICIOUS_ALERT =
+
+# PATH TO ERROR FILES - BLADE FILE
+
+error401ViewPath= 
+error403ViewPath=
+error404ViewPath=
+error429ViewPath=errors/429
+error500ViewPath=errors/500
+
+# ERROR REPORTING URL
+
+401URL=error401
+403URL=error403
+404URL=
+429URL=error429
+500URL=error500
+
+# COOKIE MGT 
+COOKIE_NAME_LOGIN =
+COOKIE_NAME_GENERAL=
+
+
+MAILER_DSN=
+TEST_EMAIL = waledevtest@gmail.com
+# Mail Configuration - OTHERS MEANS ANY OTHERS APART FROM ADMIN, TECH, AND SUPPORT
+USERS_USERNAME = 
+USERS_PASSWORD = 
+SMTP_PORT = 465
+SMTP_HOST = 
+# USERS_EMAIL = 
+USERS_EMAIL = 
+USERS_SENDER = "iDecide"
+
+MEMBER_USERNAME = 
+MEMBER_PASSWORD = 
+SMTP_PORT = 465
+SMTP_HOST = 
+# MEMBERS_EMAIL = 
+MEMBER_EMAIL = 
+MEMBER_SENDER = "iDecide"
+
+FILE_UPLOAD_CLOUDMERSIVE = 
+
 
 # Security Settings
 APP_KEY=
 ENCRYPTION_KEY=
 
-# Other Setting
-LOG_CHANNEL=single
-QUEUE_CONNECTION=sync
 
-IMG_CONTRACT = 
-IMG_CONTRACT2 = 
-IMG_CELEBRATE =
-APP_LOGO = 
+LOGO_DEFAULT = "/public/images/logo/default.png"
+LOGO_URL = "https://i.postimg.cc/htc8Kgrn/default.png"
+LOGO_COVER = "/public/images/logo/cover.png"
+IMG_CELEBRATE = "/public/images/celebrate.jpeg"
+LOGO_PROFILE = '/public/images/logo/profile.png'
+
+SUPPORT_EMAIL = "support@idecide.com"
+
+MIX_SOURCEMAPS=false

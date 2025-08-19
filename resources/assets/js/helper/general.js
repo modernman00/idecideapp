@@ -1,7 +1,7 @@
 'use strict';
 import { id, qSelAll } from '../global';
-import autocomplete from 'autocompleter';
-import FormHelper from '../FormHelper';
+import {autocomplete} from './autocomplete';
+import FormHelper from './FormHelper';
 
 
 export const loaderIconBootstrap = () => {

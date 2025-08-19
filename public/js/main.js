@@ -242,6 +242,55 @@ function showSyncToast(message) {
 
 /***/ }),
 
+/***/ "./resources/assets/js/global.js":
+/*!***************************************!*\
+  !*** ./resources/assets/js/global.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   bindEvent: () => (/* binding */ bindEvent),
+/* harmony export */   id: () => (/* binding */ id),
+/* harmony export */   log: () => (/* binding */ log),
+/* harmony export */   qSel: () => (/* binding */ qSel),
+/* harmony export */   qSelAll: () => (/* binding */ qSelAll),
+/* harmony export */   showError: () => (/* binding */ showError)
+/* harmony export */ });
+var id = function id(x) {
+  return document.getElementById(x);
+};
+var qSelAll = function qSelAll(x) {
+  return document.querySelectorAll(x);
+};
+var qSel = function qSel(x) {
+  return document.querySelector(x);
+};
+var showError = function showError(e) {
+  log(e.message, ' ERROR MESSAGE'); // "null has no properties"
+  log(e.name, ' ERROR NAME'); // "TypeError"
+  log(e.fileName, ' ERROR FILENAME'); // "Scratchpad/1"
+  log(e.lineNumber, ' ERROR LINENUMBER'); // 2
+
+  log(e.stack);
+};
+var log = function log(x) {
+  var describe = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  return console.log(x, describe);
+};
+function bindEvent(_ref) {
+  var id = _ref.id,
+    _ref$event = _ref.event,
+    event = _ref$event === void 0 ? 'click' : _ref$event,
+    handler = _ref.handler;
+  var el = document.getElementById(id);
+  if (el && typeof handler === 'function') {
+    el.addEventListener(event, handler);
+  }
+}
+
+/***/ }),
+
 /***/ "./resources/assets/js/include/main/autocomplete.js":
 /*!**********************************************************!*\
   !*** ./resources/assets/js/include/main/autocomplete.js ***!

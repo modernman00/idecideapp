@@ -1,10 +1,10 @@
 @extends('baseBulmaForm')
-@section('title', 'iDecide Decision Matrix - Login')
+@section('title', 'Login')
 @section('content')
 
     {{-- <div class="styleForm" style="margin-top: 2rem;"> --}}
 
-        <form action="" method="" id="managed" class="managed styleForm" enctype="multipart/form-data">
+        <form action="" method="" id="adminLogin" class="adminLogin styleForm" enctype="multipart/form-data">
 
             <div class='form-group'>
                 <br>
@@ -13,7 +13,7 @@
                     @php
 
                         $formArray = [
-                            'apptest_notification' => 'showError',
+                            'adminLogint_notification' => 'showError',
                             'email' => 'email',
                             'password' => 'password',
                             'checkbox' => 'Remember me',
@@ -31,10 +31,6 @@
 
                     <div class="g-recaptcha" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
                     <br>
-
-
-                    {{-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response"> --}}
-
 
                     <a href="/forgot?verify=1"> Forgot password? Please click this link</a>
 

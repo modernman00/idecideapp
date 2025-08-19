@@ -5,7 +5,7 @@
 
 
 
-  <form action="/passwordChange" method="POST" class="loginNow styleform_form" id="passwordChange">
+  <form class="loginNow styleform_form" id="passwordChange">
 
     <div class="form-group">
                 @php
@@ -15,7 +15,7 @@
                         'password' => 'password',
                         'confirm_password' => 'password',
                         'token' => 'token',
-                        'button' => 'submit',
+                        'submit' => 'button',
                         'showPassword' => 'showPassword'
                     ];
 

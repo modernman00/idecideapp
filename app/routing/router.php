@@ -90,3 +90,37 @@ $router->map('GET', '/404', 'App\controller\ErrorController@notFound', 'not_foun
 
 // Handle 500 Not Found
 $router->map('GET', '/500', 'App\controller\ErrorController@internalServerError', 'server_error');
+
+$router->map('GET', '/adminlogin', 'App\controller\AcctMgtController@loginShow', 'adminlogin');
+
+// ADMIN LOGIN POST
+
+$router->map('POST', '/adminlogin', 'App\controller\AcctMgtController@loginPost', 'adminloginpost');
+
+// ADMIN  HOME PAGE
+$router->map('GET', '/adminpage', 'App\controller\AcctMgtController@adminPage', 'adminpage');
+
+// Forgot
+$router->map('GET', '/forgot', 'App\controller\AcctMgtController@forgot', 'Forgot');
+
+// FORGOT_POST
+$router->map('POST', '/forgot', 'App\controller\AcctMgtController@forgotPost', 'ForgotPost');
+
+// CODE
+$router->map('GET', '/code', 'App\controller\AcctMgtController@code', 'code');
+
+// CODE_POST
+$router->map('POST', '/code', 'App\controller\AcctMgtController@codePost', 'codePost');
+
+// RESET
+$router->map('GET', '/reset', 'App\controller\AcctMgtController@reset', 'reset');
+
+// RESET_POST
+$router->map('POST', '/reset', 'App\controller\AcctMgtController@resetPost', 'resetPost');
+
+
+$router->map('GET', '/error401', 'App\controller\ErrorReportingController@unauthorized401', 'error401');
+$router->map('GET', '/error403', 'App\controller\ErrorReportingController@forbidden403', 'error403');
+$router->map('GET', '/error404', 'App\controller\ErrorReportingController@notFound404', 'error404');
+$router->map('GET', '/error429', 'App\controller\ErrorReportingController@tooManyRequests429', 'error429');
+$router->map('GET', '/error500', 'App\controller\ErrorReportingController@serverError500', 'error500');

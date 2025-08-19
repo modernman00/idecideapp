@@ -1,8 +1,8 @@
 'use strict';
-import { postFormData } from './helper/http.js';
-import { showLoader, clearLoader } from './helper/Loader.js';
-import { showError, qSel} from './global.js';
-import FormHelper from './helper/FormHelper.js';
+import { postFormData } from '../helper/http.js';
+import { showLoader, clearLoader } from '../helper/Loader.js';
+import { showError, qSel } from '../global.js';
+import FormHelper from '../helper/FormHelper.js';
 
 
 // block the setLoader div
@@ -42,7 +42,7 @@ export const loginSubmission = async (formId, loginURL, redirect, css = null, le
     formData.massValidate([], { email: 'email', password: 'password' });
 
     if (formData.result === 1) {
- 
+
 
       showLoader();
       localStorage.setItem('redirect', redirect);

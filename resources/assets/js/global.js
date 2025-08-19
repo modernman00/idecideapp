@@ -12,3 +12,10 @@ export const showError = (e) => {
 };
 
 export const log = (x, describe = null) => console.log(x, describe);
+
+export function bindEvent({ id, event = 'click', handler }) {
+  const el = document.getElementById(id);
+  if (el && typeof handler === 'function') {
+    el.addEventListener(event, handler);
+  }
+}
