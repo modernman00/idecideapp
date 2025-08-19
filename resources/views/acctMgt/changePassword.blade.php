@@ -5,13 +5,13 @@
 
 
 
-  <form class="loginNow styleform_form" id="passwordChange">
+  <form class="loginNow styleform_form" id="changePassword">
 
     <div class="form-group">
                 @php
 
                     $formArray = [
-                        'passwordChange_notification' => 'showError',
+                        'changePassword_notification' => 'showError',
                         'password' => 'password',
                         'confirm_password' => 'password',
                         'token' => 'token',

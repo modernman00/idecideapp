@@ -91,6 +91,8 @@ $router->map('GET', '/404', 'App\controller\ErrorController@notFound', 'not_foun
 // Handle 500 Not Found
 $router->map('GET', '/500', 'App\controller\ErrorController@internalServerError', 'server_error');
 
+// ADMIN LOGIN SHOW
+
 $router->map('GET', '/adminlogin', 'App\controller\AcctMgtController@loginShow', 'adminlogin');
 
 // ADMIN LOGIN POST

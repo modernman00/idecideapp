@@ -13,7 +13,7 @@
 
 
     <hr class="my-2">
-    <form action=""  class="styleform_form" id="codeForm" class="codeForm">
+    <form action=""  class="styleform_form" id="code" class="code">
         <div class="form-group">
             <br>
             <div class='row'>
@@ -21,7 +21,7 @@
                 <?php
 
                     $formArray = [
-                        "codeForm_notification"=> "showError",
+                        "code_notification"=> "showError",
                         'code' => 'text',
                         'token' => 'token',
                         'submit' => 'button'

@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '/': () => import(/* webpackChunkName: 'main' */ './main'),
     '/result': () => import(/* webpackChunkName: 'result' */ './result'),
     '/createBlog': () => import(/* webpackChunkName: 'blog' */ './blog'),
-    '/adminlogin': () => import(/* webpackChunkName: 'adminlogin' */ './AcctMgt/login'),
-    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './AcctMgt/forgot'),
-    '/code': () => import(/* webpackChunkName: 'code' */ './AcctMgt/code'),
-    '/changePassword': () => import(/* webpackChunkName: 'change' */ './AcctMgt/changePassword')
-    
+    '/adminlogin': () => import(/* webpackChunkName: 'adminlogin' */ './acctMgt/login'),
+    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './acctMgt/forgot'),
+    '/code': () => import(/* webpackChunkName: 'code' */ './acctMgt/code'),
+    '/changePassword': () => import(/* webpackChunkName: 'change' */ './acctMgt/changePassword')
+
   };
 
   try {

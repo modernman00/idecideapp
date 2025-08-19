@@ -4,7 +4,7 @@
 
     {{-- <div class="styleForm" style="margin-top: 2rem;"> --}}
 
-        <form action="" method="" id="adminLogin" class="adminLogin styleForm" enctype="multipart/form-data">
+        <form action="" method="" id="adminlogin" class="adminlogin styleForm" enctype="multipart/form-data">
 
             <div class='form-group'>
                 <br>
@@ -13,7 +13,7 @@
                     @php
 
                         $formArray = [
-                            'adminLogint_notification' => 'showError',
+                            'adminlogin_notification' => 'showError',
                             'email' => 'email',
                             'password' => 'password',
                             'checkbox' => 'Remember me',

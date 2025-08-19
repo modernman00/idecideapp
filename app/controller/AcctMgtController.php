@@ -32,6 +32,7 @@ class AcctMgtController extends BaseController
     {
 
         try {
+     
             BaseController::viewWithCsp('acctMgt/login');
         } catch (\Throwable $th) {
 

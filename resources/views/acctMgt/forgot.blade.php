@@ -9,7 +9,7 @@
 
 
     <hr class="my-2">
-    <form action="/forgot" id="forgotPassword" method="post" class="styleform_form">
+    <form action="/forgot" id="forgot" method="post" class="styleform_form">
         <div class="form-group">
             <br>
             <div class='row'>
@@ -17,7 +17,7 @@
                 @php
 
                     $formArray = [
-                        'forgotPassword_notification' => 'showError',
+                        'forgot_notification' => 'showError',
                         'email' => 'email',
                         'token' => 'token',
                         'submit' => 'button',

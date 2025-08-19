@@ -1,29 +1,9 @@
-import { loginSubmission} from './processAll.js';
-import { bindEvent } from '../global.js';
-import { appTestRoutes } from '../routes';
+import { acctMgtRoutes } from '../routes';
+import {  createCodeSubmitHandler } from '@modernman00/shared-js-lib';
 
 
-
-const codeSubmitFn = (e) => {
-
-  e.preventDefault();
-
-  // creeate a object for length limit
-  const lengthLimit = {
-    maxLength: {
-      id: ['code_id'],
-      max: [50] // max length for password and email
-    }
-  };
-
-  loginSubmission(
-    'codeForm', 
-    appTestRoutes.appTestCode, 
-    appTestRoutes.appTestCodeRedirect, 
-    'bulma', 
-    lengthLimit
-  );
-
-};
-
-bindEvent({ id: 'button', handler: codeSubmitFn });
+createCodeSubmitHandler({
+  formId: 'code', 
+  route: acctMgtRoutes.code, 
+  redirect: acctMgtRoutes.codeRedirect
+});
