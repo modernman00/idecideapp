@@ -93,7 +93,7 @@
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === "main") return "js/main.js";
-/******/ 			if ({"result":1,"adminlogin":1,"forgot":1,"change":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"result":1,"login":1,"forgot":1,"change":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			if (chunkId === "blog") return "js/blog.js";
 /******/ 			if (chunkId === "code") return "js/code.js";
 /******/ 			// return url for filenames based on template

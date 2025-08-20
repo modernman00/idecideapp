@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\controller;
 
 
-use Src\ErrorReporting;
-
 use Src\functionality\{
     LogoutFunctionality,
     LoginFunctionality,
     SignIn,
     PasswordRecoveryService,
     PasswordResetFunctionality,
-    PwdRecoveryCodeFunctiionality
+    PwdRecoveryCodeFunctionality
 };
+use Src\Utility;
 
 class AcctMgtController extends BaseController
 {
@@ -33,10 +32,10 @@ class AcctMgtController extends BaseController
 
         try {
      
-            BaseController::viewWithCsp('acctMgt/login');
+            BaseController::viewWithCsp('acctMgt.login');
         } catch (\Throwable $th) {
 
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -55,7 +54,7 @@ class AcctMgtController extends BaseController
         try {
             LoginFunctionality::login();
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -65,10 +64,14 @@ class AcctMgtController extends BaseController
     {
         try {
             // Use SignIn to verify user role and authentication
-            SignIn::verify();
-            BaseController::viewWithCsp('admin/index');
+            $VerifyJWT = SignIn::verify('admin');
+            if($VerifyJWT){
+                BaseController::viewWithCsp('admin/adminpage');
+            }else{
+                redirect('/adminlogin');
+            }
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -83,7 +86,7 @@ class AcctMgtController extends BaseController
         try {
             LogoutFunctionality::signout(['redirect' => '/managed']);
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -93,7 +96,7 @@ class AcctMgtController extends BaseController
             $verify = $_GET['verify'] ?? null;
             PasswordRecoveryService::show($verify, 'acctMgt/forgot');
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -101,9 +104,9 @@ class AcctMgtController extends BaseController
     {
         try {
 
-            PasswordRecoveryService::process('msg/code');
+            PasswordRecoveryService::process();
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -111,18 +114,18 @@ class AcctMgtController extends BaseController
     public function code()
     {
         try {
-            PwdRecoveryCodeFunctiionality::show('acctMgt/code');
+            PwdRecoveryCodeFunctionality::show('acctMgt/code');
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
     public function codePost()
     {
         try {
-            PwdRecoveryCodeFunctiionality::process();
+            PwdRecoveryCodeFunctionality::process();
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
@@ -131,16 +134,16 @@ class AcctMgtController extends BaseController
         try {
             PasswordResetFunctionality::show('acctMgt/changePassword');
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 
     public function changePasswordPost()
     {
         try {
-            PasswordResetFunctionality::process('msg/changePassword');
+            PasswordResetFunctionality::process();
         } catch (\Throwable $th) {
-            showError($th);
+            Utility::showError($th);
         }
     }
 }

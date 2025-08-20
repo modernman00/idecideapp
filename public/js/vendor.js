@@ -1,5 +1,427 @@
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["/js/vendor"],{
 
+/***/ "./node_modules/@modernman00/shared-js-lib/AcctMgt/changePassword.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/AcctMgt/changePassword.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setupPasswordChange: () => (/* binding */ setupPasswordChange)
+/* harmony export */ });
+/* harmony import */ var _processAll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processAll.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js");
+/* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
+/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
+/* harmony import */ var _general_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../general.js */ "./node_modules/@modernman00/shared-js-lib/general.js");
+
+
+
+
+
+
+/**
+ * Initializes password change functionality with accessibility, validation, and submission logic.
+ *
+ * This function sets up:
+ * - ARIA attributes for accessibility
+ * - Input matching between password and confirmation fields
+ * - Max length enforcement
+ * - Event bindings for submit and password visibility toggle
+ * - Form submission via `loginSubmission`
+ *
+ * @function setupPasswordChange
+ * @param {Object} [config] - Configuration object for customizing behavior.
+ * @param {string} [config.buttonId='button'] - ID of the submit button.
+ * @param {string} [config.passwordId='password_id'] - ID of the password input field.
+ * @param {string} [config.confirmId='confirm_password_id'] - ID of the confirm password input field.
+ * @param {string} [config.showToggleId='showPassword_id'] - ID of the toggle button to show/hide password.
+ * @param {string} [config.errorId='confirm_password_error'] - ID of the element to display mismatch errors.
+ * @param {string} [config.helpId='password_help'] - ID of the helper text element for password guidance.
+ * @param {string} [config.route] - API endpoint for password change submission.
+ * @param {string} [config.redirect] - URL to redirect to after successful password change.
+ * @param {string} [config.theme='bulma'] - UI theme identifier passed to `loginSubmission`.
+ * @param {number} [config.maxLength=50] - Maximum allowed length for password fields.
+ *
+ * @example
+ * setupPasswordChange(); // Uses default IDs and routes
+ *
+ * @example
+ * setupPasswordChange({
+ *   buttonId: 'submitBtn',
+ *   passwordId: 'new_password',
+ *   confirmId: 'confirm_new_password',
+ *   route: '/api/change-password',
+ *   redirect: '/dashboard'
+ * });
+ */
+
+
+const setupPasswordChange = ({
+  formId = 'changePassword',
+  buttonId = 'button',
+  passwordId = 'password_id',
+  confirmId = 'confirm_password_id',
+  showToggleId = 'showPassword_id',
+  errorId = 'confirm_password_error',
+  helpId = 'password_help',
+  route,
+  redirect,
+  theme = 'bulma',
+  maxLength = 50
+} = {}) => {
+  // Accessibility & input attributes
+  const passwordInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.id)(passwordId);
+  const showToggle = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.id)(showToggleId);
+  const helperText = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.id)(helpId);
+
+  passwordInput.setAttribute('autocomplete', 'current-password');
+  showToggle.setAttribute('aria-label', 'Warning: this will display your password on the screen.');
+  helperText.setAttribute('aria-live', 'polite');
+  helperText.textContent =
+    'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+
+  // Length limit object
+  const lengthLimit = {
+    maxLength: {
+      id: [passwordId, confirmId],
+      max: [maxLength, maxLength]
+    }
+  };
+
+  // Submission handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    (0,_processAll_js__WEBPACK_IMPORTED_MODULE_0__.loginSubmission)(formId, route, redirect, theme, lengthLimit);
+  };
+
+  // Bind events
+  (0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.bindEvent)({ id: buttonId, handler: handleSubmit });
+  (0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.bindEvent)({ id: showToggleId, handler: () => (0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.showPassword)(passwordId) });
+  (0,_general_js__WEBPACK_IMPORTED_MODULE_3__.matchInput)(passwordId, confirmId, errorId);
+};
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@modernman00/shared-js-lib/AcctMgt/code.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/AcctMgt/code.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createCodeSubmitHandler: () => (/* binding */ createCodeSubmitHandler)
+/* harmony export */ });
+/* harmony import */ var _processAll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processAll.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js");
+/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
+
+
+
+/**
+ * Creates a reusable form submission handler for code-based forms.
+ *
+ * @function createCodeSubmitHandler
+ * @param {Object} options - Configuration for the handler.
+ * @param {string} options.formId - ID of the form element.
+ * @param {string} options.inputId - ID of the input field to validate.
+ * @param {string} options.buttonId - ID of the submit button.
+ * @param {string} options.route - API endpoint for submission.
+ * @param {string} options.redirect - URL to redirect to after success.
+ * @param {string} [options.theme='bulma'] - UI theme identifier.
+ * @param {number} [options.maxLength=50] - Max input length.
+ *
+ * @example
+ * createCodeSubmitHandler({
+ *   formId: 'codeForm',
+ *   inputId: 'code_id',
+ *   buttonId: 'button',
+ *   route: appTestRoutes.appTestCode,
+ *   redirect: appTestRoutes.appTestCodeRedirect
+ * });
+ */
+function createCodeSubmitHandler({
+  formId,
+  inputId = 'code_id',
+  buttonId = 'button',
+  route,
+  redirect,
+  theme = 'bulma',
+  maxLength = 50
+}) {
+  const handler = (e) => {
+    e.preventDefault();
+
+    const lengthLimit = {
+      maxLength: {
+        id: [inputId],
+        max: [maxLength]
+      }
+    };
+
+    (0,_processAll_js__WEBPACK_IMPORTED_MODULE_0__.loginSubmission)(formId, route, redirect, theme, lengthLimit);
+  };
+
+  (0,_Utility_js__WEBPACK_IMPORTED_MODULE_1__.bindEvent)({ id: buttonId, handler });
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@modernman00/shared-js-lib/AcctMgt/forgot.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/AcctMgt/forgot.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   forgotSubmitHandler: () => (/* binding */ forgotSubmitHandler)
+/* harmony export */ });
+/* harmony import */ var _processAll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processAll.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js");
+/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
+
+
+
+
+/**
+ * Creates a reusable form submission handler for email-based forms.
+ *
+ * This function:
+ * - Prevents default form submission
+ * - Applies max length validation to the email input
+ * - Submits the form using `loginSubmission` with route and redirect logic
+ *
+ * @function createEmailSubmitHandler
+ * @param {Object} options - Configuration for the handler.
+ * @param {string} options.formId - ID of the form element.
+ * @param {string} options.inputId - ID of the email input field.
+ * @param {string} options.buttonId - ID of the submit button.
+ * @param {string} options.route - API endpoint for submission.
+ * @param {string} options.redirect - URL to redirect to after success.
+ * @param {string} [options.theme='bulma'] - UI theme identifier.
+ * @param {number} [options.maxLength=50] - Max input length.
+ *
+ * @example
+ * createEmailSubmitHandler({
+ *   formId: 'forgotPassword',
+ *   inputId: 'email_id',
+ *   buttonId: 'button',
+ *   route: appTestRoutes.appTestForgot,
+ *   redirect: appTestRoutes.appTestForgotRedirect
+ * });
+ */
+function forgotSubmitHandler({
+  formId,
+  inputId = 'email_id',
+  buttonId = 'button',
+  route,
+  redirect,
+  theme = 'bulma',
+  maxLength = 50
+}) {
+  const handler = (e) => {
+    e.preventDefault();
+
+    const lengthLimit = {
+      maxLength: {
+        id: [inputId],
+        max: [maxLength]
+      }
+    };
+
+    (0,_processAll_js__WEBPACK_IMPORTED_MODULE_0__.loginSubmission)(formId, route, redirect, theme, lengthLimit);
+  };
+
+  (0,_Utility_js__WEBPACK_IMPORTED_MODULE_1__.bindEvent)({ id: buttonId, handler });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@modernman00/shared-js-lib/AcctMgt/login.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/AcctMgt/login.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createAdminLoginHandler: () => (/* binding */ createAdminLoginHandler)
+/* harmony export */ });
+/* harmony import */ var _processAll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processAll.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js");
+/* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
+/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
+
+
+
+
+
+/**
+ * Creates a reusable admin login handler with password visibility and accessibility support.
+ *
+ * This function:
+ * - Binds form submission to `loginSubmission`
+ * - Applies max length validation to email and password fields
+ * - Enables password visibility toggle
+ * - Sets accessibility attributes for screen readers and autocomplete
+ *
+ * @function createAdminLoginHandler
+ * @param {Object} options - Configuration for the login handler.
+ * @param {string} options.formId - ID of the login form.
+ * @param {string} options.emailId - ID of the email input field.
+ * @param {string} options.passwordId - ID of the password input field.
+ * @param {string} options.buttonId - ID of the submit button.
+ * @param {string} options.showToggleId - ID of the password visibility toggle button.
+ * @param {string} options.route - API endpoint for login submission.
+ * @param {string} options.redirect - URL to redirect to after successful login.
+ * @param {string} [options.theme='bootstrap'] - UI theme identifier.
+ * @param {number[]} [options.maxLength=[30, 50]] - Max lengths for password and email respectively.
+ *
+ * @example
+ * createAdminLoginHandler({
+ *   formId: 'managed',
+ *   emailId: 'email_id',
+ *   passwordId: 'password_id',
+ *   buttonId: 'button',
+ *   showToggleId: 'showPassword_id',
+ *   route: appTestRoutes.appTest,
+ *   redirect: appTestRoutes.redirect
+ * });
+ */
+function createAdminLoginHandler({
+  formId,
+  emailId = 'email_id',
+  passwordId = 'password_id',
+  buttonId = 'button',
+  showToggleId = 'showPassword_id',
+  route,
+  redirect,
+  theme = 'bootstrap',
+  maxLength = [30, 50]
+}) {
+  const handler = (e) => {
+    e.preventDefault();
+
+    const lengthLimit = {
+      maxLength: {
+        id: [passwordId, emailId],
+        max: maxLength
+      }
+    };
+
+    (0,_processAll_js__WEBPACK_IMPORTED_MODULE_0__.loginSubmission)(formId, route, redirect, theme, lengthLimit);
+  };
+
+  (0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.bindEvent)({ id: buttonId, handler });
+  (0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.bindEvent)({ id: showToggleId, handler: () => (0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.showPassword)(passwordId) });
+
+  const passwordInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.id)(passwordId);
+  const toggleLabel = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.id)(showToggleId);
+
+  passwordInput.setAttribute('autocomplete', 'current-password');
+  toggleLabel.setAttribute(
+    'aria-label',
+    'Warning: this will display your password on the screen.'
+  );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   loginSubmission: () => (/* binding */ loginSubmission)
+/* harmony export */ });
+/* harmony import */ var _Http_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Http.js */ "./node_modules/@modernman00/shared-js-lib/Http.js");
+/* harmony import */ var _Loader_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader.js */ "./node_modules/@modernman00/shared-js-lib/Loader.js");
+/* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
+/* harmony import */ var _ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ShowResponse.js */ "./node_modules/@modernman00/shared-js-lib/ShowResponse.js");
+/* harmony import */ var _FormHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FormHelper.js */ "./node_modules/@modernman00/shared-js-lib/FormHelper.js");
+
+
+
+
+
+
+
+
+// block the setLoader div
+
+/**
+ * Handles the submission of the login form.
+ * @param {string} formId - The ID of the form to submit.
+ * @param {string} loginURL - The URL to make the POST request to.
+ * @param {string} redirect - The URL to redirect the user to after the submission is complete.
+ * @param {string} [css=null] - The CSS class to add to the notification element if the submission is successful.
+ * @returns {void}
+ * @throws {Error} - If there is an error with the submission
+ */
+const loginSubmission = async (formId, loginURL, redirect, css = null, lengthLimit = null
+) => {
+
+  try {
+
+    const formInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_2__.qSel)(`#${formId}`);
+
+    if (!formInput) {
+      throw new Error(`Form ${formId} not found`);
+      // removed by dead control flow
+
+    }
+
+
+    const formInputArr = Array.from(formInput.elements);
+
+    const formData = new _FormHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"](formInputArr);
+
+    formData.clearError();
+
+    if (lengthLimit) {
+      formData.realTimeCheckLen(lengthLimit.maxLength.id, lengthLimit.maxLength.max);
+    }
+
+    formData.massValidate([], { email: 'email', password: 'password' });
+
+    if (formData.result === 1) {
+
+
+      (0,_Loader_js__WEBPACK_IMPORTED_MODULE_1__.showLoader)();
+      localStorage.setItem('redirect', redirect);
+
+      await (0,_Http_js__WEBPACK_IMPORTED_MODULE_0__.postFormData)(loginURL, formId, redirect, css);
+    } else {
+
+      alert('The form cannot be submitted. Please check the errors');
+    }
+  } catch (err) {
+    (0,_ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__.showError)(err);
+  } finally {
+    (0,_Loader_js__WEBPACK_IMPORTED_MODULE_1__.clearLoader)();
+  }
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/@modernman00/shared-js-lib/Cookie.js":
 /*!***********************************************************!*\
   !*** ./node_modules/@modernman00/shared-js-lib/Cookie.js ***!
@@ -11,6 +433,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   checkCookie: () => (/* binding */ checkCookie),
 /* harmony export */   getCookie: () => (/* binding */ getCookie),
+/* harmony export */   getCookieValue: () => (/* binding */ getCookieValue),
 /* harmony export */   setCookie: () => (/* binding */ setCookie)
 /* harmony export */ });
 /**
@@ -63,6 +486,12 @@ const checkCookie = (name) => {
     }
 }
 
+// CHECK TOKEN FROM COOKIE 
+const getCookieValue = (name) => {
+    const match = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+    return match ? decodeURIComponent(match.split('=')[1]) : null;
+}
+
 
 /***/ }),
 
@@ -75,6 +504,7 @@ const checkCookie = (name) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   countryCodes: () => (/* binding */ countryCodes),
 /* harmony export */   injectCountryCode: () => (/* binding */ injectCountryCode)
 /* harmony export */ });
 /* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
@@ -412,127 +842,6 @@ const date2String = (date) => new Date().toDateString(date)
 
 /***/ }),
 
-/***/ "./node_modules/@modernman00/shared-js-lib/ForgotPassword.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@modernman00/shared-js-lib/ForgotPassword.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   forgotPasswordSubmission: () => (/* binding */ forgotPasswordSubmission)
-/* harmony export */ });
-/* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
-/* harmony import */ var _Http_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Http.js */ "./node_modules/@modernman00/shared-js-lib/Http.js");
-/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
-/* harmony import */ var _ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShowResponse.js */ "./node_modules/@modernman00/shared-js-lib/ShowResponse.js");
-
-
-
-
-
-
-// Environment detection
-const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
-
-// Log warning for browser-only features
-const warnNodeEnvironment = (feature) => {
-  if (!isBrowser) {
-    console.warn(`Warning: ${feature} is only available in browser environments. This code may not work as expected in Node.js.`);
-    return false;
-  }
-  return true;
-};
-
-// Initialize UI - only in browser environment
-if (isBrowser) {
-  const loaderElement = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)("setLoader");
-  if (loaderElement) {
-    loaderElement.style.display = "none";
-  } else {
-    console.warn("Element 'setLoader' not found in the DOM");
-  }
-} else {
-  console.warn("Running in Node.js environment. DOM manipulation is not available.");
-}
-
-/**
- * @description Handles the forgot password submission process.
- * @param {string} formId - The ID of the form to submit.
- * @param {string} url - The URL to make the POST request to.
- * @param {string} redirectUrl - The URL to redirect the user to after the submission is complete.
- * @returns {function} - A function that handles the submission process.
- */
-const forgotPasswordSubmission = (formId, url, redirectUrl) => {
-  // Check if we're in a browser environment before creating the helper
-  if (!warnNodeEnvironment('forgotPasswordSubmission')) {
-    // Return a no-op function in Node.js environment
-    return (e) => {
-      if (e && typeof e.preventDefault === 'function') {
-        e.preventDefault();
-      }
-      console.warn("Forgot password functionality is only available in browser environments");
-    };
-  }
-
-  const emailInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)('email_id');
-  if (!emailInput) {
-    console.warn("Email input element not found");
-    return (e) => {
-      if (e && typeof e.preventDefault === 'function') {
-        e.preventDefault();
-      }
-      console.error("Email input element not found");
-    };
-  }
-
-  /**
-   * @description Handles the submission of the forgot password form.
-   * @param {Event} e - The event object passed by the event listener.
-   * @returns {void}
-   * @throws {Error} - If there is an error with the submission
-   */
-  const forgotPasswordSubmissionHelper = (e) => {
-    try {
-      if (e && typeof e.preventDefault === 'function') {
-        e.preventDefault();
-      }
-
-      // Ensure emailInput still exists in the DOM
-      if (!emailInput) {
-        throw new Error("Email input element not found");
-      }
-
-      const email = emailInput.value.trim();
-      if (!(0,_Utility_js__WEBPACK_IMPORTED_MODULE_2__.emailVal)(email)) {
-        const loaderElement = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)("setLoader");
-        if (loaderElement) {
-          loaderElement.style.display = "block";
-        }
-
-        // Only use localStorage in browser environment
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('redirect', redirectUrl);
-        }
-
-        (0,_Http_js__WEBPACK_IMPORTED_MODULE_1__.postFormData)(url, formId, redirectUrl);
-      }
-    } catch (error) {
-      if (typeof _ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__.showError === 'function') {
-        (0,_ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__.showError)(error);
-      } else {
-        console.error("Error in forgot password submission:", error);
-      }
-    }
-  };
-  
-  return forgotPasswordSubmissionHelper;
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/@modernman00/shared-js-lib/FormHelper.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@modernman00/shared-js-lib/FormHelper.js ***!
@@ -547,14 +856,14 @@ __webpack_require__.r(__webpack_exports__);
 
 class FormHelper {
     constructor(data) {
-         if (!Array.isArray(data)) throwError('data must be an array of form elements');
+        if (!Array.isArray(data)) throwError('data must be an array of form elements');
         this.data = data;
         this.error = [];
         this.result = 0;
     }
 
     id(x) {
-        return document.getElementById(x)
+        return document.getElementById(x);
     }
 
     /**
@@ -572,69 +881,139 @@ class FormHelper {
      * @param {string} [type='general'] - the type of validation to perform. Currently only 'email' is supported
      * @returns {boolean} - true if the field is valid, false otherwise
      */
-    validateField(value, type = 'general') {
+    validateLoginField(inputId, type = 'general') {
+        const inputEl = this.id(inputId);
+        const value = inputEl.value.trim();
+        let msg = '';
+        let isValid = true;
+
         if (type === 'email') {
             const emailRegex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/;
-            return emailRegex.test(value);
+            if (!emailRegex.test(value)) {
+                msg = '<li>Please enter a valid email</li>';
+                isValid = false;
+            }
         }
-        return value.trim().length > 0;
+
+        else if (type === 'password') {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordRegex.test(value)) {
+                msg = '<li>Please enter a valid password (min 8 chars, upper & lowercase, number, special char)</li>';
+                isValid = false;
+            }
+        }
+
+        else if (type === 'general') {
+            const generalRegex = /[\w\d\s.,'"!?@#&()\-]/;
+            if (!generalRegex.test(value)) {
+                msg = '<li>Invalid entry — special characters may not be allowed</li>';
+                isValid = false;
+            }
+        }
+
+        // Set error if invalid
+        const errorEl = this.id(`${type}_error`);
+        if (!isValid) {
+            if (errorEl) {
+                errorEl.innerHTML = msg;
+                errorEl.style.color = 'red';
+            }
+            this.error.push(msg);
+        } else {
+            if (errorEl) errorEl.innerHTML = ''; // Clear error on success
+        }
+
+        return isValid;
     }
 
+
+    matchRegex(value, type) {
+        const regexPatterns = {
+            email: /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/,
+            password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+            general: /[\w\d\s.,'"!?@#&()\-]/,
+        };
+
+        return regexPatterns[type]?.test(value);
+    }
 
     /**
-     * Loop through all the elements in the form and validate each one.
-     * If element is empty, add error message to the error array and set result to false
-     * If element is not empty, check if it validates according to its type (email or general)
-     * If it does not validate, add error message to the error array and set result to false
-     * @returns {void}
+     * 
+     * @param {*} optionalFields ["spouseName", "spouseMobile", "fatherEmail"];
+     * @param {*} typeMap Create a validation map if certain fields need special types (email, password, etc). const types = {
+      email_id: "email",
+      password_id: "password",
+      custom_text_id: "general"
+    };
+     * formHelper.massValidate(optional, types);
      */
-    massValidate() {
-        const invalidElements = this.data.flatMap(et => et.filter(post => {
-            const postName = post.name.replace('_', ' ');
-            let errMsg = this.id(`${post.name}_error`);
 
-            // rid it off the submit and token
-            if (['submit', 'button', 'showPassword_id', 'g-recaptcha-response', 'cancel', 'token', 'checkbox_id'].includes(post.name) ||
-                ['button'].includes(post.id) || ['button'].includes(post.type)) return false;
 
-            // check if there is no value
-            if (['spouseName', 'spouseMobile', 'spouseEmail', 'fatherMobile', 'fatherEmail', 'motherMobile', 'maidenName', 'motherEmail'].includes(post.name)) {
-                // post.value is not prpvided if it is not provided 
-                post.value = post.value === "" ? "Not Provided" : post.value
+
+    massValidate(optionalFields = [], typeMap = {}) {
+        this.clearError(); // Reset errors
+        this.result = 0;
+
+        for (let input of this.data) {
+            const { name, value, id, type, placeholder } = input;
+            const errorEl = this.id(`${name}_error`);
+           
+
+            // Skip non-input elements
+            if (
+                ['submit', 'button', 'g-recaptcha-response', 'cancel'].includes(name) ||
+                ['button', 'showPassword_id', 'token', 'g-recaptcha-response'].includes(id) ||
+                type === 'button' ||
+                name === 'checkbox_id'
+            ) continue;
+
+     
+
+            let label = name.replace(/_/g, ' '); // For readable error text
+            let val = value.trim();
+
+            // Handle optional fields
+            if (optionalFields.includes(name) && val === '') {
+                input.value = 'Not Provided';
+                continue;
             }
 
-            console.log(post.name)
-
-            if (post.value === '' || post.value === 'select') {
-                errMsg.innerHTML = `${post.placeholder ?? "*"} cannot be left empty`;
-                errMsg.style.color = 'red';
-                this.error.push(`${postName.toUpperCase()} cannot be left empty`);
-                this.result = false;
-                return true;
+            // Required field check
+            if (val === '' || val === 'select') {
+                if (errorEl) errorEl.innerHTML = `<li style="color:red;">${label} cannot be left empty.</li>`;
+                this.error.push(`${label.toUpperCase()} cannot be left empty.`);
+                continue;
             }
 
-            if (post.name === 'email' && !this.validateField(post.value, 'email')) {
-                errMsg.innerHTML = '* Please enter a valid email';
-                errMsg.style.color = 'red';
-                this.error.push('<li style="color: red;">Please enter a valid email</li>');
-                this.result = false;
-                return true;
+            // Determine field type for regex
+            let validateType = typeMap[name] || (
+                name.toLowerCase().includes('email') ? 'email' :
+                    name.toLowerCase().includes('password') ? 'password' : 'general'
+            );
+
+            if (!this.matchRegex(val, validateType)) {
+                const msg = `There is a problem with your entry for ${label.toUpperCase()}`;
+                if (errorEl) errorEl.innerHTML = `<li style="color:red;">${msg}</li>`;
+                this.error.push(msg);
+                continue;
             }
 
-            return false;
-        }));
+            if (errorEl) errorEl.innerHTML = ''; // Clear if all good
+        }
 
-        if (invalidElements.length > 0) this.result = false;
+        this.result = this.error.length === 0 ? 1 : 0;
     }
+
+
 
     emailVal() {
         const emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-        let msg = `<li style=color:'red';> Please enter a valid email</li>`
-        const email = this.id('email_id').value
+        let msg = '<li style=color:\'red\';> Please enter a valid email</li>';
+        const email = this.id('email_id').value;
         if (email.match(emailExp) === null) {
-            this.id('email_error').innerHTML = msg
-            this.id('email_error').style.color = "red"
-            this.error.push(msg)
+            this.id('email_error').innerHTML = msg;
+            this.id('email_error').style.color = 'red';
+            this.error.push(msg);
         }
     }
 
@@ -676,7 +1055,7 @@ class FormHelper {
     clearHtml() {
         this.data.flat().forEach(post => {
             if (!['submit', 'checkbox'].includes(post.name) && post.type !== 'submit') {
-                post.value = "";
+                post.value = '';
             }
         });
     }
@@ -688,18 +1067,17 @@ class FormHelper {
 
     realTimeCheckLen(input, maxi) {
         input.forEach((id, i) => {
-       
-            const theData = this.id(`${id}_id`);
+
+            const theData = this.id(`${id}`);
             if (!theData) {
-                throw new Error(`Element with ID '${id}' not found`);
-                // removed by dead control flow
-{}
+                console.error(`Element with ID '${id}' not found`);
+                return;
             }
             const max = maxi[i];
             theData.maxLength = parseInt(max) + 1;
             theData.addEventListener('input', () => {
                 const error = this.id(`${id}_error`);
-                error.innerHTML = (theData.value.length > max) ? `You have reached the maximum limit` : "";
+                error.innerHTML = (theData.value.length > max) ? 'You have reached the maximum limit' : '';
                 this.id(`${id}_help`).style.display = theData.value.length > max ? '' : 'none';
             });
         });
@@ -717,12 +1095,12 @@ class FormHelper {
         const secondInput = this.id(second + '_id');
         const error = this.id(`${second}_error`);
 
-        const checkMatch = () => error.innerHTML = (firstInput.value !== secondInput.value) ? 'Your passwords do not match' : "";
+        const checkMatch = () => error.innerHTML = (firstInput.value !== secondInput.value) ? 'Your passwords do not match' : '';
 
         firstInput.addEventListener('input', checkMatch);
         secondInput.addEventListener('input', checkMatch);
     }
- 
+
 
     /**
      * Injects the values in the html array to the elements with the IDs in the idArray
@@ -740,11 +1118,11 @@ class FormHelper {
      */
     duplicate(giveInput, takeInput) {
         let giver, taker;
-        giver = this.id(giveInput)
-        taker = this.id(takeInput)
+        giver = this.id(giveInput);
+        taker = this.id(takeInput);
         giver.addEventListener('keyup', () => {
             taker.value = giver.value;
-        })
+        });
     }
 
 
@@ -758,23 +1136,23 @@ class FormHelper {
      * @param {string} outputId - the id of the element to update with the response from the server
      */
     realTimeServer(input, url, outputId) {
-        const theInput = this.id(input)
-        const output = this.id(outputId)
+        const theInput = this.id(input);
+        const output = this.id(outputId);
         theInput.addEventListener('keyup', async () => {
-            const inputVal = theInput.value
+            const inputVal = theInput.value;
 
-            if (inputVal === "") {
-                output.innerHTML = "";
+            if (inputVal === '') {
+                output.innerHTML = '';
                 return;
             }
 
             try {
-                const response = await axios.get(`${url}=${inputVal}`)
-                output.innerHTML = response.data
+                const response = await axios.get(`${url}=${inputVal}`);
+                output.innerHTML = response.data;
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
-        })
+        });
     }
 
     /**
@@ -786,77 +1164,20 @@ class FormHelper {
     isChecked(yesId, noId, hiddenInput) {
         const checked = () => {
             if (this.id(yesId).checked) {
-                alert('check')
+                alert('check');
                 this.id(hiddenInput).innerHTML = 'checked';
             } else if (this.id(noId).checked) {
                 this.id(hiddenInput).innerHTML = 'checked';
             }
-        }
+        };
 
-        this.id(yesId).addEventListener('click', checked)
-        this.id(noId).addEventListener('click', checked)
-
-    }
-
-    previousAddress() {
-        const timeAddy = this.id('time_at_address_id')
-        const prevAddy = this.id('previous_address_class')
-        const showPrev = () => {
-            if (timeAddy.value != '3 years+') {
-                prevAddy.style.display = 'block'
-                this.id('previous_address_help').innerHTML = "Please enter your full address: House No, Street Name, Town/City and Post Code"
-            } else {
-                prevAddy.style.display = 'none'
-            }
-
-        }
-        timeAddy.addEventListener('change', showPrev)
+        this.id(yesId).addEventListener('click', checked);
+        this.id(noId).addEventListener('click', checked);
 
     }
 
 
 }
-
-/***/ }),
-
-/***/ "./node_modules/@modernman00/shared-js-lib/FormProcessing.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@modernman00/shared-js-lib/FormProcessing.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   convertFormData: () => (/* binding */ convertFormData),
-/* harmony export */   showImageFileUploadFn: () => (/* binding */ showImageFileUploadFn)
-/* harmony export */ });
-/* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
-/* harmony import */ var _FormHelper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormHelper.js */ "./node_modules/@modernman00/shared-js-lib/FormHelper.js");
-
-
-
-const convertFormData = (formId) => {
-    const formInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.qSelAll)(formId)
-    const formInputArr = Array.from(formInput)
-    return new _FormHelper_js__WEBPACK_IMPORTED_MODULE_1__["default"](formInputArr)
-
-}
-
-/**
- * Sets up an event listener for the given button element that triggers a file upload click event.
- * Also sets up an event listener for the given input element that displays the name of the selected files.
- * @param {string} uploadBtn - the id of a button element that will trigger the file upload dialog box.
- * @param {string} inputId - the id of the input element with the file type.
- * @param {string} fileName - the id of the element where the selected file names will be displayed.
- */
-const showImageFileUploadFn = (uploadBtn, inputId, fileName) => {
-  const input = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(inputId);
-  const fileNamesEl = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(fileName);
-  (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(uploadBtn).addEventListener('click', () => input.click());
-  input.addEventListener('change', () => fileNamesEl.innerText = Array.from(input.files).map(file => file.name).join(', '));
-};
-
 
 /***/ }),
 
@@ -875,161 +1196,219 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   postMultipleApiData: () => (/* binding */ postMultipleApiData)
 /* harmony export */ });
 /* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
-/* harmony import */ var _Loader_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loader.js */ "./node_modules/@modernman00/shared-js-lib/Loader.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var axios_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios-retry */ "./node_modules/axios-retry/dist/esm/index.js");
+/* harmony import */ var _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./axiosWrapper.js */ "./node_modules/@modernman00/shared-js-lib/axiosWrapper.js");
+/* harmony import */ var _general_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./general.js */ "./node_modules/@modernman00/shared-js-lib/general.js");
 
 
 
 
-
-(0,axios_retry__WEBPACK_IMPORTED_MODULE_3__["default"])(axios__WEBPACK_IMPORTED_MODULE_2__["default"], { retries: 3 });
-
-
+/**
+ * 
+* Sends form data via POST request.
+ * @param {string} url - The URL to post the data to.
+ * @param {string} formId - The ID or class of the form.
+ * @param {string|null} redirect - The page to redirect to after successful submission.
+ * @param {string|null} css - The CSS framework to use for notification styling (e.g., 'W3css', 'bulma').
+ NOTICE:::Make sure you set the notification id as the formId_notification
+ */
 const postFormData = async (url, formId, redirect = null, css = null) => {
-    const notificationForm = `${formId}_notification`;
+
+    let notificationForm = `${formId}_notification`;
     const notificationId = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(notificationForm);
+
 
     if (!notificationId) {
         throw new Error('Notification element not found');
     }
-
     // Cleanup previous notification styles
     notificationId.style.display = 'none';
-    notificationId.className = notificationId.className.replace(/is-danger|is-success|w3-red|w3-green|bg-danger|bg-success/g, '');
 
+    ['is-danger', 'is-success', 'w3-red', 'w3-green', 'bg-danger', 'bg-success'].forEach(cls => notificationId.classList.remove(cls));
+
+    // add value to the hidden csrf input field
+    // const csrfToken = getCookieValue('XSRF-TOKEN');
+    // if (csrfToken) {
+    //     const csrfInput = id('token');
+    //     if (csrfInput) {
+    //         csrfInput.value = csrfToken; // Set the CSRF token in the hidden input field    
+    // } 
+
+    // extract the form entries
     const form = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(formId);
+
     if (!form) {
         throw new Error('Form element not found');
     }
 
-    const formEntries = new FormData(form);
+    let formEntries = new FormData(form);
+
     formEntries.delete('submit');
     formEntries.delete('checkbox_id');
 
     const options = {
-        baseURL: '/',
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        withCredentials: true,
+        baseURL: '/', // Adjust to your API base URL
+        withCredentials: true, // Ensure cookies (e.g., XSRF token) are sent
     };
 
+    // AXIOS POST FUNCTIONALITY
     try {
-        const response = await axios__WEBPACK_IMPORTED_MODULE_2__["default"].post(url, formEntries, options);
-        if (!(response.status >= 200 && response.status < 300)) {
-            throw new Error(response.data?.message || 'Request failed');
-        }
-
+        const response = await _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].post(url, formEntries, options);
         const successClass = getNotificationClassByCSS(css || 'bulma', 'green');
+
+        // check if response.data.message is an array
         const { message } = response.data || {};
-        const { id: idSetFromHttp, famCode: famCodeSetFromHttp, outcome: dbHttpResult } = typeof message === 'object' ? message : { outcome: message };
-
-        if (!idSetFromHttp || !dbHttpResult || !famCodeSetFromHttp) {
-            throw new Error('Response data is missing required fields');
+        if( !message) {
+            throw new Error('Response data does not contain a message');
         }
-
-        sessionStorage.setItem('idSetFromHttp', sessionStorage.getItem('idSetFromHttp') || idSetFromHttp);
-        sessionStorage.setItem('famCodeSetFromHttp', sessionStorage.getItem('famCodeSetFromHttp') || famCodeSetFromHttp);
-
-        processFormDataAction(successClass, dbHttpResult, notificationId);
+        processFormDataAction(successClass, message, notificationId);
 
         if (redirect) {
-            setTimeout(() => window.location.assign(redirect), 2000);
+           (0,_general_js__WEBPACK_IMPORTED_MODULE_2__.redirectAfterDelay)(redirect, 2000);
         }
+
     } catch (error) {
-      
         const errorClass = getNotificationClassByCSS(css || 'bulma', 'red');
-        const errorMessage = error.response?.data?.error || error.request || 'An unknown error occurred';
-        processFormDataAction(errorClass, errorMessage, notificationId);
+        const ErrorMsg = (0,_general_js__WEBPACK_IMPORTED_MODULE_2__.parseErrorResponse)(error);
+        processFormDataAction(errorClass, ErrorMsg, notificationId);
     }
 };
 
-
 /**
- * Displays a notification message and handles the loading indicator.
- * @param {string} cssClass - The CSS class to add to the notification element.
- * @param {string} message - The message to display in the notification element.
- * @param {HTMLElement} formNotificationId - The notification element to display the message in.
- * @returns {void}
+ * Process form data action.
+ * @param {string} cssClass - The CSS class for the notification.
+ * @param {string} message - The notification message.
  */
 const processFormDataAction = (cssClass, message, formNotificationId) => {
-    if (!formNotificationId) {
-        return (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.log)('Notification element not found');
+    if (formNotificationId) {
+        formNotificationId.style.display = 'block';
+        formNotificationId.classList.add(cssClass);
+        const errorElement = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)('error');
+        if (errorElement) {
+            errorElement.scrollIntoView({ behavior: 'smooth' });
+            errorElement.innerHTML = message;
+        }
+        const loader = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)('setLoader');
+        if (loader) loader.classList.remove('loader');
+    } else {
+        (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.log)('Notification element not found');
     }
-
-    formNotificationId.style.display = 'block';
-    formNotificationId.classList.add(cssClass);
-
-    const errorElement = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)('error');
-    if (errorElement) {
-        errorElement.innerHTML = message;
-        errorElement.style.color= 'red';
-        errorElement.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    (0,_Loader_js__WEBPACK_IMPORTED_MODULE_1__.clearLoader)();
 };
 
-const getNotificationClassByCSS = (css, color) => (css === 'bulma' ? `is-${color}` : color === 'green' ? `${css}-${color}` : `${css}-danger`);
+/**
+ * Get the notification class based on the CSS framework.
+ * @param {string|null} css - The CSS framework to use for notification styling.
+ * @param {string} status - The status of the notification ('green' or 'red').
+ * @returns {string} - The corresponding CSS class.
+ */
+const getNotificationClassByCSS = (css, status) => {
+    switch (css) {
+        case 'W3css':
+            return status === 'green' ? 'w3-green' : 'w3-red';
+        case 'bulma':
+            return status === 'green' ? 'is-success' : 'is-danger';
+        case 'bootstrap':
+            return status === 'green' ? 'bg-success' : 'bg-danger';
+        default:
+            return status === 'green' ? 'bg-success' : 'bg-danger';
+    }
+};
 
 
 /**
- * Fetches data from a specified API endpoint using a GET request.
  * 
- * @param {string} URL - The API endpoint to fetch data from.
- * @param {string|null} [token=null] - Optional authorization token for the request.
- * @returns {Promise<Object>} - A promise that resolves with the response data or rejects with an error.
+ * @param { the url you want to get} URL 
+ * @returns 
+ // now we can use that data from the outside!
+axiosTest()
+    .then(data => {
+        response.json({ message: 'Request received!', data })
+    })
+    .catch(err => console.log(err))
  */
 
 const getApiData = async (URL, token = null) => {
-    const headers = {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    };
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-
     try {
-        const response = await axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(URL, { headers });
-        return response.data;
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
 
+        const config = {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        };
+
+        const fetch = await _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(URL, config);
+        return fetch.data;
+
+
+    } catch (error) {
+
+        return error;
+
+    }
+
+
+};
 
 const getMultipleApiData = async (url1, url2, token = null) => {
-    const config = {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-    };
+    try {
 
-    return await axios__WEBPACK_IMPORTED_MODULE_2__["default"].all([axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(url1, config), axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(url2, config)]).then(axios__WEBPACK_IMPORTED_MODULE_2__["default"].spread((res1, res2) => [res1.data, res2.data]));
+        const config = {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        };
+
+        const fetch = await _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].all([
+            _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(url1, config),
+            _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(url2, config)
+        ]);
+        return fetch;
+
+    } catch (error) {
+
+        return error;
+
+    }
+
+
 };
+
+
+// build a function to post multiple api form data
 
 const postMultipleApiData = async (url1, url2, formData, token = null) => {
-    const config = {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-    };
+    try {
 
-    const [res1, res2] = await Promise.all([
-        axios__WEBPACK_IMPORTED_MODULE_2__["default"].post(url1, formData, config),
-        axios__WEBPACK_IMPORTED_MODULE_2__["default"].post(url2, formData, config),
-    ]);
+        const config = {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        };
+        const fetch = await _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].all([
+            _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].post(url1, formData, config),
+            _axiosWrapper_js__WEBPACK_IMPORTED_MODULE_1__["default"].post(url2, formData, config)
+        ]);
 
-    return [res1.data, res2.data];
+        return fetch;
+
+    } catch (error) {
+        return error;
+    }
 };
+/**
+ * 
+ * @param { name} cname 
+ * @param {* value} cvalue 
+ * @param {* no of days 365} exdays 
+ */
 
 
 /***/ }),
@@ -1086,75 +1465,6 @@ const showLoader = (elementId ='setLoader', loaderClass = "loader") => {
     }
     loader.classList.add(loaderClass);
     loader.style.display = "block";
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@modernman00/shared-js-lib/Login.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@modernman00/shared-js-lib/Login.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   loginSubmission: () => (/* binding */ loginSubmission)
-/* harmony export */ });
-/* harmony import */ var _FormProcessing_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormProcessing.js */ "./node_modules/@modernman00/shared-js-lib/FormProcessing.js");
-/* harmony import */ var _Http_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Http.js */ "./node_modules/@modernman00/shared-js-lib/Http.js");
-/* harmony import */ var _Loader_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Loader.js */ "./node_modules/@modernman00/shared-js-lib/Loader.js");
-/* harmony import */ var _ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShowResponse.js */ "./node_modules/@modernman00/shared-js-lib/ShowResponse.js");
-
-
-
-
-
-
-// block the setLoader div
-
-/**
- * Handles the submission of the login form.
- * @param {string} formId - The ID of the form to submit.
- * @param {string} loginURL - The URL to make the POST request to.
- * @param {string} redirect - The URL to redirect the user to after the submission is complete.
- * @param {string} [css=null] - The CSS class to add to the notification element if the submission is successful.
- * @returns {void}
- * @throws {Error} - If there is an error with the submission
- */
-const loginSubmission = async (formId, loginURL, redirect, css = null, lengthLimit = null) => {
-
-  const formData = (0,_FormProcessing_js__WEBPACK_IMPORTED_MODULE_0__.convertFormData)(formId);
-  if (!formData) {
-    throw new Error('Form data could not be converted');
-  }
-
-  formData.clearError();
-  
-  if (lengthLimit) {
-    formData.realTimeCheckLen(lengthLimit.maxLength.id, lengthLimit.maxLength.max);
-  }
-
-  try {
-    formData.emailVal();
-    formData.massValidate();
-
-    if (!formData.error.length) {
-      // showLoader();
-      localStorage.setItem('redirect', redirect);
-
-      alert('Submitting the form, please wait...');
-
-      // await postFormData(loginURL, formId, redirect, css);
-    } else {
-      alert('The form cannot be submitted. Please check the errors');
-    }
-  } catch (err) {
-    (0,_ShowResponse_js__WEBPACK_IMPORTED_MODULE_3__.showError)(err);
-  } finally {
-    (0,_Loader_js__WEBPACK_IMPORTED_MODULE_2__.clearLoader)();
-  }
 };
 
 
@@ -1240,6 +1550,7 @@ const showResponse = (theId, message, status) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   autoCompleter: () => (/* binding */ autoCompleter),
+/* harmony export */   bindEvent: () => (/* binding */ bindEvent),
 /* harmony export */   distinctValue: () => (/* binding */ distinctValue),
 /* harmony export */   emailVal: () => (/* binding */ emailVal),
 /* harmony export */   realTimeCheckLen: () => (/* binding */ realTimeCheckLen),
@@ -1382,6 +1693,24 @@ const sanitizeInput = (input) => {
         .replace(/'/g, '&#39;')
         .trim();
 };
+
+
+/**
+ * Binds an event listener to an element with the specified ID.
+ *
+ * @param {Object} options - An object containing the following properties:
+ *   - id {string}: The ID of the element to bind the event listener to.
+ *   - event {string} (optional): The type of event to listen for. Defaults to 'click'.
+ *   - handler {function}: The function to be called when the event occurs.
+ * @throws {Error} Throws an error if the element with the specified ID is not found,
+ *                 or if the handler is not a function.
+ */
+function bindEvent({ id, event = 'click', handler }) {
+  const el = document.getElementById(id);
+  if (el && typeof handler === 'function') {
+    el.addEventListener(event, handler);
+  }
+}
 
 
 /***/ }),
@@ -1620,6 +1949,126 @@ const isChecked = (name, fn) => {
 
 /***/ }),
 
+/***/ "./node_modules/@modernman00/shared-js-lib/axiosWrapper.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/axiosWrapper.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Cookie_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cookie.js */ "./node_modules/@modernman00/shared-js-lib/Cookie.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios_retry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios-retry */ "./node_modules/axios-retry/dist/esm/index.js");
+
+
+
+
+(0,axios_retry__WEBPACK_IMPORTED_MODULE_2__["default"])(axios__WEBPACK_IMPORTED_MODULE_1__["default"], { retries: 3 });
+
+const csrfToken = (0,_Cookie_js__WEBPACK_IMPORTED_MODULE_0__.getCookieValue)('XSRF-TOKEN');
+
+axios__WEBPACK_IMPORTED_MODULE_1__["default"].interceptors.request.use(config => {
+  if (csrfToken) {
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+        config.headers['Content-Type'] = 'application/json';
+        config.headers['Accept'] = 'application/json';
+        if (csrfToken) {
+            config.headers['X-XSRF-TOKEN'] = csrfToken; // Set CSRF token header
+        }
+        return config;
+  }
+  return config;
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (axios__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+/***/ }),
+
+/***/ "./node_modules/@modernman00/shared-js-lib/general.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@modernman00/shared-js-lib/general.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   matchInput: () => (/* binding */ matchInput),
+/* harmony export */   parseErrorResponse: () => (/* binding */ parseErrorResponse),
+/* harmony export */   redirectAfterDelay: () => (/* binding */ redirectAfterDelay)
+/* harmony export */ });
+/* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
+
+
+
+
+/**
+ * 
+ * @param { id of the first element} first 
+ * @param {* id of the second element} second 
+ * @param {* error id - if error - where to show it} err 
+ */
+const matchInput = (first, second, err) => {
+    let error, firstInput, secondInput;
+    error = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(err);
+    firstInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(first);
+    secondInput = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(second);
+
+    secondInput.addEventListener('keyup', () => {
+
+        if (secondInput.value !== firstInput.value) {
+            error.innerHTML = 'Your passwords do not match';
+            error.style.color = 'red';
+        } else {
+            error.innerHTML = 'The password is matched: <i class=\'fa fa-check\' aria-hidden=\'true\'></i>';
+            error.style.color = 'green';
+        }
+
+
+    });
+};
+
+
+
+
+/**
+ * Redirects the browser to a new URL after a specified delay.
+ *
+ * @param {string} url - The URL to redirect to.
+ * @param {number} delay - The delay, in milliseconds, before the redirect occurs.
+ * @return {void} This function does not return anything.
+ */
+const redirectAfterDelay = (url, delay) => {
+    setTimeout(() => {
+        window.location.href = url;
+    }, delay);
+};  
+            
+
+const parseErrorResponse = (error) => {
+    let errorMessage = 'An unknown error occurred';
+
+    if (Array.isArray(error?.response?.data?.message)) {
+        errorMessage = `<ul>${error.response.data.message.map(e => `<li>${e}</li>`).join('')}</ul>`;
+    } else if (typeof error?.response?.data?.message === 'string') {
+        errorMessage = error.response.data.message;
+    } else if (typeof error.message === 'string') {
+        errorMessage = error.message;
+    } 
+
+    return errorMessage;
+};
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@modernman00/shared-js-lib/index.js":
 /*!**********************************************************!*\
   !*** ./node_modules/@modernman00/shared-js-lib/index.js ***!
@@ -1629,71 +2078,84 @@ const isChecked = (name, fn) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   autoCompleter: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.autoCompleter),
-/* harmony export */   calTiming: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_10__.calTiming),
+/* harmony export */   autoCompleter: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.autoCompleter),
+/* harmony export */   bindEvent: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.bindEvent),
+/* harmony export */   calTiming: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_7__.calTiming),
 /* harmony export */   checkBox: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.checkBox),
 /* harmony export */   checkBox2: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.checkBox2),
-/* harmony export */   checkCookie: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_7__.checkCookie),
+/* harmony export */   checkCookie: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_4__.checkCookie),
 /* harmony export */   checkElements: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.checkElements),
 /* harmony export */   checkManyElements: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.checkManyElements),
-/* harmony export */   clearLoader: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_4__.clearLoader),
-/* harmony export */   convertFormData: () => (/* reexport safe */ _FormProcessing_js__WEBPACK_IMPORTED_MODULE_2__.convertFormData),
+/* harmony export */   clearLoader: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_3__.clearLoader),
+/* harmony export */   countryCodes: () => (/* reexport safe */ _CountryCode_js__WEBPACK_IMPORTED_MODULE_8__.countryCodes),
+/* harmony export */   createAdminLoginHandler: () => (/* reexport safe */ _AcctMgt_login_js__WEBPACK_IMPORTED_MODULE_12__.createAdminLoginHandler),
 /* harmony export */   createAndAppendElement: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.createAndAppendElement),
-/* harmony export */   date2String: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_10__.date2String),
-/* harmony export */   distinctValue: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.distinctValue),
-/* harmony export */   emailVal: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.emailVal),
-/* harmony export */   forgotPasswordSubmission: () => (/* reexport safe */ _ForgotPassword_js__WEBPACK_IMPORTED_MODULE_5__.forgotPasswordSubmission),
+/* harmony export */   createCodeSubmitHandler: () => (/* reexport safe */ _AcctMgt_code_js__WEBPACK_IMPORTED_MODULE_10__.createCodeSubmitHandler),
+/* harmony export */   date2String: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_7__.date2String),
+/* harmony export */   distinctValue: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.distinctValue),
+/* harmony export */   emailVal: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.emailVal),
+/* harmony export */   forgotSubmitHandler: () => (/* reexport safe */ _AcctMgt_forgot_js__WEBPACK_IMPORTED_MODULE_11__.forgotSubmitHandler),
 /* harmony export */   getApiData: () => (/* reexport safe */ _Http_js__WEBPACK_IMPORTED_MODULE_0__.getApiData),
-/* harmony export */   getCookie: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_7__.getCookie),
+/* harmony export */   getCookie: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_4__.getCookie),
+/* harmony export */   getCookieValue: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_4__.getCookieValue),
 /* harmony export */   getMultipleApiData: () => (/* reexport safe */ _Http_js__WEBPACK_IMPORTED_MODULE_0__.getMultipleApiData),
 /* harmony export */   hideElement: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.hideElement),
 /* harmony export */   id: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.id),
 /* harmony export */   idInnerHTML: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.idInnerHTML),
 /* harmony export */   idValue: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.idValue),
-/* harmony export */   injectCountryCode: () => (/* reexport safe */ _CountryCode_js__WEBPACK_IMPORTED_MODULE_11__.injectCountryCode),
+/* harmony export */   injectCountryCode: () => (/* reexport safe */ _CountryCode_js__WEBPACK_IMPORTED_MODULE_8__.injectCountryCode),
 /* harmony export */   isChecked: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.isChecked),
-/* harmony export */   loaderIcon: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_4__.loaderIcon),
-/* harmony export */   loaderIconBootstrap: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_4__.loaderIconBootstrap),
-/* harmony export */   loaderIconBulma: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_4__.loaderIconBulma),
+/* harmony export */   loaderIcon: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_3__.loaderIcon),
+/* harmony export */   loaderIconBootstrap: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_3__.loaderIconBootstrap),
+/* harmony export */   loaderIconBulma: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_3__.loaderIconBulma),
 /* harmony export */   log: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.log),
-/* harmony export */   loginSubmission: () => (/* reexport safe */ _Login_js__WEBPACK_IMPORTED_MODULE_6__.loginSubmission),
+/* harmony export */   loginSubmission: () => (/* reexport safe */ _AcctMgt_processAll_js__WEBPACK_IMPORTED_MODULE_13__.loginSubmission),
 /* harmony export */   manipulateAttribute: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.manipulateAttribute),
-/* harmony export */   msgException: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_9__.msgException),
+/* harmony export */   matchInput: () => (/* reexport safe */ _general_js__WEBPACK_IMPORTED_MODULE_14__.matchInput),
+/* harmony export */   msgException: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__.msgException),
+/* harmony export */   parseErrorResponse: () => (/* reexport safe */ _general_js__WEBPACK_IMPORTED_MODULE_14__.parseErrorResponse),
 /* harmony export */   postFormData: () => (/* reexport safe */ _Http_js__WEBPACK_IMPORTED_MODULE_0__.postFormData),
 /* harmony export */   postMultipleApiData: () => (/* reexport safe */ _Http_js__WEBPACK_IMPORTED_MODULE_0__.postMultipleApiData),
 /* harmony export */   qSel: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.qSel),
 /* harmony export */   qSelAll: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.qSelAll),
 /* harmony export */   qSelInnerHTML: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.qSelInnerHTML),
 /* harmony export */   qSelValue: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.qSelValue),
-/* harmony export */   realTimeCheckLen: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.realTimeCheckLen),
+/* harmony export */   realTimeCheckLen: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.realTimeCheckLen),
+/* harmony export */   redirectAfterDelay: () => (/* reexport safe */ _general_js__WEBPACK_IMPORTED_MODULE_14__.redirectAfterDelay),
 /* harmony export */   removeDiv: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.removeDiv),
-/* harmony export */   sanitizeInput: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.sanitizeInput),
-/* harmony export */   setCookie: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_7__.setCookie),
+/* harmony export */   sanitizeInput: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.sanitizeInput),
+/* harmony export */   setCookie: () => (/* reexport safe */ _Cookie_js__WEBPACK_IMPORTED_MODULE_4__.setCookie),
+/* harmony export */   setupPasswordChange: () => (/* reexport safe */ _AcctMgt_changePassword_js__WEBPACK_IMPORTED_MODULE_9__.setupPasswordChange),
 /* harmony export */   showElement: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.showElement),
-/* harmony export */   showError: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_9__.showError),
-/* harmony export */   showImageFileUploadFn: () => (/* reexport safe */ _FormProcessing_js__WEBPACK_IMPORTED_MODULE_2__.showImageFileUploadFn),
-/* harmony export */   showLoader: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_4__.showLoader),
-/* harmony export */   showNotification: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_9__.showNotification),
-/* harmony export */   showPassword: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.showPassword),
-/* harmony export */   showResponse: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_9__.showResponse),
-/* harmony export */   timeAgo: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_10__.timeAgo),
-/* harmony export */   toSentenceCase: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_3__.toSentenceCase),
-/* harmony export */   updateTimeRealTime: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_10__.updateTimeRealTime),
+/* harmony export */   showError: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__.showError),
+/* harmony export */   showLoader: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_3__.showLoader),
+/* harmony export */   showNotification: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__.showNotification),
+/* harmony export */   showPassword: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.showPassword),
+/* harmony export */   showResponse: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__.showResponse),
+/* harmony export */   timeAgo: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_7__.timeAgo),
+/* harmony export */   toSentenceCase: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.toSentenceCase),
+/* harmony export */   updateTimeRealTime: () => (/* reexport safe */ _DateTime_js__WEBPACK_IMPORTED_MODULE_7__.updateTimeRealTime),
 /* harmony export */   warningSign: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.warningSign),
 /* harmony export */   write: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.write)
 /* harmony export */ });
 /* harmony import */ var _Http_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Http.js */ "./node_modules/@modernman00/shared-js-lib/Http.js");
 /* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
-/* harmony import */ var _FormProcessing_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormProcessing.js */ "./node_modules/@modernman00/shared-js-lib/FormProcessing.js");
-/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
-/* harmony import */ var _Loader_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Loader.js */ "./node_modules/@modernman00/shared-js-lib/Loader.js");
-/* harmony import */ var _ForgotPassword_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ForgotPassword.js */ "./node_modules/@modernman00/shared-js-lib/ForgotPassword.js");
-/* harmony import */ var _Login_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Login.js */ "./node_modules/@modernman00/shared-js-lib/Login.js");
-/* harmony import */ var _Cookie_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Cookie.js */ "./node_modules/@modernman00/shared-js-lib/Cookie.js");
-/* harmony import */ var _FormHelper_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./FormHelper.js */ "./node_modules/@modernman00/shared-js-lib/FormHelper.js");
-/* harmony import */ var _ShowResponse_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ShowResponse.js */ "./node_modules/@modernman00/shared-js-lib/ShowResponse.js");
-/* harmony import */ var _DateTime_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTime.js */ "./node_modules/@modernman00/shared-js-lib/DateTime.js");
-/* harmony import */ var _CountryCode_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./CountryCode.js */ "./node_modules/@modernman00/shared-js-lib/CountryCode.js");
+/* harmony import */ var _Utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Utility.js */ "./node_modules/@modernman00/shared-js-lib/Utility.js");
+/* harmony import */ var _Loader_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Loader.js */ "./node_modules/@modernman00/shared-js-lib/Loader.js");
+/* harmony import */ var _Cookie_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Cookie.js */ "./node_modules/@modernman00/shared-js-lib/Cookie.js");
+/* harmony import */ var _FormHelper_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormHelper.js */ "./node_modules/@modernman00/shared-js-lib/FormHelper.js");
+/* harmony import */ var _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ShowResponse.js */ "./node_modules/@modernman00/shared-js-lib/ShowResponse.js");
+/* harmony import */ var _DateTime_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTime.js */ "./node_modules/@modernman00/shared-js-lib/DateTime.js");
+/* harmony import */ var _CountryCode_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CountryCode.js */ "./node_modules/@modernman00/shared-js-lib/CountryCode.js");
+/* harmony import */ var _AcctMgt_changePassword_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AcctMgt/changePassword.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/changePassword.js");
+/* harmony import */ var _AcctMgt_code_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./AcctMgt/code.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/code.js");
+/* harmony import */ var _AcctMgt_forgot_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./AcctMgt/forgot.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/forgot.js");
+/* harmony import */ var _AcctMgt_login_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./AcctMgt/login.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/login.js");
+/* harmony import */ var _AcctMgt_processAll_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./AcctMgt/processAll.js */ "./node_modules/@modernman00/shared-js-lib/AcctMgt/processAll.js");
+/* harmony import */ var _general_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./general.js */ "./node_modules/@modernman00/shared-js-lib/general.js");
+
+
+
 
 
 
@@ -3129,8 +3591,8 @@ class Axios {
 
     if (!synchronousRequestInterceptors) {
       const chain = [_dispatchRequest_js__WEBPACK_IMPORTED_MODULE_3__["default"].bind(this), undefined];
-      chain.unshift.apply(chain, requestInterceptorChain);
-      chain.push.apply(chain, responseInterceptorChain);
+      chain.unshift(...requestInterceptorChain);
+      chain.push(...responseInterceptorChain);
       len = chain.length;
 
       promise = Promise.resolve(config);
@@ -4009,7 +4471,7 @@ function mergeConfig(config1, config2) {
     headers: (a, b , prop) => mergeDeepProperties(headersToObject(a), headersToObject(b),prop, true)
   };
 
-  _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
+  _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].forEach(Object.keys({...config1, ...config2}), function computeConfigValue(prop) {
     const merge = mergeMap[prop] || mergeDeepProperties;
     const configValue = merge(config1[prop], config2[prop], prop);
     (_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].isUndefined(configValue) && merge !== mergeDirectKeys) || (config[prop] = configValue);
@@ -4326,7 +4788,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.10.0";
+const VERSION = "1.11.0";
 
 /***/ }),
 
@@ -5350,7 +5812,7 @@ function throttle(fn, freq) {
       clearTimeout(timer);
       timer = null;
     }
-    fn.apply(null, args);
+    fn(...args);
   }
 
   const throttled = (...args) => {
@@ -5642,7 +6104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function toURLEncodedForm(data, options) {
-  return (0,_toFormData_js__WEBPACK_IMPORTED_MODULE_1__["default"])(data, new _platform_index_js__WEBPACK_IMPORTED_MODULE_2__["default"].classes.URLSearchParams(), Object.assign({
+  return (0,_toFormData_js__WEBPACK_IMPORTED_MODULE_1__["default"])(data, new _platform_index_js__WEBPACK_IMPORTED_MODULE_2__["default"].classes.URLSearchParams(), {
     visitor: function(value, key, path, helpers) {
       if (_platform_index_js__WEBPACK_IMPORTED_MODULE_2__["default"].isNode && _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].isBuffer(value)) {
         this.append(key, value.toString('base64'));
@@ -5650,8 +6112,9 @@ function toURLEncodedForm(data, options) {
       }
 
       return helpers.defaultVisitor.apply(this, arguments);
-    }
-  }, options));
+    },
+    ...options
+  });
 }
 
 
@@ -6204,6 +6667,27 @@ const isPlainObject = (val) => {
 }
 
 /**
+ * Determine if a value is an empty object (safely handles Buffers)
+ *
+ * @param {*} val The value to test
+ *
+ * @returns {boolean} True if value is an empty object, otherwise false
+ */
+const isEmptyObject = (val) => {
+  // Early return for non-objects or Buffers to prevent RangeError
+  if (!isObject(val) || isBuffer(val)) {
+    return false;
+  }
+  
+  try {
+    return Object.keys(val).length === 0 && Object.getPrototypeOf(val) === Object.prototype;
+  } catch (e) {
+    // Fallback for any other objects that might cause RangeError with Object.keys()
+    return false;
+  }
+}
+
+/**
  * Determine if a value is a Date
  *
  * @param {*} val The value to test
@@ -6325,6 +6809,11 @@ function forEach(obj, fn, {allOwnKeys = false} = {}) {
       fn.call(null, obj[i], i, obj);
     }
   } else {
+    // Buffer check
+    if (isBuffer(obj)) {
+      return;
+    }
+
     // Iterate over object keys
     const keys = allOwnKeys ? Object.getOwnPropertyNames(obj) : Object.keys(obj);
     const len = keys.length;
@@ -6338,6 +6827,10 @@ function forEach(obj, fn, {allOwnKeys = false} = {}) {
 }
 
 function findKey(obj, key) {
+  if (isBuffer(obj)){
+    return null;
+  }
+
   key = key.toLowerCase();
   const keys = Object.keys(obj);
   let i = keys.length;
@@ -6691,6 +7184,11 @@ const toJSONObject = (obj) => {
         return;
       }
 
+      //Buffer check
+      if (isBuffer(source)) {
+        return source;
+      }
+
       if(!('toJSON' in source)) {
         stack[i] = source;
         const target = isArray(source) ? [] : {};
@@ -6762,6 +7260,7 @@ const isIterable = (thing) => thing != null && isFunction(thing[iterator]);
   isBoolean,
   isObject,
   isPlainObject,
+  isEmptyObject,
   isReadableStream,
   isRequest,
   isResponse,

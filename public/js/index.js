@@ -11,7 +11,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @modernman00/shared-js-lib */ "./node_modules/@modernman00/shared-js-lib/index.js");
 // import { showError, id } from './global';
 
-(0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_0__.log)('index.js');
 document.addEventListener('DOMContentLoaded', function () {
   var routeMap = {
     '/': function _() {
@@ -24,16 +23,16 @@ document.addEventListener('DOMContentLoaded', function () {
       return __webpack_require__.e(/*! import() | blog */ "blog").then(__webpack_require__.bind(__webpack_require__, /*! ./blog */ "./resources/assets/js/blog.js"));
     },
     '/adminlogin': function _adminlogin() {
-      return __webpack_require__.e(/*! import() | adminlogin */ "adminlogin").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/login */ "./resources/assets/js/AcctMgt/login.js"));
+      return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/login */ "./resources/assets/js/acctMgt/login.js"));
     },
     '/forgot': function _forgot() {
-      return __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/forgot */ "./resources/assets/js/AcctMgt/forgot.js"));
+      return __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/forgot */ "./resources/assets/js/acctMgt/forgot.js"));
     },
     '/code': function _code() {
-      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/code */ "./resources/assets/js/AcctMgt/code.js"));
+      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/code */ "./resources/assets/js/acctMgt/code.js"));
     },
     '/changePassword': function _changePassword() {
-      return __webpack_require__.e(/*! import() | change */ "change").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/changePassword */ "./resources/assets/js/AcctMgt/changePassword.js"));
+      return __webpack_require__.e(/*! import() | change */ "change").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/changePassword */ "./resources/assets/js/acctMgt/changePassword.js"));
     }
   };
   try {

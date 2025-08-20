@@ -1,14 +1,13 @@
 // import { showError, id } from './global';
-import { log, showError } from '@modernman00/shared-js-lib';
+import { showError} from '@modernman00/shared-js-lib';
 
-log('index.js');
 
 document.addEventListener('DOMContentLoaded', () => {
   const routeMap = {
     '/': () => import(/* webpackChunkName: 'main' */ './main'),
     '/result': () => import(/* webpackChunkName: 'result' */ './result'),
     '/createBlog': () => import(/* webpackChunkName: 'blog' */ './blog'),
-    '/adminlogin': () => import(/* webpackChunkName: 'adminlogin' */ './acctMgt/login'),
+    '/adminlogin': () => import(/* webpackChunkName: 'login' */ './acctMgt/login'),
     '/forgot': () => import(/* webpackChunkName: 'forgot' */ './acctMgt/forgot'),
     '/code': () => import(/* webpackChunkName: 'code' */ './acctMgt/code'),
     '/changePassword': () => import(/* webpackChunkName: 'change' */ './acctMgt/changePassword')

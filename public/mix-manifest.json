@@ -4,12 +4,11 @@
     "/js/main.js": "/js/main.js",
     "/js/result.js": "/js/result.js",
     "/js/blog.js": "/js/blog.js",
-    "/css/main.css": "/css/main.css",
-    "/js/vendor.js": "/js/vendor.js",
-    "/js/managed.js": "/js/managed.js",
+    "/js/adminlogin.js": "/js/adminlogin.js",
     "/js/forgot.js": "/js/forgot.js",
     "/js/code.js": "/js/code.js",
     "/js/change.js": "/js/change.js",
-    "/js/login.js": "/js/login.js",
-    "/js/adminlogin.js": "/js/adminlogin.js"
+    "/css/main.css": "/css/main.css",
+    "/js/vendor.js": "/js/vendor.js",
+    "/js/login.js": "/js/login.js"
 }

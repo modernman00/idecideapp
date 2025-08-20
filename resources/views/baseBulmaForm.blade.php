@@ -269,9 +269,9 @@
     </div>
   </div>
 
-  <script nonce="{{ $nonce }}" src="public/js/index.js"></script>
-    <script nonce="{{ $nonce }}" src="public/js/manifest.js"></script>
-    <script nonce="{{ $nonce }}" src="public/js/vendor.js"></script>
+  <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js"></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js"></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/vendor.js"></script>
 
 
 </body>

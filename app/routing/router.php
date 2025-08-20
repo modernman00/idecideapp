@@ -100,7 +100,7 @@ $router->map('GET', '/adminlogin', 'App\controller\AcctMgtController@loginShow',
 $router->map('POST', '/adminlogin', 'App\controller\AcctMgtController@loginPost', 'adminloginpost');
 
 // ADMIN  HOME PAGE
-$router->map('GET', '/adminpage', 'App\controller\AcctMgtController@adminPage', 'adminpage');
+$router->map('GET', '/adminhome', 'App\controller\AcctMgtController@adminPage', 'adminhome');
 
 // Forgot
 $router->map('GET', '/forgot', 'App\controller\AcctMgtController@forgot', 'Forgot');
@@ -115,10 +115,10 @@ $router->map('GET', '/code', 'App\controller\AcctMgtController@code', 'code');
 $router->map('POST', '/code', 'App\controller\AcctMgtController@codePost', 'codePost');
 
 // RESET
-$router->map('GET', '/reset', 'App\controller\AcctMgtController@reset', 'reset');
+$router->map('GET', '/changePassword', 'App\controller\AcctMgtController@changePassword', 'changePassword');
 
-// RESET_POST
-$router->map('POST', '/reset', 'App\controller\AcctMgtController@resetPost', 'resetPost');
+// changePassword_POST
+$router->map('POST', '/changePassword', 'App\controller\AcctMgtController@changePasswordPost', 'changePasswordPost');
 
 
 $router->map('GET', '/error401', 'App\controller\ErrorReportingController@unauthorized401', 'error401');
