@@ -67,9 +67,10 @@ function checkInput($data): mixed
     if ($data !== null) {
         $data = trim($data);
         $data = stripslashes($data);
-        $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-        $data = strip_tags($data);
-        $data = preg_replace('/[^0-9A-Za-z.@\s-]/', '', $data);
+            $data = strip_tags($data);
+        // $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+    
+        // $data = preg_replace('/[^0-9A-Za-z.@\s-]/', '', $data);
 
         return $data;
     } else {

@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use Src\{Select, Utility};
+use Src\{LoginUtility, Select, Utility, SubmitForm};
+use RuntimeException;
+use Src\Sanitise\Sanitise;
+use Src\functionality\middleware\GetRequestData;
+
+use Src\functionality\SubmitPostData;
 
 class IndexController extends BaseController
 {
@@ -60,5 +65,38 @@ class IndexController extends BaseController
         // get all the blogs from database
 
         BaseController::viewWithCsp('blogs', compact('blogs'));
+    }
+
+    public function testPost()
+    {
+        // $post = GetRequestData::getRequestData();
+
+        // $cleanD = LoginUtility::getSanitisedInputData($post);
+
+
+        // // remove non-essential fields
+        // unset($cleanD['account2']['confirm_password'], $cleanD['token']);
+
+        // foreach ($cleanD as $tableName => $tableData) {
+        //     $allowedTables = ['account1', 'account2', 'account3', 'account4'];
+        //     if (!in_array($tableName, $allowedTables, true)) continue;
+        //     if (!SubmitForm::submitForm($tableName, $tableData)) {
+        //         throw new RuntimeException("$tableName didn't submit");
+        //     } else {
+        //         echo "$tableName submitted successfully";
+        //     }
+        // }
+        $remove = ['account2.confirm_password', 'token', 'submit', 'g-recaptcha-response'];
+        $minMax = [
+            'data' => ['email',  'james'],
+            'min' => [3,  5],
+            'max' => [50,  100],
+        ];
+        SubmitPostData::submitToMultipleTable(['account1', 'account2', 'account3'], $minMax, $remove);
+    }
+
+    public function testGet()
+    {
+        BaseController::viewWithCsp('testPost');
     }
 }

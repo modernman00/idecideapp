@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '/adminlogin': () => import(/* webpackChunkName: 'login' */ './acctMgt/login'),
     '/forgot': () => import(/* webpackChunkName: 'forgot' */ './acctMgt/forgot'),
     '/code': () => import(/* webpackChunkName: 'code' */ './acctMgt/code'),
+    '/testPost': () => import(/* webpackChunkName: 'code' */ './acctMgt/testPost'),
     '/changePassword': () => import(/* webpackChunkName: 'change' */ './acctMgt/changePassword')
 
   };

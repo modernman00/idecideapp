@@ -388,7 +388,6 @@ const loginSubmission = async (formId, loginURL, redirect, css = null, lengthLim
 
     }
 
-
     const formInputArr = Array.from(formInput.elements);
 
     const formData = new _FormHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"](formInputArr);
@@ -956,7 +955,7 @@ class FormHelper {
 
         for (let input of this.data) {
             const { name, value, id, type, placeholder } = input;
-            const errorEl = this.id(`${name}_error`);
+          
            
 
             // Skip non-input elements
@@ -964,16 +963,18 @@ class FormHelper {
                 ['submit', 'button', 'g-recaptcha-response', 'cancel'].includes(name) ||
                 ['button', 'showPassword_id', 'token', 'g-recaptcha-response'].includes(id) ||
                 type === 'button' ||
-                name === 'checkbox_id'
+                id === 'checkbox_id'
             ) continue;
 
      
-
-            let label = name.replace(/_/g, ' '); // For readable error text
+             // remove _id from id if it exists to create a clean label
+            const cleanID = id.endsWith('_id') ? id.slice(0, -3) : id;
+            let label = cleanID.replace(/_/g, ' '); // For readable error text
+              const errorEl = this.id(`${cleanID}_error`);
             let val = value.trim();
 
             // Handle optional fields
-            if (optionalFields.includes(name) && val === '') {
+            if (optionalFields.includes(id) && val === '') {
                 input.value = 'Not Provided';
                 continue;
             }
@@ -986,9 +987,9 @@ class FormHelper {
             }
 
             // Determine field type for regex
-            let validateType = typeMap[name] || (
-                name.toLowerCase().includes('email') ? 'email' :
-                    name.toLowerCase().includes('password') ? 'password' : 'general'
+            let validateType = typeMap[id] || (
+                id.toLowerCase().includes('email') ? 'email' :
+                    id.toLowerCase().includes('password') ? 'password' : 'general'
             );
 
             if (!this.matchRegex(val, validateType)) {
@@ -1042,8 +1043,11 @@ class FormHelper {
                 return;
             }
 
+            // remove _id from id if it exists
+            const cleanID = id.endsWith('_id') ? id.slice(0, -3) : id;
+
             // Add event listeners to clear errors
-            const clearErrorHandler = () => clearErrorForElement(name);
+            const clearErrorHandler = () => clearErrorForElement(cleanID || name);
             if (value !== 'select') element.addEventListener('keyup', clearErrorHandler);
             element.addEventListener('change', clearErrorHandler);
         });
@@ -1234,7 +1238,8 @@ const postFormData = async (url, formId, redirect = null, css = null) => {
     // } 
 
     // extract the form entries
-    const form = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(formId);
+     // extract the form entriesËËË
+    const form = (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(formId)
 
     if (!form) {
         throw new Error('Form element not found');

@@ -4,11 +4,10 @@
     "/js/main.js": "/js/main.js",
     "/js/result.js": "/js/result.js",
     "/js/blog.js": "/js/blog.js",
-    "/js/adminlogin.js": "/js/adminlogin.js",
+    "/js/login.js": "/js/login.js",
     "/js/forgot.js": "/js/forgot.js",
     "/js/code.js": "/js/code.js",
     "/js/change.js": "/js/change.js",
     "/css/main.css": "/css/main.css",
-    "/js/vendor.js": "/js/vendor.js",
-    "/js/login.js": "/js/login.js"
+    "/js/vendor.js": "/js/vendor.js"
 }

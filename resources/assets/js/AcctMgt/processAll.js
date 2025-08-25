@@ -58,3 +58,26 @@ export const loginSubmission = async (formId, loginURL, redirect, css = null, le
     clearLoader();
   }
 };
+
+function buildNestedObject(elements) {
+  const result = {};
+
+  for (const el of elements) {
+    if (!el.name || ['submit', 'button'].includes(el.type)) continue;
+
+    const keys = el.name.split(/\[\]/).filter(Boolean);
+    let current = result;
+
+    keys.forEach((k, i) => {
+      if (i === keys.length - 1) {
+        current[k] = el.value;
+      } else {
+        current[k] = current[k] || {};
+        current = current[k];
+      }
+    });
+  }
+
+  return result;
+}
+

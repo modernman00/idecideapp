@@ -50,7 +50,7 @@
           'x1'=> 'br',
           'x2'=> 'hr',
 
-             'Intro'=> ['mixed', 
+             'purchase'=> ['mixed', 
                  'label' => [
                   'What do you want to buy? This could be anything?', 
                   'How does the item’s cost compare to your monthly budget?',
@@ -84,13 +84,13 @@
              ],
               'x3'=> 'br',
 
-            'purchase' => ['mixed', 
+            'consideration' => ['mixed', 
                  'label' => [
                   'How long have you been thinking about it?', 
                   "Is this a Need - necessity or a Want - nice to have?",
                   'Have you explored other options or alternatives to this item?',
                  ],
-                  'attribute' => ['notImpulsive', 'necessity', 'option'],
+                  'attribute' => ['notImpulsive', 'necessity', 'options'],
 
                   'inputType' => ['cardSelect', 'cardSelect', 'cardSelect'],
 

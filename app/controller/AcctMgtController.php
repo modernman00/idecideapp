@@ -31,7 +31,7 @@ class AcctMgtController extends BaseController
     {
 
         try {
-     
+
             BaseController::viewWithCsp('acctMgt.login');
         } catch (\Throwable $th) {
 
@@ -59,36 +59,6 @@ class AcctMgtController extends BaseController
     }
 
 
-
-    public function adminPage()
-    {
-        try {
-            // Use SignIn to verify user role and authentication
-            $VerifyJWT = SignIn::verify('admin');
-            if($VerifyJWT){
-                BaseController::viewWithCsp('admin/adminpage');
-            }else{
-                redirect('/adminlogin');
-            }
-        } catch (\Throwable $th) {
-            Utility::showError($th);
-        }
-    }
-
-    /**
-     * Logs out a user and redirects them to the managed page.
-     *
-     * @throws \Throwable If an error occurs during the logout process.
-     * @return void
-     */
-    public function appLogout()
-    {
-        try {
-            LogoutFunctionality::signout(['redirect' => '/managed']);
-        } catch (\Throwable $th) {
-            Utility::showError($th);
-        }
-    }
 
     public function forgot()
     {
@@ -142,6 +112,36 @@ class AcctMgtController extends BaseController
     {
         try {
             PasswordResetFunctionality::process();
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+      public function adminPage()
+    {
+        try {
+            // Use SignIn to verify user role and authentication
+            $VerifyJWT = SignIn::verify('admin');
+            if ($VerifyJWT) {
+                BaseController::viewWithCsp('admin/adminpage');
+            } else {
+                redirect('/adminlogin');
+            }
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    /**
+     * Logs out a user and redirects them to the managed page.
+     *
+     * @throws \Throwable If an error occurs during the logout process.
+     * @return void
+     */
+    public function appLogout()
+    {
+        try {
+            LogoutFunctionality::signout(['redirect' => '/managed']);
         } catch (\Throwable $th) {
             Utility::showError($th);
         }

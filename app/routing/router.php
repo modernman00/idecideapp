@@ -126,3 +126,11 @@ $router->map('GET', '/error403', 'App\controller\ErrorReportingController@forbid
 $router->map('GET', '/error404', 'App\controller\ErrorReportingController@notFound404', 'error404');
 $router->map('GET', '/error429', 'App\controller\ErrorReportingController@tooManyRequests429', 'error429');
 $router->map('GET', '/error500', 'App\controller\ErrorReportingController@serverError500', 'error500');
+
+// testPOST 
+$router->map('POST', '/testPost', 'App\controller\IndexController@testPost', 'testPost');
+
+// testGET
+$router->map('GET', '/testPost', 'App\controller\IndexController@testGet', 'testGet');
+
+

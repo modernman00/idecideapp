@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
     '/code': function _code() {
       return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/code */ "./resources/assets/js/acctMgt/code.js"));
     },
+    '/testPost': function _testPost() {
+      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/testPost */ "./resources/assets/js/acctMgt/testPost.js"));
+    },
     '/changePassword': function _changePassword() {
       return __webpack_require__.e(/*! import() | change */ "change").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/changePassword */ "./resources/assets/js/acctMgt/changePassword.js"));
     }
