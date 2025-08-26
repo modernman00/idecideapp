@@ -215,7 +215,7 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-          .visible {
+        .visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -243,7 +243,7 @@
         }
 
 
-      
+
 
         .content {
             flex: 1 0 auto;
@@ -315,7 +315,22 @@
             cursor: pointer;
         }
 
-        @media (max-width: 768px) {
+
+        .form__login__logo {
+            height: 4.5em;
+            /* 1em = 16px, 4.5em = 72px */
+            width: 4.5em;
+            /* 1em = 16px, 4.5em = 72px */
+            margin-bottom: 5rem;
+            margin-left: 43%
+        }
+
+        /* ──────────────────────────────── */
+        /* 📱 Mobile: Up to 767.98px */
+        /* ──────────────────────────────── */
+        @media (max-width: 767.98px) {
+
+            /* Navbar adjustments */
             .navbar-brand {
                 font-size: 1.2rem;
             }
@@ -324,6 +339,7 @@
                 font-size: 0.9rem;
             }
 
+            /* Footer layout: stack columns vertically */
             footer {
                 flex-direction: column;
                 padding: 0.5rem 0;
@@ -338,19 +354,21 @@
                 display: block;
                 margin: 0.25rem 0;
             }
+
+            /* Grid layout: stack cards vertically */
+            .row.gx-4 {
+                display: grid;
+                grid-template-columns: 1fr;
+                /* One card per row */
+                gap: 1.5rem;
+                /* Matches Bootstrap gx-4 spacing */
+            }
         }
 
-
-        .form__login__logo {
-            height: 4.5em;
-            /* 1em = 16px, 4.5em = 72px */
-            width: 4.5em;
-            /* 1em = 16px, 4.5em = 72px */
-            margin-bottom: 5rem;
-            margin-left: 43%
-        }
-
-        @media screen and (min-width: 576px)and (max-width: 767px) {
+        /* ──────────────────────────────── */
+        /* 📲 Small tablets: 576px–767.98px */
+        /* ──────────────────────────────── */
+        @media (min-width: 576px) and (max-width: 767.98px) {
             .styleform_form {
                 margin-left: 5%;
                 margin-right: 5%;
@@ -358,54 +376,55 @@
 
             .form__login__logo {
                 height: 3.5em;
-                /* 1em = 16px, 4.5em = 72px */
                 width: 3.5em;
-                /* 1em = 16px, 4.5em = 72px */
             }
         }
 
-        /* // Medium devices (tablets, 768px and up) */
-        @media screen and (min-width: 768px) {
-            .form__login__logo {
-                height: 4.5em;
-                /* 1em = 16px, 3em = 48px */
-                width: 4.5em;
-                /* 1em = 16px, 3em = 48px */
-            }
-
+        /* ──────────────────────────────── */
+        /* 💻 Medium devices: 768px–991.98px */
+        /* ──────────────────────────────── */
+        @media (min-width: 768px) and (max-width: 991.98px) {
             .styleform_form {
                 margin-left: 5%;
                 margin-right: 5%;
             }
+
+            .form__login__logo {
+                height: 4.5em;
+                width: 4.5em;
+            }
         }
 
-        /* Large devices (desktops, 992px and up) */
-
-        @media screen and (min-width: 992px) {
-
+        /* ──────────────────────────────── */
+        /* 🖥️ Large devices: 992px–1199.98px */
+        /* ──────────────────────────────── */
+        @media (min-width: 992px) and (max-width: 1199.98px) {
             .styleform_form {
                 margin-left: 15%;
                 margin-right: 15%;
             }
         }
 
-        /* X-Large devices (large desktops, 1200px and up) */
-        @media screen and (min-width: 1200px) {
+        /* ──────────────────────────────── */
+        /* 🖥️ XL devices: 1200px–1399.98px */
+        /* ──────────────────────────────── */
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
             .styleform_form {
                 margin-left: 30%;
                 margin-right: 30%;
             }
-
         }
 
-        /* XX-Large devices (larger desktops, 1400px and up) */
-        @media screen and (min-width: 1400px) {
+        /* ──────────────────────────────── */
+        /* 🖥️ XXL devices: 1400px and up */
+        /* ──────────────────────────────── */
+        @media (min-width: 1400px) {
             .styleform_form {
                 margin-left: 30%;
                 margin-right: 30%;
             }
-
         }
+
 
         .styleform_header {
             text-align: center;
@@ -563,7 +582,7 @@
 
 
 
-    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js" defer ></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js" defer></script>
     <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js" defer></script>
     <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/vendor.js" defer></script>
 

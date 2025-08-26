@@ -59,7 +59,7 @@
                         'mixed',
                         'label' => [
                             'What do you want to buy? This could be anything?',
-                            'How does the cost of the item compare to your monthly budget?',
+                            'How does the item cost compare to your income/budget?',
                             'If you bought it, how would it make you feel?',
                         ],
                         'attribute' => ['whatToBuy', 'cost', 'buyingFeeling'],
@@ -72,11 +72,11 @@
                         'options' => [
                           '',
                             [
-                                5 => 'Less than 5% of my budget',
-                                4 => '5–10% of my budget',
-                                3 => '10–15% of my budget',
-                                2 => '15–20% of my budget',
-                                1 => 'Over 20% of my budget',
+                                5 => 'Less than 5% of my income/budget',
+                                4 => '5–10% of my income/budget',
+                                3 => '10–15% of my income/budget',
+                                2 => '15–20% of my income/budget',
+                                1 => 'Over 20% of my income/budget',
                             ],
                             [
                                 5 => 'Happy and satisfied',

@@ -506,11 +506,15 @@
                         </li>
 
                         <li class="list-group-item">
-                            <strong>Personalised Advice </strong>
+                            <strong>Personalised Advice: </strong>
                             <span id="personalisedAdvice"> loading...</span>
                         </li>
 
-                        <ul id="advice-list" class="advice-list"></ul>
+                        <li class="list-group-item">
+                            <strong>Specific Advice </strong>
+                            <ul id="advice-list" class="advice-list"></ul>
+                        </li>
+
 
                     </ul>
 

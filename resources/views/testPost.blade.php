@@ -1,4 +1,4 @@
-@extends('baseBulmaForm')
+@extends('base')
 @section('title', 'Login')
 @section('content')
 
@@ -17,7 +17,7 @@
                         'work_information' => 'title',
 
                         'account1' => [
-                            'mixed_nested',
+                            'mixed',
                             'label' => ['employment status', 'Occupation'],
                             'attribute' => ['employmentStatus', 'occupation'],
                             'value' => ['Self-employed', 'Lawyer'],
@@ -31,7 +31,7 @@
                         // // account
 
                         'account2' => [
-                            'mixed_nested',
+                            'mixed',
                             'label' => ['Password', 'Confirm password'],
                             'attribute' => ['password', 'confirm_password'],
                              'value' => ['National2@', 'National2@'],
@@ -45,7 +45,7 @@
                         ],
 
                          'account3' => [
-                            'mixed_nested',
+                            'mixed',
                             'label' => ['email', 'age'],
                             'attribute' => ['email', 'age'],
                              'value' => ['wogn@gmail.com', 45],
@@ -64,7 +64,7 @@
                         'showPassword' => 'showPassword',
                     ];
 
-                    $form = new Src\BuildFormBulma($formArray);
+                    $form = new Src\FormBuilder($formArray);
                     $form->genForm();
 
                 @endphp
