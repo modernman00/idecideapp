@@ -11,7 +11,7 @@
     <meta name="keywords" content="decision matrix, decision making, iDecide, tool, evaluation, advice">
     <meta name="author" content="iDecide">
     <meta name="generator" content="BladeOne">
-  
+
 
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
@@ -72,10 +72,10 @@
 
     <link rel="stylesheet" type="text/css" href="public/css/main.css">
 
-{{-- The api.js?render=YOUR_SITE_KEY loads the reCAPTCHA library and initializes it with your site key. --}}
+    {{-- The api.js?render=YOUR_SITE_KEY loads the reCAPTCHA library and initializes it with your site key. --}}
     {{-- <script nonce="{{ $nonce }}" src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCH_KEY_V3'] }}"></script> --}}
 
-    <script nonce="{{ $nonce }}"  src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script nonce="{{ $nonce }}" src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
     @stack('styles_result')
@@ -215,6 +215,11 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
+          .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .badge {
             background-color: #cce5ff;
             color: #003366;
@@ -238,10 +243,7 @@
         }
 
 
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      
 
         .content {
             flex: 1 0 auto;
@@ -339,123 +341,133 @@
         }
 
 
-    .form__login__logo {
-      height: 4.5em;
-      /* 1em = 16px, 4.5em = 72px */
-      width: 4.5em;
-      /* 1em = 16px, 4.5em = 72px */
-      margin-bottom: 5rem;
-      margin-left: 43%
-    }
+        .form__login__logo {
+            height: 4.5em;
+            /* 1em = 16px, 4.5em = 72px */
+            width: 4.5em;
+            /* 1em = 16px, 4.5em = 72px */
+            margin-bottom: 5rem;
+            margin-left: 43%
+        }
 
-      @media screen and (min-width: 576px)and (max-width: 767px) {
-      .styleform_form {
-        margin-left: 5%;
-        margin-right: 5%;
-      }
+        @media screen and (min-width: 576px)and (max-width: 767px) {
+            .styleform_form {
+                margin-left: 5%;
+                margin-right: 5%;
+            }
 
-      .form__login__logo {
-        height: 3.5em;
-        /* 1em = 16px, 4.5em = 72px */
-        width: 3.5em;
-        /* 1em = 16px, 4.5em = 72px */
-      }
-    }
+            .form__login__logo {
+                height: 3.5em;
+                /* 1em = 16px, 4.5em = 72px */
+                width: 3.5em;
+                /* 1em = 16px, 4.5em = 72px */
+            }
+        }
 
-     /* // Medium devices (tablets, 768px and up) */
-    @media screen and (min-width: 768px) {
-      .form__login__logo {
-        height: 4.5em;
-        /* 1em = 16px, 3em = 48px */
-        width: 4.5em;
-        /* 1em = 16px, 3em = 48px */
-      }
+        /* // Medium devices (tablets, 768px and up) */
+        @media screen and (min-width: 768px) {
+            .form__login__logo {
+                height: 4.5em;
+                /* 1em = 16px, 3em = 48px */
+                width: 4.5em;
+                /* 1em = 16px, 3em = 48px */
+            }
 
-      .styleform_form {
-        margin-left: 5%;
-        margin-right: 5%;
-      }
-    }
+            .styleform_form {
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+        }
 
-      /* Large devices (desktops, 992px and up) */
+        /* Large devices (desktops, 992px and up) */
 
-    @media screen and (min-width: 992px) {
+        @media screen and (min-width: 992px) {
 
-      .styleform_form {
-        margin-left: 15%;
-        margin-right: 15%;
-      }
-    }
-    /* X-Large devices (large desktops, 1200px and up) */
-    @media screen and (min-width: 1200px) {
-      .styleform_form {
-        margin-left: 30%;
-        margin-right: 30%;
-      }
+            .styleform_form {
+                margin-left: 15%;
+                margin-right: 15%;
+            }
+        }
 
-    }
+        /* X-Large devices (large desktops, 1200px and up) */
+        @media screen and (min-width: 1200px) {
+            .styleform_form {
+                margin-left: 30%;
+                margin-right: 30%;
+            }
 
-    /* XX-Large devices (larger desktops, 1400px and up) */
-    @media screen and (min-width: 1400px) {
-      .styleform_form {
-        margin-left: 30%;
-        margin-right: 30%;
-      }
+        }
 
-    }
+        /* XX-Large devices (larger desktops, 1400px and up) */
+        @media screen and (min-width: 1400px) {
+            .styleform_form {
+                margin-left: 30%;
+                margin-right: 30%;
+            }
 
-       .styleform_header {
-      text-align: center;
-    }
+        }
 
-      .loader {
+        .styleform_header {
+            text-align: center;
+        }
 
-      border: 16px solid #11e11b79;
-      border-radius: 50%;
-      border-top: 16px solid #2092ddf3;
-      width: 120px;
-      height: 120px;
-      -webkit-animation: spin 2s linear infinite;
-      /* Safari */
-      animation: spin 2s linear infinite;
-    }
+        .loader {
 
-    @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-    }
+            border: 16px solid #11e11b79;
+            border-radius: 50%;
+            border-top: 16px solid #2092ddf3;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }   
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
 
-    .notification {
-      padding: 10px;
-      margin: 10px;
-      border-radius: 5px;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-    }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
 
-    .notification.success {
-      background-color: #28a745;
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-    .notification.error {
-      background-color: #dc3545;
-    }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-       .styleform_header {
-      text-align: center;
-    }
-    .noDisplay {
-      display: none;
-    }
+        .notification {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
 
+        .notification.success {
+            background-color: #28a745;
+        }
 
+        .notification.error {
+            background-color: #dc3545;
+        }
+
+        .styleform_header {
+            text-align: center;
+        }
+
+        .noDisplay {
+            display: none;
+        }
     </style>
 </head>
 
@@ -537,21 +549,23 @@
     </script>
 
     <script>
-  function onClick(e) {
-    e.preventDefault();
-    grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6LdJW4wrAAAAAIF0ahxV2GPWxS8i7xdp5s81WQjK', {action: 'LOGIN'});
-    });
-  }
-</script>
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.enterprise.ready(async () => {
+                const token = await grecaptcha.enterprise.execute('6LdJW4wrAAAAAIF0ahxV2GPWxS8i7xdp5s81WQjK', {
+                    action: 'LOGIN'
+                });
+            });
+        }
+    </script>
 
 
 
 
 
-    <script type="javascript" nonce="{{ $nonce }}" src="public/js/index.js" defer ></script>
-    <script type="javascript" nonce="{{ $nonce }}" src="public/js/manifest.js" defer></script>
-    <script type="javascript" nonce="{{ $nonce }}" src="public/js/vendor.js" defer></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js" defer ></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js" defer></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/vendor.js" defer></script>
 
     <script nonce="{{ $nonce }}">
         if ('serviceWorker' in navigator) {
@@ -563,7 +577,6 @@
                     .catch(err => console.warn('Service Worker error ❌', err));
             });
         }
-
     </script>
 
 

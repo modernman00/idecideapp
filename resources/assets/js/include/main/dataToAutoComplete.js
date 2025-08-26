@@ -19,7 +19,9 @@ const purchaseItems = [
   'Wedding ring', 'Weighted blanket', 'Wireless charger', 'Yoga retreat', 'Home theater system',
   'Diving gear', 'Electric car charger', 'Telescope', 'Designer suit', 'Art print (original)',
   'Collectible figurine', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)',
-  'Portable generator', 'Skateboard (electric)', 'Leather boots', 'Craft supplies (sewing machine)'
+  'Portable generator', 'Skateboard (electric)', 'Leather boots', 'Craft supplies (sewing machine)',  'Snooker table', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)',  'Gym bag', 'Snooker table', 'Plane tickets','Train tickets','Bus passes','Taxi rides','Rideshares','Fuel','Motor oil','Car tyres','Car battery','Car accessories',
+  'Helmet','Motorbike gear','Travel insurance','Hotel stay','Hostel stay','Holiday rental','Camping pitch','Luggage','Suitcase','Backpack',
+  'Travel pillow','Eye mask','Ear plugs','Maps','Guidebook','Camping stove','Cooler box','Hiking poles','Surfboard','Ski equipment',
 ];
 
 export default purchaseItems;

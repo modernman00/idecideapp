@@ -17,7 +17,7 @@
                         'work_information' => 'title',
 
                         'account1' => [
-                            'mixed',
+                            'mixed_nested',
                             'label' => ['employment status', 'Occupation'],
                             'attribute' => ['employmentStatus', 'occupation'],
                             'value' => ['Self-employed', 'Lawyer'],
@@ -31,7 +31,7 @@
                         // // account
 
                         'account2' => [
-                            'mixed',
+                            'mixed_nested',
                             'label' => ['Password', 'Confirm password'],
                             'attribute' => ['password', 'confirm_password'],
                              'value' => ['National2@', 'National2@'],
@@ -45,7 +45,7 @@
                         ],
 
                          'account3' => [
-                            'mixed',
+                            'mixed_nested',
                             'label' => ['email', 'age'],
                             'attribute' => ['email', 'age'],
                              'value' => ['wogn@gmail.com', 45],

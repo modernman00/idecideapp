@@ -18,6 +18,7 @@ class CalculateResultController
         try {
             // Get input data
             $input = json_decode(file_get_contents('php://input'), true);
+        
             if (!$input || !isset($input['whatToBuy']) || !isset($input['scores'])) {
                 throw new ValidationException('Invalid Input data');
             }

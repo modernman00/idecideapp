@@ -8,14 +8,15 @@ import axios from 'axios';
 
 
 // 🔹 UI Enhancements
-autocomplete('whatToBuy_id', purchaseItems);
+intersection();
+autocomplete('whatToBuy', purchaseItems);
 tooltips();
-intersection('.card.hidden');
+
 
 // 🔹 Validate button presence
 const initBtn = id('button');
 if (!initBtn) {
-  console.error('Button with ID \'button\' not found.');
+
   throw new Error('Button not found');
 }
 
@@ -43,7 +44,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 // 🔹 Form handler
 initBtn.addEventListener('click', async () => {
-  const whatToBuyInput = id('whatToBuy_id');
+  const whatToBuyInput = id('whatToBuy');
   const selects = qSelAll('select');
 
   const whatToBuy = whatToBuyInput?.value.trim();
@@ -58,7 +59,7 @@ initBtn.addEventListener('click', async () => {
 
   // 🔹 Collect dropdown values
   selects.forEach((select) => {
-    const attribute = select.getAttribute('name');
+    const attribute = select.getAttribute('id');
     const selected = select.options[select.selectedIndex];
 
     if (select.selectedIndex === 0) {

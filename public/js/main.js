@@ -400,7 +400,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var purchaseItems = ['Acoustic guitar', 'Air conditioner', 'AirPods', 'Apple Watch', 'Bicycle', 'Blender (high-end)', 'Camera (DSLR/mirrorless)', 'Camping gear', 'Car (new or used)', 'Car seat (premium)', 'Coffee maker (espresso)', 'Cooling mattress', 'Designer handbag', 'Desktop computer', 'Dishwasher', 'Drone', 'Holiday', 'Electric guitar', 'Electric scooter', 'Electric toothbrush', 'Espresso machine', 'Exercise bike', 'Eyeglasses (designer)', 'Fitness tracker', 'Gaming console', 'Gaming chair', 'Gold jewelry', 'Golf clubs', 'Grill (outdoor)', 'Headphones (noise-canceling)', 'Home gym equipment', 'Home security system', 'Hot tub', 'iPad', 'Jeans (premium)', 'Kayak', 'Kitchen mixer (stand)', 'Laptop', 'Leather jacket', 'Luggage set', 'Luxury watch (Rolex, Casio)', 'Massage chair', 'Mattress', 'Microwave (smart)', 'Motorcycle', 'Mountain bike', 'Music production software', 'Noise-canceling earbuds', 'Oven (convection)', 'Patio furniture', 'Pet insurance', 'Photography lighting kit', 'Piano (digital)', 'Power tools (drill set)', 'Printer (3D)', 'Projector', 'Ray-Ban sunglasses', 'Refrigerator', 'Robot vacuum', 'Running shoes (premium)', 'Ski equipment', 'Smart doorbell', 'Smart garage door opener', 'Smart speaker', 'Smartphone', 'Smartwatch', 'Sneakers (designer)', 'Snowboard', 'Sofa', 'Soundbar', 'Streaming subscription (Netflix, Disney+)', 'Surfboard', 'Tablet', 'Television (4K)', 'Tent (backpacking)', 'Treadmill', 'Vacuum cleaner (cordless)', 'Vacation package', 'Video camera', 'Video game (AAA title)', 'Vinyl record player', 'VR headset', 'Washing machine', 'Wedding ring', 'Weighted blanket', 'Wireless charger', 'Yoga retreat', 'Home theater system', 'Diving gear', 'Electric car charger', 'Telescope', 'Designer suit', 'Art print (original)', 'Collectible figurine', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)', 'Portable generator', 'Skateboard (electric)', 'Leather boots', 'Craft supplies (sewing machine)'];
+var purchaseItems = ['Acoustic guitar', 'Air conditioner', 'AirPods', 'Apple Watch', 'Bicycle', 'Blender (high-end)', 'Camera (DSLR/mirrorless)', 'Camping gear', 'Car (new or used)', 'Car seat (premium)', 'Coffee maker (espresso)', 'Cooling mattress', 'Designer handbag', 'Desktop computer', 'Dishwasher', 'Drone', 'Holiday', 'Electric guitar', 'Electric scooter', 'Electric toothbrush', 'Espresso machine', 'Exercise bike', 'Eyeglasses (designer)', 'Fitness tracker', 'Gaming console', 'Gaming chair', 'Gold jewelry', 'Golf clubs', 'Grill (outdoor)', 'Headphones (noise-canceling)', 'Home gym equipment', 'Home security system', 'Hot tub', 'iPad', 'Jeans (premium)', 'Kayak', 'Kitchen mixer (stand)', 'Laptop', 'Leather jacket', 'Luggage set', 'Luxury watch (Rolex, Casio)', 'Massage chair', 'Mattress', 'Microwave (smart)', 'Motorcycle', 'Mountain bike', 'Music production software', 'Noise-canceling earbuds', 'Oven (convection)', 'Patio furniture', 'Pet insurance', 'Photography lighting kit', 'Piano (digital)', 'Power tools (drill set)', 'Printer (3D)', 'Projector', 'Ray-Ban sunglasses', 'Refrigerator', 'Robot vacuum', 'Running shoes (premium)', 'Ski equipment', 'Smart doorbell', 'Smart garage door opener', 'Smart speaker', 'Smartphone', 'Smartwatch', 'Sneakers (designer)', 'Snowboard', 'Sofa', 'Soundbar', 'Streaming subscription (Netflix, Disney+)', 'Surfboard', 'Tablet', 'Television (4K)', 'Tent (backpacking)', 'Treadmill', 'Vacuum cleaner (cordless)', 'Vacation package', 'Video camera', 'Video game (AAA title)', 'Vinyl record player', 'VR headset', 'Washing machine', 'Wedding ring', 'Weighted blanket', 'Wireless charger', 'Yoga retreat', 'Home theater system', 'Diving gear', 'Electric car charger', 'Telescope', 'Designer suit', 'Art print (original)', 'Collectible figurine', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)', 'Portable generator', 'Skateboard (electric)', 'Leather boots', 'Craft supplies (sewing machine)', 'Snooker table', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)', 'Gym bag', 'Snooker table', 'Plane tickets', 'Train tickets', 'Bus passes', 'Taxi rides', 'Rideshares', 'Fuel', 'Motor oil', 'Car tyres', 'Car battery', 'Car accessories', 'Helmet', 'Motorbike gear', 'Travel insurance', 'Hotel stay', 'Hostel stay', 'Holiday rental', 'Camping pitch', 'Luggage', 'Suitcase', 'Backpack', 'Travel pillow', 'Eye mask', 'Ear plugs', 'Maps', 'Guidebook', 'Camping stove', 'Cooler box', 'Hiking poles', 'Surfboard', 'Ski equipment'];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (purchaseItems);
 
 /***/ }),
@@ -417,12 +417,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../global */ "./resources/assets/js/global.js");
 
-var intersection = function intersection(cardHidden) {
+var intersection = function intersection() {
   // Set up an IntersectionObserver to animate cards when they enter the viewport
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         // When the card is visible
+        entry.target.classList.remove('hidden');
         entry.target.classList.add('visible'); // Add 'visible' class for animation
         observer.unobserve(entry.target); // Stop observing once animated
       }
@@ -430,7 +431,7 @@ var intersection = function intersection(cardHidden) {
   });
 
   // Apply the observer to all hidden cards
-  (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)(cardHidden).forEach(function (card) {
+  (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)('.card').forEach(function (card) {
     observer.observe(card); // Watch each card for visibility
   });
 };
@@ -507,14 +508,13 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 // 🔹 UI Enhancements
-(0,_include_main_autocomplete__WEBPACK_IMPORTED_MODULE_2__["default"])('whatToBuy_id', _include_main_dataToAutoComplete__WEBPACK_IMPORTED_MODULE_1__["default"]);
+(0,_include_main_intersection__WEBPACK_IMPORTED_MODULE_5__.intersection)();
+(0,_include_main_autocomplete__WEBPACK_IMPORTED_MODULE_2__["default"])('whatToBuy', _include_main_dataToAutoComplete__WEBPACK_IMPORTED_MODULE_1__["default"]);
 (0,_include_main_toolTips__WEBPACK_IMPORTED_MODULE_4__.tooltips)();
-(0,_include_main_intersection__WEBPACK_IMPORTED_MODULE_5__.intersection)('.card.hidden');
 
 // 🔹 Validate button presence
 var initBtn = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('button');
 if (!initBtn) {
-  console.error('Button with ID \'button\' not found.');
   throw new Error('Button not found');
 }
 
@@ -546,7 +546,7 @@ initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
   return _regenerator().w(function (_context) {
     while (1) switch (_context.p = _context.n) {
       case 0:
-        whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('whatToBuy_id');
+        whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('whatToBuy');
         selects = (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)('select');
         whatToBuy = whatToBuyInput === null || whatToBuyInput === void 0 ? void 0 : whatToBuyInput.value.trim();
         scores = {};
@@ -560,7 +560,7 @@ initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
       case 1:
         // 🔹 Collect dropdown values
         selects.forEach(function (select) {
-          var attribute = select.getAttribute('name');
+          var attribute = select.getAttribute('id');
           var selected = select.options[select.selectedIndex];
           if (select.selectedIndex === 0) {
             incomplete = true;

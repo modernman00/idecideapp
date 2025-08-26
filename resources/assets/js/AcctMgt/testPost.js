@@ -9,12 +9,12 @@ import {  loginSubmission, bindEvent } from '@modernman00/shared-js-lib';
 
     const lengthLimit = {
       maxLength: {
-        id: ['occupation_id', 'age_id'],
+        id: ['occupation', 'age'],
         max: [10, 10]
       }
     };
 
-    loginSubmission('testPost', '/testPost', '/testPost', 'bulma', lengthLimit);
+    loginSubmission('testPost', '/testPost', '', 'bulma', lengthLimit);
   };
 
   bindEvent({ id: 'button', handler });

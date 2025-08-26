@@ -1,5 +1,5 @@
 // import { showError, id } from './global';
-import { showError} from '@modernman00/shared-js-lib';
+import { showError, log} from '@modernman00/shared-js-lib';
 
 
 document.addEventListener('DOMContentLoaded', () => {
