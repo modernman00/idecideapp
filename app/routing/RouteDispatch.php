@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\routing;
 
 use AltoRouter;
+use Src\Utility;
 
 class RouteDispatch
 {
@@ -12,28 +13,42 @@ class RouteDispatch
 
     public function dispatch(AltoRouter $router): void
     {
-        $this->match = $router->match();
 
+        // include in the try and catch block 
+        try {
+            if($router->match() === false) {
+                $this->renderError();
+               throw new \Exception('No matching route found');
+            }
+            $this->match = $router->match();
+
+       
         if (!$this->isMatchValid()) {
-            $this->renderError('No matching route found.');
-            return;
+            $this->renderError();
+            throw new \Exception('No matching route found');
         }
 
         [$controllerClass, $method] = explode('@', $this->match['target']);
 
         if (!class_exists($controllerClass)) {
-            $this->renderError("Controller '{$controllerClass}' not found.");
-            return;
+            $this->renderError();
+            throw new \Exception('No controller class found');
         }
 
         $controllerInstance = new $controllerClass();
 
         if (!method_exists($controllerInstance, $method)) {
-            $this->renderError("Method '{$method}' not defined in '{$controllerClass}'.");
-            return;
+            $this->renderError();
+            throw new \Exception('No matching method found');
         }
 
         $this->invoke($controllerInstance, $method, $this->match['params']);
+        } catch (\Exception $e) {
+         
+            return;
+        }
+
+
     }
 
     protected function isMatchValid(): bool
@@ -48,8 +63,8 @@ class RouteDispatch
         call_user_func_array([$controllerInstance, $method], [$params]);
     }
 
-    protected function renderError(string $message): void
+    protected function renderError(): void
     {
-        view('error', ['message' => $message]);
+        view('errors/404');
     }
 }
