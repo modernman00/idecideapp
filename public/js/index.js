@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
     '/result': function _result() {
       return __webpack_require__.e(/*! import() | result */ "result").then(__webpack_require__.bind(__webpack_require__, /*! ./result */ "./resources/assets/js/result.js"));
     },
-    '/createBlog': function _createBlog() {
-      return __webpack_require__.e(/*! import() | blog */ "blog").then(__webpack_require__.bind(__webpack_require__, /*! ./blog */ "./resources/assets/js/blog.js"));
-    },
     '/adminlogin': function _adminlogin() {
       return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/login */ "./resources/assets/js/acctMgt/login.js"));
     },
@@ -31,11 +28,17 @@ document.addEventListener('DOMContentLoaded', function () {
     '/code': function _code() {
       return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/code */ "./resources/assets/js/acctMgt/code.js"));
     },
+    '/createBlog': function _createBlog() {
+      return __webpack_require__.e(/*! import() | createBlog */ "createBlog").then(__webpack_require__.bind(__webpack_require__, /*! ./createBlog */ "./resources/assets/js/createBlog.js"));
+    },
     '/testPost': function _testPost() {
-      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/testPost */ "./resources/assets/js/acctMgt/testPost.js"));
+      return __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/testPost */ "./resources/assets/js/acctMgt/testPost.js"));
     },
     '/changePassword': function _changePassword() {
-      return __webpack_require__.e(/*! import() | change */ "change").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/changePassword */ "./resources/assets/js/acctMgt/changePassword.js"));
+      return __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/changePassword */ "./resources/assets/js/acctMgt/changePassword.js"));
+    },
+    '/contact': function _contact() {
+      return __webpack_require__.e(/*! import() | contact */ "contact").then(__webpack_require__.bind(__webpack_require__, /*! ./contact */ "./resources/assets/js/contact.js"));
     }
   };
   try {

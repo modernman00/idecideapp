@@ -13,7 +13,8 @@ use Src\functionality\{
     PasswordResetFunctionality,
     PwdRecoveryCodeFunctionality
 };
-use Src\Utility;
+use Src\{Utility, SelectFn};
+
 
 class AcctMgtController extends BaseController
 {
@@ -60,7 +61,7 @@ class AcctMgtController extends BaseController
 
 
 
-    public function forgot()
+    public function showForgot()
     {
         try {
             $verify = $_GET['verify'] ?? null;
@@ -70,7 +71,7 @@ class AcctMgtController extends BaseController
         }
     }
 
-    public function forgotPost()
+    public function postForgot()
     {
         try {
 
@@ -81,7 +82,7 @@ class AcctMgtController extends BaseController
     }
 
     // show code page 
-    public function code()
+    public function showCode()
     {
         try {
             PwdRecoveryCodeFunctionality::show('acctMgt/code');
@@ -90,7 +91,7 @@ class AcctMgtController extends BaseController
         }
     }
 
-    public function codePost()
+    public function postCode()
     {
         try {
             PwdRecoveryCodeFunctionality::process();
@@ -99,7 +100,7 @@ class AcctMgtController extends BaseController
         }
     }
 
-    public function changePassword()
+    public function showChangePassword()
     {
         try {
             PasswordResetFunctionality::show('acctMgt/changePassword');
@@ -108,7 +109,7 @@ class AcctMgtController extends BaseController
         }
     }
 
-    public function changePasswordPost()
+    public function postChangePassword()
     {
         try {
             PasswordResetFunctionality::process();
@@ -123,7 +124,14 @@ class AcctMgtController extends BaseController
             // Use SignIn to verify user role and authentication
             $VerifyJWT = SignIn::verify('admin');
             if ($VerifyJWT) {
-                BaseController::viewWithCsp('admin/adminpage');
+                $_SESSION['role'] = 'admin';
+
+                unset($_SESSION['auth'], $_SESSION['imageUploadOutcome'], $_SESSION['token']);
+
+                // GET THE BLOG DATA 
+                $blogs = SelectFn::selectAllRows('blogs');
+
+                BaseController::viewWithCsp('admin/adminpage', compact('blogs'));
             } else {
                 redirect('/adminlogin');
             }

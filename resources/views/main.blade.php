@@ -4,8 +4,7 @@
 
 
 @section('content')
-
-
+@section('data-page-id', '/')
 
     <section class="hero">
 

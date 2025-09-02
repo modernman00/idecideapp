@@ -1,10 +1,8 @@
 import { acctMgtRoutes } from '../routes';
 import { createAdminLoginHandler } from '@modernman00/shared-js-lib';
 
-// create a session for login
-
-// SessionStorage
-sessionStorage.setItem('fromLogin', 'true');
+// remove fromForgot
+sessionStorage.removeItem('fromForgot');
 
 createAdminLoginHandler({
   formId: 'adminlogin',

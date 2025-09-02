@@ -242,6 +242,15 @@
             }
         }
 
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-wrapper>footer {
+            margin-top: auto;
+        }
 
 
 
@@ -490,7 +499,7 @@
     </style>
 </head>
 
-<body>
+<body data-page-id="@yield('data-page-id')" data-spy="scroll" data-offset='60'>
 
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -528,8 +537,9 @@
             </div>
         </div>
     </nav>
+    <div class="page-wrapper">
 
-    {{-- <header>
+        {{-- <header>
         <!-- Add your header content here if any -->
         <div class="theme-toggle" style="position: absolute; top: 1rem; right: 1rem;">
             <input type="checkbox" id="themeSwitch" />
@@ -537,28 +547,40 @@
         </div>
     </header> --}}
 
-    @yield('content')
+        @yield('content')
 
 
-    <footer>
-        <div class="footer-column footer-links">
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/privacy">Privacy</a>
-            <a href="terms">T&C</a>
-            <a href="/blogs">Blogs</a>
-        </div>
-        <div class="footer-column footer-social">
-            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="footer-column footer-copyright">
-            <p>© {{ date('Y') }} Decision Matrix. All rights reserved.</p>
-            <p>Designed by Modernman</p>
-        </div>
-    </footer>
+        <footer>
+            <div class="footer-column footer-links">
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy">Privacy</a>
+                <a href="terms">T&C</a>
+                <a href="/blogs">Blogs</a>
+            </div>
+            <div class="footer-column footer-social">
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div class="footer-column footer-copyright">
+                <p>© {{ date('Y') }} Decision Matrix. All rights reserved.</p>
+                <p>Designed by Modernman</p>
+            </div>
+            <div class="text-center my-4">
+                <a href="@yield('data-page-id')" title="To Top" class="btn btn-link">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-bar-up"
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M11.354 5.854a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L8 3.207l2.646 2.647a.5.5 0 0 0 .708 0z" />
+                        <path fill-rule="evenodd"
+                            d="M8 10a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-1 0v6.5a.5.5 0 0 0 .5.5zm-4.8 1.6c0-.22.18-.4.4-.4h8.8a.4.4 0 0 1 0 .8H3.6a.4.4 0 0 1-.4-.4z" />
+                    </svg> back to top
+                </a>
+            </div>
 
+        </footer>
+    </div>
 
     {{-- Scripts pushed from pages --}}
     @stack('scripts_sharethis')
@@ -582,9 +604,9 @@
 
 
 
-    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js" defer></script>
-    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js" defer></script>
-    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/vendor.js" defer></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js"></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js"></script>
+    <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/vendor.js"></script>
 
     <script nonce="{{ $nonce }}">
         if ('serviceWorker' in navigator) {

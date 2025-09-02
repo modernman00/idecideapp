@@ -1,47 +1,62 @@
-@extends('base')
+@extends('baseBulmaForm')
 
 @section('title', 'Contact Us')
 
 @section('content')
+@section('data-page-id', 'contact')
 
-<style nonce="{{ $nonce }}">
-         .title{
-            color: var(--primary-color);
+<form method="POST" class="contact" id="contact">
+      <div class="form-group">
+            <div class='row'>
+            @php
+                $formArray = [
+                    'contact_notification' => 'showError',
+                    'Get in Touch' => 'title',
+                    "Have questions or feedback about Decision Matrix? We would love to hear from you! Fill out the form below or use our contact details" => 'subtitle',
+                    'Intro' => [
+                        'mixed',
+                        'label' => [
+                            'Name',
+                            'Email'
+                        ],
+                        'attribute' => [
+                            'name',
+                            'email',
+                        ],
+                        'inputType' => [
+                            'text',
+                            'email',
+                        ],
+                        'placeholder' => [
+                            'Enter your name',
+                            'Enter your email',
+                        ],
+                        'icon' => [
+                            "<i class='fas fa-user'></i>",
+                            "<i class='fas fa-envelope'></i>",
+                        ]
+                    ],
+                    'message' => [
+                        'mixed',
+                        'label' => ['Message'],
+                        'attribute' =>  ['message'],
+                        'inputType' => ['textarea']
+                    ],
+                    'token' => 'token',
+                    'Submit' => 'button',
+                    'recaptchar' => 'recaptcha',
+                ];
 
-            .bgColor{
-                background-color: var(--primary-color);
-            }
-        }
-</style>
-<div class="container my-5">
-    <h1 class="text-center mb-4 title">Contact Us</h1>
+                $form = new Src\BuildFormBulma($formArray);
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8">
-            <h2 class="title">Get in Touch</h2>
-            <p>Have questions or feedback about modernman00 Decision Matrix? We'd love to hear from you! Fill out the form below or use our contact details.</p>
-
-            <form action="/contact" method="POST" class="mt-4">
-                
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary bgColor">Send Message</button>
-            </form>
-
-
-        </div>
-    </div>
-    
-    @include('include.returnToMain')
+                $form->genForm();
+            @endphp
+            </div>
 </div>
+</form>
+
+
+    
+    @include('include.returnToMainBulma')
+
 @endsection

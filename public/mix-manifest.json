@@ -3,11 +3,13 @@
     "/js/manifest.js": "/js/manifest.js",
     "/js/main.js": "/js/main.js",
     "/js/result.js": "/js/result.js",
-    "/js/blog.js": "/js/blog.js",
     "/js/login.js": "/js/login.js",
     "/js/forgot.js": "/js/forgot.js",
     "/js/code.js": "/js/code.js",
-    "/js/change.js": "/js/change.js",
+    "/js/createBlog.js": "/js/createBlog.js",
+    "/js/testPost.js": "/js/testPost.js",
+    "/js/changePassword.js": "/js/changePassword.js",
+    "/js/contact.js": "/js/contact.js",
     "/css/main.css": "/css/main.css",
     "/js/vendor.js": "/js/vendor.js"
 }

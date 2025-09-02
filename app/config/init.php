@@ -33,6 +33,38 @@ mb_http_output('UTF-8');
 
 date_default_timezone_set('Europe/London');
 
+// Load environment (from .env or server environment variable)
+$env = $_ENV['APP_ENV'] ?: 'production'; // Options: development, staging, production
+
+
+// Configure error handling based on environment
+switch ($env) {
+    case 'development':
+        ini_set('display_errors', '1');
+        ini_set('display_startup_errors', '1');
+        error_reporting(E_ALL); // Show everything for debugging
+        break;
+
+    case 'staging':
+        ini_set('display_errors', '0');
+        ini_set('display_startup_errors', '0');
+        error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE); // Hide deprecated & notices
+        ini_set('log_errors', '1');
+        ini_set('error_log', __DIR__ . '/../../bootstrap/log/ini.log');
+        break;
+
+    case 'production':
+    default:
+        ini_set('display_errors', '0');
+        ini_set('display_startup_errors', '0');
+        error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE); // Hide deprecated & notices
+        ini_set('log_errors', '1');
+        ini_set('error_log', __DIR__ . '/../../bootstrap/log/ini.log');
+        break;
+}
+
+
+
 // Initialize ErrorHandler with the new implementation
 // $errorHandler = new ErrorHandler();
 // $errorHandler->outputError(__DIR__ . '/../../bootstrap/log');

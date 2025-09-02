@@ -49,7 +49,7 @@
                                 <tr>
                                     <td align="center" height="70" style="height:70px;">
                                         <a href="" style="display: block; border-style: none !important; border: 0 !important;">
-                                        <img src ={{ $_ENV["LOGO_URL"] }} width="50" height="50" alt="LOGO" />
+                                        <img src ={{ $_ENV["LOGO_DEFAULT"] }} width="50" height="50" alt="LOGO" />
                                         </a>
                                     </td>
                                 </tr>

@@ -1,4 +1,4 @@
-import {  loginSubmission, bindEvent } from '@modernman00/shared-js-lib';
+import {  loginSubmission, bindEvent, showFileName } from '@modernman00/shared-js-lib';
 
 
 
@@ -18,4 +18,6 @@ import {  loginSubmission, bindEvent } from '@modernman00/shared-js-lib';
   };
 
   bindEvent({ id: 'button', handler });
+
+  showFileName('children_div');
 

@@ -13,7 +13,7 @@
 
 
     <hr class="my-2">
-    <form action=""  class="styleform_form" id="code" class="code">
+    <form action=""  class="styleform_form code " id="code">
         <div class="form-group">
             <br>
             <div class='row'>

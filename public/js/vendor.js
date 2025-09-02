@@ -34,9 +34,9 @@ __webpack_require__.r(__webpack_exports__);
  * @function setupPasswordChange
  * @param {Object} [config] - Configuration object for customizing behavior.
  * @param {string} [config.buttonId='button'] - ID of the submit button.
- * @param {string} [config.passwordId='password_id'] - ID of the password input field.
- * @param {string} [config.confirmId='confirm_password_id'] - ID of the confirm password input field.
- * @param {string} [config.showToggleId='showPassword_id'] - ID of the toggle button to show/hide password.
+ * @param {string} [config.passwordId='password'] - ID of the password input field.
+ * @param {string} [config.confirmId='confirm_password'] - ID of the confirm password input field.
+ * @param {string} [config.showToggleId='showPassword'] - ID of the toggle button to show/hide password.
  * @param {string} [config.errorId='confirm_password_error'] - ID of the element to display mismatch errors.
  * @param {string} [config.helpId='password_help'] - ID of the helper text element for password guidance.
  * @param {string} [config.route] - API endpoint for password change submission.
@@ -61,9 +61,9 @@ __webpack_require__.r(__webpack_exports__);
 const setupPasswordChange = ({
   formId = 'changePassword',
   buttonId = 'button',
-  passwordId = 'password_id',
-  confirmId = 'confirm_password_id',
-  showToggleId = 'showPassword_id',
+  passwordId = 'password',
+  confirmId = 'confirm_password',
+  showToggleId = 'showPassword',
   errorId = 'confirm_password_error',
   helpId = 'password_help',
   route,
@@ -140,7 +140,7 @@ __webpack_require__.r(__webpack_exports__);
  * @example
  * createCodeSubmitHandler({
  *   formId: 'codeForm',
- *   inputId: 'code_id',
+ *   inputId: 'code',
  *   buttonId: 'button',
  *   route: appTestRoutes.appTestCode,
  *   redirect: appTestRoutes.appTestCodeRedirect
@@ -148,7 +148,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function createCodeSubmitHandler({
   formId,
-  inputId = 'code_id',
+  inputId = 'code',
   buttonId = 'button',
   route,
   redirect,
@@ -213,7 +213,7 @@ __webpack_require__.r(__webpack_exports__);
  * @example
  * createEmailSubmitHandler({
  *   formId: 'forgotPassword',
- *   inputId: 'email_id',
+ *   inputId: 'email',
  *   buttonId: 'button',
  *   route: appTestRoutes.appTestForgot,
  *   redirect: appTestRoutes.appTestForgotRedirect
@@ -221,7 +221,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function forgotSubmitHandler({
   formId,
-  inputId = 'email_id',
+  inputId = 'email',
   buttonId = 'button',
   route,
   redirect,
@@ -292,20 +292,20 @@ __webpack_require__.r(__webpack_exports__);
  * @example
  * createAdminLoginHandler({
  *   formId: 'managed',
- *   emailId: 'email_id',
- *   passwordId: 'password_id',
+ *   emailId: 'email',
+ *   passwordId: 'password',
  *   buttonId: 'button',
- *   showToggleId: 'showPassword_id',
+ *   showToggleId: 'showPassword',
  *   route: appTestRoutes.appTest,
  *   redirect: appTestRoutes.redirect
  * });
  */
 function createAdminLoginHandler({
   formId,
-  emailId = 'email_id',
-  passwordId = 'password_id',
+  emailId = 'email',
+  passwordId = 'password',
   buttonId = 'button',
-  showToggleId = 'showPassword_id',
+  showToggleId = 'showPassword',
   route,
   redirect,
   theme = 'bootstrap',
@@ -940,9 +940,9 @@ class FormHelper {
      * 
      * @param {*} optionalFields ["spouseName", "spouseMobile", "fatherEmail"];
      * @param {*} typeMap Create a validation map if certain fields need special types (email, password, etc). const types = {
-      email_id: "email",
-      password_id: "password",
-      custom_text_id: "general"
+      email: "email",
+      password: "password",
+      custom_text: "general"
     };
      * formHelper.massValidate(optional, types);
      */
@@ -955,22 +955,20 @@ class FormHelper {
 
         for (let input of this.data) {
             const { name, value, id, type, placeholder } = input;
-          
            
 
             // Skip non-input elements
             if (
                 ['submit', 'button', 'g-recaptcha-response', 'cancel'].includes(name) ||
-                ['button', 'showPassword_id', 'token', 'g-recaptcha-response'].includes(id) ||
+                ['button', 'showPassword', 'token', 'g-recaptcha-response'].includes(id) ||
                 type === 'button' ||
-                id === 'checkbox_id'
+                id === 'checkbox'
             ) continue;
 
      
-             // remove _id from id if it exists to create a clean label
-            const cleanID = id.endsWith('_id') ? id.slice(0, -3) : id;
-            let label = cleanID.replace(/_/g, ' '); // For readable error text
-              const errorEl = this.id(`${cleanID}_error`);
+         
+         
+              const errorEl = this.id(`${id}_error`);
             let val = value.trim();
 
             // Handle optional fields
@@ -981,8 +979,8 @@ class FormHelper {
 
             // Required field check
             if (val === '' || val === 'select') {
-                if (errorEl) errorEl.innerHTML = `<li style="color:red;">${label} cannot be left empty.</li>`;
-                this.error.push(`${label.toUpperCase()} cannot be left empty.`);
+                if (errorEl) errorEl.innerHTML = `<li style="color:red;">${id} cannot be left empty.</li>`;
+                this.error.push(`${id.toUpperCase()} cannot be left empty.`);
                 continue;
             }
 
@@ -993,7 +991,7 @@ class FormHelper {
             );
 
             if (!this.matchRegex(val, validateType)) {
-                const msg = `There is a problem with your entry for ${label.toUpperCase()}`;
+                const msg = `There is a problem with your entry for ${id.toUpperCase()}`;
                 if (errorEl) errorEl.innerHTML = `<li style="color:red;">${msg}</li>`;
                 this.error.push(msg);
                 continue;
@@ -1010,7 +1008,7 @@ class FormHelper {
     emailVal() {
         const emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
         let msg = '<li style=color:\'red\';> Please enter a valid email</li>';
-        const email = this.id('email_id').value;
+        const email = this.id('email').value;
         if (email.match(emailExp) === null) {
             this.id('email_error').innerHTML = msg;
             this.id('email_error').style.color = 'red';
@@ -1043,11 +1041,8 @@ class FormHelper {
                 return;
             }
 
-            // remove _id from id if it exists
-            const cleanID = id.endsWith('_id') ? id.slice(0, -3) : id;
-
             // Add event listeners to clear errors
-            const clearErrorHandler = () => clearErrorForElement(cleanID || name);
+            const clearErrorHandler = () => clearErrorForElement(id || name);
             if (value !== 'select') element.addEventListener('keyup', clearErrorHandler);
             element.addEventListener('change', clearErrorHandler);
         });
@@ -1095,8 +1090,8 @@ class FormHelper {
      * @param {string} second - the id of the second input
      */
     matchInput(first, second) {
-        const firstInput = this.id(first + '_id');
-        const secondInput = this.id(second + '_id');
+        const firstInput = this.id(first + '');
+        const secondInput = this.id(second + '');
         const error = this.id(`${second}_error`);
 
         const checkMatch = () => error.innerHTML = (firstInput.value !== secondInput.value) ? 'Your passwords do not match' : '';
@@ -1248,7 +1243,7 @@ const postFormData = async (url, formId, redirect = null, css = null) => {
     let formEntries = new FormData(form);
 
     formEntries.delete('submit');
-    formEntries.delete('checkbox_id');
+    formEntries.delete('checkbox');
 
     const options = {
         baseURL: '/', // Adjust to your API base URL
@@ -1575,13 +1570,13 @@ __webpack_require__.r(__webpack_exports__);
  * @throws {Error} if any element with id from the input array is not found or is empty
  */
 const realTimeCheckLen = (input, maxi) => {
-    const data = input.map(el => (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(`${el}_id`));
+    const data = input.map(el => (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(`${el}`));
     const errors = input.map(el => (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(`${el}_error`));
     const helps = input.map(el => (0,_UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__.id)(`${el}_help`));
 
     maxi.forEach((max, i) => {
         if (!data[i] || !errors[i] || !helps[i]) {
-            throw new Error(`Element with ID '${input[i]}_id' not found or is empty`);
+            throw new Error(`Element with ID '${input[i]}' not found or is empty`);
         }
 
         data[i].maxLength = parseInt(max, 10) + 1;
@@ -1977,16 +1972,14 @@ __webpack_require__.r(__webpack_exports__);
 const csrfToken = (0,_Cookie_js__WEBPACK_IMPORTED_MODULE_0__.getCookieValue)('XSRF-TOKEN');
 
 axios__WEBPACK_IMPORTED_MODULE_1__["default"].interceptors.request.use(config => {
-  if (csrfToken) {
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
-        config.headers['Content-Type'] = 'application/json';
-        config.headers['Accept'] = 'application/json';
-        if (csrfToken) {
-            config.headers['X-XSRF-TOKEN'] = csrfToken; // Set CSRF token header
-        }
-        return config;
-  }
-  return config;
+    // config.headers['Accept'] = 'application/json';
+
+    if (csrfToken) {
+        config.headers['X-XSRF-TOKEN'] = csrfToken;
+    }
+    
+    return config;
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (axios__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -2005,7 +1998,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   matchInput: () => (/* binding */ matchInput),
 /* harmony export */   parseErrorResponse: () => (/* binding */ parseErrorResponse),
-/* harmony export */   redirectAfterDelay: () => (/* binding */ redirectAfterDelay)
+/* harmony export */   redirectAfterDelay: () => (/* binding */ redirectAfterDelay),
+/* harmony export */   showFileName: () => (/* binding */ showFileName)
 /* harmony export */ });
 /* harmony import */ var _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UtilityHtml.js */ "./node_modules/@modernman00/shared-js-lib/UtilityHtml.js");
 
@@ -2068,6 +2062,16 @@ const parseErrorResponse = (error) => {
 
     return errorMessage;
 };
+
+const showFileName = (fileCss) => {
+    const fileInput = document.querySelector(`#${fileCss} input[type=file]`);
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector(`#${fileCss} .file-name`);
+            fileName.textContent = fileInput.files[0].name;
+        }
+    };
+}
 
 
 
@@ -2133,6 +2137,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   setupPasswordChange: () => (/* reexport safe */ _AcctMgt_changePassword_js__WEBPACK_IMPORTED_MODULE_9__.setupPasswordChange),
 /* harmony export */   showElement: () => (/* reexport safe */ _UtilityHtml_js__WEBPACK_IMPORTED_MODULE_1__.showElement),
 /* harmony export */   showError: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__.showError),
+/* harmony export */   showFileName: () => (/* reexport safe */ _general_js__WEBPACK_IMPORTED_MODULE_14__.showFileName),
 /* harmony export */   showLoader: () => (/* reexport safe */ _Loader_js__WEBPACK_IMPORTED_MODULE_3__.showLoader),
 /* harmony export */   showNotification: () => (/* reexport safe */ _ShowResponse_js__WEBPACK_IMPORTED_MODULE_6__.showNotification),
 /* harmony export */   showPassword: () => (/* reexport safe */ _Utility_js__WEBPACK_IMPORTED_MODULE_2__.showPassword),

@@ -10,6 +10,9 @@
 
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
+     {{-- FAVICON  --}}
+    <link rel="icon" type="image/x-icon" href="<?php echo getenv('APP_URL') ?: ''; ?>/public/images/logo/default.png">
+
 
   <!-- If you intended to include a <noscript> block, add the opening tag -->
   <noscript>
@@ -205,6 +208,7 @@
         .styleForm {
           margin-left: 15%;
         margin-right: 15%;
+          min-height: 100vh;
       }
 
     }
@@ -226,7 +230,43 @@
 
 </head>
 
-<body data-page-id="@yield('data-page-id')" data-spy="scroll" data-target=".navbar" data-offset='60'>
+<body data-page-id="@yield('data-page-id')" data-spy="scroll" data-offset='60'>
+
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/public/images/logo/vector/default.svg" width="30" height="30" alt="">
+      <span class="ml-2 has-text-weight-semibold">Decision Matrix</span>
+    </a>
+
+    <!-- Mobile burger toggle -->
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" href="/">Home</a>
+      <a class="navbar-item" href="about">About</a>
+      <a class="navbar-item" href="contact">Contact</a>
+      <a class="navbar-item" href="/#questions">Questions</a>
+      <a class="navbar-item" href="blogs">Blogs</a>
+      <a class="navbar-item noDisplay" id="signout" href="signout/managed">Sign out</a>
+
+      <!-- Theme toggle -->
+      <div class="navbar-item">
+        <div class="field">
+          <input type="checkbox" id="themeSwitch" class="switch is-rounded is-small">
+          <label for="themeSwitch">🌙</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
 
 
   <section class="section content">
@@ -238,7 +278,7 @@
         <img src={{ $_ENV['LOGO_DEFAULT'] }} alt="logo" class="mb-4 form__login__logo"
           style="margin-left:43%; margin-bottom:5rem;">
 
-        <hr class="my-2">
+        {{-- <hr class="my-2"> --}}
 
 
               @yield('content')
@@ -268,6 +308,19 @@
       </a>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const burger = document.querySelector('.navbar-burger');
+  const menu = document.getElementById('navbarMenu');
+
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('is-active');
+    menu.classList.toggle('is-active');
+  });
+});
+
+  </script>
 
   <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js"></script>
     <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js"></script>

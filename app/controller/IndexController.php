@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use Src\{LoginUtility, Select, Utility, SubmitForm};
+use Src\{CheckToken, Limiter, LoginUtility, Select, Utility, SubmitForm};
 use RuntimeException;
 use Src\Sanitise\Sanitise;
 use Src\functionality\middleware\GetRequestData;
+use Src\functionality\SendEmail;
+use Src\functionality\SendEmailFunctionality;
+use Src\ToSendEmail;
+use Src\Recaptcha;
 
 use Src\functionality\SubmitPostData;
 
@@ -86,17 +90,39 @@ class IndexController extends BaseController
         //         echo "$tableName submitted successfully";
         //     }
         // }
-        $remove = ['account2.confirm_password', 'token', 'submit', 'g-recaptcha-response'];
+        $remove = ['confirm_password', 'token',  'grecaptcharesponse'];
         $minMax = [
             'data' => ['email',  'james'],
             'min' => [3,  5],
             'max' => [50,  100],
         ];
-        SubmitPostData::submitToMultipleTable(['account1', 'account2', 'account3'], $minMax, $remove);
+        $ALLOWED_TABLES = ['account1', 'account2', 'account3'];
+        $filename = 'children';
+        $imgPath = 'public/images/testPost/';
+        SubmitPostData::submitToMultipleTable($ALLOWED_TABLES, $minMax, $remove, $filename, $imgPath, "account2");
     }
 
     public function testGet()
     {
         BaseController::viewWithCsp('testPost');
+    }
+
+    public function postContact()
+    {
+        Recaptcha::verifyCaptcha($_POST);
+        Limiter::limit('email');
+        CheckToken::tokenCheck();
+
+        // build the email data 
+        $emailData = [
+            'name' => checkInput($_POST['name']),
+            'email' => checkInputEmail($_POST['email']),
+            'message' => checkInput($_POST['message']),
+        ];
+
+        $subject = "Contact from {$_POST['name']}";
+        SendEmailFunctionality::email('msg/contact', $subject, $emailData, 'member');
+        unset($_SESSION['token']);
+        Utility::msgSuccess(200, 'Message sent successfully');
     }
 }

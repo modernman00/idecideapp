@@ -1,4 +1,4 @@
-@extends('base')
+@extends('baseBulmaForm')
 @section('title', 'Login')
 @section('content')
 
@@ -17,10 +17,10 @@
                         'work_information' => 'title',
 
                         'account1' => [
-                            'mixed',
+                            'mixed_nested',
                             'label' => ['employment status', 'Occupation'],
                             'attribute' => ['employmentStatus', 'occupation'],
-                            'value' => ['Self-employed', 'Lawyer'],
+                            'value' => ['Unemployed', 'Lawyer'],
                             'placeholder' => ['null', 'Accountant, Housewife, Student, Business man etc'],
                             'inputType' => ['select', 'text'],
                             'options' => [['select', 'Self-employed', 'Unemployed', 'Full-time-employment', 'Student']],
@@ -31,7 +31,7 @@
                         // // account
 
                         'account2' => [
-                            'mixed',
+                            'mixed_nested',
                             'label' => ['Password', 'Confirm password'],
                             'attribute' => ['password', 'confirm_password'],
                              'value' => ['National2@', 'National2@'],
@@ -45,7 +45,7 @@
                         ],
 
                          'account3' => [
-                            'mixed',
+                            'mixed_nested',
                             'label' => ['email', 'age'],
                             'attribute' => ['email', 'age'],
                              'value' => ['wogn@gmail.com', 45],
@@ -58,21 +58,34 @@
                             ]
                         ],
 
+                        'account4' => [
+                            'mixed_nested',
+                            'label' => ['town', 'children'],
+                            'attribute' => ['town', 'children[]'],    
+                             'value' => ['swindon', ""],
+                            'inputType' => ['text', 'file'],
+                            'icon' => [
+                                '<i class="fas fa-home"></i>',
+                                '',
+                                // '<i class="fas fa-user-secret"></i>',
+                            ]
+                        ],
+
                         'checkbox' => 'Remember me',
                         'token' => 'token',
                         'submit' => 'button',
                         'showPassword' => 'showPassword',
                     ];
 
-                    $form = new Src\FormBuilder($formArray);
+                    $form = new Src\BuildFormBulma($formArray);
                     $form->genForm();
 
                 @endphp
 
                 <br>
 
-                <div class="g-recaptcha" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
-                <br>
+                {{-- <div class="g-recaptcha" data-sitekey="{{ $_ENV['RECAPTCHA_KEY'] }}" data-theme="dark"></div>
+                <br> --}}
 
                 <a href="/forgot?verify=1"> Forgot password? Please click this link</a>
 

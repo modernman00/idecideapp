@@ -1,8 +1,6 @@
 'use strict';
-import { postFormData } from '../helper/http.js';
-import { showLoader, clearLoader } from '../helper/Loader.js';
-import { showError, qSel } from '../global.js';
-import FormHelper from '../helper/FormHelper.js';
+import { showError, qSel, postFormData, showLoader, clearLoader } from '@modernman00/shared-js-lib';
+import FormHelper from "@modernman00/shared-js-lib/FormHelper.js";
 
 
 // block the setLoader div
