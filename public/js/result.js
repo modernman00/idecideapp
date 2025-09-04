@@ -459,7 +459,6 @@ try {
       }
     } catch (e) {
       clearInterval(interval);
-      console.error('Score animation error:', e);
     }
   }, 20);
 

@@ -182,7 +182,7 @@ class CalculateResultController
                 [
                     'minScore' => 70,
                     'decision' => 'WORTH CONSIDERING! 🛠️ THEN CHECK, AND BUY! 💭',
-                    'comment' => "The $whatToBuy seems like a great fit—just double-check that it is affordable, and try to get the best deal!",
+                    'comment' => "Buying the $whatToBuy seems like a good decision—just double-check that it is affordable, and try to get the best deal!",
                     'color' => 'success-light',
                     'badgeText' => '🧠 Savvy Planner',
                     'badgeClass' => 'badge-success-light',

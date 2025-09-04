@@ -80,7 +80,7 @@
                             [
                                 5 => 'Happy and satisfied',
                                 4 => 'Over the moon',
-                                3 => 'Satisfied but not thrilled',
+                                3 => 'Satisfied',
                                 2 => 'Mixed feelings',
                                 1 => 'No difference or Not sure',
                             ],
@@ -148,8 +148,8 @@
                                 5 => 'Salary, Savings, Bonus, Gift',
                                 2 => 'Credit card',
                                 3 => 'Borrowing from family or friends',
-                                4 => 'Bank loan, or other loan',
-                                1 => 'Unknown',
+                                4 => 'Bank loan, or monthly repayment',
+                                1 => 'High interest loan',
                             ],
                             [
                                 5 => 'Yes!',

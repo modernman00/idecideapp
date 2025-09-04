@@ -104,7 +104,7 @@ class IndexController extends BaseController
 
     public function testGet()
     {
-        BaseController::viewWithCsp('testPost');
+        BaseController::viewWithCsp('result2');
     }
 
     public function postContact()

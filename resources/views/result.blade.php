@@ -443,6 +443,8 @@
                     <h5 class="card-title">Your Decision Matrix Result</h5>
                     <p class="card-text">Thank you for using our decision matrix tool. Here are your results:</p>
 
+                    {{-- <a href="{{ route('testPost') }}" class="btn btn-primary">result2</a> --}}
+
                     <!-- Chart and Image Row -->
                     <div class="row align-items-center justify-content-center mb-4">
                         <div class="col-12 col-md-6 text-center">
