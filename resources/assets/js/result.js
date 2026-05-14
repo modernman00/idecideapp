@@ -82,13 +82,33 @@ try {
     throw new Error('Required DOM elements not found');
   }
 
-  // 5. Animated score counter with safety
+  // 5. Animated score counter and gauge
   let i = 0;
+  const gaugeProgress = id('gaugeProgress');
+  const circumference = 2 * Math.PI * 90; // r=90
+
   const interval = setInterval(() => {
     try {
       if (i <= score) {
-        scoreEl.textContent = i + '%';
-        sliderEl.value = i; // Update slider value during animation
+        if (scoreEl) scoreEl.textContent = i + '%';
+        if (sliderEl) sliderEl.value = i;
+        
+        // Update gauge
+        if (gaugeProgress) {
+          const offset = circumference - (i / 100) * circumference;
+          gaugeProgress.style.strokeDashoffset = offset;
+        }
+
+        // Highlight smiley
+        document.querySelectorAll('.smiley').forEach(s => {
+          const sScore = parseInt(s.dataset.score);
+          if (i >= sScore && i < sScore + 20) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+
         i++;
       } else {
         clearInterval(interval);
@@ -101,9 +121,19 @@ try {
   // 6. Set DOM content with fallbacks
   decisionEl.textContent = decision;
   decisionEl.classList.add(color);
-  commentsEl.textContent = comment;
-  imgEl.src = savedScoreData.resultImage;
-  imgEl.alt = savedScoreData.resultImageAlt;
+  
+  if (commentsEl) {
+    commentsEl.textContent = comment;
+    const commentsCard = id('commentsCard');
+    if (commentsCard && comment && comment !== 'No comments provided') {
+      commentsCard.style.display = 'block';
+    }
+  }
+
+  if (imgEl) {
+    imgEl.src = savedScoreData.resultImage || '';
+    imgEl.alt = savedScoreData.resultImageAlt || '';
+  }
 
   if (badgeText) badgeEl.textContent = badgeText;
   if (badgeClass) badgeEl.classList.add(badgeClass);

@@ -2,588 +2,445 @@
 @section('title', 'Decision Matrix')
 @section('content')
 
-@push('styles_result')
+    @push('styles_result')
 
-   <style nonce="{{ $nonce }}">
+        <style nonce="{{ $nonce }}">
         :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #6c757d;
-            --success-color: #198754;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --background-light: #f8f9fa;
-            --background-dark: #343a40;
-            --text-light: #212529;
-            --text-dark: #f8f9fa;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: #DADCE0;
+            --glass-blur: blur(24px);
+            --accent-primary: #1B5E20;
+            --accent-secondary: #4CAF50;
+            --text-main: #202124;
+            --text-muted: #5F6368;
+            --surface-card: #FFFFFF;
         }
 
         [data-theme="dark"] {
-            --background-light: #343a40;
-            --background-dark: #212529;
-            --text-light: #f8f9fa;
-            --text-dark: #212529;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --surface-card: #1e293b;
         }
 
         body {
-            background-color: var(--background-light);
-            color: var(--text-light);
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .container {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .card {
-            border: none;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, #ffffff, #e9ecef);
-            transition: transform 0.3s;
-        }
-
-        [data-theme="dark"] .card {
-            background: linear-gradient(135deg, #495057, #343a40);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        #score {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            transition: color 0.3s;
-        }
-
-        .highlight {
-            font-weight: 600;
-        }
-
-        .success {
-            color: var(--success-color);
-        }
-
-        .warning {
-            color: var(--warning-color);
-        }
-
-        .danger {
-            color: var(--danger-color);
-        }
-
-        .badge-custom {
-            font-size: 1rem;
-            padding: 0.5em 1em;
-            border-radius: 0.5em;
-            margin-top: 1em;
-        }
-
-        .badge-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .badge-warning {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .badge-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .share-buttons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
-            color: white;
-            margin: 0 0.5rem;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .share-buttons a:hover {
-            transform: scale(1.1);
-            background-color: var(--primary-color);
-        }
-
-        #scoreSlider {
-            width: 100%;
-            max-width: 300px;
-            height: 20px;
-            margin: 1rem auto;
-            display: block;
-            -webkit-appearance: none;
-            appearance: none;
-            background: linear-gradient(to right, var(--danger-color) 0%, var(--danger-color) 49%, var(--warning-color) 50%, var(--warning-color) 74%, var(--success-color) 75%, var(--success-color) 100%);
-            border-radius: 10px;
-            outline: none;
-            cursor: default;
-        }
-
-        #scoreSlider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: var(--text-light);
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            cursor: default;
-        }
-
-        #scoreSlider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: var(--text-light);
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            cursor: default;
-        }
-
-        #scoreSlider:disabled {
-            opacity: 1;
-        }
-
-        .slider-label {
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--text-light);
-            margin-top: 0.5rem;
-        }
-
-        .result-image {
-            max-width: 200px;
-            height: auto;
-            border-radius: 0.5rem;
-            transition: opacity 0.5s ease-in;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            cursor: pointer;
-        }
-
-        .btn {
-            border-radius: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            transition: transform 0.2s, background-color 0.3s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .smiley-container {
-            display: flex;
-            justify-content: space-around;
-            width: 200px;
-            margin: 0.5rem auto;
-        }
-
-        .smiley {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            background: var(--background-light);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
         }
 
-        .smiley.green {
-            background: var(--success-color);
-        }
-
-        .smiley.yellow {
-            background: var(--warning-color);
-        }
-
-        .smiley.red {
-            background: var(--danger-color);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 576px) {
-            .card-title {
-                font-size: 1.5rem;
+            .result-container {
+                max-width: 900px;
+                width: 95%;
+                margin: 2rem auto;
+                animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
-            #score {
-                font-size: 1.5rem;
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
-            #scoreSlider,
-            .result-image {
-                max-width: 150px;
+            .glass-card {
+                background: var(--glass-bg);
+                backdrop-filter: var(--glass-blur);
+                -webkit-backdrop-filter: var(--glass-blur);
+                border: 1px solid var(--glass-border);
+                border-radius: 24px;
+                padding: 3rem;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+                color: var(--text-main);
             }
 
-            .btn {
+            .header-section {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .header-section h1 {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 800;
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+                background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .score-visualization {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 3rem;
+            }
+
+            .gauge-container {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                margin-bottom: 1rem;
+            }
+
+            .gauge-svg {
+                transform: rotate(-90deg);
+                width: 100%;
+                height: 100%;
+            }
+
+            .gauge-background {
+                fill: none;
+                stroke: rgba(0, 0, 0, 0.05);
+                stroke-width: 12;
+            }
+
+            [data-theme="dark"] .gauge-background {
+                stroke: rgba(255, 255, 255, 0.05);
+            }
+
+            .gauge-progress {
+                fill: none;
+                stroke: var(--accent-primary);
+                stroke-width: 12;
+                stroke-linecap: round;
+                stroke-dasharray: 565.48;
+                /* 2 * PI * 90 */
+                stroke-dashoffset: 565.48;
+                transition: stroke-dashoffset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            .score-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 3rem;
+                font-weight: 800;
+                font-family: 'Outfit', sans-serif;
+                color: var(--accent-primary);
+            }
+
+            .smiley-scale {
+                display: flex;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+                background: rgba(0, 0, 0, 0.03);
                 padding: 0.5rem 1rem;
-                font-size: 0.9rem;
+                border-radius: 50px;
             }
 
-            .result-image {
-                max-width: 150px;
-            }
-
-            .smiley-container {
-                width: 150px;
+            [data-theme="dark"] .smiley-scale {
+                background: rgba(255, 255, 255, 0.03);
             }
 
             .smiley {
-                width: 25px;
-                height: 25px;
-                font-size: 16px;
-            }
-        }
-
-        @media (min-width: 577px) and (max-width: 992px) {
-
-            #scoreSlider,
-            .result-image {
-                max-width: 180px;
+                font-size: 1.25rem;
+                opacity: 0.4;
+                transition: all 0.3s ease;
             }
 
-            .smiley-container {
-                width: 180px;
+            .smiley.active {
+                opacity: 1;
+                transform: scale(1.3);
             }
-        }
-
-        .img-wrapper {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            background: linear-gradient(to bottom, #fff9e6, #fff4cc);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .img-wrapper .scale-icon {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            climbed: 10px;
-            right: 10px;
-            opacity: 0.3;
-        }
-
-        .share-buttons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
-            color: white;
-            margin: 0 0.5rem;
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-
-        .share-buttons a .fa-twitter {
-            color: #1da1f2;
-            /* Twitter blue */
-        }
-
-        .share-buttons a .fa-whatsapp {
-            color: #25d366;
-            /* WhatsApp green */
-        }
-
-        .share-buttons a .fa-facebook-f {
-            color: #3b5998;
-            /* Facebook blue */
-        }
-
-        .share-buttons a .fa-bullhorn {
-            color: #ff4500;
-            /* Truth Social (using a reddish-orange as a placeholder) */
-        }
-
-        .share-buttons a .fa-linkedin-in {
-            color: #0077b5;
-            /* LinkedIn blue */
-        }
-
-        .share-buttons a .fa-reddit-alien {
-            color: #ff4500;
-            /* Reddit orange */
-        }
-
-        .share-buttons a:hover {
-            transform: scale(1.2);
-        }
-
-        .success-light {
-            color: #28a745;
-        }
-
-        .badge-success-light {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .advice-list {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-top: 1rem;
-        }
-
-        .advice-list li {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            color: #212529;
-        }
-
-        .influence-bar {
-            margin-bottom: 10px;
-        }
-
-        .influence-label {
-            font-weight: bold;
-        }
 
-        .influence-progress {
-            height: 20px;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-            background-color: #e9ecef;
-        }
-
-        .influence-fill {
-            height: 100%;
-            text-align: right;
-            padding-right: 6px;
-            line-height: 20px;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .influence-high {
-            background-color: #28a745;
-        }
-
-        /* Green 🔥 */
-        .influence-medium {
-            background-color: #ffc107;
-        }
-
-        /* Yellow 🌤️ */
-        .influence-low {
-            background-color: #dc3545;
-        }
-
-        /* Red 🧊 */
-
-        #toggleInfluences {
-            transition: background-color 0.3s ease;
-        }
-
-        #toggleInfluences:hover {
-            background-color: #e3f2fd;
-        }
-
-        .influence-fill {
-            transition: width 0.6s ease;
-        }
-           .title{
-            color: var(--primary-color);
-        }
-    </style>
-
-
-
-@endpush
-
- 
-
-
-    <div class="bg-light d-flex align-items-center justify-content-center min-vh-100">
-
-        <div class="container">
-
-            <h1 class="text-center mb-4 title">Decision Matrix Result</h1>
-            <div class="card shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Your Decision Matrix Result</h5>
-                    <p class="card-text">Thank you for using our decision matrix tool. Here are your results:</p>
-
-                    {{-- <a href="{{ route('testPost') }}" class="btn btn-primary">result2</a> --}}
-
-                    <!-- Chart and Image Row -->
-                    <div class="row align-items-center justify-content-center mb-4">
-                        <div class="col-12 col-md-6 text-center">
-                            {{-- <canvas id="scoreChart" width="200" height="200"></canvas> --}}
-                            <div class="smiley-container">
-
-                                <div class="smiley red">😡</div>
-                                <div class="smiley red">😬</div>
-                                <div class="smiley red">😞</div>
-                                <div class="smiley red">😞</div>
-                                <div class="smiley yellow">🙃</div>
-                                <div class="smiley yellow">😐</div>
-                                <div class="smiley green">😀</div>
-                                <div class="smiley green">👍</div>
-
-                            </div>
-                            <input type="range" id="scoreSlider" min="0" max="100" value="0" disabled>
-                            <br>
-
-                            <div class="text-center mt-3">
-                                <button id="toggleInfluences" class="btn btn-outline-info btn-sm">
-                                    Show Influencing Factors
-                                </button>
-                            </div>
-
-                            <div id="influenceBreakdown" class="mt-3" style="display: none;"></div>
-
-                        </div>
-
-
-
-
-                        {{-- <div class="col-12 col-md-6 text-center">
-            <img id="image" src="" alt="" class="result-image" />
-          </div> --}}
-
-                        <div class="col-12 col-md-6 text-center">
-                            <img src="" alt="" id="image" class="result-image img-fluid"
-                                style="min-width:100%; min-height:100%; object-fit:cover;">
-
-                        </div>
-                    </div>
-
-                    <ul class="list-group list-group-flush mt-4">
-
-                        <li class="list-group-item">
-                            <strong>Score:</strong>
-                            <span id="score"></span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Decision:</strong>
-                            <span id="decision" class="highlight"></span>
-                        </li>
-
-
-
-                        <li class="list-group-item">
-                            <strong>Comments:</strong>
-                            <span id="comments"></span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Personalised Advice: </strong>
-                            <span id="personalisedAdvice"> loading...</span>
-                        </li>
-
-                        <li class="list-group-item">
-                            <strong>Specific Advice </strong>
-                            <ul id="advice-list" class="advice-list"></ul>
-                        </li>
-
-
-                    </ul>
-
-
-                    <div class="text-center mt-4">
-                        <span id="badge" class="badge-custom"></span>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <a href="/#questions" class="btn btn-primary">
-                            Take Quiz Again
-                        </a>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <p class="mb-2">Share your result:</p>
-                        <div class="share-buttons">
-
-                            <a href="https://twitter.com/intent/tweet?text=Check out my decision matrix result!&url={{ $_ENV['APP_URL'] }}"
-                                target="_blank" id="twitterShare" title="Share on Twitter" aria-label="Share on Twitter"><i
-                                    class="fab fa-twitter"></i></a>
-                            <a href="https://wa.me/?text=Check out my decision matrix result!&url={{ $_ENV['APP_URL'] }}"
-                                target="_blank" id="whatsappShare" title="Share on WhatsApp"
-                                aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $_ENV['APP_URL'] }}" target="_blank"
-                                id="facebookShare" title="Share on Facebook" aria-label="Share on Facebook"><i
-                                    class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ $_ENV['APP_URL'] }}"
-                                target="_blank" id="linkedinShare" title="Share on LinkedIn"
-                                aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://www.reddit.com/submit?url={{ $_ENV['APP_URL'] }}" target="_blank"
-                                id="redditShare" title="Share on Reddit" aria-label="Share on Reddit"><i
-                                    class="fab fa-reddit-alien"></i></a>
-                        </div>
-
-                    </div>
-
-                    <div class="text-center mt-4">
-
-                        <button id="emailModalBtn" data-bs-toggle="modal" data-bs-target="#emailModal"
-                            class="btn btn-secondary">Email Result</button>
-
-                        <button id="referFriend" class="btn btn-success">Invite a Friend</button>
-                    </div>
-
-                    <br><br>
-
-                    {{-- CHOOSE YOUR LANGUAGE --}}
-
-                    <div class="row mt-4">
-                        <div class="col">
-                            <label for="languageSelect" class="form-label">Choose Language:</label>
-                            <select id="languageSelect" class="form-select w-auto d-inline-block">
-                                <option value="en" selected>English</option>
-                                <option value="es">Spanish</option>
-                                <option value="fr">French</option>
-                                <!-- Add more languages as needed -->
-                            </select>
-                        </div>
-                    </div>
-
-
+            .decision-section {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 16px;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            [data-theme="dark"] .decision-section {
+                background: rgba(15, 23, 42, 0.3);
+            }
+
+            .decision-label {
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                font-weight: 700;
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                margin-bottom: 0.5rem;
+            }
+
+            .decision-text {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--accent-primary);
+            }
+
+            .advice-card {
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 20px;
+                padding: 2rem;
+                margin-bottom: 2rem;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            }
+
+            [data-theme="dark"] .advice-card {
+                background: rgba(30, 41, 59, 0.5);
+            }
+
+            .advice-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 1rem;
+                font-weight: 700;
+                font-size: 1.1rem;
+            }
+
+            .influence-bar {
+                margin-bottom: 1.5rem;
+            }
+
+            .influence-info {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .influence-progress {
+                height: 8px;
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            [data-theme="dark"] .influence-progress {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .influence-fill {
+                height: 100%;
+                border-radius: 4px;
+                transition: width 1s ease-out;
+            }
+
+            .influence-high {
+                background: linear-gradient(to right, #10b981, #059669);
+            }
+
+            .influence-medium {
+                background: linear-gradient(to right, #f59e0b, #d97706);
+            }
+
+            .influence-low {
+                background: linear-gradient(to right, #ef4444, #dc2626);
+            }
+
+            .action-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .btn-premium {
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                border: none;
+            }
+
+            .btn-primary-premium {
+                background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                color: white;
+                box-shadow: 0 4px 14px 0 rgba(13, 148, 136, 0.39);
+            }
+
+            .btn-secondary-premium {
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--text-main);
+                border: 1px solid var(--glass-border);
+            }
+
+            .btn-premium:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+            }
+
+            .share-section {
+                margin-top: 3rem;
+                text-align: center;
+                border-top: 1px solid var(--glass-border);
+                padding-top: 2rem;
+            }
+
+            .share-links {
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .share-icon {
+                font-size: 1.5rem;
+                color: var(--text-muted);
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            .share-icon:hover {
+                color: var(--accent-primary);
+                transform: scale(1.2);
+            }
+
+            #scoreSlider {
+                display: none;
+                /* Hide the old slider, we'll use the gauge */
+            }
+
+            @media (max-width: 768px) {
+                .glass-card {
+                    padding: 1.5rem;
+                }
+
+                .action-buttons {
+                    grid-template-columns: 1fr;
+                }
+
+                .header-section h1 {
+                    font-size: 1.75rem;
+                }
+            }
+        </style>
+
+
+
+    @endpush
+
+
+
+
+    <div class="result-container">
+        <div class="glass-card">
+            <div class="header-section">
+                <h1>Decision Results</h1>
+                <p class="text-muted">Based on your evaluation, here is our rational recommendation.</p>
+            </div>
+
+            <div class="score-visualization">
+                <div class="smiley-scale">
+                    <span class="smiley" data-score="0">😡</span>
+                    <span class="smiley" data-score="20">😬</span>
+                    <span class="smiley" data-score="40">😞</span>
+                    <span class="smiley" data-score="60">😐</span>
+                    <span class="smiley" data-score="80">😀</span>
+                    <span class="smiley" data-score="100">👍</span>
                 </div>
 
+                <div class="gauge-container">
+                    <svg class="gauge-svg" viewBox="0 0 200 200">
+                        <circle class="gauge-background" cx="100" cy="100" r="90" />
+                        <circle id="gaugeProgress" class="gauge-progress" cx="100" cy="100" r="90" />
+                    </svg>
+                    <div id="score" class="score-text">0%</div>
+                </div>
+
+                <input type="range" id="scoreSlider" min="0" max="100" value="0" disabled>
+            </div>
+
+            <div class="decision-section text-center">
+                <div class="decision-label">Final Verdict</div>
+                <div id="decision" class="decision-text">Analyzing...</div>
+                <div id="badge" class="mt-2"></div>
+            </div>
+
+            <div class="advice-card">
+                <div class="advice-header">
+                    <i class="fas fa-lightbulb text-warning"></i>
+                    <span>Personalized Guidance</span>
+                </div>
+                <p id="personalisedAdvice" class="mb-0">Calculating your tailored advice...</p>
+            </div>
+
+            <div id="commentsCard" class="advice-card" style="display: none;">
+                <div class="advice-header">
+                    <i class="fas fa-comment-dots text-info"></i>
+                    <span>Reviewer's Comments</span>
+                </div>
+                <p id="comments" class="mb-0"></p>
+            </div>
+
+            <!-- Hidden image element to satisfy JS -->
+            <img id="image" src="" alt="" style="display: none;">
+
+            <div class="advice-card">
+                <div class="advice-header">
+                    <i class="fas fa-list-check text-primary"></i>
+                    <span>Key Considerations</span>
+                </div>
+                <ul id="advice-list" class="advice-list mb-0"></ul>
+            </div>
+
+            <div class="text-center mb-4">
+                <button id="toggleInfluences" class="btn btn-premium btn-secondary-premium btn-sm">
+                    <i class="fas fa-chart-simple"></i> Show Influencing Factors
+                </button>
+            </div>
+
+            <div id="influenceBreakdown" class="mt-4" style="display: none;"></div>
+
+            <div class="action-buttons">
+                <a href="/#questions" class="btn btn-premium btn-primary-premium">
+                    <i class="fas fa-rotate-left"></i> Take Quiz Again
+                </a>
+                <button id="emailModalBtn" data-bs-toggle="modal" data-bs-target="#emailModal"
+                    class="btn btn-premium btn-secondary-premium">
+                    <i class="fas fa-envelope"></i> Email Result
+                </button>
+            </div>
+
+            <div class="share-section">
+                <p class="text-muted small mb-3">Share your rational decision</p>
+                <div class="share-links">
+                    <a href="#" id="twitterShare" class="share-icon" title="Share on Twitter"><i
+                            class="fab fa-x-twitter"></i></a>
+                    <a href="#" id="whatsappShare" class="share-icon" title="Share on WhatsApp"><i
+                            class="fab fa-whatsapp"></i></a>
+                    <a href="#" id="facebookShare" class="share-icon" title="Share on Facebook"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="#" id="linkedinShare" class="share-icon" title="Share on LinkedIn"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="#" id="redditShare" class="share-icon" title="Share on Reddit"><i
+                            class="fab fa-reddit-alien"></i></a>
+                </div>
+            </div>
+
+            <div class="row mt-5 justify-content-center">
+                <div class="col-auto">
+                    <div class="d-flex align-items-center gap-2">
+                        <label for="languageSelect" class="form-label mb-0 small text-muted">Language:</label>
+                        <select id="languageSelect" class="form-select form-select-sm w-auto">
+                            <option value="en" selected>English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     {{-- MODAL --}}

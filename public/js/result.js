@@ -353,7 +353,7 @@ var renderInfluences = function renderInfluences(data) {
     }
     var bar = document.createElement('div');
     bar.className = 'influence-bar';
-    bar.innerHTML = "\n      <div class=\"influence-label\">".concat(emoji, " ").concat(item.label, "</div>\n      <div class=\"influence-progress\">\n        <div class=\"influence-fill ").concat(levelClass, "\" style=\"width: ").concat(item.impact, "%\">\n          ").concat(item.impact, "%\n        </div>\n      </div>\n    ");
+    bar.innerHTML = "\n      <div class=\"influence-info\">\n        <span>".concat(emoji, " ").concat(item.label, "</span>\n        <span>").concat(item.impact, "%</span>\n      </div>\n      <div class=\"influence-progress\">\n        <div class=\"influence-fill ").concat(levelClass, "\" style=\"width: ").concat(item.impact, "%\"></div>\n      </div>\n    ");
     container.appendChild(bar);
   });
 };
@@ -446,13 +446,32 @@ try {
     throw new Error('Required DOM elements not found');
   }
 
-  // 5. Animated score counter with safety
+  // 5. Animated score counter and gauge
   var i = 0;
+  var gaugeProgress = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('gaugeProgress');
+  var circumference = 2 * Math.PI * 90; // r=90
+
   var interval = setInterval(function () {
     try {
       if (i <= score) {
-        _scoreEl.textContent = i + '%';
-        sliderEl.value = i; // Update slider value during animation
+        if (_scoreEl) _scoreEl.textContent = i + '%';
+        if (sliderEl) sliderEl.value = i;
+
+        // Update gauge
+        if (gaugeProgress) {
+          var offset = circumference - i / 100 * circumference;
+          gaugeProgress.style.strokeDashoffset = offset;
+        }
+
+        // Highlight smiley
+        document.querySelectorAll('.smiley').forEach(function (s) {
+          var sScore = parseInt(s.dataset.score);
+          if (i >= sScore && i < sScore + 20) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
         i++;
       } else {
         clearInterval(interval);
@@ -465,9 +484,17 @@ try {
   // 6. Set DOM content with fallbacks
   decisionEl.textContent = decision;
   decisionEl.classList.add(color);
-  commentsEl.textContent = comment;
-  imgEl.src = savedScoreData.resultImage;
-  imgEl.alt = savedScoreData.resultImageAlt;
+  if (commentsEl) {
+    commentsEl.textContent = comment;
+    var commentsCard = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('commentsCard');
+    if (commentsCard && comment && comment !== 'No comments provided') {
+      commentsCard.style.display = 'block';
+    }
+  }
+  if (imgEl) {
+    imgEl.src = savedScoreData.resultImage || '';
+    imgEl.alt = savedScoreData.resultImageAlt || '';
+  }
   if (badgeText) badgeEl.textContent = badgeText;
   if (badgeClass) badgeEl.classList.add(badgeClass);
 

@@ -20,11 +20,12 @@ export const renderInfluences =(data)=> {
     bar.className = 'influence-bar';
 
     bar.innerHTML = `
-      <div class="influence-label">${emoji} ${item.label}</div>
+      <div class="influence-info">
+        <span>${emoji} ${item.label}</span>
+        <span>${item.impact}%</span>
+      </div>
       <div class="influence-progress">
-        <div class="influence-fill ${levelClass}" style="width: ${item.impact}%">
-          ${item.impact}%
-        </div>
+        <div class="influence-fill ${levelClass}" style="width: ${item.impact}%"></div>
       </div>
     `;
     container.appendChild(bar);

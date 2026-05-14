@@ -83,6 +83,10 @@
     </div>
 
     <script>
+        function createBlog() {
+            window.location.href = '/createBlog';
+        }
+
         function editBlog(id) {
             // REDIRECT TO EDIT BLOG PAGE
             window.location.href = '/editBlog/' + id;

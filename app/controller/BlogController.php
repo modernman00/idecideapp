@@ -51,13 +51,14 @@ class BlogController extends Select
 
         $removeKey = ['submit', 'button', 'grecaptcharesponse', 'token'];
 
-        SubmitPostData::submitToOneTablenImage(
+        $returnLastId = SubmitPostData::submitToOneTablenImage(
             table: 'blogs',
             removeKeys: $removeKey,
             imgPath: 'public/images/blog/',
             fileName: 'blogImg',
             minMaxData: self::MIN_MAX_DATA
         );
+        \msgSuccess(200, 'Blog post created successfully!', $returnLastId);
     }
 
     public function showById($id)

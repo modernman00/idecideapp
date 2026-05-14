@@ -1,116 +1,66 @@
 {
-  "name": "iDecide",
+  "name": "iDecide Decision Matrix",
   "short_name": "iDecide",
-  "version": "1.0.1",
-  "lang": "en",
-  "dir": "ltr",
-  "description": "A decision matrix tool to help you make informed purchase decisions.",
-  "start_url": "/",
-  "scope": "/",
+  "description": "Empowering you to make smarter, more rational buying decisions.",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "browser"
-  ],
-  "background_color": "#f8f9fa",
-  "theme_color": "#0d6efd",
+  "background_color": "#0f172a",
+  "theme_color": "#0d9488",
   "orientation": "portrait",
+  "scope": "/",
   "icons": [
     {
-      "src": "images/pwa/ios/192.png",
+      "src": "/public/images/logo/ios/192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any",
-      "description": "iDecide app icon 192x192"
+      "purpose": "any"
     },
     {
-      "src": "images/pwa/android/192.png",
+      "src": "/public/images/logo/ios/192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable",
-      "description": "iDecide app icon 192x192"
+      "purpose": "maskable"
     },
     {
-      "src": "images/pwa/android/512.png",
+      "src": "/public/images/logo/ios/512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable",
-      "description": "iDecide app icon 512x512"
+      "purpose": "any"
     },
     {
-      "src": "images/pwa/ios/512.png",
+      "src": "/public/images/logo/ios/512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any",
-      "description": "iDecide app icon 512x512"
+      "purpose": "maskable"
     }
   ],
-
-    "screenshots": [
+  "screenshots": [
     {
-      "src": "images/pwa/screenshots/result.png",
-    "type": "image/png",
-    "sizes": "1280x800",
-    "form_factor": "wide",
-    "label": "Result Page Overview"
-    },
-    {
-      "src": "images/pwa/screenshots/home.png",
-         "sizes": "1280x800",
-      "type": "image/png" , 
-       "form_factor": "wide",
-    "label": "Home Page Overview"
-    },
-
-
-    {
-      "src": "images/pwa/screenshots/result_mobile.png",
-    "type": "image/png",
-    "sizes": "414x896",
-    "form_factor": "narrow",
-    "label": "Result Page Overview"
-    },
-    {
-      "src": "images/pwa/screenshots/home_mobile.png",
-         "sizes": "414x896",
-      "type": "image/png" , 
-       "form_factor": "narrow",
-    "label": "Home Page Overview"
+      "src": "/public/images/landingpage.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "iDecide Desktop Overview"
     }
-    ],
-      "shortcuts": [
+  ],
+  "shortcuts": [
     {
-      "name": "Make a new decision",
-      "url": "/",
-      "icons": [{ "src": "images/pwa/make_decision/ios/192.png", "sizes": "192x192" }]
+      "name": "New Decision",
+      "short_name": "New",
+      "description": "Start a new decision matrix",
+      "url": "/#questions",
+      "icons": [{ "src": "/public/images/logo/vector/default.svg", "sizes": "any" }]
     },
     {
-      "name": "View results",
+      "name": "View Results",
+      "short_name": "Results",
+      "description": "Check your decision history",
       "url": "/result",
-      "icons": [{ "src": "images/pwa/result/ios/192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/public/images/logo/vector/default.svg", "sizes": "any" }]
     }
-  ],  
-
-  "author": "Modernman00",
-  "license": "MIT",
-  "keywords": [
-    "decision matrix",
-    "purchase decisions",
-    "product comparison"
   ],
-  "categories": [
-    "productivity",
-    "tools",
-    "shopping"
-  ],
-  "homepage": "https://yourwebsite.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/modernman00/idecide.git"
-  },
-  "serviceworker": {
-    "src": "service-worker.js",
-    "scope": "/",
-    "type": "classic"
-  }
+  "categories": ["productivity", "utilities", "shopping"],
+  "dir": "ltr",
+  "lang": "en-US"
 }

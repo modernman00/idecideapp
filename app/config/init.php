@@ -14,7 +14,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     ]);
 }
 
-use App\classes\ErrorHandler;
 
 require_once __DIR__ . '/_env.php';
 

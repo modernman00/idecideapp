@@ -2,9 +2,8 @@
 RewriteEngine On
 #   RewriteBase /
 
-# ✅ Allow direct access to service-worker.js from /public
-RewriteCond %{REQUEST_URI} ^/service-worker\.js$
-RewriteRule ^ public/service-worker.js [L]
+# ✅ Reliable PWA/SEO Routing
+RewriteRule ^(service-worker\.js|manifest\.json|robots\.txt|sitemap\.xml)$ public/$1 [L]
 
 
 

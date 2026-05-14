@@ -56,12 +56,9 @@ $router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@si
 
 
 
-// $router->map(
-//     'GET',
-//     '/blogMgt',
-//     'App\controller\BlogController@blogMgt',
-//     'blogMgt'
-// );
+// create blog post
+$router->map('GET', '/createBlog', 'App\controller\BlogController@showCreateBlog', 'createBlog');
+$router->map('POST', '/createBlog', 'App\controller\BlogController@postCreateBlog', 'createBlog_post');
 
 // edit blog post
 $router->map('GET', '/editBlog/[i:id]', 'App\controller\BlogController@showEditForm', 'editBlog');

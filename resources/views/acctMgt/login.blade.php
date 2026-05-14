@@ -4,7 +4,7 @@
 
     {{-- <div class="styleForm" style="margin-top: 2rem;"> --}}
 
-        <form action="" method="" id="adminlogin" class="adminlogin styleForm" enctype="multipart/form-data">
+        <form id="adminlogin" class="adminlogin styleForm" enctype="multipart/form-data">
 
             <div class='form-group'>
                 <br>
