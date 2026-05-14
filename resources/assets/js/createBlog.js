@@ -1,15 +1,15 @@
 //import axios 
-import { loginSubmission, bindEvent, showFileName } from "@modernman00/shared-js-lib"; 
+import {  showFileName, registerHandler } from "@modernman00/shared-js-lib"; 
 
 
-  // Submission handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    loginSubmission('createBlog', 'createBlog', 'blogs', 'bulma');
-  };
+  registerHandler({
+    formId: "createBlog",
+    route: 'createBlog',
+    redirect: 'blogs',
+    optionalFields: ['blogImg'],
+    theme: 'bulma'
 
-  // Bind events
-  bindEvent({ id: 'button', handler: handleSubmit });
+  })
 
 
 

@@ -35,7 +35,9 @@ mix
   .js("resources/assets/js/index.js", "js")
   .sass("resources/assets/sass/main.scss", "css")
   .extract()
-  .options({ legacyNodePolyfills: true });
+  .options({ 
+    legacyNodePolyfills: true
+  });
 
 // Enable versioning in production
 if (mix.inProduction()) {
@@ -48,4 +50,14 @@ if (process.env.MIX_SOURCEMAPS !== 'false') {
 
 mix.babelConfig({
   plugins: ["@babel/plugin-syntax-dynamic-import"],
+});
+
+mix.override((config) => {
+  config.plugins = config.plugins.filter(plugin => {
+    const name = plugin.constructor && plugin.constructor.name;
+    const isProgress = name === 'ProgressPlugin' || name === 'WebpackBarPlugin';
+    const hasWebpackBarOptions = plugin.options && (plugin.options.name === 'Mix' || plugin.options.reporters);
+    
+    return !isProgress && !hasWebpackBarOptions;
+  });
 });

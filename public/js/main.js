@@ -1,11 +1,11 @@
 "use strict";
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["main"],{
 
-/***/ "./resources/assets/js/background-sync.js":
+/***/ "./resources/assets/js/background-sync.js"
 /*!************************************************!*\
   !*** ./resources/assets/js/background-sync.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -240,13 +240,13 @@ function showSyncToast(message) {
   document.head.appendChild(style);
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/global.js":
+/***/ "./resources/assets/js/global.js"
 /*!***************************************!*\
   !*** ./resources/assets/js/global.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -289,13 +289,13 @@ function bindEvent(_ref) {
   }
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/include/main/autocomplete.js":
+/***/ "./resources/assets/js/include/main/autocomplete.js"
 /*!**********************************************************!*\
   !*** ./resources/assets/js/include/main/autocomplete.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -388,13 +388,13 @@ var autocomplete = function autocomplete(inputId, arr) {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (autocomplete);
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/include/main/dataToAutoComplete.js":
+/***/ "./resources/assets/js/include/main/dataToAutoComplete.js"
 /*!****************************************************************!*\
   !*** ./resources/assets/js/include/main/dataToAutoComplete.js ***!
   \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -403,13 +403,13 @@ __webpack_require__.r(__webpack_exports__);
 var purchaseItems = ['Acoustic guitar', 'Air conditioner', 'AirPods', 'Apple Watch', 'Bicycle', 'Blender (high-end)', 'Camera (DSLR/mirrorless)', 'Camping gear', 'Car (new or used)', 'Car seat (premium)', 'Coffee maker (espresso)', 'Cooling mattress', 'Designer handbag', 'Desktop computer', 'Dishwasher', 'Drone', 'Holiday', 'Electric guitar', 'Electric scooter', 'Electric toothbrush', 'Espresso machine', 'Exercise bike', 'Eyeglasses (designer)', 'Fitness tracker', 'Gaming console', 'Gaming chair', 'Gold jewelry', 'Golf clubs', 'Grill (outdoor)', 'Headphones (noise-canceling)', 'Home gym equipment', 'Home security system', 'Hot tub', 'iPad', 'Jeans (premium)', 'Kayak', 'Kitchen mixer (stand)', 'Laptop', 'Leather jacket', 'Luggage set', 'Luxury watch (Rolex, Casio)', 'Massage chair', 'Mattress', 'Microwave (smart)', 'Motorcycle', 'Mountain bike', 'Music production software', 'Noise-canceling earbuds', 'Oven (convection)', 'Patio furniture', 'Pet insurance', 'Photography lighting kit', 'Piano (digital)', 'Power tools (drill set)', 'Printer (3D)', 'Projector', 'Ray-Ban sunglasses', 'Refrigerator', 'Robot vacuum', 'Running shoes (premium)', 'Ski equipment', 'Smart doorbell', 'Smart garage door opener', 'Smart speaker', 'Smartphone', 'Smartwatch', 'Sneakers (designer)', 'Snowboard', 'Sofa', 'Soundbar', 'Streaming subscription (Netflix, Disney+)', 'Surfboard', 'Tablet', 'Television (4K)', 'Tent (backpacking)', 'Treadmill', 'Vacuum cleaner (cordless)', 'Vacation package', 'Video camera', 'Video game (AAA title)', 'Vinyl record player', 'VR headset', 'Washing machine', 'Wedding ring', 'Weighted blanket', 'Wireless charger', 'Yoga retreat', 'Home theater system', 'Diving gear', 'Electric car charger', 'Telescope', 'Designer suit', 'Art print (original)', 'Collectible figurine', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)', 'Portable generator', 'Skateboard (electric)', 'Leather boots', 'Craft supplies (sewing machine)', 'Snooker table', 'Gym membership', 'Smart thermostat', 'E-reader (Kindle)', 'Gym bag', 'Snooker table', 'Plane tickets', 'Train tickets', 'Bus passes', 'Taxi rides', 'Rideshares', 'Fuel', 'Motor oil', 'Car tyres', 'Car battery', 'Car accessories', 'Helmet', 'Motorbike gear', 'Travel insurance', 'Hotel stay', 'Hostel stay', 'Holiday rental', 'Camping pitch', 'Luggage', 'Suitcase', 'Backpack', 'Travel pillow', 'Eye mask', 'Ear plugs', 'Maps', 'Guidebook', 'Camping stove', 'Cooler box', 'Hiking poles', 'Surfboard', 'Ski equipment'];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (purchaseItems);
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/include/main/intersection.js":
+/***/ "./resources/assets/js/include/main/intersection.js"
 /*!**********************************************************!*\
   !*** ./resources/assets/js/include/main/intersection.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -436,13 +436,13 @@ var intersection = function intersection() {
   });
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/include/main/toolTips.js":
+/***/ "./resources/assets/js/include/main/toolTips.js"
 /*!******************************************************!*\
   !*** ./resources/assets/js/include/main/toolTips.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -479,13 +479,13 @@ var tooltips = function tooltips() {
   });
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/main.js":
+/***/ "./resources/assets/js/main.js"
 /*!*************************************!*\
   !*** ./resources/assets/js/main.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./resources/assets/js/global.js");
@@ -630,7 +630,7 @@ initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
   }, _callee, null, [[3, 9]]);
 })));
 
-/***/ })
+/***/ }
 
 }]);
 //# sourceMappingURL=main.js.map

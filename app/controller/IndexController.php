@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use Src\{CheckToken, Limiter, LoginUtility, Select, Utility, SubmitForm};
-use RuntimeException;
-use Src\Sanitise\Sanitise;
-use Src\functionality\middleware\GetRequestData;
-use Src\functionality\SendEmail;
+use Src\{CheckToken, Limiter, Select, Utility};
 use Src\functionality\SendEmailFunctionality;
-use Src\ToSendEmail;
 use Src\Recaptcha;
 
 use Src\functionality\SubmitPostData;
@@ -73,23 +68,6 @@ class IndexController extends BaseController
 
     public function testPost()
     {
-        // $post = GetRequestData::getRequestData();
-
-        // $cleanD = LoginUtility::getSanitisedInputData($post);
-
-
-        // // remove non-essential fields
-        // unset($cleanD['account2']['confirm_password'], $cleanD['token']);
-
-        // foreach ($cleanD as $tableName => $tableData) {
-        //     $allowedTables = ['account1', 'account2', 'account3', 'account4'];
-        //     if (!in_array($tableName, $allowedTables, true)) continue;
-        //     if (!SubmitForm::submitForm($tableName, $tableData)) {
-        //         throw new RuntimeException("$tableName didn't submit");
-        //     } else {
-        //         echo "$tableName submitted successfully";
-        //     }
-        // }
         $remove = ['confirm_password', 'token',  'grecaptcharesponse'];
         $minMax = [
             'data' => ['email',  'james'],

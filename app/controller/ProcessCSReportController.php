@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\Classes\ProcessCSReport;
+use App\classes\ProcessCSReport;
 
 class ProcessCSReportController extends BaseController
 {

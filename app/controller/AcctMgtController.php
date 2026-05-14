@@ -65,7 +65,10 @@ class AcctMgtController extends BaseController
     {
         try {
             $verify = $_GET['verify'] ?? null;
-            PasswordRecoveryService::show($verify, 'acctMgt/forgot');
+            if(!$verify){
+                redirect('/adminlogin');
+            }
+            PasswordRecoveryService::show('acctMgt.forgot');
         } catch (\Throwable $th) {
             Utility::showError($th);
         }

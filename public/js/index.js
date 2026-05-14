@@ -1,11 +1,11 @@
 "use strict";
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["/js/index"],{
 
-/***/ "./resources/assets/js/index.js":
+/***/ "./resources/assets/js/index.js"
 /*!**************************************!*\
   !*** ./resources/assets/js/index.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @modernman00/shared-js-lib */ "./node_modules/@modernman00/shared-js-lib/index.js");
@@ -20,22 +20,22 @@ document.addEventListener('DOMContentLoaded', function () {
       return __webpack_require__.e(/*! import() | result */ "result").then(__webpack_require__.bind(__webpack_require__, /*! ./result */ "./resources/assets/js/result.js"));
     },
     '/adminlogin': function _adminlogin() {
-      return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/login */ "./resources/assets/js/acctMgt/login.js"));
+      return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/login */ "./resources/assets/js/AcctMgt/login.js"));
     },
     '/forgot': function _forgot() {
-      return __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/forgot */ "./resources/assets/js/acctMgt/forgot.js"));
+      return __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/forgot */ "./resources/assets/js/AcctMgt/forgot.js"));
     },
     '/code': function _code() {
-      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/code */ "./resources/assets/js/acctMgt/code.js"));
+      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/code */ "./resources/assets/js/AcctMgt/code.js"));
     },
     '/createBlog': function _createBlog() {
       return __webpack_require__.e(/*! import() | createBlog */ "createBlog").then(__webpack_require__.bind(__webpack_require__, /*! ./createBlog */ "./resources/assets/js/createBlog.js"));
     },
     '/testPost': function _testPost() {
-      return __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/testPost */ "./resources/assets/js/acctMgt/testPost.js"));
+      return __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/testPost */ "./resources/assets/js/AcctMgt/testPost.js"));
     },
     '/changePassword': function _changePassword() {
-      return __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/changePassword */ "./resources/assets/js/acctMgt/changePassword.js"));
+      return __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/changePassword */ "./resources/assets/js/AcctMgt/changePassword.js"));
     },
     '/contact': function _contact() {
       return __webpack_require__.e(/*! import() | contact */ "contact").then(__webpack_require__.bind(__webpack_require__, /*! ./contact */ "./resources/assets/js/contact.js"));
@@ -58,19 +58,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/sass/main.scss":
+/***/ "./resources/assets/sass/main.scss"
 /*!*****************************************!*\
   !*** ./resources/assets/sass/main.scss ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
-/***/ })
+/***/ }
 
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules

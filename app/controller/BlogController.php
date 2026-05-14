@@ -6,12 +6,9 @@ namespace App\controller;
 
 use Src\{
     Select, 
-    CorsHandler, 
     Exceptions\NotFoundException, 
-    LoginUtility, 
     SelectFn, 
     DeleteFn, 
-    Update, 
     Utility
 };
 use Src\functionality\{SubmitPostData, UpdateExistingData};
@@ -49,16 +46,29 @@ class BlogController extends Select
     public function postCreateBlog()
     {
 
-        $removeKey = ['submit', 'button', 'grecaptcharesponse', 'token'];
+        try {
+
+        $removeKey = ['button', 'grecaptcharesponse', 'token'];
 
         $returnLastId = SubmitPostData::submitToOneTablenImage(
             table: 'blogs',
             removeKeys: $removeKey,
             imgPath: 'public/images/blog/',
             fileName: 'blogImg',
-            minMaxData: self::MIN_MAX_DATA
+            sourceFileTable: 'blog',
+            minMaxData: self::MIN_MAX_DATA,
+            isCaptcha: true,
+            optionalFields: ['blogImg'],
+            
         );
-        \msgSuccess(200, 'Blog post created successfully!', $returnLastId);
+
+        if($returnLastId){
+            msgSuccess(200, 'Blog post created successfully!', $returnLastId);
+        }
+    } catch (\Throwable $th) {
+        Utility::showError($th);
+    }
+        
     }
 
     public function showById($id)

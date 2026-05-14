@@ -1,11 +1,11 @@
 "use strict";
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["result"],{
 
-/***/ "./resources/assets/js/background-sync.js":
+/***/ "./resources/assets/js/background-sync.js"
 /*!************************************************!*\
   !*** ./resources/assets/js/background-sync.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -240,13 +240,13 @@ function showSyncToast(message) {
   document.head.appendChild(style);
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/global.js":
+/***/ "./resources/assets/js/global.js"
 /*!***************************************!*\
   !*** ./resources/assets/js/global.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -289,13 +289,13 @@ function bindEvent(_ref) {
   }
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/include/result/confetti.js":
+/***/ "./resources/assets/js/include/result/confetti.js"
 /*!********************************************************!*\
   !*** ./resources/assets/js/include/result/confetti.js ***!
   \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -324,13 +324,13 @@ var triggerConfetti = function triggerConfetti() {
   }
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/include/result/influences.js":
+/***/ "./resources/assets/js/include/result/influences.js"
 /*!**********************************************************!*\
   !*** ./resources/assets/js/include/result/influences.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -358,13 +358,13 @@ var renderInfluences = function renderInfluences(data) {
   });
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/assets/js/result.js":
+/***/ "./resources/assets/js/result.js"
 /*!***************************************!*\
   !*** ./resources/assets/js/result.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
@@ -712,7 +712,7 @@ try {
   if (_sliderEl) _sliderEl.style.display = 'none';
 }
 
-/***/ })
+/***/ }
 
 }]);
 //# sourceMappingURL=result.js.map

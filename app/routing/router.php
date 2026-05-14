@@ -31,19 +31,20 @@ $router->map('POST', '/calculateResult', 'App\controller\CalculateResultControll
 // BLOG MANAGEMENT
 
 // Show form to create a new blog post
-$router->map('GET', '/createBlog', 'App\controller\BlogController@showCreateBlog', 'showCreateBlog');
+$router->map('GET', '/createBlog', 'App\controller\BlogController@showCreateBlog', 'createBlog');
 
 // Create a new blog post
-$router->map('POST', '/createBlog', 'App\controller\BlogController@postCreateBlog', 'postCreateBlog');
+$router->map('POST', '/createBlog', 'App\controller\BlogController@postCreateBlog', 'createBlog_post');
 
 // Show form to edit an existing blog post
-$router->map('GET', '/showEditBlog/{id}', 'App\controller\BlogController@showEditForm');
+$router->map('GET', '/editBlog/[i:id]', 'App\controller\BlogController@showEditForm', 'editBlog');
 
 // Update an existing blog post
-$router->map('POST', '/showEditBlog/{id}', 'App\controller\BlogController@edit');
+$router->map('POST', '/editBlog/[i:id]', 'App\controller\BlogController@postEditForm', 'editBlog_post');
 
 // Delete a blog post
-$router->map('POST', 'deleteBlog/{id}', 'App\controller\BlogController@delete');
+$router->map('GET', '/deleteBlog/[i:id]', 'App\controller\BlogController@delete', 'deleteBlog');
+
 
 // Content Security Policy Report
 $router->map('POST', '/csp-report-log', 'App\controller\ProcessCSReportController@handle', 'csp-report-log');
@@ -53,21 +54,6 @@ $router->map('GET', '/csp', 'App\controller\ProcessCSReportController@show', 'cs
 
 // LOG OUT PAGE
 $router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@signout', 'signout');
-
-
-
-// create blog post
-$router->map('GET', '/createBlog', 'App\controller\BlogController@showCreateBlog', 'createBlog');
-$router->map('POST', '/createBlog', 'App\controller\BlogController@postCreateBlog', 'createBlog_post');
-
-// edit blog post
-$router->map('GET', '/editBlog/[i:id]', 'App\controller\BlogController@showEditForm', 'editBlog');
-
-// update blog post
-$router->map('POST', '/editBlog/[i:id]', 'App\controller\BlogController@postEditForm', 'editBlog_post');
-
-// delete blog post
-$router->map('GET', '/deleteBlog/[i:id]', 'App\controller\BlogController@delete', 'deleteBlog');
 
 
 // ADMIN LOGIN SHOW

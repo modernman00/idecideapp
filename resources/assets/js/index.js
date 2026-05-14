@@ -1,17 +1,25 @@
 // import { showError, id } from './global';
-import { showError, log} from '@modernman00/shared-js-lib';
+import { showError } from '@modernman00/shared-js-lib';
 
 
 document.addEventListener('DOMContentLoaded', () => {
   const routeMap = {
     '/': () => import(/* webpackChunkName: 'main' */ './main'),
+
     '/result': () => import(/* webpackChunkName: 'result' */ './result'),
-    '/adminlogin': () => import(/* webpackChunkName: 'login' */ './acctMgt/login'),
-    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './acctMgt/forgot'),
-    '/code': () => import(/* webpackChunkName: 'code' */ './acctMgt/code'),
+
+    '/adminlogin': () => import(/* webpackChunkName: 'login' */ './AcctMgt/login'),
+
+    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './AcctMgt/forgot'),
+    
+    '/code': () => import(/* webpackChunkName: 'code' */ './AcctMgt/code'),
+    
     '/createBlog': () => import(/* webpackChunkName: 'createBlog' */ './createBlog'),
-    '/testPost': () => import(/* webpackChunkName: 'testPost' */ './acctMgt/testPost'),
-    '/changePassword': () => import(/* webpackChunkName: 'changePassword' */ './acctMgt/changePassword'),
+    
+    '/testPost': () => import(/* webpackChunkName: 'testPost' */ './AcctMgt/testPost'),
+    
+    '/changePassword': () => import(/* webpackChunkName: 'changePassword' */ './AcctMgt/changePassword'),
+    
     '/contact': () => import(/* webpackChunkName: 'contact' */ './contact')
 
   };
