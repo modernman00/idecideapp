@@ -24,6 +24,7 @@ class CalculateResultController
             }
             $whatToBuy = htmlspecialchars($input['whatToBuy'], ENT_QUOTES, 'UTF-8');
             $scores = $input['scores'];
+            $notes = htmlspecialchars($input['notes'] ?? '', ENT_QUOTES, 'UTF-8');
 
             // Validate scores
             $requiredKeys = ['cost', 'buyingFeeling', 'notImpulsive', 'necessity', 'option', 'paymentSource', 'affordability', 'concerns'];
@@ -90,6 +91,9 @@ class CalculateResultController
             $finalScore = ($weightedTotal / $maxWeightedScore) * 100;
             $finalScore = round($finalScore, 1);
 
+            // Generate AI Advice (Budget Boss)
+            $aiAdvice = \App\services\AIService::getDecisionAdvice($whatToBuy, $scores, $notes);
+
             //summary of what influenced their result most.
             $influences = [];
             foreach ($adjustedScores as $key => $value) {
@@ -108,65 +112,6 @@ class CalculateResultController
             // Sort by impact descending
             usort($influences, fn ($a, $b) => $b['impact'] <=> $a['impact']);
 
-            // Advice configuration
-            $adviceConfig = [
-                'cost' => [
-                    'high' => fn ($item) => "Great, the $item seems manageable within your budget.",
-                    'low' => fn ($item) => "The $item may strain your budget. Consider cheaper alternatives or saving up to reduce financial pressure.",
-                ],
-                'buyingFeeling' => [
-                    'high' => fn ($item) => "This $item could bring you joy, and that’s wonderful! Just make sure it fits comfortably with your financial plans—so you can enjoy it without any worries.",
-                    'low' => fn ($item) => "If the $item doesn’t seem exciting, reflect on whether it’s worth the cost or if another option might be more fulfilling.",
-                ],
-                'notImpulsive' => [
-                    'high' => fn ($item) => "You’ve thought about the $item for a while, which shows great decision-making. Keep planning carefully.",
-                    'low' => fn ($item) => "Ooooh, the $item caught your eye just now? That’s exciting! 🎉 Since it’s a new idea, why not sleep on it? If you still love it tomorrow, it’ll feel even better to buy it knowing it’s the right choice. Either way, you win!",
-                ],
-                'necessity' => [
-                    'high' => fn ($item) => "The $item seems essential, which supports your decision. Ensure it’s the best option available.",
-                    'low' => fn ($item) => "Since the $item is more of a want, explore if you can delay the purchase or find a more budget-friendly option.",
-                ],
-                'option' => [
-                    'high' => fn ($item) => "You’ve researched alternatives for the $item, which is smart! Double-check for any last-minute deals.",
-                    'low' => fn ($item) => "Not exploring other options for the $item could cost you. Shop around to find the best value.",
-                ],
-                'paymentSource' => [
-                    'high' => fn ($item) => "Using savings or a gift for the $item is a solid choice! This keeps your finances stable.",
-                    'low' => fn ($item) => "Borrowing or unclear funding for the $item is risky. Try saving up or using existing funds instead.",
-                ],
-                'affordability' => [
-                    'high' => fn ($item) => "You can afford the $item without strain—well done! Confirm it fits your long-term budget.",
-                    'low' => fn ($item) => "The $item may stretch your finances. Build a savings plan or consider a less expensive alternative.",
-                ],
-                'concerns' => [
-                    'high' => fn ($item) => "With no financial concerns, you’re in a strong position to buy the $item. Stay mindful of future expenses.",
-                    'low' => fn ($item) => "Your financial concerns suggest caution with the $item. Don’t dismiss these. They matter. Address debt or job stability before buying.",
-                ],
-            ];
-
-            // Generate advice
-            $advices = [];
-            foreach ($scores as $attr => $score) {
-                if ($score <= 2 && isset($adviceConfig[$attr]['low'])) {
-                    $advices[] = $adviceConfig[$attr]['low']($whatToBuy);
-                }
-                if ($score >= 4 && isset($adviceConfig[$attr]['high'])) {
-                    $advices[] = $adviceConfig[$attr]['high']($whatToBuy);
-                }
-            }
-            // // if (count($advice) < 3) {
-            // foreach ($scores as $attr => $score) {
-            //     if ($score >= 4 && isset($adviceConfig[$attr]['high'])) {
-            //         $advice[] = $adviceConfig[$attr]['high']($whatToBuy);
-            //         break;
-            //     }
-            // }
-            // // }
-            if (empty($advices)) {
-                $advice[] = "Reflect on whether the $whatToBuy aligns with your financial priorities and long-term goals.";
-            }
-            $advices = array_slice($advices, 0, 3);
-
             // Decision tiers
             $decisions = [
                 [
@@ -177,43 +122,45 @@ class CalculateResultController
                     'badgeText' => '💰 Conscious Spender',
                     'badgeClass' => 'badge-success',
                     'resultImage' => 'public/images/THUMBS_UP.jpg',
-                    'resultImageAlt' => 'Happy Thumbs Up',
                 ],
                 [
                     'minScore' => 70,
                     'decision' => 'WORTH CONSIDERING! 🛠️ THEN CHECK, AND BUY! 💭',
-                    'comment' => "Buying the $whatToBuy seems like a good decision—just double-check that it is affordable, and try to get the best deal!",
+                    'comment' => "Buying the $whatToBuy seems like a good decision—just double-check that it is affordable!",
                     'color' => 'success-light',
                     'badgeText' => '🧠 Savvy Planner',
                     'badgeClass' => 'badge-success-light',
                     'resultImage' => 'public/images/BUY_DECISION.jpg',
-                    'resultImageAlt' => 'Balanced Decision',
                 ],
                 [
                     'minScore' => 50,
                     'decision' => 'RECONSIDER ⚖️ OR MAYBE LATER! ⏳',
-                    'comment' => "Pause on the $whatToBuy. Make sure it’s a need, not just a want, and check for better deals or save more!",
+                    'comment' => "Pause on the $whatToBuy. Make sure it’s a need, not just a want!",
                     'color' => 'warning',
                     'badgeText' => '🧠 Budget Boss',
                     'badgeClass' => 'badge-warning',
                     'resultImage' => 'public/images/standing_scales.jpg',
-                    'resultImageAlt' => 'Neutral Balance',
                 ],
                 [
                     'minScore' => 1,
                     'decision' => 'HOLD OFF! 🛑 AND DON’T BUY ❌',
-                    'comment' => "Skip the $whatToBuy to avoid financial stress and focus on what matters most!",
+                    'comment' => "Skip the $whatToBuy to avoid financial stress!",
                     'color' => 'danger',
                     'badgeText' => '🚫 Frugal Friend',
                     'badgeClass' => 'badge-danger',
                     'resultImage' => 'public/images/disapproval.jpg',
-                    'resultImageAlt' => 'Disapproval',
                 ],
             ];
 
             // Filter and get the FIRST tier where score >= minScore (sorted high-to-low)
             $filtered = array_filter($decisions, fn ($d) => $finalScore >= $d['minScore']);
             $decisionData = reset($filtered); // Gets the FIRST matching tier
+
+            // Generate Product Recommendations for affiliate links ONLY if score >= 70 (BUY)
+            $recommendations = [];
+            if ($finalScore >= 70) {
+                $recommendations = \App\services\AIService::getProductRecommendations($whatToBuy);
+            }
 
             $scoreData = [
                 'decision' => $decisionData['decision'],
@@ -223,11 +170,31 @@ class CalculateResultController
                 'badgeText' => $decisionData['badgeText'],
                 'badgeClass' => $decisionData['badgeClass'],
                 'resultImage' => $decisionData['resultImage'],
-                'resultImageAlt' => $decisionData['resultImageAlt'],
                 'itemToBuy' => $whatToBuy,
-                'advice' => $advices,
+                'aiAdvice' => $aiAdvice,
                 'influences' => $influences,
+                'recommendations' => $recommendations,
             ];
+
+            // --- THE DECISION VAULT ---
+            // Only attempt verification if the auth cookie exists to avoid 401 errors for guests
+            $tokenName = $_ENV['COOKIE_TOKEN_LOGIN'] ?? 'auth_token';
+            $user = null;
+            if (isset($_COOKIE[$tokenName])) {
+                $user = \Src\functionality\SignIn::verify('users');
+            }
+
+            if (!empty($user) && is_array($user)) {
+                $pdo = \Src\Db::connect2();
+                $isPublic = isset($_POST['isPublic']) ? 1 : 0;
+                $stmt = $pdo->prepare("INSERT INTO user_decisions (user_id, item_to_buy, score, decision_json, is_public) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$user['id'], $whatToBuy, $finalScore, json_encode($scoreData), $isPublic]);
+                
+                // Gamification: Award points
+                $points = ($finalScore < 50) ? 20 : 5; // More points for NOT buying impulsively
+                $pdo->prepare("UPDATE user_profiles SET points = points + ? WHERE user_id = ?")
+                    ->execute([$points, $user['id']]);
+            }
 
             // create a session to that will initiate result page
             $_SESSION['QUESTION_PROCESS'] = 'ENABLED';

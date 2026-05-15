@@ -14,6 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var fromForgot = sessionStorage.getItem('fromForgot');
 var redirectTo;
+var from = sessionStorage.getItem('from');
 
 // Determine redirect target based on session flag
 
@@ -21,6 +22,10 @@ if (fromForgot) {
   redirectTo = _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.changePassword;
 } else {
   redirectTo = _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.adminHome;
+}
+if (from === 'userLogin') {
+  redirectTo = _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.userLoginCodeRedirect;
+  sessionStorage.removeItem('from');
 }
 if (fromForgot) sessionStorage.removeItem('fromForgot');
 (0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_1__.createCodeSubmitHandler)({
@@ -63,7 +68,10 @@ var acctMgtRoutes = {
   code: '/code',
   codeRedirect: 'changePassword',
   changePassword: '/changePassword',
-  changePasswordRedirect: '/adminlogin'
+  changePasswordRedirect: '/adminlogin',
+  userLogin: '/login',
+  userLoginRedirect: 'code',
+  userLoginCodeRedirect: 'history'
 };
 
 /***/ }

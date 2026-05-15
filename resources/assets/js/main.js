@@ -45,9 +45,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
 // 🔹 Form handler
 initBtn.addEventListener('click', async () => {
   const whatToBuyInput = id('whatToBuy');
+  const notesInput = id('notes');
   const selects = qSelAll('select');
 
   const whatToBuy = whatToBuyInput?.value.trim();
+  const notes = notesInput?.value.trim();
   const scores = {};
   let incomplete = false;
 
@@ -62,12 +64,14 @@ initBtn.addEventListener('click', async () => {
     const attribute = select.getAttribute('id');
     const selected = select.options[select.selectedIndex];
 
-    if (select.selectedIndex === 0) {
+    if (select.selectedIndex === 0 && attribute !== 'notes') {
       incomplete = true;
     }
 
     const score = parseInt(selected?.getAttribute('value'));
-    scores[attribute] = Number.isNaN(score) ? null : score;
+    if (attribute !== 'notes') {
+      scores[attribute] = Number.isNaN(score) ? null : score;
+    }
   });
 
   if (incomplete) {
@@ -75,7 +79,7 @@ initBtn.addEventListener('click', async () => {
     return;
   }
 
-  const formData = { whatToBuy, scores };
+  const formData = { whatToBuy, scores, notes };
  
 
   try {

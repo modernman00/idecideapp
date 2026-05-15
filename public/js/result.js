@@ -509,6 +509,12 @@ try {
   }
   _adviceEl.textContent = advice;
 
+  // AI Advice Display
+  var aiAdviceEl = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('aiAdvice');
+  if (aiAdviceEl) {
+    aiAdviceEl.textContent = savedScoreData.aiAdvice || 'The Budget Boss AI is reflecting on your decision...';
+  }
+
   // Populate advice list
   var adviceList = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('advice-list');
   if (savedScoreData.advice && Array.isArray(savedScoreData.advice)) {
@@ -608,6 +614,26 @@ try {
       if (!isVisible && savedScoreData !== null && savedScoreData !== void 0 && savedScoreData.influences) {
         (0,_include_result_influences_js__WEBPACK_IMPORTED_MODULE_4__.renderInfluences)(savedScoreData.influences); // only render once visible
       }
+    });
+  }
+
+  // 13. Render Recommendations (Affiliate Links)
+  var recsContainer = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('affiliateSection');
+  var recsList = (0,_global_js__WEBPACK_IMPORTED_MODULE_1__.id)('recommendationsList');
+  if (recsContainer && recsList && savedScoreData.recommendations && Array.isArray(savedScoreData.recommendations)) {
+    recsContainer.style.display = 'block';
+    recsList.innerHTML = ''; // Clear previous
+
+    savedScoreData.recommendations.forEach(function (rec) {
+      var col = document.createElement('div');
+      col.className = 'col-md-4';
+
+      // Construct affiliate search link (Example: Amazon search)
+      // You can replace 'your-tag-20' with your actual affiliate ID
+      var affiliateId = 'your-tag-20';
+      var searchUrl = "https://www.amazon.com/s?k=".concat(encodeURIComponent(rec.model), "&tag=").concat(affiliateId);
+      col.innerHTML = "\n        <div class=\"card h-100 border-0 shadow-sm rounded-4 overflow-hidden\">\n          <div class=\"card-body p-3 text-center\">\n            <span class=\"badge bg-light text-primary mb-2 rounded-pill small\">".concat(rec.category, "</span>\n            <h6 class=\"fw-bold mb-2\">").concat(rec.model, "</h6>\n            <p class=\"text-muted smallest mb-3\" style=\"font-size: 0.75rem;\">").concat(rec.reason, "</p>\n            <a href=\"").concat(searchUrl, "\" target=\"_blank\" class=\"btn btn-sm btn-primary w-100 rounded-pill fw-bold\">\n              <i class=\"fas fa-shopping-cart me-1\"></i> Buy Now\n            </a>\n          </div>\n        </div>\n      ");
+      recsList.appendChild(col);
     });
   }
 

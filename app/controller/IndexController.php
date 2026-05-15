@@ -6,9 +6,10 @@ namespace App\controller;
 
 use Src\{CheckToken, Limiter, Select, Utility};
 use Src\functionality\SendEmailFunctionality;
-use Src\Recaptcha;
-
+use Src\functionality\SignIn;
 use Src\functionality\SubmitPostData;
+use Src\Recaptcha;
+use Src\SelectFn;
 
 class IndexController extends BaseController
 {
@@ -55,7 +56,6 @@ class IndexController extends BaseController
         BaseController::viewWithCsp('about');
     }
 
-    // blog
     public function blogs()
     {
         $query = Select::formAndMatchQuery(selection: 'SELECT_ALL', table: 'blogs');
@@ -64,6 +64,48 @@ class IndexController extends BaseController
         // get all the blogs from database
 
         BaseController::viewWithCsp('blogs', compact('blogs'));
+    }
+
+    public function community()
+    {
+        try {
+            $pdo = \Src\Db::connect2();
+            // Anonymized public decisions
+            $stmt = $pdo->prepare("SELECT item_to_buy, score, decision_json, created_at FROM user_decisions WHERE is_public = 1 ORDER BY created_at DESC LIMIT 50");
+            $stmt->execute();
+            $decisions = $stmt->fetchAll();
+            BaseController::viewWithCsp('community', compact('decisions'));
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    public function history()
+    {
+        try {
+            // Soft-check for cookie before hard verification to avoid 401 JSON error on timeout
+            $tokenName = $_ENV['COOKIE_TOKEN_LOGIN'] ?? 'auth_token';
+            if (!isset($_COOKIE[$tokenName])) {
+                header('Location: /login');
+                exit;
+            }
+
+            $user = SignIn::verify('users');
+            if (empty($user)) {
+                header('Location: /login');
+                exit;
+            }
+        
+            $id = (string) $user['id'];
+
+            $decisions = SelectFn::selectAllRowsById(table: 'user_decisions', identifier: 'user_id', identifierAnswer: $id);
+            
+            $userProfile = SelectFn::selectAllRowsById(table: 'user_profiles', identifier: 'user_id', identifierAnswer: $id);
+
+            BaseController::viewWithCsp('history', compact('decisions', 'userProfile'));
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
     }
 
     public function testPost()

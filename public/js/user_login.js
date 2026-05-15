@@ -1,10 +1,10 @@
 "use strict";
-(self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["forgot"],{
+(self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["user_login"],{
 
-/***/ "./resources/assets/js/AcctMgt/forgot.js"
-/*!***********************************************!*\
-  !*** ./resources/assets/js/AcctMgt/forgot.js ***!
-  \***********************************************/
+/***/ "./resources/assets/js/AcctMgt/user_login.js"
+/*!***************************************************!*\
+  !*** ./resources/assets/js/AcctMgt/user_login.js ***!
+  \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -12,14 +12,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @modernman00/shared-js-lib */ "./node_modules/@modernman00/shared-js-lib/index.js");
 
 
-sessionStorage.setItem('fromForgot', 'true');
-(0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_1__.forgotSubmitHandler)({
-  formId: 'forgot',
-  route: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.forgot,
-  redirect: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.forgotRedirect
-});
 
-// Set autocomplete and accessibility attributes
+// remove fromForgot
+sessionStorage.removeItem('fromForgot');
+
+// set a session  to remember user in code page
+sessionStorage.setItem('from', 'userLogin');
+(0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_1__.createAdminLoginHandler)({
+  formId: 'loginForm',
+  route: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.userLogin,
+  redirect: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.userLoginRedirect
+});
 
 /***/ },
 
@@ -64,4 +67,4 @@ var acctMgtRoutes = {
 /***/ }
 
 }]);
-//# sourceMappingURL=forgot.js.map
+//# sourceMappingURL=user_login.js.map

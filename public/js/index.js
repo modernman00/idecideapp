@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     '/contact': function _contact() {
       return __webpack_require__.e(/*! import() | contact */ "contact").then(__webpack_require__.bind(__webpack_require__, /*! ./contact */ "./resources/assets/js/contact.js"));
+    },
+    '/login': function _login() {
+      return __webpack_require__.e(/*! import() | user_login */ "user_login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/user_login */ "./resources/assets/js/AcctMgt/user_login.js"));
+    },
+    '/register': function _register() {
+      return __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/register */ "./resources/assets/js/AcctMgt/register.js"));
     }
   };
   try {

@@ -51,7 +51,10 @@ var acctMgtRoutes = {
   code: '/code',
   codeRedirect: 'changePassword',
   changePassword: '/changePassword',
-  changePasswordRedirect: '/adminlogin'
+  changePasswordRedirect: '/adminlogin',
+  userLogin: '/login',
+  userLoginRedirect: 'code',
+  userLoginCodeRedirect: 'history'
 };
 
 /***/ }

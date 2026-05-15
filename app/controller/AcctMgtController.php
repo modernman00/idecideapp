@@ -8,6 +8,7 @@ namespace App\controller;
 use Src\functionality\{
     LogoutFunctionality,
     LoginFunctionality,
+    SubmitPostData,
     SignIn,
     PasswordRecoveryService,
     PasswordResetFunctionality,
@@ -54,6 +55,65 @@ class AcctMgtController extends BaseController
     {
         try {
             LoginFunctionality::login();
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    public function userLoginShow()
+    {
+        try {
+            BaseController::viewWithCsp('acctMgt.user_login');
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    public function userLoginPost()
+    {
+        try {
+            LoginFunctionality::login(isCaptcha: true);
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    public function registerShow()
+    {
+        try {
+            BaseController::viewWithCsp('acctMgt.register');
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    public function registerPost()
+    {
+        try {
+            $removeKey = ['button', 'token', 'grecaptcharesponse', 'confirm_password'];
+            
+            //get name from post data
+            $name = checkInput($_POST['name']);
+
+            //generate id
+            $id = $this->setId(name: $name, table: 'account');
+
+            $_POST['id'] = $id;
+            
+            $returnLastId = SubmitPostData::submitToOneTablenImage(
+                table: 'account',
+                removeKeys: $removeKey,
+                isCaptcha: true
+            );
+
+            if ($returnLastId) {
+                // Initialize user profile for gamification
+                $pdo = \Src\Db::connect2();
+                $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
+                    ->execute([$returnLastId]);
+                
+                Utility::msgSuccess(200, 'Registration successful! Please login.', $returnLastId);
+            }
         } catch (\Throwable $th) {
             Utility::showError($th);
         }
@@ -134,7 +194,13 @@ class AcctMgtController extends BaseController
                 // GET THE BLOG DATA 
                 $blogs = SelectFn::selectAllRows('blogs');
 
-                BaseController::viewWithCsp('admin/adminpage', compact('blogs'));
+                // GET ALL USERS
+                $users = SelectFn::selectAllRows('account');
+
+                // GET ALL DECISIONS (Activities)
+                $decisions = SelectFn::selectAllRows('user_decisions');
+
+                BaseController::viewWithCsp('admin/adminpage', compact('blogs', 'users', 'decisions'));
             } else {
                 redirect('/adminlogin');
             }

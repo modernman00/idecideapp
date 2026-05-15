@@ -278,6 +278,17 @@
                             ],
                         ],
 
+
+
+                        'share_public' => [
+                            'mixed',
+                            'label' => [
+                                'Share anonymized result with the community? (Identity remains hidden)',
+                            ],
+                            'attribute' => ['isPublic'],
+                            'inputType' => ['checkbox'],
+                        ],
+
                         'checkbox' => 'By continuing you agree to the <a href="terms" class="text-primary">Terms of use policy</a>',
                         'Calculate My Decision' => 'button',
                         'token' => 'token',

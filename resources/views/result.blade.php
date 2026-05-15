@@ -375,6 +375,14 @@
                 <p id="personalisedAdvice" class="mb-0">Calculating your tailored advice...</p>
             </div>
 
+            <div class="advice-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 1px solid #e2e8f0;">
+                <div class="advice-header">
+                    <i class="fas fa-user-tie text-primary"></i>
+                    <span>Budget Boss Verdict</span>
+                </div>
+                <p id="aiAdvice" class="mb-0" style="font-style: italic; color: #334155;">Consulting the financial experts...</p>
+            </div>
+
             <div id="commentsCard" class="advice-card" style="display: none;">
                 <div class="advice-header">
                     <i class="fas fa-comment-dots text-info"></i>
@@ -385,6 +393,18 @@
 
             <!-- Hidden image element to satisfy JS -->
             <img id="image" src="" alt="" style="display: none;">
+
+            <div id="affiliateSection" class="mt-4" style="display: none;">
+                <div class="advice-card" style="background: rgba(var(--primary-rgb), 0.03); border: 2px dashed var(--primary-color);">
+                    <div class="advice-header">
+                        <i class="fas fa-tags text-primary"></i>
+                        <span>Best Value Deals for You</span>
+                    </div>
+                    <div id="recommendationsList" class="row g-3 mt-2">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
 
             <div class="advice-card">
                 <div class="advice-header">

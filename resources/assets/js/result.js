@@ -149,6 +149,12 @@ try {
   }
   adviceEl.textContent = advice;
 
+  // AI Advice Display
+  const aiAdviceEl = id('aiAdvice');
+  if (aiAdviceEl) {
+    aiAdviceEl.textContent = savedScoreData.aiAdvice || 'The Budget Boss AI is reflecting on your decision...';
+  }
+
   // Populate advice list
   const adviceList = id('advice-list');
   if (savedScoreData.advice && Array.isArray(savedScoreData.advice)) {
@@ -257,6 +263,38 @@ try {
     });
 
 
+  }
+
+  // 13. Render Recommendations (Affiliate Links)
+  const recsContainer = id('affiliateSection');
+  const recsList = id('recommendationsList');
+  if (recsContainer && recsList && savedScoreData.recommendations && Array.isArray(savedScoreData.recommendations)) {
+    recsContainer.style.display = 'block';
+    recsList.innerHTML = ''; // Clear previous
+
+    savedScoreData.recommendations.forEach(rec => {
+      const col = document.createElement('div');
+      col.className = 'col-md-4';
+      
+      // Construct affiliate search link (Example: Amazon search)
+      // You can replace 'your-tag-20' with your actual affiliate ID
+      const affiliateId = 'your-tag-20';
+      const searchUrl = `https://www.amazon.com/s?k=${encodeURIComponent(rec.model)}&tag=${affiliateId}`;
+
+      col.innerHTML = `
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="card-body p-3 text-center">
+            <span class="badge bg-light text-primary mb-2 rounded-pill small">${rec.category}</span>
+            <h6 class="fw-bold mb-2">${rec.model}</h6>
+            <p class="text-muted smallest mb-3" style="font-size: 0.75rem;">${rec.reason}</p>
+            <a href="${searchUrl}" target="_blank" class="btn btn-sm btn-primary w-100 rounded-pill fw-bold">
+              <i class="fas fa-shopping-cart me-1"></i> Buy Now
+            </a>
+          </div>
+        </div>
+      `;
+      recsList.appendChild(col);
+    });
   }
 
   //13. email result to the user 

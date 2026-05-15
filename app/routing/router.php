@@ -5,6 +5,8 @@ declare(strict_types=1);
 $router = new AltoRouter();
 
 $router->map('GET', '/', 'App\controller\IndexController@main', 'home');
+$router->map('GET', '/community', 'App\controller\IndexController@community', 'community');
+$router->map('GET', '/history', 'App\controller\IndexController@history', 'history');
 
 // $router->map('GET', '/questions', 'App\controller\Index@questions', 'questions');
 
@@ -57,12 +59,14 @@ $router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@si
 
 
 // ADMIN LOGIN SHOW
-
 $router->map('GET', '/adminlogin', 'App\controller\AcctMgtController@loginShow', 'adminlogin');
-
-// ADMIN LOGIN POST
-
 $router->map('POST', '/adminlogin', 'App\controller\AcctMgtController@loginPost', 'adminloginpost');
+
+// USER LOGIN & REGISTER
+$router->map('GET', '/login', 'App\controller\AcctMgtController@userLoginShow', 'login');
+$router->map('POST', '/login', 'App\controller\AcctMgtController@userLoginPost', 'loginpost');
+$router->map('GET', '/register', 'App\controller\AcctMgtController@registerShow', 'register');
+$router->map('POST', '/register', 'App\controller\AcctMgtController@registerPost', 'registerpost');
 
 // ADMIN  HOME PAGE
 $router->map('GET', '/adminhome', 'App\controller\AcctMgtController@adminPage', 'adminhome');

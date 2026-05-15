@@ -53,6 +53,8 @@
     "jquery": "^3.7.1",
     "npm": "^11.4.2",
     "sass": "^1.89.2",
-    "svg-gauge": "^1.0.7"
+    "sentiment": "^5.0.2",
+    "svg-gauge": "^1.0.7",
+    "tesseract.js": "^5.1.1"
   }
 }

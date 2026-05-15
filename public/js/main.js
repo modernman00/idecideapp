@@ -542,13 +542,15 @@ window.addEventListener('beforeinstallprompt', function (e) {
 
 // 🔹 Form handler
 initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-  var whatToBuyInput, selects, whatToBuy, scores, incomplete, formData, _response$data, response, scoreData, syncBadge, _t;
+  var whatToBuyInput, notesInput, selects, whatToBuy, notes, scores, incomplete, formData, _response$data, response, scoreData, syncBadge, _t;
   return _regenerator().w(function (_context) {
     while (1) switch (_context.p = _context.n) {
       case 0:
         whatToBuyInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('whatToBuy');
+        notesInput = (0,_global__WEBPACK_IMPORTED_MODULE_0__.id)('notes');
         selects = (0,_global__WEBPACK_IMPORTED_MODULE_0__.qSelAll)('select');
         whatToBuy = whatToBuyInput === null || whatToBuyInput === void 0 ? void 0 : whatToBuyInput.value.trim();
+        notes = notesInput === null || notesInput === void 0 ? void 0 : notesInput.value.trim();
         scores = {};
         incomplete = false; // 🔹 Validate purchase input
         if (whatToBuy) {
@@ -562,11 +564,13 @@ initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
         selects.forEach(function (select) {
           var attribute = select.getAttribute('id');
           var selected = select.options[select.selectedIndex];
-          if (select.selectedIndex === 0) {
+          if (select.selectedIndex === 0 && attribute !== 'notes') {
             incomplete = true;
           }
           var score = parseInt(selected === null || selected === void 0 ? void 0 : selected.getAttribute('value'));
-          scores[attribute] = Number.isNaN(score) ? null : score;
+          if (attribute !== 'notes') {
+            scores[attribute] = Number.isNaN(score) ? null : score;
+          }
         });
         if (!incomplete) {
           _context.n = 2;
@@ -577,7 +581,8 @@ initBtn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_r
       case 2:
         formData = {
           whatToBuy: whatToBuy,
-          scores: scores
+          scores: scores,
+          notes: notes
         };
         _context.p = 3;
         if (!navigator.onLine) {

@@ -50,6 +50,13 @@ class BlogController extends Select
 
         $removeKey = ['button', 'grecaptcharesponse', 'token'];
 
+        // Generate AI Summary if content is long
+        $content = $_POST['content'] ?? '';
+        $aiSummary = '';
+        if (strlen($content) > 500) {
+            $aiSummary = \App\services\AIService::summarizeBlog($content);
+        }
+
         $returnLastId = SubmitPostData::submitToOneTablenImage(
             table: 'blogs',
             removeKeys: $removeKey,
@@ -59,10 +66,15 @@ class BlogController extends Select
             minMaxData: self::MIN_MAX_DATA,
             isCaptcha: true,
             optionalFields: ['blogImg'],
-            
         );
 
         if($returnLastId){
+            // Save summary if generated
+            if ($aiSummary) {
+                $pdo = \Src\Db::connect2();
+                $pdo->prepare("UPDATE blogs SET ai_summary = ? WHERE id = ?")
+                    ->execute([$aiSummary, $returnLastId]);
+            }
             msgSuccess(200, 'Blog post created successfully!', $returnLastId);
         }
     } catch (\Throwable $th) {
@@ -75,7 +87,7 @@ class BlogController extends Select
     {
         // find by id
         $blog = SelectFn::selectOneRow(self::BLOG_TABLE, 'id', $id);
-        BaseController::viewWithCsp('blog-show', compact('blog'));
+        BaseController::viewWithCsp('blog-single', compact('blog'));
     }
 
     /**

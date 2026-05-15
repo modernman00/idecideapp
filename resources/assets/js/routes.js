@@ -17,5 +17,7 @@ export const acctMgtRoutes = {
   codeRedirect: 'changePassword',
   changePassword: '/changePassword',  
   changePasswordRedirect: '/adminlogin',
-
+  userLogin: '/login',
+  userLoginRedirect: 'code',
+  userLoginCodeRedirect: 'history'
 };

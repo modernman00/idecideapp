@@ -774,9 +774,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="community">Community</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history">Decision History</a></li>
                     <li class="nav-item"><a class="nav-link" href="about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/#questions">Questions</a></li>
                     <li class="nav-item"><a class="nav-link" href="blogs">Blogs</a></li>
                     <li class="nav-item ms-lg-3">
                         <div class="theme-toggle">

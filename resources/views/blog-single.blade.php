@@ -18,8 +18,22 @@
 @section('content')
 <div class="container my-5">
     <h1>{{ $blog['title'] }}</h1>
-    <img src="{{ $_ENV['APP_URL'] }}/public/images/blog/{{ $blog['blogImg'] }}" class="img-fluid mb-4" alt="{{ $blog['title'] }}">
-    <p>{{ $blog['content'] }}</p>
+    <img src="{{ $_ENV['APP_URL'] }}/public/images/blog/{{ $blog['blogImg'] }}" class="img-fluid mb-4 rounded-4 shadow-sm" alt="{{ $blog['title'] }}">
+
+    @if(!empty($blog['ai_summary']))
+        <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid var(--primary-color) !important;">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-bolt text-primary me-2"></i>Quick Take</h5>
+                <div class="text-muted small">
+                    {!! nl2br(e($blog['ai_summary'])) !!}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="blog-content fs-5" style="line-height: 1.8;">
+        {!! $blog['content'] !!}
+    </div>
         <!-- ShareThis inline buttons for this blog post -->
     <div class="sharethis-inline-share-buttons"></div>
 

@@ -23,5 +23,9 @@
     "/js/vendor.js": "/js/vendor.js",
     "/js/vendor.js.map": "/js/vendor.js.map",
     "/js/createBlog.js": "/js/createBlog.js",
-    "/js/createBlog.js.map": "/js/createBlog.js.map"
+    "/js/createBlog.js.map": "/js/createBlog.js.map",
+    "/js/user_login.js": "/js/user_login.js",
+    "/js/register.js": "/js/register.js",
+    "/js/register.js.map": "/js/register.js.map",
+    "/js/user_login.js.map": "/js/user_login.js.map"
 }
