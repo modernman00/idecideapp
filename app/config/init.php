@@ -7,10 +7,15 @@ namespace App\config;
 // Session handling with improved conditions
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
+    $isProd = ($_ENV['APP_ENV'] ?? 'production') === 'production';
+    $isHttps = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] === 1)) ||
+        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+
     session_start([
-    'cookie_httponly' => true,  // Blocks JavaScript access
-        'cookie_secure' => false,  // Only enable if using HTTPS!
-        // 'use_strict_mode' => true  // Prevents session fixation attacks
+        'cookie_httponly' => true, // prevents XSS attacks from accessing the session cookie
+        'cookie_secure' => $isProd && $isHttps, // only send cookie over HTTPS in production
+        'cookie_samesite' => 'Lax', // prevents CSRF attacks
+        'use_strict_mode' => true, // prevents session fixation attacks
     ]);
 }
 
