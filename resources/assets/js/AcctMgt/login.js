@@ -7,7 +7,8 @@ sessionStorage.removeItem('fromForgot');
 createAdminLoginHandler({
   formId: 'adminlogin',
   route: acctMgtRoutes.login,
-  redirect: acctMgtRoutes.loginRedirect
+  redirect: acctMgtRoutes.loginRedirect,
+  recaptchaAction: 'LOGIN'
   
 });
 

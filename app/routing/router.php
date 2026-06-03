@@ -56,6 +56,7 @@ $router->map('GET', '/csp', 'App\controller\ProcessCSReportController@show', 'cs
 
 // LOG OUT PAGE
 $router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@signout', 'signout');
+$router->map('GET', '/logout', 'App\controller\LogoutController@signout', 'logout');
 
 
 // ADMIN LOGIN SHOW

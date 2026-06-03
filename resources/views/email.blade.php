@@ -5,96 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@yield('subject', 'Your Decision Matrix Result')</title>
   <style nonce="{{ $nonce }}">
-    body { margin: 0; padding: 0; background-color: #f8f9fa; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #212529; }
-    .card { background: #ffffff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
-    .smiley img { border-radius: 50%; vertical-align: middle; width: 25px; height: 25px; }
-    h1 { font-size: 24px; font-weight: 700; color: #0d6efd; margin: 0; }
-    h2 { font-size: 20px; font-weight: 700; color: #0d6efd; margin: 0 0 10px; }
-    .highlight { font-weight: 600; }
-    .text { font-size: 16px; margin: 0 0 20px; }
-    .slider-container { height: 20px; background: linear-gradient(to right, #dc3545 0%, #dc3545 49%, #ffc107 50%, #ffc107 74%, #198754 75%, #198754 100%); border-radius: 10px; position: relative; width: 300px; margin: 10px auto; }
-    .slider-thumb { width: 16px; height: 16px; background: #212529; border: 2px solid #0d6efd; border-radius: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); }
-    .results-table td { padding: 10px; border-bottom: 1px solid #dee2e6; }
-    .results-table .highlight { color: #0d6efd; font-size: 20px; }
-    .decision-highlight { font-weight: 600; }
-    .badge { font-size: 16px; padding: 8px 16px; border-radius: 8px; display: inline-block; }
-    .btn { padding: 12px 24px; background-color: #0d6efd; color: #ffffff; text-decoration: none; border-radius: 8px; display: inline-block; font-size: 16px; }
-    .share-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: #6c757d; text-decoration: none; }
-    .footer-text { font-size: 14px; color: #6c757d; margin: 0; }
-    .small-text { font-size: 12px; color: #6c757d; margin: 0; }
-    ul { list-style-type: disc; padding-left: 20px; margin: 10px 0; }
-    li { margin-bottom: 8px; font-size: 16px; }
+    body { margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', 'Segoe UI', Roboto, sans-serif; color: #1e293b; -webkit-font-smoothing: antialiased; }
+    table { border-collapse: collapse; }
+    .wrapper { width: 100%; table-layout: fixed; background-color: #f1f5f9; padding-bottom: 40px; padding-top: 40px; }
+    .main-table { background: #ffffff; border-radius: 16px; border-top: 5px solid #4CAF50; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); overflow: hidden; max-width: 600px; width: 100%; margin: 0 auto; }
+    .header-logo { padding: 35px 40px 20px; text-align: center; }
+    .content-area { padding: 0 40px 30px; }
+    .footer-area { padding: 30px 40px; background-color: #f8fafc; border-top: 1px solid #f1f5f9; text-align: center; }
+    .footer-text { font-size: 14px; color: #64748b; margin: 0 0 10px; line-height: 1.5; }
+    .small-text { font-size: 11px; color: #94a3b8; margin: 0; line-height: 1.5; }
     @media only screen and (max-width: 600px) {
-      .card { border-radius: 0; }
-      table { width: 100% !important; }
-      .slider-container { width: 200px !important; }
-      .smiley img { width: 20px; height: 20px; }
+      .main-table { border-radius: 0; border-top-width: 4px; }
+      .header-logo { padding: 25px 20px 15px; }
+      .content-area { padding: 0 20px 25px; }
+      .footer-area { padding: 25px 20px; }
     }
   </style>
 </head>
 <body>
-       <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff">
+  <div class="wrapper">
+    <table class="main-table" border="0" cellpadding="0" cellspacing="0" align="center">
+      <!-- Brand Header -->
+      <tr>
+        <td class="header-logo">
+          <a href="{{ $_ENV['APP_URL'] ?? env('APP_URL') ?? '/' }}" style="text-decoration: none; display: inline-block;">
+            <img src="{{ $_ENV['LOGO_URL'] ?? env('LOGO_URL') ?? 'https://i.postimg.cc/htc8Kgrn/default.png' }}" width="45" height="45" alt="Logo" style="display: block; margin: 0 auto 10px; border-radius: 8px; border: 0 !important; outline: none;" />
+            <span style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; display: block;">iDecide</span>
+          </a>
+        </td>
+      </tr>
 
-        <tr>
-            <td align="center">
-                <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+      <!-- Content Section -->
+      <tr>
+        <td class="content-area">
+          @yield('content')
+        </td>
+      </tr>
 
-               
-
-                    <tr>
-                        <td align="center">
-
-                            <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
-
-                                <tr>
-                                    <td align="center" height="70" style="height:70px;">
-                                        <a href="" style="display: block; border-style: none !important; border: 0 !important;">
-                                        <img src ={{ $_ENV["LOGO_DEFAULT"] }} width="50" height="50" alt="LOGO" />
-                                        </a>
-                                    </td>
-                                </tr>
-
-                            </table>
-                        </td>
-                    </tr>
-
-                
-
-                </table>
-            </td>
-        </tr>
+      <!-- Footer Section -->
+      <tr>
+        <td class="footer-area">
+          <p class="footer-text">
+            <strong>Make Smarter Purchases.</strong><br />
+            Empowering you to stay rational and beat impulse buying.
+          </p>
+          <p class="footer-text" style="font-size: 13px; margin-bottom: 20px; color: #94a3b8;">
+            Kindest Regards,<br /><strong>iDecide Team</strong>
+          </p>
+          <div style="border-top: 1px solid #e2e8f0; margin: 20px 0; height: 1px;"></div>
+          <p class="small-text">
+            Internet communications are not secure. iDecide accepts no legal responsibility for the contents of this message. You received this because you requested a decision matrix report.
+          </p>
+        </td>
+      </tr>
     </table>
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8f9fa; max-width: 800px; margin: 0 auto;">
-    <tr>
-      <td align="center" style="padding: 20px;">
-        <!-- Header -->
-        {{-- <table border="0" cellpadding="0" cellspacing="0" width="100%">
-          <tr>
-            <td style="padding: 20px 0;">
-              <h1>Decision Matrix Result</h1>
-            </td>
-          </tr>
-        </table> --}}
-
-        <!-- Content -->
-        @yield('content')
-
-        <!-- Footer -->
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
-          <tr>
-            <td align="center" style="padding: 20px 0;">
-              <p class="footer-text">Kindest Regards,<br />iDecide Team</p>
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style="padding: 0 0 20px;">
-              <p class="small-text">Internet communications are not secure, and therefore we do not accept legal responsibility for the contents of this message...</p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+  </div>
 
   <!-- Text-Only Fallback -->
   <div style="display: none; white-space: pre-wrap;">

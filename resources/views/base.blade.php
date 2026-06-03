@@ -101,9 +101,7 @@
     {{-- The api.js?render=YOUR_SITE_KEY loads the reCAPTCHA library and initializes it with your site key. --}}
     {{--
     <script nonce="{{ $nonce }}"
-        src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCH_KEY_V3'] }}"></script> --}}
-
-    <script nonce="{{ $nonce }}" src="https://www.google.com/recaptcha/api.js" async defer></script>
+        src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCHA_SITE_KEY'] }}"></script> --}}
 
 
     @stack('styles_result')
@@ -387,6 +385,18 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .navbar .container-fluid,
+        footer .container-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
         }
 
         .navbar-brand {
@@ -410,44 +420,170 @@
             color: var(--primary-color) !important;
         }
 
+        .nav-btn-premium {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.08), rgba(27, 94, 32, 0.12)) !important;
+            border: 1px dashed rgba(76, 175, 80, 0.5) !important;
+            color: #4CAF50 !important;
+            padding: 0.5rem 1.25rem !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.06);
+        }
+
+        [data-theme="dark"] .nav-btn-premium {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(15, 23, 42, 0.4)) !important;
+            border: 1px dashed rgba(76, 175, 80, 0.4) !important;
+            color: #81c784 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn-premium:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            color: white !important;
+            border-color: transparent !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .nav-btn-premium i {
+            font-size: 0.85rem;
+        }
+
+        .nav-btn-logout {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.12)) !important;
+            border: 1px dashed rgba(239, 68, 68, 0.5) !important;
+            color: #ef4444 !important;
+            padding: 0.5rem 1.25rem !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.06);
+        }
+        [data-theme="dark"] .nav-btn-logout {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(15, 23, 42, 0.4)) !important;
+            border: 1px dashed rgba(239, 68, 68, 0.4) !important;
+            color: #fca5a5 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .nav-btn-logout:hover {
+            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+            color: white !important;
+            border-color: transparent !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .nav-btn-register {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(76, 175, 80, 0.12)) !important;
+            border: 1px solid rgba(76, 175, 80, 0.3) !important;
+            color: #4CAF50 !important;
+            padding: 0.5rem 1.25rem !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        [data-theme="dark"] .nav-btn-register {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(15, 23, 42, 0.4)) !important;
+            color: #81c784 !important;
+        }
+        .nav-btn-register:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            color: white !important;
+            border-color: transparent !important;
+            transform: translateY(-2px);
+        }
+
         /* ──────────────────────────────── */
         /* ✨ Mirrored Premium Footer      */
         /* ──────────────────────────────── */
         footer {
-            background: #0a0f1a;
-            /* Deep dark navy */
+            background: linear-gradient(180deg, #090d16 0%, #030509 100%);
+            border-top: 1px solid rgba(76, 175, 80, 0.15);
             color: #ffffff;
-            padding: 6rem 0 0;
-            margin-top: 8rem;
+            padding: 7rem 0 3rem;
+            margin-top: 10rem;
             font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Subtle radial ambient glow behind the footer */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .footer-brand {
-            font-size: 2rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
             font-weight: 800;
-            color: #ffffff;
+            background: linear-gradient(135deg, #4CAF50, #1B5E20);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-decoration: none;
-            margin-bottom: 1.5rem;
-            display: block;
+            margin-bottom: 1.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
 
         .footer-brand:hover {
-            color: #ffffff;
+            transform: scale(1.03);
+            filter: brightness(1.2);
         }
 
         .footer-desc {
             color: #94a3b8;
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.6;
-            margin-bottom: 3rem;
-            max-width: 500px;
+            margin-bottom: 2rem;
+            max-width: 440px;
         }
 
         .footer-heading {
-            font-size: 1.2rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
+            margin-bottom: 1.75rem;
+            color: #f8fafc;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background: #4CAF50;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .footer-column:hover .footer-heading::after {
+            width: 50px;
         }
 
         .footer-links {
@@ -464,25 +600,88 @@
             color: #94a3b8;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-links a i {
+            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: all 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: #ffffff;
+            color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .footer-links a:hover i {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .footer-divider {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             margin: 4rem 0 2rem;
         }
 
         .footer-bottom-info {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #4CAF50;
+        }
+
+        /* Inline Footer Socials */
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #94a3b8;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .footer-social-icon:hover {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: #4CAF50;
+            color: #4CAF50;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
         }
 
         /* Colorful Social Bar */
@@ -763,7 +962,7 @@
 <body data-page-id="@yield('data-page-id')" data-spy="scroll" data-offset='60'>
 
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
+        <div class="container-fluid px-md-5">
             <a class="navbar-brand" href="/">
                 <img src="/public/images/logo/vector/default.svg" width="40" height="40" alt="Logo">
                 <span>iDecide</span>
@@ -775,10 +974,16 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="community">Community</a></li>
-                    <li class="nav-item"><a class="nav-link" href="history">Decision History</a></li>
+                    <li class="nav-item ms-lg-2 me-lg-2"><a class="nav-link nav-btn-premium" href="history"><i class="fas fa-history"></i> Decision History</a></li>
                     <li class="nav-item"><a class="nav-link" href="about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="blogs">Blogs</a></li>
+                    @if (isset($_SESSION['user_id']) || isset($_SESSION['ID']) || isset($_SESSION['auth']['ID']) || isset($_SESSION['auth']['id']) || isset($_SESSION['auth']['user_id']) || isset($_SESSION['id']))
+                        <li class="nav-item ms-lg-2"><a class="nav-link nav-btn-logout" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    @else
+                        <li class="nav-item ms-lg-2"><a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                        <li class="nav-item ms-lg-1"><a class="nav-link nav-btn-register" href="/register">Register</a></li>
+                    @endif
                     <li class="nav-item ms-lg-3">
                         <div class="theme-toggle">
                             <input type="checkbox" id="themeSwitch" />
@@ -792,40 +997,46 @@
 
     <div class="page-wrapper">
         @yield('content')
+    </div>
 
-        <footer>
-            <div class="container">
-                <div class="row">
+    <footer>
+        <div class="container-fluid px-md-5">
+            <div class="row">
                     <div class="col-lg-6 col-md-12 footer-column">
                         <a class="footer-brand" href="/">iDecide</a>
-                        <p class="footer-desc">Empowering you to make smarter, more rational buying decisions in a world
-                            of constant advertisements. Join thousands of informed consumers today.</p>
+                        <p class="footer-desc">Empowering you to make smarter, more rational buying decisions in a world of constant advertisements. Join thousands of informed consumers today.</p>
+                        <div class="footer-socials">
+                            <a href="https://linkedin.com" class="footer-social-icon" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://facebook.com" class="footer-social-icon" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://twitter.com" class="footer-social-icon" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                            <a href="https://whatsapp.com" class="footer-social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </div>
                     </div>
 
                     <div class="col-lg-2 col-md-4 col-4 footer-column">
                         <h4 class="footer-heading">Product</h4>
                         <ul class="footer-links">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/#questions">Questions</a></li>
-                            <li><a href="/blogs">Blogs</a></li>
+                            <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="/#questions"><i class="fas fa-chevron-right"></i> Questions</a></li>
+                            <li><a href="/blogs"><i class="fas fa-chevron-right"></i> Blogs</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-2 col-md-4 col-4 footer-column">
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-links">
-                            <li><a href="/blogs">Guides</a></li>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="/contact">Help Center</a></li>
+                            <li><a href="/blogs"><i class="fas fa-chevron-right"></i> Guides</a></li>
+                            <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                            <li><a href="/contact"><i class="fas fa-chevron-right"></i> Help Center</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-2 col-md-4 col-4 footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-links">
-                            <li><a href="/privacy">Privacy Policy</a></li>
-                            <li><a href="/terms">Cookie Policy</a></li>
-                            <li><a href="/adminlogin">Admin</a></li>
+                            <li><a href="/privacy"><i class="fas fa-chevron-right"></i> Privacy</a></li>
+                            <li><a href="/terms"><i class="fas fa-chevron-right"></i> Cookies</a></li>
+                            <li><a href="/adminlogin"><i class="fas fa-chevron-right"></i> Admin</a></li>
                         </ul>
                     </div>
                 </div>
@@ -833,11 +1044,14 @@
                 <div class="footer-divider"></div>
 
                 <div class="footer-bottom-info">
-                    <p class="mb-0">© {{ date('Y') }} iDecide Decision Matrix. All rights reserved.</p>
+                    <p class="mb-0">© {{ date('Y') }} iDecide. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/privacy">Privacy Policy</a>
+                    </div>
                 </div>
             </div>
-
-    </div>
+        </footer>
     
     <div class="social-bar">
         <a href="https://linkedin.com" class="social-tile tile-linkedin" target="_blank"

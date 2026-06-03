@@ -1,11 +1,11 @@
 "use strict";
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["user_login"],{
 
-/***/ "./resources/assets/js/AcctMgt/user_login.js"
+/***/ "./resources/assets/js/AcctMgt/user_login.js":
 /*!***************************************************!*\
   !*** ./resources/assets/js/AcctMgt/user_login.js ***!
   \***************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../routes */ "./resources/assets/js/routes.js");
@@ -21,35 +21,30 @@ sessionStorage.setItem('from', 'userLogin');
 (0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_1__.createAdminLoginHandler)({
   formId: 'loginForm',
   route: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.userLogin,
-  redirect: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.userLoginRedirect
+  redirect: _routes__WEBPACK_IMPORTED_MODULE_0__.acctMgtRoutes.userLoginRedirect,
+  recaptchaAction: 'LOGIN'
 });
 
-/***/ },
+/***/ }),
 
-/***/ "./resources/assets/js/routes.js"
+/***/ "./resources/assets/js/routes.js":
 /*!***************************************!*\
   !*** ./resources/assets/js/routes.js ***!
   \***************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   acctMgtRoutes: () => (/* binding */ acctMgtRoutes),
-/* harmony export */   blogRoutes: () => (/* binding */ blogRoutes)
+/* harmony export */   acctMgtRoutes: function() { return /* binding */ acctMgtRoutes; },
+/* harmony export */   blogRoutes: function() { return /* binding */ blogRoutes; }
 /* harmony export */ });
-var blogRoutes = {
-  showEdit: function showEdit(id) {
-    return "/showEditBlog/".concat(id);
-  },
-  create: function create() {
-    return '/createBlog';
-  },
-  "delete": function _delete(id) {
-    return "/deleteBlog/".concat(id);
-  },
+const blogRoutes = {
+  showEdit: id => `/showEditBlog/${id}`,
+  create: () => '/createBlog',
+  delete: id => `/deleteBlog/${id}`,
   blogMgt: '/blogMgt'
 };
-var acctMgtRoutes = {
+const acctMgtRoutes = {
   login: '/adminlogin',
   loginRedirect: '/code',
   adminHome: '/adminhome',
@@ -64,7 +59,7 @@ var acctMgtRoutes = {
   userLoginCodeRedirect: 'history'
 };
 
-/***/ }
+/***/ })
 
 }]);
 //# sourceMappingURL=user_login.js.map

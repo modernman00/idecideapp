@@ -14,6 +14,27 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     ]);
 }
 
+if (!isset($_SESSION['token'])) {
+    $token = bin2hex(random_bytes(32));
+    $_SESSION['token'] = $token;
+
+}
+
+if (!isset($_COOKIE['XSRF-TOKEN'])) {
+    $token = $_SESSION['token'];
+    setcookie('XSRF-TOKEN', $token, [
+        'expires' => time() + 900,
+        'path' => '/',
+        'samesite' => 'Lax',
+        'secure' => ($_ENV['APP_ENV'] ?? 'production') === 'production',
+        'httponly' => false,
+    ]);
+    // Manually populate $_COOKIE so it's available for the rest of this request
+    $_COOKIE['XSRF-TOKEN'] = $token;
+}
+
+
+
 
 require_once __DIR__ . '/_env.php';
 

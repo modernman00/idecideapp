@@ -10,7 +10,8 @@ sessionStorage.setItem('from', 'userLogin');
 createAdminLoginHandler({
   formId: 'loginForm',
   route: acctMgtRoutes.userLogin,
-  redirect: acctMgtRoutes.userLoginRedirect
+  redirect: acctMgtRoutes.userLoginRedirect,
+  recaptchaAction: 'LOGIN'
   
 });
 

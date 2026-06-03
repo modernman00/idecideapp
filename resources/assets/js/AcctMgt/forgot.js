@@ -7,6 +7,7 @@ forgotSubmitHandler({
   formId: 'forgot',
   route: acctMgtRoutes.forgot,
   redirect: acctMgtRoutes.forgotRedirect,
+  recaptchaAction: 'FORGOT'
  
 });
 

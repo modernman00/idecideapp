@@ -24,15 +24,7 @@
             --surface-card: #1e293b;
         }
 
-        body {
-            background: var(--background-light);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-        }
+        /* Removed conflicting local body flex layout to preserve global footer full-width expansion */
 
             .result-container {
                 max-width: 900px;
@@ -195,6 +187,45 @@
                 background: rgba(30, 41, 59, 0.5);
             }
 
+            .budget-boss-card {
+                background: linear-gradient(135deg, rgba(27, 94, 32, 0.04), rgba(76, 175, 80, 0.04));
+                border: 1.5px dashed var(--accent-secondary) !important;
+                position: relative;
+                overflow: hidden;
+            }
+
+            [data-theme="dark"] .budget-boss-card {
+                background: linear-gradient(135deg, rgba(76, 175, 80, 0.08), rgba(15, 23, 42, 0.5));
+                border: 1.5px dashed var(--accent-secondary) !important;
+            }
+
+            .budget-boss-card::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(
+                    45deg,
+                    transparent,
+                    rgba(76, 175, 80, 0.1),
+                    transparent
+                );
+                transform: rotate(45deg);
+                animation: premiumShine 6s infinite linear;
+                pointer-events: none;
+            }
+
+            @keyframes premiumShine {
+                0% {
+                    transform: translate(-30%, -30%) rotate(45deg);
+                }
+                100% {
+                    transform: translate(30%, 30%) rotate(45deg);
+                }
+            }
+
             .advice-header {
                 display: flex;
                 align-items: center;
@@ -250,6 +281,10 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
                 margin-top: 2rem;
+            }
+
+            .action-buttons .btn-premium:nth-child(3) {
+                grid-column: span 2;
             }
 
             .btn-premium {
@@ -375,7 +410,7 @@
                 <p id="personalisedAdvice" class="mb-0">Calculating your tailored advice...</p>
             </div>
 
-            <div class="advice-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 1px solid #e2e8f0;">
+            <div class="advice-card budget-boss-card">
                 <div class="advice-header">
                     <i class="fas fa-user-tie text-primary"></i>
                     <span>Budget Boss Verdict</span>
@@ -416,11 +451,11 @@
 
             <div class="text-center mb-4">
                 <button id="toggleInfluences" class="btn btn-premium btn-secondary-premium btn-sm">
-                    <i class="fas fa-chart-simple"></i> Show Influencing Factors
+                    <i class="fas fa-chart-simple"></i> Hide Influencing Factors
                 </button>
             </div>
 
-            <div id="influenceBreakdown" class="mt-4" style="display: none;"></div>
+            <div id="influenceBreakdown" class="mt-4" style="display: block;"></div>
 
             <div class="action-buttons">
                 <a href="/#questions" class="btn btn-premium btn-primary-premium">
@@ -429,6 +464,9 @@
                 <button id="emailModalBtn" data-bs-toggle="modal" data-bs-target="#emailModal"
                     class="btn btn-premium btn-secondary-premium">
                     <i class="fas fa-envelope"></i> Email Result
+                </button>
+                <button id="downloadPDF" class="btn btn-premium btn-secondary-premium">
+                    <i class="fas fa-file-pdf text-danger"></i> Save PDF Report
                 </button>
             </div>
 
@@ -491,9 +529,8 @@
             </div>
 
         </div>
-    </div>
-
-
-
+    @push('scripts_sharethis')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    @endpush
 
 @endsection

@@ -46,10 +46,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
 initBtn.addEventListener('click', async () => {
   const whatToBuyInput = id('whatToBuy');
   const notesInput = id('notes');
+  const isPublicInput = id('isPublic');
   const selects = qSelAll('select');
 
   const whatToBuy = whatToBuyInput?.value.trim();
   const notes = notesInput?.value.trim();
+  const isPublic = isPublicInput ? isPublicInput.checked : false;
   const scores = {};
   let incomplete = false;
 
@@ -79,7 +81,7 @@ initBtn.addEventListener('click', async () => {
     return;
   }
 
-  const formData = { whatToBuy, scores, notes };
+  const formData = { whatToBuy, scores, notes, isPublic };
  
 
   try {

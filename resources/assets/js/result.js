@@ -214,16 +214,150 @@ try {
   // 10. PDF download feature
   try {
     const downloadBtn = id('downloadPDF');
-    if (downloadBtn && window.jspdf) {
+    if (downloadBtn) {
       downloadBtn.addEventListener('click', () => {
         try {
-          const { jsPDF } = window.jspdf;
+          const jsPDFLib = window.jspdf || (window.window && window.window.jspdf);
+          if (!jsPDFLib) {
+            alert('PDF generator library is still loading. Please try again in a moment.');
+            return;
+          }
+          const { jsPDF } = jsPDFLib;
           const doc = new jsPDF();
-          doc.text('Decision Matrix Result', 10, 10);
-          doc.text(`Decision: ${decision}`, 10, 20);
-          doc.text(`Score: ${score}%`, 10, 30);
-          doc.text(`Comments: ${comment}`, 10, 40);
-          doc.save('decision_matrix_result.pdf');
+
+          // Helper to clean emojis and high-unicode layout-breakers to prevent horizontal spacing glitches in Helvetica
+          const stripEmojis = (str) => {
+            if (!str) return '';
+            return str
+              .replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDC00-\uDFFF]/g, '')
+              .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, '')
+              .replace(/[^\x00-\x7F]/g, '') // Clean ASCII guarantees normal Helvetica spacing & zero corrupted characters
+              .replace(/\s+/g, ' ')
+              .trim();
+          };
+
+          const cleanItem = stripEmojis(itemToBuy);
+          const cleanDecision = stripEmojis(decision);
+          const cleanAdvice = stripEmojis(personalisedAdvice || advice || 'No advice available.');
+          const cleanComment = stripEmojis(comment);
+          const cleanAI = stripEmojis(savedScoreData.aiAdvice);
+
+          // Brand Accent Color & Fonts
+          doc.setTextColor(27, 94, 32); // #1B5E20 Green
+          doc.setFont('Helvetica', 'bold');
+          doc.setFontSize(22);
+          doc.text('iDecide', 15, 20);
+
+          doc.setFontSize(10);
+          doc.setTextColor(100, 116, 139); // Subtle Slate
+          doc.setFont('Helvetica', 'normal');
+          doc.text('RATIONAL BUYING DECISION REPORT', 15, 25);
+          doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 130, 20);
+
+          // Divider Line
+          doc.setDrawColor(226, 232, 240); // Lighter border
+          doc.setLineWidth(0.5);
+          doc.line(15, 30, 195, 30);
+
+          // Details Section
+          doc.setTextColor(15, 23, 42); // Primary Slate
+          doc.setFont('Helvetica', 'bold');
+          doc.setFontSize(13);
+          doc.text('Purchase Overview', 15, 42);
+
+          doc.setFont('Helvetica', 'normal');
+          doc.setFontSize(11);
+          doc.text('Evaluated Item:', 15, 50);
+          doc.setFont('Helvetica', 'bold');
+          doc.text(cleanItem, 50, 50);
+
+          doc.setFont('Helvetica', 'normal');
+          doc.text('Decision Score:', 15, 57);
+          doc.setFont('Helvetica', 'bold');
+          if (score >= 70) {
+            doc.setTextColor(34, 197, 94); // Green
+          } else if (score >= 50) {
+            doc.setTextColor(245, 158, 11); // Amber
+          } else {
+            doc.setTextColor(239, 68, 68); // Red
+          }
+          doc.text(`${score}%`, 50, 57);
+
+          doc.setTextColor(15, 23, 42);
+          doc.setFont('Helvetica', 'normal');
+          doc.text('Verdict:', 15, 64);
+          doc.setFont('Helvetica', 'bold');
+          doc.text(cleanDecision, 50, 64);
+
+          // Divider
+          doc.setDrawColor(226, 232, 240);
+          doc.line(15, 72, 195, 72);
+
+          // Personal Guidance Section
+          doc.setTextColor(15, 23, 42);
+          doc.setFont('Helvetica', 'bold');
+          doc.setFontSize(13);
+          doc.text('Personalized Guidance', 15, 84);
+
+          doc.setFont('Helvetica', 'normal');
+          doc.setFontSize(10.5);
+          doc.setTextColor(51, 65, 85);
+          const wrappedAdvice = doc.splitTextToSize(cleanAdvice, 175);
+          doc.text(wrappedAdvice, 15, 92);
+
+          // Get the Y position after the advice text to avoid overlap
+          let currentY = 92 + (wrappedAdvice.length * 5) + 8;
+
+          // Reviewer Comments Section
+          if (comment && comment !== 'No comments provided') {
+            doc.setDrawColor(226, 232, 240);
+            doc.line(15, currentY, 195, currentY);
+            currentY += 12;
+
+            doc.setTextColor(15, 23, 42);
+            doc.setFont('Helvetica', 'bold');
+            doc.setFontSize(13);
+            doc.text("Reviewer's Comments", 15, currentY);
+            currentY += 8;
+
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10.5);
+            doc.setTextColor(51, 65, 85);
+            const wrappedComments = doc.splitTextToSize(cleanComment, 175);
+            doc.text(wrappedComments, 15, currentY);
+            currentY += (wrappedComments.length * 5) + 8;
+          }
+
+          // AI Expert Verdict Section
+          if (cleanAI && cleanAI !== 'Consulting the financial experts...') {
+            doc.setDrawColor(226, 232, 240);
+            doc.line(15, currentY, 195, currentY);
+            currentY += 12;
+
+            doc.setTextColor(15, 23, 42);
+            doc.setFont('Helvetica', 'bold');
+            doc.setFontSize(13);
+            doc.text("Budget Boss AI Verdict", 15, currentY);
+            currentY += 8;
+
+            doc.setFont('Helvetica', 'italic');
+            doc.setFontSize(10.5);
+            doc.setTextColor(51, 65, 85);
+            const wrappedAI = doc.splitTextToSize(cleanAI, 175);
+            doc.text(wrappedAI, 15, currentY);
+            currentY += (wrappedAI.length * 5) + 8;
+          }
+
+          // Footer branding
+          doc.setDrawColor(226, 232, 240);
+          doc.line(15, 275, 195, 275);
+          doc.setFont('Helvetica', 'normal');
+          doc.setFontSize(9);
+          doc.setTextColor(148, 163, 184);
+          doc.text('iDecide - Smart and Rational Consumer Purchase Assistant', 15, 282);
+          doc.text('https://idecide.app', 160, 282);
+
+          doc.save(`iDecide_Result_${cleanItem.replace(/\s+/g, '_')}.pdf`);
         } catch (pdfError) {
           showError('Failed to generate PDF');
           console.error('PDF generation error:', pdfError);
@@ -243,26 +377,24 @@ try {
   // 12. Render influences using the imported function
 
   if (influencesEl && savedScoreData.influences && Array.isArray(savedScoreData.influences)) {
+    // Render the breakdown immediately on load as the default state
+    renderInfluences(savedScoreData.influences);
+
     document.getElementById('toggleInfluences')?.addEventListener('click', function () {
       const breakdown = document.getElementById('influenceBreakdown');
-      const isVisible = breakdown.style.display === 'block';
+      const isVisible = breakdown.style.display === 'block' || breakdown.style.display === '';
 
       breakdown.style.display = isVisible ? 'none' : 'block';
-      this.textContent = isVisible ? 'Show Influencing Factors' : 'Hide Influencing Factors';
+      this.innerHTML = isVisible 
+        ? '<i class="fas fa-chart-simple"></i> Show Influencing Factors' 
+        : '<i class="fas fa-chart-simple"></i> Hide Influencing Factors';
 
       if (!isVisible) {
         setTimeout(() => {
           breakdown.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
       }
-
-
-      if (!isVisible && savedScoreData?.influences) {
-        renderInfluences(savedScoreData.influences); // only render once visible
-      }
     });
-
-
   }
 
   // 13. Render Recommendations (Affiliate Links)
@@ -328,9 +460,8 @@ try {
         advice,
         personalisedAdvice,
         itemImage,
-        influencesEl
-
-
+        influencesEl,
+        aiAdvice: savedScoreData.aiAdvice || ''
       };
 
       try {

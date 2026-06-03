@@ -6,6 +6,7 @@ import {  showFileName, registerHandler } from "@modernman00/shared-js-lib";
     formId: "regForm",
     route: 'register',
     redirect: 'login',
-    optionalFields: ['confirm_password']
+    optionalFields: ['confirm_password'],
+    recaptchaAction: 'REGISTER'
 
   })

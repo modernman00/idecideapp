@@ -54,7 +54,7 @@ class AcctMgtController extends BaseController
     public function loginPost()
     {
         try {
-            LoginFunctionality::login();
+            LoginFunctionality::login(isCaptchaV3: true, captchaAction:'LOGIN');
         } catch (\Throwable $th) {
             Utility::showError($th);
         }
@@ -72,7 +72,7 @@ class AcctMgtController extends BaseController
     public function userLoginPost()
     {
         try {
-            LoginFunctionality::login(isCaptcha: true);
+            LoginFunctionality::login(isCaptchaV3: true, captchaAction:'LOGIN');
         } catch (\Throwable $th) {
             Utility::showError($th);
         }
@@ -103,7 +103,8 @@ class AcctMgtController extends BaseController
             $returnLastId = SubmitPostData::submitToOneTablenImage(
                 table: 'account',
                 removeKeys: $removeKey,
-                isCaptcha: true
+                isCaptchaV3: true,
+                captchaAction: 'REGISTER'
             );
 
             if ($returnLastId) {
@@ -138,7 +139,7 @@ class AcctMgtController extends BaseController
     {
         try {
 
-            PasswordRecoveryService::process();
+            PasswordRecoveryService::process(isCaptchaV3: true, captchaAction:'FORGOT');
         } catch (\Throwable $th) {
             Utility::showError($th);
         }

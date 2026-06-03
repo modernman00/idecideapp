@@ -1,62 +1,38 @@
 "use strict";
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["/js/index"],{
 
-/***/ "./resources/assets/js/index.js"
+/***/ "./resources/assets/js/index.js":
 /*!**************************************!*\
   !*** ./resources/assets/js/index.js ***!
   \**************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @modernman00/shared-js-lib */ "./node_modules/@modernman00/shared-js-lib/index.js");
 // import { showError, id } from './global';
 
-document.addEventListener('DOMContentLoaded', function () {
-  var routeMap = {
-    '/': function _() {
-      return __webpack_require__.e(/*! import() | main */ "main").then(__webpack_require__.bind(__webpack_require__, /*! ./main */ "./resources/assets/js/main.js"));
-    },
-    '/result': function _result() {
-      return __webpack_require__.e(/*! import() | result */ "result").then(__webpack_require__.bind(__webpack_require__, /*! ./result */ "./resources/assets/js/result.js"));
-    },
-    '/adminlogin': function _adminlogin() {
-      return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/login */ "./resources/assets/js/AcctMgt/login.js"));
-    },
-    '/forgot': function _forgot() {
-      return __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/forgot */ "./resources/assets/js/AcctMgt/forgot.js"));
-    },
-    '/code': function _code() {
-      return __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/code */ "./resources/assets/js/AcctMgt/code.js"));
-    },
-    '/createBlog': function _createBlog() {
-      return __webpack_require__.e(/*! import() | createBlog */ "createBlog").then(__webpack_require__.bind(__webpack_require__, /*! ./createBlog */ "./resources/assets/js/createBlog.js"));
-    },
-    '/testPost': function _testPost() {
-      return __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/testPost */ "./resources/assets/js/AcctMgt/testPost.js"));
-    },
-    '/changePassword': function _changePassword() {
-      return __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/changePassword */ "./resources/assets/js/AcctMgt/changePassword.js"));
-    },
-    '/contact': function _contact() {
-      return __webpack_require__.e(/*! import() | contact */ "contact").then(__webpack_require__.bind(__webpack_require__, /*! ./contact */ "./resources/assets/js/contact.js"));
-    },
-    '/login': function _login() {
-      return __webpack_require__.e(/*! import() | user_login */ "user_login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/user_login */ "./resources/assets/js/AcctMgt/user_login.js"));
-    },
-    '/register': function _register() {
-      return __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/register */ "./resources/assets/js/AcctMgt/register.js"));
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  const routeMap = {
+    '/': () => __webpack_require__.e(/*! import() | main */ "main").then(__webpack_require__.bind(__webpack_require__, /*! ./main */ "./resources/assets/js/main.js")),
+    '/result': () => __webpack_require__.e(/*! import() | result */ "result").then(__webpack_require__.bind(__webpack_require__, /*! ./result */ "./resources/assets/js/result.js")),
+    '/adminlogin': () => __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/login */ "./resources/assets/js/AcctMgt/login.js")),
+    '/forgot': () => __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/forgot */ "./resources/assets/js/AcctMgt/forgot.js")),
+    '/code': () => __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/code */ "./resources/assets/js/AcctMgt/code.js")),
+    '/createBlog': () => __webpack_require__.e(/*! import() | createBlog */ "createBlog").then(__webpack_require__.bind(__webpack_require__, /*! ./createBlog */ "./resources/assets/js/createBlog.js")),
+    '/testPost': () => __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/testPost */ "./resources/assets/js/AcctMgt/testPost.js")),
+    '/changePassword': () => __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/changePassword */ "./resources/assets/js/AcctMgt/changePassword.js")),
+    '/contact': () => __webpack_require__.e(/*! import() | contact */ "contact").then(__webpack_require__.bind(__webpack_require__, /*! ./contact */ "./resources/assets/js/contact.js")),
+    '/login': () => __webpack_require__.e(/*! import() | user_login */ "user_login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/user_login */ "./resources/assets/js/AcctMgt/user_login.js")),
+    '/register': () => __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/register */ "./resources/assets/js/AcctMgt/register.js"))
   };
   try {
-    var loadModule = routeMap[window.location.pathname];
+    const loadModule = routeMap[window.location.pathname];
     if (!loadModule) {
-      throw new Error("Unhandled route: ".concat(window.location.pathname));
+      throw new Error(`Unhandled route: ${window.location.pathname}`);
     }
-    loadModule().then(function (module) {
-      return module["default"];
-    })["catch"](function (err) {
+    loadModule().then(module => module.default).catch(err => {
       (0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_0__.showError)(err);
-      throw new Error("Failed to load module for ".concat(window.location.pathname, ": ").concat(err.message));
+      throw new Error(`Failed to load module for ${window.location.pathname}: ${err.message}`);
     });
   } catch (error) {
     (0,_modernman00_shared_js_lib__WEBPACK_IMPORTED_MODULE_0__.showError)(error);
@@ -64,24 +40,24 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-/***/ },
+/***/ }),
 
-/***/ "./resources/assets/sass/main.scss"
+/***/ "./resources/assets/sass/main.scss":
 /*!*****************************************!*\
   !*** ./resources/assets/sass/main.scss ***!
   \*****************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
-/***/ }
+/***/ })
 
 },
-/******/ __webpack_require__ => { // webpackRuntimeModules
-/******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, ["css/main","/js/vendor"], () => (__webpack_exec__("./resources/assets/js/index.js"), __webpack_exec__("./resources/assets/sass/main.scss")));
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
+/******/ __webpack_require__.O(0, ["css/main","/js/vendor"], function() { return __webpack_exec__("./resources/assets/js/index.js"), __webpack_exec__("./resources/assets/sass/main.scss"); });
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
