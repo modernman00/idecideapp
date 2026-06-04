@@ -224,4 +224,97 @@ class AcctMgtController extends BaseController
             Utility::showError($th);
         }
     }
+
+    /**
+     * Initializes the Google OAuth flow.
+     */
+    public function googleAuth()
+    {
+        try {
+            $provider = new \League\OAuth2\Client\Provider\Google([
+                'clientId'     => $_ENV['GOOGLE_CLIENT_ID'],
+                'clientSecret' => $_ENV['GOOGLE_CLIENT_SECRET'],
+                'redirectUri'  => $_ENV['GOOGLE_REDIRECT_URI'],
+            ]);
+
+            $authUrl = $provider->getAuthorizationUrl();
+            $_SESSION['oauth2state'] = $provider->getState();
+            header('Location: ' . $authUrl);
+            exit;
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
+
+    /**
+     * Handles the callback from Google OAuth.
+     */
+    public function googleCallback()
+    {
+        try {
+            $provider = new \League\OAuth2\Client\Provider\Google([
+                'clientId'     => $_ENV['GOOGLE_CLIENT_ID'],
+                'clientSecret' => $_ENV['GOOGLE_CLIENT_SECRET'],
+                'redirectUri'  => $_ENV['GOOGLE_REDIRECT_URI'],
+            ]);
+
+            if (!empty($_GET['error'])) {
+                // User cancelled or Google returned an error
+                redirect('/login');
+                exit;
+            }
+
+            if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
+                if (isset($_SESSION['oauth2state'])) {
+                    unset($_SESSION['oauth2state']);
+                }
+                exit('Invalid state');
+            }
+
+            $token = $provider->getAccessToken('authorization_code', [
+                'code' => $_GET['code']
+            ]);
+
+            $ownerDetails = $provider->getResourceOwner($token);
+            $email = $ownerDetails->getEmail();
+            $name = $ownerDetails->getName();
+
+            // Check if user exists
+            $pdo = \Src\Db::connect2();
+            $stmt = $pdo->prepare("SELECT id, name, email FROM account WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$user) {
+                // Register the user securely
+                $password = password_hash(bin2hex(random_bytes(8)), PASSWORD_DEFAULT);
+                $id = $this->setId(name: $name, table: 'account');
+                
+                $stmt = $pdo->prepare("INSERT INTO account (id, name, email, password, role) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$id, $name, $email, $password, 'user']);
+
+                // Initialize user profile for gamification
+                $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
+                    ->execute([$pdo->lastInsertId() ?: $id]);
+                    
+                $_SESSION['user_id'] = $id;
+            } else {
+                $_SESSION['user_id'] = $user['id'];
+            }
+
+            // Set global login session variables
+            $_SESSION['id'] = $_SESSION['user_id'];
+            $_SESSION['auth'] = [
+                'id' => $_SESSION['user_id'],
+                'name' => $name,
+                'email' => $email,
+                'role' => 'user'
+            ];
+
+            redirect('/history');
+            
+        } catch (\Throwable $th) {
+            Utility::showError($th);
+        }
+    }
 }

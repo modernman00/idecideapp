@@ -31,7 +31,8 @@
     "monolog/monolog": "^3.9",
     "guzzlehttp/guzzle": "^7.9",
     "symfony/mailer": "^7.3",
-    "modernman00/shared-lib": "^1.5"
+    "modernman00/shared-lib": "^1.5",
+    "league/oauth2-google": "^5.0"
   },
   "config": {
     "optimize-autoloader": true,

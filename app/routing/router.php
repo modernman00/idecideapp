@@ -58,6 +58,10 @@ $router->map('GET', '/csp', 'App\controller\ProcessCSReportController@show', 'cs
 $router->map('GET', '/signout/[a:redirect]', 'App\controller\LogoutController@signout', 'signout');
 $router->map('GET', '/logout', 'App\controller\LogoutController@signout', 'logout');
 
+// GOOGLE AUTH
+$router->map('GET', '/auth/google', 'App\controller\AcctMgtController@googleAuth', 'googleAuth');
+$router->map('GET', '/auth/callback/google', 'App\controller\AcctMgtController@googleCallback', 'googleCallback');
+
 
 // ADMIN LOGIN SHOW
 $router->map('GET', '/adminlogin', 'App\controller\AcctMgtController@loginShow', 'adminlogin');
