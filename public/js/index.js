@@ -15,15 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const routeMap = {
     '/': () => __webpack_require__.e(/*! import() | main */ "main").then(__webpack_require__.bind(__webpack_require__, /*! ./main */ "./resources/assets/js/main.js")),
     '/result': () => __webpack_require__.e(/*! import() | result */ "result").then(__webpack_require__.bind(__webpack_require__, /*! ./result */ "./resources/assets/js/result.js")),
-    '/adminlogin': () => __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/login */ "./resources/assets/js/AcctMgt/login.js")),
-    '/forgot': () => __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/forgot */ "./resources/assets/js/AcctMgt/forgot.js")),
-    '/code': () => __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/code */ "./resources/assets/js/AcctMgt/code.js")),
+    '/adminlogin': () => __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/login */ "./resources/assets/js/acctMgt/login.js")),
+    '/forgot': () => __webpack_require__.e(/*! import() | forgot */ "forgot").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/forgot */ "./resources/assets/js/acctMgt/forgot.js")),
+    '/code': () => __webpack_require__.e(/*! import() | code */ "code").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/code */ "./resources/assets/js/acctMgt/code.js")),
     '/createBlog': () => __webpack_require__.e(/*! import() | createBlog */ "createBlog").then(__webpack_require__.bind(__webpack_require__, /*! ./createBlog */ "./resources/assets/js/createBlog.js")),
-    '/testPost': () => __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/testPost */ "./resources/assets/js/AcctMgt/testPost.js")),
-    '/changePassword': () => __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/changePassword */ "./resources/assets/js/AcctMgt/changePassword.js")),
+    '/testPost': () => __webpack_require__.e(/*! import() | testPost */ "testPost").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/testPost */ "./resources/assets/js/acctMgt/testPost.js")),
+    '/changePassword': () => __webpack_require__.e(/*! import() | changePassword */ "changePassword").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/changePassword */ "./resources/assets/js/acctMgt/changePassword.js")),
     '/contact': () => __webpack_require__.e(/*! import() | contact */ "contact").then(__webpack_require__.bind(__webpack_require__, /*! ./contact */ "./resources/assets/js/contact.js")),
-    '/login': () => __webpack_require__.e(/*! import() | user_login */ "user_login").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/user_login */ "./resources/assets/js/AcctMgt/user_login.js")),
-    '/register': () => __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(__webpack_require__, /*! ./AcctMgt/register */ "./resources/assets/js/AcctMgt/register.js"))
+    '/login': () => __webpack_require__.e(/*! import() | user_login */ "user_login").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/user_login */ "./resources/assets/js/acctMgt/user_login.js")),
+    '/register': () => __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(__webpack_require__, /*! ./acctMgt/register */ "./resources/assets/js/acctMgt/register.js"))
   };
   try {
     const loadModule = routeMap[window.location.pathname];

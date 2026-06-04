@@ -8,23 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     '/result': () => import(/* webpackChunkName: 'result' */ './result'),
 
-    '/adminlogin': () => import(/* webpackChunkName: 'login' */ './AcctMgt/login'),
+    '/adminlogin': () => import(/* webpackChunkName: 'login' */ './acctMgt/login'),
 
-    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './AcctMgt/forgot'),
+    '/forgot': () => import(/* webpackChunkName: 'forgot' */ './acctMgt/forgot'),
     
-    '/code': () => import(/* webpackChunkName: 'code' */ './AcctMgt/code'),
+    '/code': () => import(/* webpackChunkName: 'code' */ './acctMgt/code'),
     
     '/createBlog': () => import(/* webpackChunkName: 'createBlog' */ './createBlog'),
     
-    '/testPost': () => import(/* webpackChunkName: 'testPost' */ './AcctMgt/testPost'),
+    '/testPost': () => import(/* webpackChunkName: 'testPost' */ './acctMgt/testPost'),
     
-    '/changePassword': () => import(/* webpackChunkName: 'changePassword' */ './AcctMgt/changePassword'),
+    '/changePassword': () => import(/* webpackChunkName: 'changePassword' */ './acctMgt/changePassword'),
     
     '/contact': () => import(/* webpackChunkName: 'contact' */ './contact'),
 
-    '/login': () => import(/* webpackChunkName: 'user_login' */ './AcctMgt/user_login'),
+    '/login': () => import(/* webpackChunkName: 'user_login' */ './acctMgt/user_login'),
 
-    '/register': () => import(/* webpackChunkName: 'register' */ './AcctMgt/register'),
+    '/register': () => import(/* webpackChunkName: 'register' */ './acctMgt/register'),
 
   };
 

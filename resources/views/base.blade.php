@@ -11,7 +11,7 @@
     <title>@yield('title', 'iDecide Decision Matrix') | Smarter Decision Making Tool</title>
     <meta name="title" content="@yield('title', 'iDecide Decision Matrix') | Smarter Decision Making Tool">
     <meta name="description"
-        content="@yield('meta_description', 'iDecide helps you make informed decisions with an intuitive tool. Evaluate options, get real-time scores, and receive personalized advice for better buying choices.')">
+        content="@yield('meta_description', 'iDecide helps you make informed decisions with an intuitive tool. Evaluate options, get real-time scores, and receive personalised advice for better buying choices.')">
     <meta name="keywords"
         content="decision matrix, decision making tool, consumer advice, product evaluation, smart buying, iDecide">
     <meta name="author" content="Modernman">
@@ -27,7 +27,7 @@
     <meta property="og:url" content="{{ getenv('APP_URL') ?: 'https://idecide.app' }}">
     <meta property="og:title" content="@yield('title', 'iDecide Decision Matrix') | Smarter Decision Making Tool">
     <meta property="og:description"
-        content="@yield('meta_description', 'iDecide helps you make informed decisions with an intuitive tool. Evaluate options, get real-time scores, and receive personalized advice for better buying choices.')">
+        content="@yield('meta_description', 'iDecide helps you make informed decisions with an intuitive tool. Evaluate options, get real-time scores, and receive personalised advice for better buying choices.')">
     <meta property="og:image" content="{{ (getenv('APP_URL') ?: '') }}/public/images/logo/default.png">
     <meta property="og:site_name" content="iDecide">
     <meta property="og:locale" content="en_US">
@@ -37,7 +37,7 @@
     <meta name="twitter:url" content="{{ getenv('APP_URL') ?: 'https://idecide.app' }}">
     <meta name="twitter:title" content="@yield('title', 'iDecide Decision Matrix') | Smarter Decision Making Tool">
     <meta name="twitter:description"
-        content="@yield('meta_description', 'iDecide helps you make informed decisions with an intuitive tool. Evaluate options, get real-time scores, and receive personalized advice for better buying choices.')">
+        content="@yield('meta_description', 'iDecide helps you make informed decisions with an intuitive tool. Evaluate options, get real-time scores, and receive personalised advice for better buying choices.')">
     <meta name="twitter:image" content="{{ (getenv('APP_URL') ?: '') }}/public/images/logo/default.png">
     <meta name="twitter:site" content="@iDecide">
     <meta name="twitter:creator" content="@Modernman">
@@ -49,7 +49,7 @@
       "@type": "WebApplication",
       "name": "iDecide Decision Matrix",
       "url": "{{ getenv('APP_URL') ?: 'https://idecide.app' }}",
-      "description": "An intuitive decision-making tool that helps users evaluate options through real-time scoring and personalized advice.",
+      "description": "An intuitive decision-making tool that helps users evaluate options through real-time scoring and personalised advice.",
       "applicationCategory": "ProductivityApplication",
       "operatingSystem": "All",
       "author": {
@@ -99,11 +99,10 @@
     <link rel="stylesheet" type="text/css" href="public/css/main.css">
 
     {{-- The api.js?render=YOUR_SITE_KEY loads the reCAPTCHA library and initializes it with your site key. --}}
-    {{--
     <script nonce="{{ $nonce }}"
-        src="https://www.google.com/recaptcha/api.js?render={{ $_ENV['RECAPTCHA_SITE_KEY'] }}"></script> --}}
+        src="https://www.google.com/recaptcha/enterprise.js?render={{ $_ENV['RECAPTCHA_SITE_KEY'] }}"></script>
 
-
+<script nonce="{{ $nonce }}">window.RECAPTCHA_SITE_KEY = "{{ $_ENV['RECAPTCHA_SITE_KEY'] }}";</script>
     @stack('styles_result')
     @stack('styles_main')
 
@@ -1169,7 +1168,7 @@
                         <ul class="footer-links">
                             <li><a href="/blogs"><i class="fas fa-chevron-right"></i> Guides</a></li>
                             <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                            <li><a href="/contact"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                            <li><a href="/contact"><i class="fas fa-chevron-right"></i> Help Centre</a></li>
                         </ul>
                     </div>
 
@@ -1217,7 +1216,7 @@
     <div id="cookieConsentBanner" class="cookie-banner">
         <div class="cookie-content">
             <strong>🍪 We value your privacy</strong><br>
-            We use cookies to enhance your browsing experience and analyze our traffic. 
+            We use cookies to enhance your browsing experience and analyse our traffic. 
             By clicking "Accept All", you consent to our use of cookies. 
             Read more in our <a href="/privacy" style="color: var(--primary-color);">Privacy Policy</a>.
         </div>
@@ -1249,16 +1248,6 @@
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
         </script>
 
-    <script>
-        function onClick(e) {
-            e.preventDefault();
-            grecaptcha.enterprise.ready(async () => {
-                const token = await grecaptcha.enterprise.execute('6LdJW4wrAAAAAIF0ahxV2GPWxS8i7xdp5s81WQjK', {
-                    action: 'LOGIN'
-                });
-            });
-        }
-    </script>
 
 
 

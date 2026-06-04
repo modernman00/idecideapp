@@ -24,7 +24,7 @@
                    inputmode="text"
                    id="otp{{ $i }}"
                    autocomplete="{{ $i === 1 ? 'one-time-code' : 'off' }}"
-                   style="height: 60px; border-radius: 12px; border: 1px solid #eceff4ff; background-color: #f8f5f5ff; color: #b6bdcfff;"
+                    style="height: 60px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #ffffff !important; color: #0f172a !important;"
                    required>
         @endfor
     </div>

@@ -88,6 +88,9 @@ $router->map('GET', '/code', 'App\controller\AcctMgtController@showCode', 'code'
 // CODE_POST
 $router->map('POST', '/code', 'App\controller\AcctMgtController@postCode', 'codePost');
 
+// RESEND CODE
+$router->map('POST', '/resendCode', 'App\controller\AcctMgtController@postResendCode', 'resendCodePost');
+
 // RESET
 $router->map('GET', '/changePassword', 'App\controller\AcctMgtController@showChangePassword', 'changePassword');
 

@@ -22,7 +22,7 @@
 
   <h2 class="mt-4 title">What Is iDecide?</h2>
   <p>
-    <strong>iDecide</strong> is a simple yet powerful decision-making assistant built to help you evaluate whether a potential purchase is worth your money, time, and attention. Through a smart questionnaire, scoring system, and personalized feedback, iDecide guides you to make thoughtful spending choices based on your values, financial situation, and long-term goals.
+    <strong>iDecide</strong> is a simple yet powerful decision-making assistant built to help you evaluate whether a potential purchase is worth your money, time, and attention. Through a smart questionnaire, scoring system, and personalised feedback, iDecide guides you to make thoughtful spending choices based on your values, financial situation, and long-term goals.
   </p>
 
   <p>
@@ -51,12 +51,12 @@
   </ul>
 
   <p>
-    Each answer contributes to a score, categorized into zones: <strong>Don’t Buy</strong>, <strong>Reconsider</strong>, and <strong>Buy</strong>. But we don’t stop there. iDecide also offers personalized advice based on your answers — including financial tips and reflective prompts powered by AI.
+    Each answer contributes to a score, categorised into zones: <strong>Don’t Buy</strong>, <strong>Reconsider</strong>, and <strong>Buy</strong>. But we don’t stop there. iDecide also offers personalised advice based on your answers — including financial tips and reflective prompts powered by AI.
   </p>
 
   <h2 class="mt-4 title">What Makes Us Different</h2>
   <p>
-    Unlike typical budgeting tools or financial calculators, iDecide is behavior-focused. We don’t just look at numbers — we explore the motivation behind your purchase. Our platform combines psychology, financial literacy, and modern tech to create a well-rounded, empathetic decision tool.
+    Unlike typical budgeting tools or financial calculators, iDecide is behaviour-focused. We don’t just look at numbers — we explore the motivation behind your purchase. Our platform combines psychology, financial literacy, and modern tech to create a well-rounded, empathetic decision tool.
   </p>
 
   <p>

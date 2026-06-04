@@ -1,9 +1,9 @@
 "use strict";
 (self["webpackChunkidecide"] = self["webpackChunkidecide"] || []).push([["user_login"],{
 
-/***/ "./resources/assets/js/AcctMgt/user_login.js":
+/***/ "./resources/assets/js/acctMgt/user_login.js":
 /*!***************************************************!*\
-  !*** ./resources/assets/js/AcctMgt/user_login.js ***!
+  !*** ./resources/assets/js/acctMgt/user_login.js ***!
   \***************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 

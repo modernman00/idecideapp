@@ -27,11 +27,11 @@ createCodeSubmitHandler({
 });
 
 const initOtp = () => {
-  const otpForm = id("2faForm");
-  const otpInputs = qSelAll(".otp-input");
-  const hiddenCodeInput = id("codeHidden"); // Fixed ID to match Blade change
-  const pasteBtn = id("pasteBtn");
-  const resendBtn = id("resendBtn");
+  const otpForm = document.getElementById("code");
+  const otpInputs = document.querySelectorAll(".otp-input");
+  const hiddenCodeInput = document.getElementById("codeHidden"); // Fixed ID to match Blade change
+  const pasteBtn = document.getElementById("pasteBtn");
+  const resendBtn = document.getElementById("resendBtn");
 
   if (!otpInputs.length) {
     setTimeout(initOtp, 100);
@@ -135,7 +135,7 @@ const initOtp = () => {
           method: "POST",
           headers: {
             "X-Requested-With": "XMLHttpRequest",
-            "X-XSRF-TOKEN": id("token")?.value || "",
+            "X-XSRF-TOKEN": document.getElementById("token")?.value || "",
           },
         });
 

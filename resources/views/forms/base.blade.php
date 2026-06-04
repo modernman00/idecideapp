@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title') | iAccountApp</title>
-    <meta name="description" content="@yield('meta_description', 'iAccountApp helps you manage your finances with its intuitive tool.')">
+    <title>@yield('title') | iDecide</title>
+    <meta name="description" content="@yield('meta_description', 'iDecide helps you manage your finances with its intuitive tool.')">
     <meta name="keywords" content="@yield('meta_keywords', 'account management, finances, money, banking, account management app')">
     
     <!-- Bootstrap 5 CSS -->
@@ -328,7 +328,7 @@
                         <div class="d-flex align-items-center justify-content-center bg-info bg-opacity-10 rounded-3 p-2 me-2 border border-info border-opacity-20" style="width: 40px; height: 40px;">
                             <i class="fas fa-chart-line text-info"></i>
                         </div>
-                        <span>iAccountApp</span>
+                        <span>iDecide</span>
                     </a>
                 </div>
 

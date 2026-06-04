@@ -65,9 +65,19 @@
 
     .questions-form .form-select, .questions-form .form-control {
         border-radius: 12px;
-        padding: 0.75rem 1rem;
         border: 1px solid var(--glass-border);
-        background: #fdfdfd;
+        background-color: #fdfdfd;
+    }
+    
+    .questions-form .form-select {
+        padding: 0.75rem 2.25rem 0.75rem 1rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    
+    .questions-form .form-control {
+        padding: 0.75rem 1rem;
     }
 
     .questions-form .form-select:focus, .questions-form .form-control:focus {
@@ -232,14 +242,17 @@
                                 [
                                     5 => 'Necessity (Health, Work, or Survival)',
                                     4 => 'Growth (Education or Self-Improvement)',
+                                    4 => 'Good for my self-esteem',
                                     3 => 'Pure Enjoyment (Hobby/Entertainment)',
                                     2 => 'Social / Status (Trending item)',
                                     1 => 'Spontaneous (Just feels right)',
                                 ],
                                 [
                                     5 => 'Yes, this is the best value option',
-                                    3 => 'I checked one other place',
-                                    1 => 'No, I want *this* specific one only',
+                                    4 => 'I checked one other place',
+                                    3 => 'No, I want *this* specific one only',
+                                    2 => 'Haven\'t checked any other place',
+                                    1 => 'No, I don\'t even know what I want',
                                 ],
                             ],
                         ],
@@ -261,36 +274,31 @@
                             'options' => [
                                 [
                                     5 => 'Disposable Savings / Bonus',
+                                    5 => 'I have an extra income for this',
+                                    5 => 'It is a gift',
                                     4 => 'Monthly Cashflow (Budgeted)',
-                                    2 => 'Credit Card (Paid next month)',
+                                    1 => 'Credit Card (Paid next month)',
                                     1 => 'Debt / Financing / High-Interest',
                                 ],
                                 [
                                     5 => 'Yes, my savings are untouched',
+                                    4 => 'It should not affect my emergency fund',
                                     3 => 'It will dip into my savings slightly',
+                                    2 => 'I will have to make savings from other places',
                                     1 => 'No, this is my last bit of cash',
                                 ],
                                 [
                                     5 => 'Completely secure / No debt',
-                                    3 => 'Some minor debt, but manageable',
-                                    1 => 'Stressed / High debt / Job uncertainty',
+                                    4 => 'Some minor debt, but manageable',
+                                    3 => 'Stressed about money',
+                                    2 => 'High debt',
+                                    1 => 'Job uncertainty',
                                 ],
                             ],
                         ],
-
-
-
-                        'share_public' => [
-                            'mixed',
-                            'label' => [
-                                'Share anonymized result with the community? (Identity remains hidden)',
-                            ],
-                            'attribute' => ['isPublic'],
-                            'inputType' => ['checkbox'],
-                        ],
+                        'br' => 'br',
 
                         'checkbox' => 'By continuing you agree to the <a href="terms" class="text-primary">Terms of use policy</a>',
-                        'Calculate My Decision' => 'button',
                         'token' => 'token',
                     ];
 
@@ -298,9 +306,16 @@
                     $form->genForm();
                 @endphp
 
-                <!-- <div id="syncStatus" class="badge bg-info hidden">
-                    💾 Saved for later – will sync when online.
-                </div> -->
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="isPublic">
+                    <label class="form-check-label" for="isPublic">Share anonymised result with the community? (Identity remains hidden)</label>
+                </div>
+
+                <button name="button" id="button" type="button" class="btn btn-primary cta-button w-100 mt-4" style="max-width: 400px; margin: 0px auto; display: block;">
+        Calculate My Decision
+    </button>
+
+
             </form>
             </div>
         </section>

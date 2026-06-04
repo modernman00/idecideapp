@@ -69,13 +69,13 @@ class CalculateResultController
             }
 
             $weights = [
-                'cost' => 1.4,
-                'necessity' => 1.5,
-                'affordability' => 1.3,
+                'cost' => 1.7,
+                'necessity' => 1.8,
+                'affordability' => 1.5,
                 'notImpulsive' => 1.2,
                 'option' => 1.1,
-                'concerns' => 1.1,
-                'buyingFeeling' => 1.0,
+                'concerns' => 1.5,
+                'buyingFeeling' => 1.3,
                 'paymentSource' => 1.2,
             ];
 
@@ -84,7 +84,7 @@ class CalculateResultController
 
             foreach ($adjustedScores as $key => $value) {
                 $weight = $weights[$key] ?? 1;
-                $weightedTotal += intval($value) * $weight; // total weighted score
+                $weightedTotal += \intval($value) * $weight; // total weighted score
                 $maxWeightedScore += $maxScoreQ * $weight; // total max weighted score
             }
 

@@ -84,9 +84,9 @@
                     data-bs-parent="#policyAccordion">
                     <div class="accordion-body">
                         <ul>
-                            <li>Generate personalized results</li>
+                            <li>Generate personalised results</li>
                             <li>Enhance user experience and site analytics</li>
-                            <li>Fulfill legal and compliance requirements</li>
+                            <li>Fulfil legal and compliance requirements</li>
                         </ul>
                     </div>
                 </div>

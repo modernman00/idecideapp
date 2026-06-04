@@ -5,16 +5,10 @@ declare(strict_types=1);
 namespace App\controller;
 
 
-use Src\functionality\{
-    LogoutFunctionality,
-    LoginFunctionality,
-    SubmitPostData,
-    SignIn,
-    PasswordRecoveryService,
-    PasswordResetFunctionality,
-    PwdRecoveryCodeFunctionality
-};
+use App\controller\BaseController;
 use Src\{Utility, SelectFn};
+use Src\functionality\{ LogoutFunctionality, LoginFunctionality, SignIn, PasswordRecoveryService, PasswordResetFunctionality, PwdRecoveryCodeFunctionality };
+use Src\functionality\SubmitPostData;
 
 
 class AcctMgtController extends BaseController
@@ -37,7 +31,7 @@ class AcctMgtController extends BaseController
             BaseController::viewWithCsp('acctMgt.login');
         } catch (\Throwable $th) {
 
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -54,9 +48,9 @@ class AcctMgtController extends BaseController
     public function loginPost()
     {
         try {
-            LoginFunctionality::login(isCaptchaV3: true, captchaAction:'LOGIN');
+            LoginFunctionality::login(isCaptchaV3: true);
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -65,16 +59,16 @@ class AcctMgtController extends BaseController
         try {
             BaseController::viewWithCsp('acctMgt.user_login');
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
     public function userLoginPost()
     {
         try {
-            LoginFunctionality::login(isCaptchaV3: true, captchaAction:'LOGIN');
+            LoginFunctionality::login(isCaptchaV3: true);
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -83,7 +77,7 @@ class AcctMgtController extends BaseController
         try {
             BaseController::viewWithCsp('acctMgt.register');
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -103,8 +97,7 @@ class AcctMgtController extends BaseController
             $returnLastId = SubmitPostData::submitToOneTablenImage(
                 table: 'account',
                 removeKeys: $removeKey,
-                isCaptchaV3: true,
-                captchaAction: 'REGISTER'
+                isCaptchaV3: true
             );
 
             if ($returnLastId) {
@@ -113,10 +106,10 @@ class AcctMgtController extends BaseController
                 $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
                     ->execute([$returnLastId]);
                 
-                Utility::msgSuccess(200, 'Registration successful! Please login.', $returnLastId);
+                msgSuccess(200, 'Registration successful! Please login.', $returnLastId);
             }
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -131,7 +124,7 @@ class AcctMgtController extends BaseController
             }
             PasswordRecoveryService::show('acctMgt.forgot');
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -141,7 +134,7 @@ class AcctMgtController extends BaseController
 
             PasswordRecoveryService::process(isCaptchaV3: true, captchaAction:'FORGOT');
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -151,7 +144,7 @@ class AcctMgtController extends BaseController
         try {
             PwdRecoveryCodeFunctionality::show('acctMgt/code');
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -160,7 +153,28 @@ class AcctMgtController extends BaseController
         try {
             PwdRecoveryCodeFunctionality::process();
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
+        }
+    }
+
+    public function postResendCode()
+    {
+        try {
+            $email = $_SESSION['auth']['email'] ?? null;
+            $id = $_SESSION['auth']['identifyCust'] ?? null;
+
+            if (!$email || !$id) {
+                throw new \Src\Exceptions\UnauthorisedException('Session expired or invalid. Please log in again.');
+            }
+
+            $data = ['id' => $id, 'email' => $email];
+            $pathToSentCodeNotification = $_ENV['PATH_TO_SENT_CODE_NOTIFICATION'];
+
+            \Src\Token::generateSendTokenEmail($data, $pathToSentCodeNotification);
+
+            msgSuccess(200, 'Verification code resent successfully.', '');
+        } catch (\Throwable $th) {
+            showError($th);
         }
     }
 
@@ -169,7 +183,7 @@ class AcctMgtController extends BaseController
         try {
             PasswordResetFunctionality::show('acctMgt/changePassword');
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -178,7 +192,7 @@ class AcctMgtController extends BaseController
         try {
             PasswordResetFunctionality::process();
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -206,7 +220,7 @@ class AcctMgtController extends BaseController
                 redirect('/adminlogin');
             }
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -221,7 +235,7 @@ class AcctMgtController extends BaseController
         try {
             LogoutFunctionality::signout(['redirect' => '/managed']);
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -242,7 +256,7 @@ class AcctMgtController extends BaseController
             header('Location: ' . $authUrl);
             exit;
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 
@@ -314,7 +328,7 @@ class AcctMgtController extends BaseController
             redirect('/history');
             
         } catch (\Throwable $th) {
-            Utility::showError($th);
+            showError($th);
         }
     }
 }

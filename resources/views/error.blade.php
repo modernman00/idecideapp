@@ -17,7 +17,7 @@
         <h1>An Error Occurred</h1>
         <p>{{ $error ?? 'Unknown error' }}</p>
        
-        <p>We apologize for the inconvenience. Our team has been notified and is working to resolve the issue.</p>
+        <p>We apologise for the inconvenience. Our team has been notified and is working to resolve the issue.</p>
         <p>Please try again later or contact support if the issue persists.</p>
         <p>For assistance, email us at <strong>{{ $_ENV['SUPPORT_EMAIL'] }}</strong>.</p>
         <p><a href="/">Return to Home</a></p>

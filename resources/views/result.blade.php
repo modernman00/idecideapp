@@ -405,7 +405,7 @@
             <div class="advice-card">
                 <div class="advice-header">
                     <i class="fas fa-lightbulb text-warning"></i>
-                    <span>Personalized Guidance</span>
+                    <span>Personalised Guidance</span>
                 </div>
                 <p id="personalisedAdvice" class="mb-0">Calculating your tailored advice...</p>
             </div>
