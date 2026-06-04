@@ -955,6 +955,7 @@
             .noDisplay {
                 display: none;
             }
+        }
 
             /* 🍪 Cookie Consent Banner */
             .cookie-banner {
@@ -1097,7 +1098,6 @@
                 cursor: pointer;
                 padding: 0.2rem;
             }
-        }
     </style>
 </head>
 
