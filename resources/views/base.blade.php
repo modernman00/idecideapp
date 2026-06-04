@@ -955,6 +955,148 @@
             .noDisplay {
                 display: none;
             }
+
+            /* 🍪 Cookie Consent Banner */
+            .cookie-banner {
+                position: fixed;
+                bottom: -100%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 600px;
+                background: var(--glass-bg, rgba(15, 23, 42, 0.85));
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+                padding: 1.5rem;
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 9999;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                color: var(--text-main, #f8fafc);
+            }
+            .cookie-banner.show {
+                bottom: 2rem;
+            }
+            .cookie-content {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            .cookie-buttons {
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+            }
+            .btn-cookie-accept {
+                background: linear-gradient(135deg, var(--primary-color, #0d9488), var(--secondary-color, #115e59));
+                color: white;
+                border: none;
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .btn-cookie-accept:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+            }
+            .btn-cookie-decline {
+                background: transparent;
+                color: var(--text-muted, #94a3b8);
+                border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .btn-cookie-decline:hover {
+                background: rgba(255,255,255,0.05);
+                color: var(--text-main, #f8fafc);
+            }
+
+            /* 📱 PWA Install Banner */
+            .pwa-banner {
+                position: fixed;
+                top: -100%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 450px;
+                background: var(--glass-bg, rgba(255, 255, 255, 0.9));
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid var(--glass-border, rgba(0,0,0,0.1));
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                z-index: 9998;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 15px;
+                transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                color: #1e293b;
+            }
+            [data-theme="dark"] .pwa-banner {
+                background: var(--glass-bg, rgba(30, 41, 59, 0.9));
+                border-color: rgba(255,255,255,0.1);
+                color: #f8fafc;
+            }
+            .pwa-banner.show {
+                top: 1.5rem;
+            }
+            .pwa-info {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-grow: 1;
+            }
+            .pwa-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            .pwa-text {
+                display: flex;
+                flex-direction: column;
+            }
+            .pwa-title {
+                font-weight: 700;
+                font-size: 0.95rem;
+            }
+            .pwa-desc {
+                font-size: 0.8rem;
+                opacity: 0.8;
+            }
+            .pwa-actions {
+                display: flex;
+                gap: 8px;
+            }
+            .btn-pwa-install {
+                background: var(--primary-color, #0d9488);
+                color: white;
+                border: none;
+                padding: 0.4rem 1rem;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 0.85rem;
+                cursor: pointer;
+            }
+            .btn-pwa-dismiss {
+                background: transparent;
+                border: none;
+                color: currentColor;
+                opacity: 0.6;
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.2rem;
+            }
         }
     </style>
 </head>
@@ -1071,6 +1213,35 @@
             aria-label="Copy Link"><i class="far fa-copy"></i></a>
     </div>
 
+    <!-- 🍪 Cookie Consent Banner -->
+    <div id="cookieConsentBanner" class="cookie-banner">
+        <div class="cookie-content">
+            <strong>🍪 We value your privacy</strong><br>
+            We use cookies to enhance your browsing experience and analyze our traffic. 
+            By clicking "Accept All", you consent to our use of cookies. 
+            Read more in our <a href="/privacy" style="color: var(--primary-color);">Privacy Policy</a>.
+        </div>
+        <div class="cookie-buttons">
+            <button id="btnCookieDecline" class="btn-cookie-decline">Decline</button>
+            <button id="btnCookieAccept" class="btn-cookie-accept">Accept All</button>
+        </div>
+    </div>
+
+    <!-- 📱 PWA Install Banner -->
+    <div id="pwaInstallBanner" class="pwa-banner">
+        <div class="pwa-info">
+            <img src="/public/images/logo/vector/default.svg" alt="iDecide Logo" class="pwa-icon">
+            <div class="pwa-text">
+                <span class="pwa-title">Install iDecide App</span>
+                <span class="pwa-desc">Add to your home screen for quick access.</span>
+            </div>
+        </div>
+        <div class="pwa-actions">
+            <button id="btnPwaInstall" class="btn-pwa-install">Install</button>
+            <button id="btnPwaDismiss" class="btn-pwa-dismiss"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
     {{-- Scripts pushed from pages --}}
     @stack('scripts_sharethis')
 
@@ -1095,6 +1266,80 @@
     <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/index.js"></script>
     <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/manifest.js"></script>
     <script type="text/javascript" nonce="{{ $nonce }}" src="public/js/vendor.js"></script>
+
+    <!-- PWA & Cookie Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Cookie Consent Logic ---
+            const cookieBanner = document.getElementById('cookieConsentBanner');
+            const btnAccept = document.getElementById('btnCookieAccept');
+            const btnDecline = document.getElementById('btnCookieDecline');
+
+            if (!localStorage.getItem('cookieConsent')) {
+                // Show banner after a slight delay
+                setTimeout(() => {
+                    cookieBanner.classList.add('show');
+                }, 1000);
+            }
+
+            const hideCookieBanner = (status) => {
+                localStorage.setItem('cookieConsent', status);
+                cookieBanner.classList.remove('show');
+            };
+
+            if (btnAccept && btnDecline) {
+                btnAccept.addEventListener('click', () => hideCookieBanner('accepted'));
+                btnDecline.addEventListener('click', () => hideCookieBanner('declined'));
+            }
+
+            // --- PWA Install Logic ---
+            let deferredPrompt;
+            const pwaBanner = document.getElementById('pwaInstallBanner');
+            const btnInstall = document.getElementById('btnPwaInstall');
+            const btnPwaDismiss = document.getElementById('btnPwaDismiss');
+
+            // Prevent the mini-infobar from appearing on mobile
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Show custom banner if not previously dismissed
+                if (localStorage.getItem('pwaDismissed') !== 'true') {
+                    setTimeout(() => {
+                        pwaBanner.classList.add('show');
+                    }, 2000); // show after 2s
+                }
+            });
+
+            if (btnInstall && btnPwaDismiss) {
+                btnInstall.addEventListener('click', async () => {
+                    pwaBanner.classList.remove('show');
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        console.log(`User response to the install prompt: ${outcome}`);
+                        deferredPrompt = null;
+                    }
+                });
+
+                btnPwaDismiss.addEventListener('click', () => {
+                    pwaBanner.classList.remove('show');
+                    localStorage.setItem('pwaDismissed', 'true');
+                });
+            }
+
+            // --- Service Worker Registration ---
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

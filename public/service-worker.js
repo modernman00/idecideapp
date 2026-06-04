@@ -1,7 +1,7 @@
 const CACHE_NAME = 'idecide-v2';
 const STATIC_ASSETS = [
   '/',
-  '/offline.html',
+  '/public/offline.html',
   '/public/css/main.css',
   '/public/js/index.js',
   '/public/images/logo/vector/default.svg',
@@ -58,7 +58,7 @@ self.addEventListener('fetch', event => {
       }).catch(() => {
         // Fallback for navigation requests
         if (event.request.mode === 'navigate') {
-          return caches.match('/offline.html');
+          return caches.match('/public/offline.html');
         }
       });
     })
