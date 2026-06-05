@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkidecide=self.webpackChunkidecide||[]).push([[224],{406:function(e,i,r){r.r(i),(0,r(71).ik)({formId:"regForm",route:"register",redirect:"login",optionalFields:["confirm_password"],recaptchaAction:"REGISTER"})}}]);
-//# sourceMappingURL=register.js.map

@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkidecide=self.webpackChunkidecide||[]).push([[469],{653:function(e,t,i){i.r(t);var a=i(71);(0,a.e3)({id:"button",handler:e=>{e.preventDefault();(0,a.ez)("testPost","/testPost","","bulma",{maxLength:{id:["occupation","age"],max:[10,10]}})}}),(0,a.FU)("children_div")}}]);
-//# sourceMappingURL=testPost.js.map

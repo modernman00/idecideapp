@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkidecide=self.webpackChunkidecide||[]).push([[353],{761:function(e,t,c){c.r(t);var n=c(71);(0,n.e3)({id:"button",handler:e=>{e.preventDefault(),(0,n.ez)("contact","contact","","bootstrap")}})}}]);
-//# sourceMappingURL=contact.js.map

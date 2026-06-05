@@ -266,23 +266,24 @@ class AcctMgtController extends BaseController
     public function googleCallback()
     {
         try {
+            if (!empty($_GET['error'])) {
+                // User cancelled or Google returned an error
+                redirect('/login?error=google_failed');
+                exit;
+            }
+
             $provider = new \League\OAuth2\Client\Provider\Google([
                 'clientId'     => $_ENV['GOOGLE_CLIENT_ID'],
                 'clientSecret' => $_ENV['GOOGLE_CLIENT_SECRET'],
                 'redirectUri'  => $_ENV['GOOGLE_REDIRECT_URI'],
             ]);
 
-            if (!empty($_GET['error'])) {
-                // User cancelled or Google returned an error
-                redirect('/login');
-                exit;
-            }
-
             if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
                 if (isset($_SESSION['oauth2state'])) {
                     unset($_SESSION['oauth2state']);
                 }
-                exit('Invalid state');
+                redirect('/login?error=invalid_state');
+                exit;
             }
 
             $token = $provider->getAccessToken('authorization_code', [
@@ -290,8 +291,13 @@ class AcctMgtController extends BaseController
             ]);
 
             $ownerDetails = $provider->getResourceOwner($token);
-            $email = $ownerDetails->getEmail();
-            $name = $ownerDetails->getName();
+            $email = checkInput($ownerDetails->getEmail());
+            $name = checkInput($ownerDetails->getName());
+
+            if (empty($email)) {
+                redirect('/login?error=google_missing_info');
+                exit;
+            }
 
             // Check if user exists
             $pdo = \Src\Db::connect2();
@@ -309,26 +315,57 @@ class AcctMgtController extends BaseController
 
                 // Initialize user profile for gamification
                 $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
-                    ->execute([$pdo->lastInsertId() ?: $id]);
+                    ->execute([$id]); // Use $id directly instead of lastInsertId
                     
-                $_SESSION['user_id'] = $id;
+                $userId = $id;
             } else {
-                $_SESSION['user_id'] = $user['id'];
+                $userId = $user['id'];
+                $name = $user['name']; // Use name from DB
             }
 
             // Set global login session variables
-            $_SESSION['id'] = $_SESSION['user_id'];
+            $_SESSION['id'] = $userId;
+            $_SESSION['user_id'] = $userId;
             $_SESSION['auth'] = [
-                'id' => $_SESSION['user_id'],
+                'id' => $userId,
                 'name' => $name,
                 'email' => $email,
                 'role' => 'user'
             ];
 
+            // Issue JWT token (required by SignIn::verify)
+            $userForJwt = [
+                'id' => $userId,
+                'email' => $email,
+                'role' => 'user'
+            ];
+            $generatedToken = \Src\JwtHandler::jwtEncodeData($userForJwt);
+            $tokenName = $_ENV['COOKIE_TOKEN_LOGIN'] ?? 'auth_token';
+            $env = $_ENV['APP_ENV'] ?? 'production';
+            $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+            $secure = !in_array($env, ['local', 'development'], true) && $isHttps;
+            $domain = parse_url($_ENV['APP_URL'], PHP_URL_HOST);
+
+            setcookie(
+                $tokenName,
+                $generatedToken,
+                time() + (int)($_ENV['COOKIE_EXPIRE'] ?? 2592000),
+                '/',
+                $domain,
+                $secure,
+                true
+            );
+
             redirect('/history');
+            exit;
             
         } catch (\Throwable $th) {
-            showError($th);
+            // Log the actual error internally so you can see it in logs
+            error_log('Google OAuth Error: ' . $th->getMessage());
+            
+            // Redirect instead of returning a JSON 500 error
+            redirect('/login?error=oauth_error');
+            exit;
         }
     }
 }

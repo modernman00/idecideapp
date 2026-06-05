@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkidecide=self.webpackChunkidecide||[]).push([[659],{805:function(e,i,l){l.r(i);var o=l(71);(0,o.ik)({formId:"createBlog",route:"createBlog",redirect:"blogs",optionalFields:["blogImg"],theme:"bulma"}),(0,o.FU)("blogImg_div")}}]);
-//# sourceMappingURL=createBlog.js.map
