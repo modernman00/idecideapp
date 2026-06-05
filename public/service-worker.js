@@ -35,6 +35,26 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
+  // For HTML pages (navigation), use Network First strategy
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        })
+        .catch(() => {
+          return caches.match(event.request).then(cachedResponse => {
+            return cachedResponse || caches.match('/public/offline.html');
+          });
+        })
+    );
+    return;
+  }
+
+  // For assets (CSS, JS, Images), use Cache First, falling back to Network
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) {
@@ -56,10 +76,7 @@ self.addEventListener('fetch', event => {
         }
         return networkResponse;
       }).catch(() => {
-        // Fallback for navigation requests
-        if (event.request.mode === 'navigate') {
-          return caches.match('/public/offline.html');
-        }
+        // Fail silently for assets if offline
       });
     })
   );
