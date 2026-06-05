@@ -1,4 +1,4 @@
-const CACHE_NAME = 'idecide-v2';
+const CACHE_NAME = 'idecide-v3';
 const STATIC_ASSETS = [
   '/',
   '/public/offline.html',
