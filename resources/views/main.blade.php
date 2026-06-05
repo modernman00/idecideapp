@@ -71,9 +71,9 @@
     
     .questions-form .form-select {
         padding: 0.75rem 2.25rem 0.75rem 1rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+        white-space: normal;
+        word-wrap: break-word;
+        height: auto;
     }
     
     .questions-form .form-control {
@@ -240,8 +240,8 @@
                                 ],
 
                                 [
-                                    5 => 'Necessity (Health, Work, or Survival)',
-                                    4 => 'Growth (Education or Self-Improvement)',
+                                    6 => 'Necessity (Health, Work, or Survival)',
+                                    5 => 'Growth(Education or Self-Improvement)',
                                     4 => 'Good for my self-esteem',
                                     3 => 'Pure Enjoyment (Hobby/Entertainment)',
                                     2 => 'Social / Status (Trending item)',
@@ -273,23 +273,22 @@
                             ],
                             'options' => [
                                 [
-                                    5 => 'Disposable Savings / Bonus',
-                                    5 => 'I have an extra income for this',
-                                    5 => 'It is a gift',
-                                    4 => 'Monthly Cashflow (Budgeted)',
-                                    1 => 'Credit Card (Paid next month)',
-                                    1 => 'Debt / Financing / High-Interest',
+                                    5 => 'Disposable Savings/Bonus/Gift',
+                                    4 => 'Salary/Investment/Other Income',
+                                    3 => 'Savings and Debt',
+                                    2 => 'cashflow and Debt',
+                                    1 => 'Debt/Financing/credit card/High-Interest/Loan',
                                 ],
                                 [
-                                    5 => 'Yes, my savings are untouched',
-                                    4 => 'It should not affect my emergency fund',
-                                    3 => 'It will dip into my savings slightly',
-                                    2 => 'I will have to make savings from other places',
+                                    5 => 'Yes, disposable income will still be intact',
+                                    4 => 'My Emergency fund is intact',
+                                    3 => 'No Emergency Fund but i will be fine',
+                                    2 => 'Will have to make savings from other places',
                                     1 => 'No, this is my last bit of cash',
                                 ],
                                 [
-                                    5 => 'Completely secure / No debt',
-                                    4 => 'Some minor debt, but manageable',
+                                    5 => 'Completely secure/No debt',
+                                    4 => 'Some minor debt but manageable',
                                     3 => 'Stressed about money',
                                     2 => 'High debt',
                                     1 => 'Job uncertainty',
@@ -328,20 +327,22 @@
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.remove('hidden');
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+        if (window.IntersectionObserver) {
+            const observer = new window.IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('hidden');
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-        document.querySelectorAll('.card, .feature-card').forEach(el => {
-            el.classList.add('hidden');
-            observer.observe(el);
-        });
+            document.querySelectorAll('.card, .feature-card').forEach(el => {
+                el.classList.add('hidden');
+                observer.observe(el);
+            });
+        }
 
         // Button styling
         const submitBtn = document.getElementById('button');
@@ -350,6 +351,17 @@
             submitBtn.style.maxWidth = '400px';
             submitBtn.style.margin = '0 auto';
             submitBtn.style.display = 'block';
+
+            submitBtn.addEventListener('click', function() {
+                this.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Calculating...';
+                this.disabled = true;
+                
+                // If the form needs to be submitted natively:
+                const form = document.getElementById('questionsForm');
+                if (form && this.type === 'submit') {
+                    form.submit();
+                }
+            });
         }
     </script>
 

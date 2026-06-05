@@ -122,11 +122,20 @@
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            color: #360f8aff !important;
+            color: #ffffff !important;
         }
 
         .form-control::placeholder {
             color: #4b5563 !important;
+        }
+
+        /* Overrides browser autofill background color */
+        .form-control:-webkit-autofill,
+        .form-control:-webkit-autofill:hover, 
+        .form-control:-webkit-autofill:focus, 
+        .form-control:-webkit-autofill:active {
+            -webkit-text-fill-color: #ffffff !important;
+            transition: background-color 5000s ease-in-out 0s !important;
         }
 
         /* Button style */
@@ -306,16 +315,16 @@
                 <!-- Bottom Stats -->
                 <div class="z-1 row g-4 border-top border-secondary border-opacity-25 pt-4">
                     <div class="col-4">
-                        <h4 class="fw-bold text-white mb-1">$2.5B+</h4>
-                        <p class="small text-secondary mb-0" style="color: #64748b !important;">Assets Protected</p>
+                        <h4 class="fw-bold text-white mb-1">100%</h4>
+                        <p class="small text-secondary mb-0" style="color: #64748b !important;">Rational Choices</p>
                     </div>
                     <div class="col-4 border-start border-secondary border-opacity-25 ps-4">
-                        <h4 class="fw-bold text-white mb-1">99.9%</h4>
-                        <p class="small text-secondary mb-0" style="color: #64748b !important;">Accuracy Rate</p>
+                        <h4 class="fw-bold text-white mb-1">0%</h4>
+                        <p class="small text-secondary mb-0" style="color: #64748b !important;">Impulse Buys</p>
                     </div>
                     <div class="col-4 border-start border-secondary border-opacity-25 ps-4">
-                        <h4 class="fw-bold text-white mb-1">500+</h4>
-                        <p class="small text-secondary mb-0" style="color: #64748b !important;">Enterprise Clients</p>
+                        <h4 class="fw-bold text-white mb-1">Free</h4>
+                        <p class="small text-secondary mb-0" style="color: #64748b !important;">To Use</p>
                     </div>
                 </div>
             </div>

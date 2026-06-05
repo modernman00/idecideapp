@@ -34,7 +34,7 @@
         <label class="form-label text-uppercase small fw-bold">Email Address</label>
         <div class="input-group">
             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-            <input type="email" name="email" id="email" class="form-control" placeholder="name@company.com" required>
+            <input type="email" name="email" id="email" class="form-control" placeholder="name@company.com"  required>
         </div>
         <p id="email_error" class="text-danger mt-2 small mb-0"></p>
     </div>
