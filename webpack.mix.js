@@ -1,9 +1,11 @@
 const mix = require("laravel-mix");
 
 // Custom devtool based on environment
+// Custom devtool based on environment
 const devtool = mix.inProduction() 
-  ? 'source-map'         // Production (full source maps)
-  : 'cheap-module-source-map'; // Development (CSP-friendly)
+  ? false                      // No source maps in production!
+  : 'cheap-module-source-map'; // Keep them for local development
+
 
 mix
   .setPublicPath("public")
