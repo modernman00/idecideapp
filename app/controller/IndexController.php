@@ -104,6 +104,7 @@ class IndexController extends BaseController
 
             BaseController::viewWithCsp('history', compact('decisions', 'userProfile'));
         } catch (\Throwable $th) {
+            error_log('History Page Error: ' . $th->getMessage());
             Utility::showError($th);
         }
     }

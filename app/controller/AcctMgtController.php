@@ -311,7 +311,7 @@ class AcctMgtController extends BaseController
                 $id = $this->setId(name: $name, table: 'account');
                 
                 $stmt = $pdo->prepare("INSERT INTO account (id, name, email, password, role) VALUES (?, ?, ?, ?, ?)");
-                $stmt->execute([$id, $name, $email, $password, 'user']);
+                $stmt->execute([$id, $name, $email, $password, 'users']);
 
                 // Initialize user profile for gamification
                 $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
@@ -330,14 +330,14 @@ class AcctMgtController extends BaseController
                 'id' => $userId,
                 'name' => $name,
                 'email' => $email,
-                'role' => 'user'
+                'role' => 'users'
             ];
 
             // Issue JWT token (required by SignIn::verify)
             $userForJwt = [
                 'id' => $userId,
                 'email' => $email,
-                'role' => 'user'
+                'role' => 'users'
             ];
             $generatedToken = \Src\JwtHandler::jwtEncodeData($userForJwt);
             $tokenName = $_ENV['COOKIE_TOKEN_LOGIN'] ?? 'auth_token';
