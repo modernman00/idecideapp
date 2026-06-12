@@ -7,16 +7,15 @@
     <p class="text-secondary" style="font-size: 0.95rem;">Join the future of decision making</p>
 </div>
 
-<!-- Google OAuth Button -->
-<a href="/auth/google" class="btn btn-outline-google mb-4">
-    <svg class="me-2" width="18" height="18" viewBox="0 0 24 24">
-        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.927h6.6c-.29 1.5-.1.84-2.49 2.77v2.3h3.99c2.33-2.15 3.65-5.3 3.65-8.927z"/>
-        <path fill="#34A853" d="M12 24c3.24 0 5.97-1.08 7.96-2.91l-3.99-3.1c-1.11.75-2.53 1.19-3.97 1.19-3.07 0-5.67-2.08-6.6-4.88H1.31v3.2A11.983 11.983 0 0 0 12 24z"/>
-        <path fill="#FBBC05" d="M5.4 14.3A7.166 7.166 0 0 1 5.4 9.7V6.5H1.31A11.996 11.996 0 0 0 0 12c0 2.23.61 4.32 1.67 6.13l4.02-3.13-1.29-.7z"/>
-        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.43-3.43C17.96 1.19 15.24 0 12 0A11.983 11.983 0 0 0 1.31 6.5l4.09 3.2c.93-2.8 3.53-4.95 6.6-4.95z"/>
-    </svg>
-    Sign up with Google
-</a>
+<!-- Social OAuth Buttons -->
+<div class="d-flex justify-content-between">
+    <a href="/auth/google" class="btn btn-outline-google mb-4 flex-grow-1 me-2">
+        <i class="fab fa-google me-2"></i>Google
+    </a>
+    <a href="/auth/twitter" class="btn btn-outline-dark mb-4 flex-grow-1 ms-2">
+        <i class="fab fa-twitter me-2"></i>Twitter
+    </a>
+</div>
 
 <!-- Divider -->
 <div class="divider-text">

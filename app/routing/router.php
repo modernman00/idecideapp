@@ -62,6 +62,10 @@ $router->map('GET', '/logout', 'App\controller\LogoutController@signout', 'logou
 $router->map('GET', '/auth/google', 'App\controller\AcctMgtController@googleAuth', 'googleAuth');
 $router->map('GET', '/auth/callback/google', 'App\controller\AcctMgtController@googleCallback', 'googleCallback');
 
+// TWITTER AUTH
+$router->map('GET', '/auth/twitter', 'App\controller\AcctMgtController@twitterAuth', 'twitterAuth');
+$router->map('GET', '/auth/callback/twitter', 'App\controller\AcctMgtController@twitterCallback', 'twitterCallback');
+
 
 // ADMIN LOGIN SHOW
 $router->map('GET', '/adminlogin', 'App\controller\AcctMgtController@loginShow', 'adminlogin');

@@ -367,4 +367,131 @@ class AcctMgtController extends BaseController
             exit;
         }
     }
+    /**
+     * Initializes the Twitter OAuth flow.
+     */
+    public function twitterAuth()
+    {
+        try {
+            $provider = new \Aporat\OAuth2\Client\Provider\XTwitter([
+                'clientId'     => $_ENV['TWITTER_CLIENT_ID'],
+                'clientSecret' => $_ENV['TWITTER_CLIENT_SECRET'],
+                'redirectUri'  => $_ENV['TWITTER_REDIRECT_URI'],
+            ]);
+
+            $authUrl = $provider->getAuthorizationUrl();
+            $_SESSION['oauth2state'] = $provider->getState();
+            $_SESSION['oauth2pkceCode'] = $provider->getPkceCode(); // Required for PKCE
+            header('Location: ' . $authUrl);
+            exit;
+        } catch (\Throwable $th) {
+            showError($th);
+        }
+    }
+
+    /**
+     * Handles the callback from Twitter OAuth.
+     */
+    public function twitterCallback()
+    {
+        try {
+            if (!empty($_GET['error'])) {
+                redirect('/login?error=twitter_failed');
+                exit;
+            }
+
+            $provider = new \Aporat\OAuth2\Client\Provider\XTwitter([
+                'clientId'     => $_ENV['TWITTER_CLIENT_ID'],
+                'clientSecret' => $_ENV['TWITTER_CLIENT_SECRET'],
+                'redirectUri'  => $_ENV['TWITTER_REDIRECT_URI'],
+            ]);
+
+            if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
+                if (isset($_SESSION['oauth2state'])) {
+                    unset($_SESSION['oauth2state']);
+                }
+                redirect('/login?error=invalid_state');
+                exit;
+            }
+
+            $token = $provider->getAccessToken('authorization_code', [
+                'code' => $_GET['code'],
+                'code_verifier' => $_SESSION['oauth2pkceCode'] ?? ''
+            ]);
+
+            $ownerDetails = $provider->getResourceOwner($token);
+            $email = checkInput($ownerDetails->getEmail() ?? '');
+            $name = checkInput($ownerDetails->getName() ?? $ownerDetails->getNickname());
+
+            if (empty($email)) {
+                // If Twitter doesn't provide an email, we might have to handle it differently.
+                // For now, let's require it or fallback.
+                $email = $ownerDetails->getId() . '@twitter.com'; // Fallback if no email is provided
+            }
+
+            // Check if user exists
+            $pdo = \Src\Db::connect2();
+            $stmt = $pdo->prepare("SELECT id, name, email FROM account WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$user) {
+                // Register the user securely
+                $password = password_hash(bin2hex(random_bytes(8)), PASSWORD_DEFAULT);
+                $id = $this->setId(name: $name, table: 'account');
+
+                $stmt = $pdo->prepare("INSERT INTO account (id, name, email, password, role) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$id, $name, $email, $password, 'users']);
+
+                // Initialize user profile for gamification
+                $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
+                    ->execute([$id]);
+
+                $userId = $id;
+            } else {
+                $userId = $user['id'];
+                $name = $user['name']; // Use name from DB
+            }
+
+            // Set global login session variables
+            $_SESSION['id'] = $userId;
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['auth'] = [
+                'id' => $userId,
+                'name' => $name,
+                'email' => $email,
+                'role' => 'users'
+            ];
+
+            // Issue JWT token
+            $userForJwt = [
+                'id' => $userId,
+                'email' => $email,
+                'role' => 'users'
+            ];
+            $generatedToken = \Src\JwtHandler::jwtEncodeData($userForJwt);
+            $tokenName = $_ENV['COOKIE_TOKEN_LOGIN'] ?? 'auth_token';
+            $env = $_ENV['APP_ENV'] ?? 'production';
+            $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+            $secure = !in_array($env, ['local', 'development'], true) && $isHttps;
+            $domain = parse_url($_ENV['APP_URL'], PHP_URL_HOST);
+
+            setcookie(
+                $tokenName,
+                $generatedToken,
+                time() + (int)($_ENV['COOKIE_EXPIRE'] ?? 2592000),
+                '/',
+                $domain,
+                $secure,
+                true
+            );
+
+            redirect('/history');
+            exit;
+        } catch (\Throwable $th) {
+            error_log('Twitter OAuth Error: ' . $th->getMessage());
+            redirect('/login?error=oauth_error');
+            exit;
+        }
+    }
 }

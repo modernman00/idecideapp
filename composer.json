@@ -32,7 +32,8 @@
     "guzzlehttp/guzzle": "^7.9",
     "symfony/mailer": "^7.3",
     "modernman00/shared-lib": "^1.8.23",
-    "league/oauth2-google": "^5.0"
+    "league/oauth2-google": "^5.0",
+    "aporat/oauth2-xtwitter": "^1.0"
   },
   "config": {
     "optimize-autoloader": true,
