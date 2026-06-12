@@ -98,9 +98,15 @@ class IndexController extends BaseController
         
             $id = (string) $user['id'];
 
-            $decisions = SelectFn::selectAllRowsById(table: 'user_decisions', identifier: 'user_id', identifierAnswer: $id);
+            $pdo = \Src\Db::connect2();
             
-            $userProfile = SelectFn::selectAllRowsById(table: 'user_profiles', identifier: 'user_id', identifierAnswer: $id);
+            $stmt1 = $pdo->prepare("SELECT * FROM user_decisions WHERE user_id = ?");
+            $stmt1->execute([$id]);
+            $decisions = $stmt1->fetchAll(\PDO::FETCH_ASSOC);
+            
+            $stmt2 = $pdo->prepare("SELECT * FROM user_profiles WHERE user_id = ?");
+            $stmt2->execute([$id]);
+            $userProfile = $stmt2->fetchAll(\PDO::FETCH_ASSOC);
 
             BaseController::viewWithCsp('history', compact('decisions', 'userProfile'));
         } catch (\Throwable $th) {
