@@ -420,8 +420,14 @@ class AcctMgtController extends BaseController
             ]);
 
             $ownerDetails = $provider->getResourceOwner($token);
-            $email = checkInput($ownerDetails->getEmail() ?? '');
-            $name = checkInput($ownerDetails->getName() ?? $ownerDetails->getNickname());
+            $data = $ownerDetails->toArray();
+            
+            // Extract safely using the underlying array
+            $emailRaw = $data['email'] ?? $data['data']['email'] ?? '';
+            $nameRaw = $data['name'] ?? $data['data']['name'] ?? $data['username'] ?? $data['data']['username'] ?? 'Twitter User';
+            
+            $email = checkInput($emailRaw);
+            $name = checkInput($nameRaw);
 
             if (empty($email)) {
                 // If Twitter doesn't provide an email, we might have to handle it differently.
