@@ -46,6 +46,12 @@ require_once __DIR__ . '/_env.php';
 define('BR', '<br>');
 define('URL', $_ENV['APP_URL'] ?? '');
 
+// Put this right after: include __DIR__ . "/app/config/init.php";
+if (file_exists(__DIR__ . '/vendor/modernman00/shared-lib/src/data/EmailData.php') && !class_exists('Src\Data\EmailData', false)) {
+    class_alias('Src\data\EmailData', 'Src\Data\EmailData');
+}
+
+
 /*
  * You should use the mb_internal_encoding() function at the top of every PHP script you write (or at the top of your global include script), and the mb_http_output() function right after it if your script is outputting to a browser. Explicitly defining the encoding of your strings in every script will save you a lot of headaches down the road.
  * https://phptherightway.com/
