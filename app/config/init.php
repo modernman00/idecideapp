@@ -47,9 +47,11 @@ define('BR', '<br>');
 define('URL', $_ENV['APP_URL'] ?? '');
 
 // Put this right after: include __DIR__ . "/app/config/init.php";
-if (file_exists(__DIR__ . '/vendor/modernman00/shared-lib/src/data/EmailData.php') && !class_exists('Src\Data\EmailData', false)) {
+// Put this right after: include __DIR__ . "/app/config/init.php";
+if (!class_exists('Src\Data\EmailData', false)) {
     class_alias('Src\data\EmailData', 'Src\Data\EmailData');
 }
+
 
 
 /*
