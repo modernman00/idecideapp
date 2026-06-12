@@ -7,7 +7,7 @@ namespace App\controller;
 
 use App\controller\BaseController;
 use Src\{Utility, SelectFn};
-use Src\functionality\{ LogoutFunctionality, LoginFunctionality, SignIn, PasswordRecoveryService, PasswordResetFunctionality, PwdRecoveryCodeFunctionality };
+use Src\functionality\{LogoutFunctionality, LoginFunctionality, SignIn, PasswordRecoveryService, PasswordResetFunctionality, PwdRecoveryCodeFunctionality};
 use Src\functionality\SubmitPostData;
 
 
@@ -85,7 +85,7 @@ class AcctMgtController extends BaseController
     {
         try {
             $removeKey = ['button', 'token', 'grecaptcharesponse', 'confirm_password'];
-            
+
             //get name from post data
             $name = checkInput($_POST['name']);
 
@@ -93,7 +93,7 @@ class AcctMgtController extends BaseController
             $id = $this->setId(name: $name, table: 'account');
 
             $_POST['id'] = $id;
-            
+
             $returnLastId = SubmitPostData::submitToOneTablenImage(
                 table: 'account',
                 removeKeys: $removeKey,
@@ -105,7 +105,7 @@ class AcctMgtController extends BaseController
                 $pdo = \Src\Db::connect2();
                 $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
                     ->execute([$returnLastId]);
-                
+
                 msgSuccess(200, 'Registration successful! Please login.', $returnLastId);
             }
         } catch (\Throwable $th) {
@@ -119,7 +119,7 @@ class AcctMgtController extends BaseController
     {
         try {
             $verify = $_GET['verify'] ?? null;
-            if(!$verify){
+            if (!$verify) {
                 redirect('/adminlogin');
             }
             PasswordRecoveryService::show('acctMgt.forgot');
@@ -132,7 +132,7 @@ class AcctMgtController extends BaseController
     {
         try {
 
-            PasswordRecoveryService::process(isCaptchaV3: true, captchaAction:'FORGOT');
+            PasswordRecoveryService::process(isCaptchaV3: true, captchaAction: 'FORGOT');
         } catch (\Throwable $th) {
             showError($th);
         }
@@ -196,7 +196,7 @@ class AcctMgtController extends BaseController
         }
     }
 
-      public function adminPage()
+    public function adminPage()
     {
         try {
             // Use SignIn to verify user role and authentication
@@ -309,14 +309,14 @@ class AcctMgtController extends BaseController
                 // Register the user securely
                 $password = password_hash(bin2hex(random_bytes(8)), PASSWORD_DEFAULT);
                 $id = $this->setId(name: $name, table: 'account');
-                
+
                 $stmt = $pdo->prepare("INSERT INTO account (id, name, email, password, role) VALUES (?, ?, ?, ?, ?)");
                 $stmt->execute([$id, $name, $email, $password, 'users']);
 
                 // Initialize user profile for gamification
                 $pdo->prepare("INSERT INTO user_profiles (user_id, points, level) VALUES (?, 0, 1)")
                     ->execute([$id]); // Use $id directly instead of lastInsertId
-                    
+
                 $userId = $id;
             } else {
                 $userId = $user['id'];
@@ -358,11 +358,10 @@ class AcctMgtController extends BaseController
 
             redirect('/history');
             exit;
-            
         } catch (\Throwable $th) {
             // Log the actual error internally so you can see it in logs
             error_log('Google OAuth Error: ' . $th->getMessage());
-            
+
             // Redirect instead of returning a JSON 500 error
             redirect('/login?error=oauth_error');
             exit;
